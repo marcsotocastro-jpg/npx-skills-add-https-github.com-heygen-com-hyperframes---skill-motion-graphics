@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Desguace Mercacars — lanzamiento</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Barlow Condensed"; font-weight: 600; src: url("assets/fonts/barlow-condensed-latin-600-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url("assets/fonts/barlow-condensed-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Barlow"; font-weight: 500; src: url("assets/fonts/barlow-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Barlow"; font-weight: 600; src: url("assets/fonts/barlow-latin-600-normal.woff2") format("woff2"); }
+
+      /* Brand tokens, taken from the Mercacars page */
+      :root {
+        --plum: #39063e;
+        --plum-2: #4b1252;
+        --plum-3: #2a0430;
+        --purple: #752c7b;
+        --yellow: #f4ec3a;
+        --paper: #f7f5f8;
+        --paper-2: #ece7ef;
+        --ink: #1d1221;
+        --on-plum-2: #e3d3e6;
+        --display: "Barlow Condensed", sans-serif;
+        --text: "Barlow", sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--plum); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: var(--text); color: #fff; }
+
+      .clip { position: absolute; inset: 0; }
+      .scene { display: flex; align-items: center; justify-content: center; }
+      .center { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+      /* Background: plum ground with slow yellow road stripes */
+      #bg { background: radial-gradient(120vmax 90vmax at 70% 20%, var(--plum-2), var(--plum) 60%, var(--plum-3)); }
+      .stripes { position: absolute; left: -50%; top: -50%; width: 200%; height: 200%; opacity: 0.07;
+        background: repeating-linear-gradient(-32deg, var(--yellow) 0 2vmin, transparent 2vmin 9vmin); }
+
+      /* ---------- Logo (placeholder until the real logo arrives) ---------- */
+      .logo { display: flex; align-items: center; gap: 3vmin; white-space: nowrap; }
+      .logo__wheel { width: 20vmin; height: 20vmin; flex: none; }
+      .logo__word { display: flex; flex-direction: column; align-items: flex-start; }
+      .logo__bar { display: block; height: 1.6vmin; width: 100%; background: var(--purple); border-radius: 1vmin; transform-origin: left center; }
+      .logo__name { display: flex; overflow: hidden; font: 700 17vmin/0.95 var(--display); letter-spacing: 0.01em; padding-top: 0.6vmin; }
+      .logo__name span { display: block; }
+      .logo__name .y { color: var(--yellow); }
+      .logo__tag { margin-top: 1.2vmin; font: 600 3.6vmin/1 var(--text); letter-spacing: 0.32em; text-transform: uppercase; color: var(--on-plum-2); }
+      .logo--small .logo__wheel { width: 11vmin; height: 11vmin; }
+      .logo--small .logo__name { font-size: 9.5vmin; }
+      .logo--small .logo__bar { height: 0.9vmin; }
+
+      .flash { position: absolute; inset: 0; background: var(--yellow); }
+
+      /* ---------- Shared scene typography ---------- */
+      .kicker { display: inline-flex; align-items: center; gap: 1.4vmin; padding: 1.2vmin 2.6vmin; border-radius: 99vmin;
+        background: var(--yellow); color: var(--plum); font: 700 3.4vmin/1 var(--text); letter-spacing: 0.04em; text-transform: uppercase; }
+      .kicker svg { width: 3.6vmin; height: 3.6vmin; }
+      .h { font: 700 13vmin/0.92 var(--display); letter-spacing: -0.005em; margin-top: 3vmin; }
+      .h .y { color: var(--yellow); }
+      .h .br { display: block; }
+      .sub { margin-top: 3vmin; font: 500 4.2vmin/1.3 var(--text); color: var(--on-plum-2); max-width: 30ch; }
+      .row2 { display: flex; align-items: center; gap: 8vmin; }
+      .col-text { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
+      .col-text .sub { max-width: 24ch; }
+      .disc { width: 46vmin; height: 46vmin; border-radius: 50%; background: var(--plum-3); display: grid; place-items: center; flex: none; box-shadow: 0 0 0 1.4vmin var(--plum-2); }
+      .disc svg { width: 60%; height: 60%; }
+
+      /* ---------- Parts chips ---------- */
+      .chips { margin-top: 4vmin; display: flex; flex-wrap: wrap; gap: 1.6vmin; max-width: 80vmin; }
+      .chip { display: block; padding: 1.5vmin 2.8vmin; border-radius: 99vmin; background: var(--plum-2); font: 600 3.4vmin/1 var(--text); }
+      .chip.on { background: var(--yellow); color: var(--plum); }
+
+      /* ---------- Part request mock ---------- */
+      .req { display: flex; gap: 5vmin; align-items: stretch; margin-top: 5vmin; }
+      .form { display: flex; flex-direction: column; gap: 2.2vmin; width: 62vmin; }
+      .field { display: flex; flex-direction: column; gap: 1vmin; text-align: left; }
+      .field b { font: 600 2.8vmin/1 var(--text); color: var(--on-plum-2); }
+      .input { display: flex; align-items: center; height: 8vmin; padding: 0 2.4vmin; border-radius: 1.4vmin; background: var(--paper); color: var(--ink); font: 600 4vmin/1 var(--text); border: 0.4vmin solid var(--paper); }
+      .input.focus { border-color: var(--yellow); }
+      .caret { display: block; width: 0.4vmin; height: 4.6vmin; background: var(--purple); margin-left: 0.3vmin; }
+      .msg { width: 62vmin; padding: 3vmin; border-radius: 2.4vmin; background: var(--paper); color: var(--ink); text-align: left; display: flex; flex-direction: column; gap: 1.6vmin; }
+      .msg h4 { font: 700 5vmin/1 var(--display); color: var(--plum); }
+      .msg p { font: 500 3.3vmin/1.35 var(--text); background: var(--paper-2); border-radius: 1.4vmin; padding: 2vmin 2.4vmin; }
+      .msg p span { display: block; }
+      .btn { display: flex; align-items: center; justify-content: center; height: 8vmin; border-radius: 1.4vmin; background: var(--plum); color: #fff; font: 600 3.4vmin/1 var(--text); }
+
+      /* ---------- Sell ---------- */
+      .yards { display: flex; flex-direction: column; gap: 1.8vmin; }
+      .yard { display: flex; align-items: center; gap: 2.4vmin; width: 54vmin; padding: 2.2vmin 2.8vmin; border-radius: 2vmin; background: var(--paper); color: var(--plum); font: 700 4.4vmin/1 var(--display); }
+      .yard i { display: block; width: 4.6vmin; height: 4.6vmin; border-radius: 50%; background: var(--purple); flex: none; }
+      .yard em { margin-left: auto; font: 700 4.4vmin/1 var(--display); font-style: normal; color: var(--ok, #1f7a4d); }
+
+      /* ---------- End card ---------- */
+      .map { width: 92vmin; border-radius: 3vmin; overflow: hidden; background: var(--plum-2); }
+      .map svg { display: block; width: 100%; height: auto; }
+      .end-stack { display: flex; flex-direction: column; align-items: center; gap: 3.2vmin; }
+      .phone { display: flex; align-items: center; gap: 2.4vmin; padding: 2vmin 4.4vmin; border-radius: 2.4vmin; background: var(--yellow); color: var(--plum); font: 700 11vmin/1 var(--display); letter-spacing: 0.02em; white-space: nowrap; }
+      .phone svg { width: 8vmin; height: 8vmin; }
+      .url { font: 600 4.6vmin/1 var(--text); letter-spacing: 0.06em; color: #fff; border-bottom: 0.4vmin solid var(--purple); padding-bottom: 1vmin; }
+      .addr { font: 500 3.2vmin/1.3 var(--text); color: var(--on-plum-2); }
+      .end-grid { display: flex; align-items: center; gap: 8vmin; }
+
+      /* ---------- Horizontal (16:9): use the extra width ---------- */
+      @media (orientation: landscape) {
+        .h { font-size: 16vmin; }
+        .sub { font-size: 5.2vmin; }
+        .kicker { font-size: 4vmin; }
+        .disc { width: 56vmin; height: 56vmin; }
+        .row2 { gap: 10vmin; }
+        .chip { font-size: 4.2vmin; }
+        .chips { max-width: 100vmin; }
+        .form, .msg { width: 76vmin; }
+        .input { height: 9.5vmin; font-size: 4.6vmin; }
+        .field b { font-size: 3.2vmin; }
+        .msg p { font-size: 3.9vmin; }
+        .yard { width: 66vmin; font-size: 5.4vmin; }
+        .logo__wheel { width: 26vmin; height: 26vmin; }
+        .logo__name { font-size: 23vmin; }
+        .logo__tag { font-size: 4.4vmin; }
+        .map { width: 92vmin; }
+        .end-grid { gap: 8vmin; }
+        .phone { font-size: 11.5vmin; }
+        .logo--small .logo__wheel { width: 13vmin; height: 13vmin; }
+        .logo--small .logo__name { font-size: 12vmin; }
+        .url { font-size: 5.4vmin; }
+      }
+
+      /* ---------- Vertical (9:16) layout ---------- */
+      @media (orientation: portrait) {
+        .row2, .end-grid { flex-direction: column; gap: 6vmin; }
+        .col-text { align-items: center; text-align: center; }
+        .h { font-size: 15vmin; }
+        .sub { font-size: 4.8vmin; }
+        .disc { width: 56vmin; height: 56vmin; }
+        .req { flex-direction: column; gap: 4vmin; }
+        .form, .msg { width: 84vmin; }
+        .chips { justify-content: center; max-width: 88vmin; }
+        .yard { width: 80vmin; }
+        .logo { flex-direction: column; gap: 3vmin; }
+        .logo__word { align-items: center; }
+        .logo__wheel { width: 30vmin; height: 30vmin; }
+        .logo__name { font-size: 20vmin; }
+        .logo--small { flex-direction: row; }
+        .logo--small .logo__word { align-items: flex-start; }
+        .logo--small .logo__wheel { width: 13vmin; height: 13vmin; }
+        .logo--small .logo__name { font-size: 11vmin; }
+        .map { width: 90vmin; }
+        .phone { font-size: 13vmin; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="20" data-width="1920" data-height="1080">
+
+      <!-- Persistent background -->
+      <div id="bg" class="clip" data-start="0" data-duration="20" data-track-index="0">
+        <div class="stripes" id="stripes"></div>
+      </div>
+
+      <!-- 1 · Logo sting (placeholder logo: swap #logo-1 content for the real logo when it exists) -->
+      <section id="s1" class="clip scene" data-start="0" data-duration="3.4" data-track-index="1">
+        <div class="center">
+          <div class="logo" id="logo-1">
+            <svg class="logo__wheel" id="wheel-1" viewBox="0 0 100 100" aria-hidden="true">
+              <circle cx="50" cy="50" r="44" fill="none" stroke="#f4ec3a" stroke-width="9" stroke-dasharray="9.2 5"/>
+              <circle cx="50" cy="50" r="31" fill="#f4ec3a"/>
+              <circle cx="50" cy="50" r="10" fill="#39063e"/>
+              <g fill="#39063e"><circle cx="50" cy="29" r="4"/><circle cx="68" cy="39.5" r="4"/><circle cx="68" cy="60.5" r="4"/><circle cx="50" cy="71" r="4"/><circle cx="32" cy="60.5" r="4"/><circle cx="32" cy="39.5" r="4"/></g>
+            </svg>
+            <div class="logo__word">
+              <span class="logo__bar" id="bar-1"></span>
+              <div class="logo__name" id="name-1" data-layout-allow-overflow><span>M</span><span>E</span><span>R</span><span>C</span><span>A</span><span class="y">C</span><span class="y">A</span><span class="y">R</span><span class="y">S</span></div>
+              <div class="logo__tag" id="tag-1">Desguace · Valls</div>
+            </div>
+          </div>
+        </div>
+        <div class="flash" id="flash-1" data-layout-allow-overflow></div>
+      </section>
+
+      <!-- 2 · Vehicle deregistration (CATV) -->
+      <section id="s2" class="clip scene" data-start="3.4" data-duration="3.2" data-track-index="1">
+        <div class="row2">
+          <div class="disc" id="s2-disc">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path id="s2-doc" d="M16 8h22l10 10v38H16z" fill="#f7f5f8"/><path d="M38 8v10h10" fill="#ece7ef"/><g stroke="#39063e" stroke-width="3" stroke-linecap="round"><path id="s2-l1" d="M23 28h18"/><path id="s2-l2" d="M23 36h18"/><path id="s2-l3" d="M23 44h10"/></g><circle id="s2-seal" cx="44" cy="48" r="9" fill="#f4ec3a"/><path id="s2-tick" d="M40 48l3 3 5-6" fill="none" stroke="#39063e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="col-text">
+            <span class="kicker" id="s2-k"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z M8.5 12l2.5 2.5 4.5-5"/></svg>Centro autorizado CATV</span>
+            <h2 class="h" id="s2-h">Dé de baja<span class="y br">su vehículo</span></h2>
+            <p class="sub" id="s2-p">Tramitamos la baja en Valls y su comarca.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 · Used parts -->
+      <section id="s3" class="clip scene" data-start="6.6" data-duration="3.2" data-track-index="1">
+        <div class="row2">
+          <div class="col-text">
+            <span class="kicker" id="s3-k">Recambios usados</span>
+            <h2 class="h" id="s3-h">La pieza que<span class="y br">necesita</span></h2>
+            <div class="chips" id="s3-chips">
+              <span class="chip">Motor</span><span class="chip">Caja de cambios</span><span class="chip on">Faro</span><span class="chip">Puerta</span><span class="chip">Retrovisor</span><span class="chip">Llanta</span>
+            </div>
+          </div>
+          <div class="disc" id="s3-disc">
+            <svg viewBox="0 0 64 64" id="s3-wheel" aria-hidden="true"><circle cx="32" cy="32" r="23" fill="none" stroke="#f7f5f8" stroke-width="7" stroke-dasharray="6 5.04"/><circle cx="32" cy="32" r="18" fill="#f7f5f8"/><circle cx="32" cy="32" r="6" fill="#39063e"/><g fill="#39063e"><circle cx="32" cy="19.5" r="2.6"/><circle cx="43" cy="26" r="2.6"/><circle cx="43" cy="38" r="2.6"/><circle cx="32" cy="44.5" r="2.6"/><circle cx="21" cy="38" r="2.6"/><circle cx="21" cy="26" r="2.6"/></g></svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 · Ask for a part (the form on the page) -->
+      <section id="s4" class="clip scene" data-start="9.8" data-duration="3.4" data-track-index="1">
+        <div class="center">
+          <h2 class="h" id="s4-h" style="margin-top:0">¿Busca <span class="y">una pieza?</span></h2>
+          <div class="req">
+            <div class="form" id="s4-form">
+              <div class="field"><b>Marca</b><div class="input" id="in-1"><span class="type" data-text="Seat"></span></div></div>
+              <div class="field"><b>Modelo</b><div class="input" id="in-2"><span class="type" data-text="León 1.6 TDI"></span></div></div>
+              <div class="field"><b>Año</b><div class="input" id="in-3"><span class="type" data-text="2014"></span></div></div>
+            </div>
+            <div class="msg" id="s4-msg">
+              <h4>Su mensaje</h4>
+              <p id="s4-lines"><span>Hola, busco esta pieza:</span><span><b>Pieza:</b> Faro</span><span><b>Vehículo:</b> Seat León 1.6 TDI (2014)</span><span>¿La tienen disponible?</span></p>
+              <div class="btn" id="s4-btn">Copiar mensaje</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 · Sell your car -->
+      <section id="s5" class="clip scene" data-start="13.2" data-duration="2.6" data-track-index="1">
+        <div class="row2">
+          <div class="col-text">
+            <span class="kicker" id="s5-k">Vender mi coche</span>
+            <h2 class="h" id="s5-h">Venda su coche<span class="y br">al mejor precio</span></h2>
+            <p class="sub" id="s5-p">Varios desguaces le hacen oferta a la vez.</p>
+          </div>
+          <div class="yards" id="s5-yards">
+            <div class="yard"><i></i>Oferta 1<em>✓</em></div>
+            <div class="yard"><i></i>Oferta 2<em>✓</em></div>
+            <div class="yard"><i></i>Oferta 3<em>✓</em></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 · Map + end card (phone + URL placeholder) -->
+      <section id="s6" class="clip scene" data-start="15.8" data-duration="4.2" data-track-index="1">
+        <div class="end-grid">
+          <div class="end-stack" id="s6-left">
+            <div class="map" id="s6-map">
+              <svg viewBox="0 0 480 200" aria-hidden="true" data-layout-allow-overflow>
+                <rect width="480" height="200" fill="#4b1252"/>
+                <path d="M-10 168 C 90 160 150 120 230 104 S 390 52 490 40" fill="none" stroke="#2a0430" stroke-width="26" stroke-linecap="round"/>
+                <path id="route" d="M-10 168 C 90 160 150 120 230 104 S 390 52 490 40" fill="none" stroke="#f4ec3a" stroke-width="4"/>
+                <g id="pin"><path d="M300 52c-11 0-19 8-19 18 0 14 19 30 19 30s19-16 19-30c0-10-8-18-19-18z" fill="#f4ec3a"/><circle cx="300" cy="70" r="6.5" fill="#39063e"/></g>
+                <text x="20" y="38" fill="#ffffff" font-family="Barlow Condensed" font-weight="700" font-size="28">VALLS</text>
+                <text x="460" y="96" fill="#e3d3e6" font-family="Barlow" font-weight="600" font-size="16" text-anchor="end">C-51 → Barcelona</text>
+              </svg>
+            </div>
+            <p class="addr" id="s6-addr">Cra. de Valls a Barcelona, C-51 · 43800 Valls (Tarragona)</p>
+          </div>
+          <div class="end-stack" id="s6-right">
+            <div class="logo logo--small" id="logo-2">
+              <svg class="logo__wheel" id="wheel-2" viewBox="0 0 100 100" aria-hidden="true">
+                <circle cx="50" cy="50" r="44" fill="none" stroke="#f4ec3a" stroke-width="9" stroke-dasharray="9.2 5"/>
+                <circle cx="50" cy="50" r="31" fill="#f4ec3a"/>
+                <circle cx="50" cy="50" r="10" fill="#39063e"/>
+                <g fill="#39063e"><circle cx="50" cy="29" r="4"/><circle cx="68" cy="39.5" r="4"/><circle cx="68" cy="60.5" r="4"/><circle cx="50" cy="71" r="4"/><circle cx="32" cy="60.5" r="4"/><circle cx="32" cy="39.5" r="4"/></g>
+              </svg>
+              <div class="logo__word">
+                <span class="logo__bar"></span>
+                <div class="logo__name"><span>MERCA</span><span class="y">CARS</span></div>
+              </div>
+            </div>
+            <div class="phone" id="s6-phone"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>977 604 947</div>
+            <!-- URL pending: replace this placeholder when the domain is confirmed -->
+            <div class="url" id="s6-url">www.tu-web.com</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // Split typed fields into per-character spans so typing is seekable.
+      document.querySelectorAll(".type").forEach((el) => {
+        el.innerHTML = [...el.dataset.text].map((c) => `<span class="ch">${c === " " ? "&nbsp;" : c}</span>`).join("");
+      });
+
+      const tl = gsap.timeline({ paused: true });
+      const out = "power3.out";
+      const inn = "power3.in";
+
+      // Background drift across the whole film
+      tl.fromTo("#stripes", { x: 0, y: 0 }, { x: -160, y: 100, duration: 20, ease: "none" }, 0);
+
+      // 1 · Logo sting
+      tl.fromTo("#wheel-1", { scale: 0, rotation: -540 }, { scale: 1, rotation: 0, duration: 1.1, ease: "back.out(1.6)" }, 0.15);
+      tl.fromTo("#bar-1", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: out }, 0.7);
+      tl.fromTo("#name-1 span", { yPercent: 110 }, { yPercent: 0, duration: 0.55, ease: out, stagger: 0.05 }, 0.8);
+      tl.fromTo("#tag-1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: out }, 1.45);
+      tl.to("#wheel-1", { rotation: 360, duration: 1.2, ease: "power2.inOut" }, 2.0);
+      tl.fromTo("#logo-1", { scale: 1 }, { scale: 1.06, duration: 1.4, ease: "none", immediateRender: false }, 1.9);
+      tl.fromTo("#flash-1", { yPercent: 100 }, { yPercent: 0, duration: 0.3, ease: inn }, 3.1);
+
+      // 2 · CATV
+      let t = 3.4;
+      tl.fromTo("#s2-disc", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.5)" }, t);
+      tl.fromTo(["#s2-l1", "#s2-l2", "#s2-l3"], { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.3, ease: out, stagger: 0.1 }, t + 0.35);
+      tl.fromTo("#s2-seal", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.4, ease: "back.out(2.5)" }, t + 0.8);
+      tl.fromTo("#s2-tick", { opacity: 0 }, { opacity: 1, duration: 0.2 }, t + 1.0);
+      tl.fromTo("#s2-k", { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: out }, t + 0.2);
+      tl.fromTo("#s2-h", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: out }, t + 0.3);
+      tl.fromTo("#s2-p", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: out }, t + 0.55);
+      tl.to("#s2 .row2", { x: -120, opacity: 0, duration: 0.35, ease: inn }, t + 2.85);
+
+      // 3 · Parts
+      t = 6.6;
+      tl.fromTo("#s3-disc", { x: 200, opacity: 0, rotation: 120 }, { x: 0, opacity: 1, rotation: 0, duration: 0.8, ease: out }, t);
+      tl.to("#s3-wheel", { rotation: 360, duration: 2.6, ease: "none" }, t + 0.2);
+      tl.fromTo("#s3-k", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: out }, t + 0.1);
+      tl.fromTo("#s3-h", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: out }, t + 0.2);
+      tl.fromTo("#s3-chips .chip", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)", stagger: 0.09 }, t + 0.6);
+      tl.fromTo("#s3-chips .chip.on", { scale: 1 }, { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, t + 1.8);
+      tl.to("#s3 .row2", { x: -120, opacity: 0, duration: 0.35, ease: inn }, t + 2.85);
+
+      // 4 · Request form: fields type in, message builds
+      t = 9.8;
+      tl.fromTo("#s4-h", { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: out }, t);
+      tl.fromTo("#s4-form .field", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: out, stagger: 0.08 }, t + 0.15);
+      tl.fromTo("#s4-msg", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: out }, t + 0.3);
+      [["#in-1", 0.6], ["#in-2", 1.0], ["#in-3", 1.65]].forEach(([id, d]) => {
+        tl.set(id, { className: "input focus" }, t + d);
+        tl.fromTo(`${id} .ch`, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 0.045 }, t + d);
+        tl.set(id, { className: "input" }, t + d + 0.55);
+      });
+      tl.fromTo("#s4-lines span", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3, ease: out, stagger: 0.18 }, t + 1.2);
+      tl.fromTo("#s4-btn", { scale: 1 }, { scale: 0.94, duration: 0.12, yoyo: true, repeat: 1 }, t + 2.5);
+      tl.to("#s4 .center", { y: -80, opacity: 0, duration: 0.35, ease: inn }, t + 3.05);
+
+      // 5 · Sell
+      t = 13.2;
+      tl.fromTo("#s5-k", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: out }, t);
+      tl.fromTo("#s5-h", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: out }, t + 0.1);
+      tl.fromTo("#s5-p", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: out }, t + 0.35);
+      tl.fromTo("#s5-yards .yard", { x: 140, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: out, stagger: 0.15 }, t + 0.4);
+      tl.fromTo("#s5-yards em", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(3)", stagger: 0.15 }, t + 1.0);
+      tl.to("#s5 .row2", { scale: 0.92, opacity: 0, duration: 0.3, ease: inn }, t + 2.3);
+
+      // 6 · Map + end card
+      t = 15.8;
+      const routeLen = document.getElementById("route").getTotalLength();
+      tl.fromTo("#s6-map", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: out }, t);
+      tl.fromTo("#route", { strokeDasharray: routeLen, strokeDashoffset: routeLen }, { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut" }, t + 0.2);
+      tl.fromTo("#pin", { y: -30, opacity: 0, scale: 0.8, transformOrigin: "50% 100%" }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "bounce.out" }, t + 1.0);
+      tl.fromTo("#s6-addr", { opacity: 0 }, { opacity: 1, duration: 0.4 }, t + 1.2);
+      tl.fromTo("#wheel-2", { scale: 0, rotation: -360 }, { scale: 1, rotation: 0, duration: 0.8, ease: "back.out(1.6)" }, t + 0.4);
+      tl.fromTo("#logo-2 .logo__word", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: out }, t + 0.7);
+      tl.fromTo("#s6-phone", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.8)" }, t + 1.1);
+      tl.fromTo("#s6-url", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: out }, t + 1.5);
+      tl.fromTo("#s6-phone", { scale: 1 }, { scale: 1.05, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, t + 2.3);
+      tl.to("#wheel-2", { rotation: 360, duration: 1.4, ease: "power2.inOut" }, t + 2.6);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
