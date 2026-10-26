@@ -10,8 +10,8 @@ import wave
 import numpy as np
 
 SR = 48000
-DUR = 36.0
-CHORD_LEN = 4.5  # 8 chords x 4.5 s = 36 s
+DUR = 58.0
+FINAL_T = 52.2  # outro starts here; the final chord lands on it
 rng = np.random.default_rng(7)
 
 
@@ -30,6 +30,13 @@ CHORDS = [
     [46, 58, 62, 65],  # Bb
     [48, 55, 60, 65],  # Csus4
 ]
+CHORDS = CHORDS[:4] + [
+    [50, 57, 60, 65],  # Dm7
+    [46, 57, 62, 65],  # Bbmaj7
+    [48, 55, 60, 64],  # C
+    [45, 57, 60, 64],  # Am7
+] + CHORDS[4:]
+CHORD_LEN = FINAL_T / len(CHORDS)
 FINAL = [41, 53, 57, 60, 64, 67]  # Fmaj9, rings out
 
 n = int(SR * DUR)
@@ -79,8 +86,8 @@ def piano_note(m, amp, length=3.2):
 # Pads, overlapping a little between chords
 for i, ch in enumerate(CHORDS[:-1] + [CHORDS[-1]]):
     start = i * CHORD_LEN
-    if i == 7:
-        # Csus4 resolves into the final Fmaj9 at 31.5 s
+    if i == len(CHORDS) - 1:
+        # Csus4 resolves into the final Fmaj9
         for m in ch:
             add(pad_note(m, CHORD_LEN + 0.6, 0.05), start - 0.3, pan=rng.uniform(-0.4, 0.4))
         continue
@@ -89,12 +96,12 @@ for i, ch in enumerate(CHORDS[:-1] + [CHORDS[-1]]):
 
 # Final chord rings under the outro
 for m in FINAL:
-    add(pad_note(m, DUR - 31.5, 0.045), 31.5, pan=rng.uniform(-0.4, 0.4))
+    add(pad_note(m, DUR - FINAL_T, 0.045), FINAL_T, pan=rng.uniform(-0.4, 0.4))
 
 # Piano: sparse arpeggio, enters after the logo intro
 step = CHORD_LEN / 6
 pattern = [0, 2, 3, 1, 3, 2]
-for i, ch in enumerate(CHORDS[:7]):
+for i, ch in enumerate(CHORDS[:-1]):
     upper = [m + 12 for m in ch[1:]] + [ch[1] + 24]
     for j, p in enumerate(pattern):
         when = i * CHORD_LEN + j * step
@@ -104,11 +111,11 @@ for i, ch in enumerate(CHORDS[:7]):
         add(piano_note(upper[p], vel), when + rng.uniform(-0.01, 0.01), pan=rng.uniform(-0.5, 0.5))
 # A few last notes over the outro
 for k, m in enumerate([77, 72, 69, 65]):
-    add(piano_note(m, 0.06, 4.5), 31.5 + k * 0.75, pan=(-0.3 + 0.2 * k))
+    add(piano_note(m, 0.06, 4.5), FINAL_T + k * 0.75, pan=(-0.3 + 0.2 * k))
 
 # Low root bloom at the start of each chord
 for i, ch in enumerate(CHORDS + [FINAL]):
-    start = i * CHORD_LEN if i < 8 else 31.5
+    start = i * CHORD_LEN if i < len(CHORDS) else FINAL_T
     if start == 0:
         continue
     add(piano_note(ch[0] - 12 if ch[0] > 45 else ch[0], 0.05, 4.0), start)
