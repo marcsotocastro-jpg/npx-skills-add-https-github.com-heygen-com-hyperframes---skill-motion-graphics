@@ -2,7 +2,7 @@
 
 Deterministic (seeded) so the track re-renders identically.
 Usage: python3 -I scripts/make-music.py out.wav
-Then: ffmpeg -i out.wav -af "lowpass=f=6000,loudnorm=I=-20:TP=-2" -c:a aac -b:a 192k assets/audio/hona-bgm.m4a
+Then: ffmpeg -i out.wav -af "lowpass=f=7000,equalizer=f=1200:t=q:w=1:g=3,loudnorm=I=-14:TP=-1.5:LRA=7" -c:a aac -b:a 192k assets/audio/hona-bgm.m4a
 """
 import sys
 import wave
