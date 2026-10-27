@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Quantum Digital Studio — presentación de la web</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Space Grotesk"; font-weight: 300; src: url("assets/fonts/space-grotesk-latin-300-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Space Grotesk"; font-weight: 400; src: url("assets/fonts/space-grotesk-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Space Grotesk"; font-weight: 500; src: url("assets/fonts/space-grotesk-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Space Grotesk"; font-weight: 700; src: url("assets/fonts/space-grotesk-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2"); }
+
+      /* Brand tokens, taken from the Quantum site */
+      :root {
+        --bg: #04050b;
+        --bg-2: #0a0c18;
+        --cyan: #2fd9ec;
+        --blue: #4f8dff;
+        --violet: #8b6cff;
+        --ink: #f2f5ff;
+        --muted: #8e97b4;
+        --line: rgba(120, 210, 255, 0.28);
+        --grad: linear-gradient(90deg, #2fd9ec, #6f8bff 55%, #9b6cff);
+        --sans: "Space Grotesk", sans-serif;
+        --mono: "JetBrains Mono", monospace;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: var(--sans); color: var(--ink); background: var(--bg); }
+      .clip { position: absolute; inset: 0; }
+
+      /* ---------- 3D world ---------- */
+      /* stage (perspective) > cam (look + dolly) > world (moves by -focus) > stations > panels */
+      #stage { position: absolute; inset: 0; perspective: 1600px; perspective-origin: 50% 50%; overflow: hidden;
+        background: radial-gradient(900px 1300px at 50% 45%, #0d1030, var(--bg) 70%); }
+      #cam, #world { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+      .st { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; visibility: hidden; }
+      .pn { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
+      .card { position: absolute; inset: 0; border-radius: 22px; overflow: hidden; opacity: 0;
+        box-shadow: 0 0 0 1.5px var(--line), 0 40px 90px -30px rgba(0, 0, 0, 0.9), 0 0 70px -12px rgba(56, 170, 255, 0.35); background: var(--bg-2); }
+      .card img { display: block; width: 100%; height: 100%; }
+      .shine { position: absolute; top: 0; bottom: 0; left: 0; width: 45%; transform: translateX(-120%) skewX(-18deg);
+        background: linear-gradient(90deg, rgba(120, 230, 255, 0), rgba(160, 235, 255, 0.22), rgba(120, 230, 255, 0)); }
+      .glyph { position: absolute; left: 0; top: 0; white-space: nowrap; font: 700 420px/1 var(--sans); letter-spacing: -0.04em; opacity: 0;
+        background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .beam { position: absolute; left: 0; top: 0; height: 3px; border-radius: 2px; background: var(--grad); box-shadow: 0 0 24px rgba(47, 217, 236, 0.8); transform-origin: left center; }
+      .star { position: absolute; left: 0; top: 0; border-radius: 50%; }
+      .streak { position: absolute; left: 0; top: 0; height: 2px; }
+
+      /* ---------- Intro overlay ---------- */
+      #intro { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      .logo-wrap { position: relative; width: 300px; height: 316px; }
+      .logo-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .burst { position: absolute; left: 50%; top: 46%; width: 300px; height: 300px; margin: -150px 0 0 -150px; border-radius: 50%; border: 2px solid var(--cyan); opacity: 0; }
+      .brand { margin-top: 30px; display: flex; gap: 0.04em; font: 500 50px/1 var(--sans); letter-spacing: 0.16em; padding-left: 0.16em; }
+      .brand span { display: block; }
+      .sub { margin-top: 28px; font: 400 18px/1 var(--mono); letter-spacing: 0.3em; color: var(--muted); padding-left: 0.3em; }
+      .sub b { color: var(--cyan); font-weight: 400; }
+      .url { margin-top: 44px; display: flex; align-items: center; gap: 14px; padding: 16px 26px; border: 1.5px solid var(--line); border-radius: 999px; background: rgba(10, 14, 32, 0.7);
+        font: 400 26px/1 var(--mono); color: var(--ink); }
+      .url i { display: block; width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+      .url span { display: block; overflow: hidden; white-space: nowrap; }
+      #flash { background: radial-gradient(circle at 50% 50%, #e9fcff, #6fe6ff 30%, rgba(79, 141, 255, 0) 70%); opacity: 0; }
+
+      /* ---------- HUD ---------- */
+      #hud { pointer-events: none; }
+      .scrim { position: absolute; left: 0; right: 0; bottom: 0; height: 560px; background: linear-gradient(rgba(4, 5, 11, 0), rgba(4, 5, 11, 0.88)); }
+      .corner { position: absolute; width: 46px; height: 46px; border-color: rgba(150, 220, 255, 0.55); border-style: solid; border-width: 0; }
+      .corner.tl { left: 40px; top: 56px; border-left-width: 2px; border-top-width: 2px; }
+      .corner.tr { right: 40px; top: 56px; border-right-width: 2px; border-top-width: 2px; }
+      .corner.bl { left: 40px; bottom: 56px; border-left-width: 2px; border-bottom-width: 2px; }
+      .corner.br { right: 40px; bottom: 56px; border-right-width: 2px; border-bottom-width: 2px; }
+      .hud-brand { position: absolute; left: 76px; top: 86px; display: flex; align-items: center; gap: 14px; font: 500 17px/1 var(--mono); letter-spacing: 0.2em; color: var(--ink); }
+      .hud-brand img { width: 44px; height: 46px; }
+      .hud-url { position: absolute; left: 76px; top: 152px; display: flex; align-items: center; gap: 14px; font: 400 18px/1 var(--mono); letter-spacing: 0.08em; color: var(--muted); }
+      .hud-url i { display: block; width: 9px; height: 9px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+      .caps { position: absolute; left: 76px; bottom: 150px; width: 928px; height: 300px; }
+      .cap { position: absolute; left: 0; bottom: 0; visibility: hidden; }
+      .kick { display: flex; align-items: center; gap: 16px; font: 500 20px/1 var(--mono); letter-spacing: 0.3em; color: var(--cyan); }
+      .kick i { display: block; width: 46px; height: 2px; background: var(--grad); }
+      .line { margin-top: 20px; overflow: hidden; padding-bottom: 8px; }
+      .line > span { display: block; font: 500 62px/1.08 var(--sans); letter-spacing: -0.01em; color: var(--ink); }
+      .line em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .prog { position: absolute; left: 76px; bottom: 100px; display: flex; gap: 10px; }
+      .prog span { display: block; width: 44px; height: 4px; border-radius: 2px; background: rgba(150, 200, 255, 0.2); overflow: hidden; }
+      .prog b { display: block; width: 100%; height: 100%; background: var(--grad); transform-origin: left center; transform: scaleX(0); }
+
+      /* ---------- Outro ---------- */
+      #outro { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+      #outro .veil { position: absolute; inset: 0; background: radial-gradient(620px 900px at 50% 50%, rgba(4, 5, 11, 0.9), rgba(4, 5, 11, 0.62) 60%, rgba(4, 5, 11, 0.15)); }
+      #outro .in { position: relative; display: flex; flex-direction: column; align-items: center; }
+      #outro .logo-wrap { width: 170px; height: 179px; }
+      .o-h { margin-top: 30px; }
+      .o-h .line > span { font-size: 80px; font-weight: 500; text-align: center; }
+      .pill { margin-top: 34px; display: flex; align-items: center; gap: 12px; padding: 14px 24px; border-radius: 999px; border: 1.5px solid var(--line); background: rgba(10, 14, 32, 0.75); font: 400 22px/1 var(--mono); color: var(--ink); letter-spacing: 0.04em; }
+      .pill svg { width: 22px; height: 22px; color: var(--cyan); }
+      .btn { margin-top: 30px; padding: 26px 46px; border-radius: 999px; background: linear-gradient(90deg, #22d3ee, #5b8cff 60%, #8b6cff); font: 700 28px/1 var(--sans); letter-spacing: 0.08em; color: #050713;
+        box-shadow: 0 0 60px -6px rgba(47, 217, 236, 0.6); }
+      .o-url { margin-top: 40px; font: 500 30px/1 var(--mono); letter-spacing: 0.06em; color: var(--ink); }
+      .o-url b { color: var(--cyan); font-weight: 500; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="58" data-width="1080" data-height="1920">
+
+      <!-- Electronic bed + whooshes on every camera move (generated by scripts/make-music.py) -->
+      <audio id="bgm" data-start="0" data-duration="58" data-volume="1" data-fade-out="2" src="assets/audio/quantum-bgm.m4a"></audio>
+
+      <!-- 3D world: the site's real cards floating in space, filmed by a moving camera -->
+      <div id="stage" class="clip" data-start="0" data-duration="58" data-track-index="0" data-layout-allow-overflow>
+        <div id="cam" data-layout-allow-overflow><div id="world" data-layout-allow-overflow></div></div>
+      </div>
+
+      <!-- Flight HUD -->
+      <div id="hud" class="clip" data-start="4.6" data-duration="47.6" data-track-index="2">
+        <div class="scrim"></div>
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="hud-brand" id="hud-brand"><img src="assets/site/logo.png" alt="" />QUANTUM DIGITAL STUDIO</div>
+        <div class="hud-url" id="hud-url"><i id="rec"></i>quantumdigitalstudio.com</div>
+        <div class="caps">
+          <div class="cap" id="cap1"><div class="kick"><i></i>01 · INICIO</div><div class="line"><span>Marketing e <em>inteligencia artificial</em> en Tarragona.</span></div></div>
+          <div class="cap" id="cap2"><div class="kick"><i></i>02 · EL PROBLEMA → LA SOLUCIÓN</div><div class="line"><span>Del ruido digital a <em>crecer de verdad.</em></span></div></div>
+          <div class="cap" id="cap3"><div class="kick"><i></i>03 · SERVICIOS</div><div class="line"><span>Redes, webs, apps y <em>estrategia.</em></span></div></div>
+          <div class="cap" id="cap4"><div class="kick"><i></i>04 · ASISTENTES IA</div><div class="line"><span>Asistentes virtuales que <em>atienden 24/7.</em></span></div></div>
+          <div class="cap" id="cap5"><div class="kick"><i></i>05 · WEBS RENTABLES</div><div class="line"><span>Webs que convierten, <em>desde 1199€.</em></span></div></div>
+          <div class="cap" id="cap6"><div class="kick"><i></i>06 · METODOLOGÍA</div><div class="line"><span>De la estrategia a los <em>resultados.</em></span></div></div>
+          <div class="cap" id="cap7"><div class="kick"><i></i>07 · PACKS Y PRECIOS</div><div class="line"><span>Redes y community manager, <em>desde 289€.</em></span></div></div>
+          <div class="cap" id="cap8"><div class="kick"><i></i>08 · CASOS DE ÉXITO</div><div class="line"><span>Resultados <em>reales y medibles.</em></span></div></div>
+          <div class="cap" id="cap9"><div class="kick"><i></i>09 · CONTACTO</div><div class="line"><span>Auditoría gratuita, <em>respuesta en 24h.</em></span></div></div>
+        </div>
+        <div class="prog" id="prog"><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span></div>
+      </div>
+
+      <!-- Intro: the logo lights up, then the camera dives through it -->
+      <div id="intro" class="clip" data-start="0" data-duration="4.6" data-track-index="3">
+        <div class="logo-wrap" id="logo-1"><div class="burst" id="burst-a"></div><div class="burst" id="burst-b"></div><img src="assets/site/logo.png" alt="Quantum" /></div>
+        <div class="brand" id="brand-1"><span>Q</span><span>U</span><span>A</span><span>N</span><span>T</span><span>U</span><span>M</span><span>&nbsp;</span><span>D</span><span>I</span><span>G</span><span>I</span><span>T</span><span>A</span><span>L</span><span>&nbsp;</span><span>S</span><span>T</span><span>U</span><span>D</span><span>I</span><span>O</span></div>
+        <div class="sub" id="sub-1">MARKETING <b>+</b> INTELIGENCIA ARTIFICIAL <b>·</b> TARRAGONA</div>
+        <div class="url" id="url-1"><i></i><span id="url-text">quantumdigitalstudio.com</span></div>
+      </div>
+      <div id="flash" class="clip" data-start="3.6" data-duration="1.6" data-track-index="4"></div>
+
+      <!-- Outro over the galaxy of screens -->
+      <div id="outro" class="clip" data-start="51.6" data-duration="6.4" data-track-index="5">
+        <div class="veil" id="veil"></div>
+        <div class="in">
+          <div class="logo-wrap" id="logo-2"><img src="assets/site/logo.png" alt="Quantum" /></div>
+          <div class="o-h">
+            <div class="line"><span>¿Preparado para</span></div>
+            <div class="line"><span>llevar tu negocio</span></div>
+            <div class="line"><span>al <em>siguiente nivel?</em></span></div>
+          </div>
+          <div class="pill" id="pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Auditoría gratuita · respuesta en 24h</div>
+          <div class="btn" id="btn">AGENDA UNA REUNIÓN →</div>
+          <div class="o-url" id="o-url"><b>quantumdigitalstudio</b>.com</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ---------- Build the world (deterministic) ----------
+      // Crop sizes from scripts/crop-panels.py (page px at 1180 wide)
+      const SIZE = {
+        hero: [1180, 920], "hero-cta": [1180, 375], stats: [1080, 300], problem: [1080, 1610], solution: [1080, 1390],
+        "svc-head": [1180, 965], "svc-1": [1080, 1110], "svc-2": [1080, 1145], "svc-3": [1080, 1010], "svc-4": [1080, 1100],
+        "ai-head": [1180, 875], "ai-1": [1080, 700], "demo-chips": [1180, 400], chat: [1080, 1275],
+        "web-head": [1180, 925], "web-1": [1080, 1050], "web-2": [1080, 1075], "web-3": [1080, 1025],
+        "method-head": [1180, 950], "step-1": [1080, 525], "step-2": [1080, 525], "step-3": [1080, 525], "step-4": [1080, 525], "step-5": [1080, 425],
+        "packs-head": [1180, 625], "pack-1": [1080, 940], "pack-2": [1080, 910], "pack-3": [1080, 945], "pack-4": [1080, 1095],
+        "cases-head": [1180, 950], "case-1": [1080, 1200], "case-2": [1080, 1125], "case-3": [1080, 1205], "quote-1": [1080, 985], "quote-3": [1080, 1310],
+        cta: [1080, 1725], form: [1080, 1915], contact: [1180, 1250], advice: [1180, 725],
+      };
+      // Stations: focus point in the world + panels [image, width, x, y, z, rotY, rotZ] relative to it
+      const STATIONS = [
+        { id: "s1", at: [0, 0, 0], arrive: 5.0, leave: 9.0, panels: [
+          ["hero", 860, 0, -300, 0, 0], ["stats", 640, -100, 200, 160, 8], ["hero-cta", 640, 120, 420, 260, -8]] },
+        { id: "s2", at: [2000, -150, -3600], arrive: 10.0, leave: 13.0, panels: [
+          ["problem", 460, -150, -360, 0, 14], ["solution", 460, 150, 210, 120, -14]] },
+        { id: "s3", at: [-800, 0, -7400], arrive: 14.0, leave: 19.0, panels: [
+          ["svc-head", 700, 0, -560, -500, 0],
+          ["svc-1", 400, -215, -60, 0, 8], ["svc-2", 400, 215, -60, 0, -8], ["svc-3", 400, -215, 430, 0, 8], ["svc-4", 400, 215, 430, 0, -8]] },
+        { id: "s4", at: [1800, 150, -11200], arrive: 20.0, leave: 25.0, glyph: ["24/7", 0, -200, -1100], panels: [
+          ["ai-head", 640, 0, -560, 0, 0], ["demo-chips", 520, -60, -230, 60, 8], ["chat", 560, 90, 220, 120, -10]] },
+        { id: "s5", at: [-1600, 0, -15000], arrive: 26.0, leave: 30.0, panels: [
+          ["web-head", 640, 0, -560, 0, 0], ["web-1", 420, -120, -150, -150, 10], ["web-2", 420, 0, 100, 0, 0], ["web-3", 420, 120, 340, 150, -10]] },
+        { id: "s6", at: [400, 0, -18800], arrive: 31.0, leave: 36.0, seq: true, beam: [-380, 600, 0, -40], panels: [
+          ["method-head", 560, 0, -600, -250, 0],
+          ["step-1", 420, -130, -270, 0, 8], ["step-2", 420, 130, -80, 0, -8], ["step-3", 420, -130, 110, 0, 8],
+          ["step-4", 420, 130, 300, 0, -8], ["step-5", 420, -130, 490, 0, 8]] },
+        { id: "s7", at: [-1400, -150, -26200], arrive: 37.0, leave: 41.0, panels: [
+          ["packs-head", 600, 0, -620, -250, 0],
+          ["pack-1", 380, -200, -150, 0, 6, -3], ["pack-2", 380, 200, -150, 15, -6, 3], ["pack-3", 380, -200, 300, 30, 6, -3], ["pack-4", 380, 200, 300, 45, -6, 3]] },
+        { id: "s8", at: [1400, 0, -30000], arrive: 42.0, leave: 46.0, panels: [
+          ["quote-1", 420, -560, 100, -1000, 28], ["quote-3", 420, 560, 300, -1000, -28], ["cases-head", 560, 0, -620, -300, 0],
+          ["case-1", 400, -200, -120, 0, 10], ["case-2", 400, 200, -60, 80, -10], ["case-3", 400, 0, 380, 40, 0]] },
+        { id: "s9", at: [0, 0, -33800], arrive: 47.0, leave: 50.0, panels: [
+          ["contact", 520, 0, -640, -700, 0], ["cta", 480, -150, -250, 0, 10], ["form", 440, 170, 300, -100, -10]] },
+      ];
+
+      const FIT = 0.92;
+      const LIFT = -20;
+      const world = document.getElementById("world");
+      const make = (cls, parent) => { const el = document.createElement("div"); el.className = cls; parent.appendChild(el); return el; };
+      STATIONS.forEach((s) => {
+        const st = make("st", world);
+        st.id = s.id;
+        st.style.transform = `translate3d(${s.at[0]}px, ${s.at[1]}px, ${s.at[2]}px)`;
+        if (s.beam) {
+          // Vertical beam down the column of steps: [y0, y1, x, z]
+          const [by0, by1, bx, bz] = s.beam;
+          const b = make("beam", st);
+          b.style.width = `${by1 - by0}px`;
+          b.style.transform = `translate3d(${bx}px, ${by0 - LIFT}px, ${bz}px) rotateZ(90deg)`;
+        }
+        if (s.glyph) {
+          const [txt, gx, gy, gz] = s.glyph;
+          const g = make("glyph", st);
+          g.textContent = txt;
+          g.style.transform = `translate(-50%, -50%) translate3d(${gx}px, ${gy}px, ${gz}px)`;
+        }
+        s.panels.forEach(([name, w0, x0, y0, z, ry, rz = 0]) => {
+          // Layouts are authored large; scale them to clear the frame edges and the caption band
+          const w = Math.round(w0 * FIT), x = x0 * FIT, y = y0 * FIT - LIFT;
+          const [nw, nh] = SIZE[name];
+          const h = Math.round((w * nh) / nw);
+          const pn = make("pn", st);
+          pn.style.width = `${w}px`;
+          pn.style.height = `${h}px`;
+          pn.style.transform = `translate3d(${x - w / 2}px, ${y - h / 2}px, ${z}px) rotateY(${ry}deg) rotateZ(${rz}deg)`;
+          const card = make("card", pn);
+          card.dataset.name = name;
+          const img = document.createElement("img");
+          img.src = `assets/site/${name}.jpg`;
+          img.alt = "";
+          card.appendChild(img);
+          make("shine", card);
+        });
+      });
+
+      // Stars and speed streaks spread through the whole flight path (seeded PRNG)
+      let seed = 20261027;
+      const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+      const starColors = ["#bff6ff", "#2fd9ec", "#8b6cff", "#ffffff", "#6f8bff"];
+      for (let i = 0; i < 340; i++) {
+        const s = make("star", world);
+        const size = 2 + Math.floor(rnd() * 4);
+        const c = starColors[Math.floor(rnd() * starColors.length)];
+        s.style.width = s.style.height = `${size}px`;
+        s.style.background = c;
+        s.style.boxShadow = `0 0 ${size * 3}px ${c}`;
+        s.style.transform = `translate3d(${(rnd() - 0.5) * 6400}px, ${(rnd() - 0.5) * 8400}px, ${7000 - rnd() * 45000}px)`;
+      }
+      for (let i = 0; i < 46; i++) {
+        const s = make("streak", world);
+        const len = 900 + rnd() * 2200;
+        s.style.width = `${len}px`;
+        s.style.background = `linear-gradient(90deg, rgba(47,217,236,0), ${rnd() > 0.5 ? "rgba(47,217,236,0.55)" : "rgba(139,108,255,0.55)"}, rgba(47,217,236,0))`;
+        s.style.transform = `translate3d(${(rnd() - 0.5) * 5000}px, ${(rnd() - 0.5) * 7000}px, ${6000 - rnd() * 42000}px) rotateY(90deg)`;
+      }
+
+      // ---------- Timeline ----------
+      const tl = gsap.timeline({ paused: true });
+      const out = "power3.out";
+      const inn = "power2.in";
+      const soft = "expo.out";
+      const move = "power3.inOut";
+      const drift = "sine.inOut";
+      const END = 58;
+
+      // Camera: the world moves by -focus, the cam looks around (rotY/rotX) and dollies (z)
+      const W = [
+        [0, 0, 0, 6400],
+        [3.8, 0, 0, 5600, "none"],
+        [5.0, 0, 0, 0, move],
+        [9.0, 0, 0, -150, drift],
+        [10.0, 2000, -150, -3600, move],
+        [13.0, 2000, -150, -3750, drift],
+        [14.0, -800, 0, -7400, move],
+        [19.0, -800, 0, -7550, drift],
+        [20.0, 1800, 150, -11200, move],
+        [25.0, 1800, 150, -11350, drift],
+        [26.0, -1600, 0, -15000, move],
+        [30.0, -1600, 0, -15150, drift],
+        [31.0, 400, 0, -18800, move],
+        [36.0, 400, 0, -18950, drift],
+        [37.0, -1400, -150, -26200, move],
+        [41.0, -1400, -150, -26350, drift],
+        [42.0, 1400, 0, -30000, move],
+        [46.0, 1400, 0, -30150, drift],
+        [47.0, 0, 0, -33800, move],
+        [50.0, 0, 0, -33950, drift],
+        [52.4, 0, 0, 5600, "power2.inOut"],
+        [END, 0, 0, 5000, "none"],
+      ];
+      // [time, rotY, rotX, dolly z]
+      const C = [
+        [0, 0, 0, 0],
+        [3.8, 0, 0, 0],
+        [5.0, -8, 0, 0, move],
+        [9.0, 4, 0, 140, drift],
+        [9.5, 16, 2, -650, "power2.out"], [10.0, -6, 0, 0, "power2.in"],
+        [13.0, 4, 0, 140, drift],
+        [13.5, -16, -2, -650, "power2.out"], [14.0, -14, 0, 0, "power2.in"],
+        [19.0, 14, 0, 160, drift],
+        [19.5, 18, 2, -650, "power2.out"], [20.0, -6, 0, 0, "power2.in"],
+        [25.0, 5, 0, 140, drift],
+        [25.5, -18, -2, -650, "power2.out"], [26.0, 6, 0, 0, "power2.in"],
+        [30.0, -5, 0, 140, drift],
+        [30.5, 16, 2, -650, "power2.out"], [31.0, 0, 0, 0, "power2.in"],
+        [36.0, 5, 0, 140, drift],
+        [36.5, -16, -2, -650, "power2.out"], [37.0, -6, 0, 0, "power2.in"],
+        [41.0, 6, 0, 140, drift],
+        [41.5, 18, 2, -650, "power2.out"], [42.0, -6, 0, 0, "power2.in"],
+        [46.0, 6, 0, 140, drift],
+        [46.5, -16, -2, -650, "power2.out"], [47.0, 0, 0, 0, "power2.in"],
+        [50.0, 0, 0, 160, drift],
+        [51.2, 6, 0, -300, "power2.in"],
+        [52.4, 0, 0, 0, "power2.out"],
+        [END, 0, 0, 0, "none"],
+      ];
+      tl.set("#world", { x: -W[0][1], y: -W[0][2], z: -W[0][3] }, 0);
+      for (let i = 1; i < W.length; i++) {
+        const [t0, x0, y0, z0] = W[i - 1];
+        const [t1, x1, y1, z1, ease] = W[i];
+        tl.fromTo("#world", { x: -x0, y: -y0, z: -z0 }, { x: -x1, y: -y1, z: -z1, duration: t1 - t0, ease, immediateRender: false }, t0);
+      }
+      tl.set("#cam", { rotationY: 0, rotationX: 0, z: 0 }, 0);
+      for (let i = 1; i < C.length; i++) {
+        const [t0, ry0, rx0, z0] = C[i - 1];
+        const [t1, ry1, rx1, z1, ease] = C[i];
+        tl.fromTo("#cam", { rotationY: ry0, rotationX: rx0, z: z0 }, { rotationY: ry1, rotationX: rx1, z: z1, duration: t1 - t0, ease, immediateRender: false }, t0);
+      }
+      // Motion blur while the camera travels
+      const moves = [[4.0, 5.0], [9.0, 10.0], [13.0, 14.0], [19.0, 20.0], [25.0, 26.0], [30.0, 31.0], [36.0, 37.0], [41.0, 42.0], [46.0, 47.0]];
+      tl.set("#stage", { filter: "blur(0px)" }, 0);
+      moves.forEach(([a, b]) => {
+        tl.fromTo("#stage", { filter: "blur(0px)" }, { filter: "blur(5px)", duration: (b - a) / 2, ease: "power2.in", immediateRender: false }, a);
+        tl.fromTo("#stage", { filter: "blur(5px)" }, { filter: "blur(0px)", duration: (b - a) / 2, ease: "power2.out", immediateRender: false }, (a + b) / 2);
+      });
+
+      // Stations: panels light up as the camera approaches and go dark after it leaves
+      STATIONS.forEach((s, i) => {
+        const sel = `#${s.id}`;
+        const on = s.arrive - 1.1;
+        tl.set(sel, { visibility: "visible" }, on);
+        if (s.seq) {
+          // Methodology: the beam draws across and each step lights up in order
+          tl.fromTo(`${sel} .card[data-name="method-head"]`, { opacity: 0, z: -260 }, { opacity: 1, z: 0, duration: 0.9, ease: out }, on);
+          tl.fromTo(`${sel} .beam`, { scaleX: 0 }, { scaleX: 1, duration: 2.4, ease: "power1.inOut" }, s.arrive + 0.1);
+          tl.fromTo(`${sel} .card:not([data-name="method-head"])`, { opacity: 0, y: 60, rotationX: -40 }, { opacity: 1, y: 0, rotationX: 0, duration: 0.8, ease: soft, stagger: 0.5 }, s.arrive + 0.2);
+        } else if (s.id !== "s3") {
+          tl.fromTo(`${sel} .card`, { opacity: 0, z: -260 }, { opacity: 1, z: 0, duration: 0.9, ease: out, stagger: 0.08 }, on);
+        } else {
+          // Services: the header arrives first, then the four cards fly in from deep space
+          tl.fromTo(`${sel} .card[data-name="svc-head"]`, { opacity: 0, z: -260 }, { opacity: 1, z: 0, duration: 0.9, ease: out }, on);
+          tl.fromTo(`${sel} .card:not([data-name="svc-head"])`, { opacity: 0, z: -2600, rotationX: 30 }, { opacity: 1, z: 0, rotationX: 0, duration: 1.1, ease: soft, stagger: 0.16 }, s.arrive + 0.4);
+          tl.to(`${sel} .card[data-name="svc-head"]`, { opacity: 0.12, duration: 0.8 }, s.arrive + 0.6);
+        }
+        tl.fromTo(`${sel} .shine`, { xPercent: -120 }, { xPercent: 340, duration: 1.3, ease: "power2.inOut", stagger: 0.1 }, s.arrive - 0.2);
+        if (s.glyph) tl.fromTo(`${sel} .glyph`, { opacity: 0 }, { opacity: 0.2, duration: 1.2, ease: out }, s.arrive);
+        if (i < STATIONS.length - 1) {
+          tl.to(`${sel} .card`, { opacity: 0, duration: 0.5, ease: inn }, s.leave + 0.5);
+          if (s.glyph) tl.to(`${sel} .glyph`, { opacity: 0, duration: 0.5 }, s.leave + 0.3);
+          tl.set(sel, { visibility: "hidden" }, s.leave + 1.05);
+        }
+      });
+
+      // Finale: every station lights up again and the camera rewinds through the whole site
+      tl.set(".st", { visibility: "visible" }, 50.1);
+      STATIONS.slice(0, -1).forEach((s) => {
+        tl.fromTo(`#${s.id} .card`, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: out, immediateRender: false }, 50.1);
+      });
+      tl.fromTo("#stage", { filter: "blur(0px)" }, { filter: "blur(7px)", duration: 1.1, ease: "power2.in", immediateRender: false }, 50.2);
+      tl.fromTo("#stage", { filter: "blur(7px)" }, { filter: "blur(0px)", duration: 1.1, ease: "power2.out", immediateRender: false }, 51.3);
+      tl.set(".st", { visibility: "hidden" }, 52.6);
+
+      // ---------- Intro ----------
+      tl.fromTo("#logo-1", { scale: 0.55, opacity: 0, filter: "blur(14px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1.1, ease: soft }, 0.2);
+      tl.fromTo("#burst-a", { scale: 0.6, opacity: 0.9 }, { scale: 2.6, opacity: 0, duration: 1.4, ease: "power2.out" }, 0.45);
+      tl.fromTo("#burst-b", { scale: 0.6, opacity: 0.7 }, { scale: 3.4, opacity: 0, duration: 1.8, ease: "power2.out" }, 0.65);
+      tl.fromTo("#brand-1 span", { opacity: 0, y: 30, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: out, stagger: 0.035 }, 0.9);
+      tl.fromTo("#sub-1", { opacity: 0, scale: 1.12 }, { opacity: 1, scale: 1, duration: 1.0, ease: out }, 1.6);
+      tl.fromTo("#url-1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: out }, 2.2);
+      tl.fromTo("#url-text", { width: 0 }, { width: 392, duration: 0.9, ease: "steps(24)" }, 2.4);
+      // Dive: the logo rushes at the camera while the world warps forward
+      tl.to(["#brand-1", "#sub-1", "#url-1"], { opacity: 0, y: -30, duration: 0.4, ease: inn, stagger: 0.05 }, 3.5);
+      tl.to("#logo-1", { scale: 9, opacity: 0, duration: 0.9, ease: "power3.in" }, 3.7);
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.85, duration: 0.35, ease: "power2.in" }, 4.0);
+      tl.to("#flash", { opacity: 0, duration: 0.8, ease: "power2.out" }, 4.35);
+
+      // ---------- HUD ----------
+      tl.fromTo(".corner", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.6, ease: out, stagger: 0.05 }, 4.6);
+      tl.fromTo(["#hud-brand", "#hud-url"], { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.6, ease: out }, 4.8);
+      tl.fromTo("#prog", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 4.9);
+      tl.fromTo(".scrim", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 4.6);
+      tl.fromTo("#rec", { opacity: 1 }, { opacity: 0.2, duration: 0.5, ease: drift, repeat: 46, yoyo: true }, 4.8);
+      STATIONS.forEach((s, i) => {
+        const id = `#cap${i + 1}`;
+        const a = s.arrive - 0.3;
+        tl.set(id, { visibility: "visible" }, a);
+        tl.fromTo(`${id} .kick`, { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.5, ease: out }, a);
+        tl.fromTo(`${id} .line > span`, { yPercent: 110 }, { yPercent: 0, duration: 0.7, ease: soft }, a + 0.08);
+        tl.fromTo(`#prog span:nth-child(${i + 1}) b`, { scaleX: 0 }, { scaleX: 1, duration: s.leave + 1 - s.arrive, ease: "none" }, s.arrive);
+        tl.to(`${id} .kick`, { opacity: 0, duration: 0.3, ease: inn }, s.leave);
+        tl.to(`${id} .line > span`, { yPercent: -110, duration: 0.4, ease: inn }, s.leave);
+        tl.set(id, { visibility: "hidden" }, s.leave + 0.45);
+      });
+      tl.to([".corner", "#hud-brand", "#hud-url", "#prog", ".scrim"], { opacity: 0, duration: 0.6, ease: inn }, 50.6);
+
+      // ---------- Outro ----------
+      const o = 51.6;
+      tl.fromTo("#veil", { opacity: 0 }, { opacity: 1, duration: 1.2, ease: drift }, o + 0.4);
+      tl.fromTo("#logo-2", { opacity: 0, scale: 0.6, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.0, ease: soft }, o + 0.8);
+      tl.fromTo("#outro .line > span", { yPercent: 110 }, { yPercent: 0, duration: 0.9, ease: soft, stagger: 0.12 }, o + 1.1);
+      tl.fromTo("#pill", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: out }, o + 1.8);
+      tl.fromTo("#btn", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.6)" }, o + 2.2);
+      tl.fromTo("#o-url", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8, ease: out }, o + 2.6);
+      tl.fromTo("#btn", { boxShadow: "0 0 60px -6px rgba(47, 217, 236, 0.6)" }, { boxShadow: "0 0 90px 4px rgba(47, 217, 236, 0.8)", duration: 0.9, ease: drift, repeat: 2, yoyo: true, immediateRender: false }, o + 3.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
