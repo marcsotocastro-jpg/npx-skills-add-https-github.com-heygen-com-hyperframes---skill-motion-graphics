@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Insitu Pizzería — vídeo promocional</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Fraunces"; font-weight: 500; src: url("assets/fonts/fraunces-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Fraunces"; font-weight: 700; src: url("assets/fonts/fraunces-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Fraunces"; font-weight: 500; font-style: italic; src: url("assets/fonts/fraunces-latin-500-italic.woff2") format("woff2"); }
+      @font-face { font-family: "Fraunces"; font-weight: 700; font-style: italic; src: url("assets/fonts/fraunces-latin-700-italic.woff2") format("woff2"); }
+      @font-face { font-family: "Bricolage Grotesque"; font-weight: 400; src: url("assets/fonts/bricolage-grotesque-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Bricolage Grotesque"; font-weight: 500; src: url("assets/fonts/bricolage-grotesque-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Bricolage Grotesque"; font-weight: 700; src: url("assets/fonts/bricolage-grotesque-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Bricolage Grotesque"; font-weight: 800; src: url("assets/fonts/bricolage-grotesque-latin-800-normal.woff2") format("woff2"); }
+
+      /* Brand tokens, taken from the Insitu site */
+      :root {
+        --bg: #140f0c; --bg2: #1c1511; --card: #211915; --card2: #2a201b;
+        --line: rgba(255, 236, 214, 0.10); --line2: rgba(255, 236, 214, 0.18);
+        --text: #fbf1e4; --muted: #b9a896; --dim: #857464;
+        --tomato: #ff5a36; --tomato2: #e8431f; --basil: #5fb35a; --cheese: #ffc95c; --crust: #d99a52;
+        --display: "Fraunces", Georgia, serif;
+        --sans: "Bricolage Grotesque", system-ui, sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: var(--sans); color: var(--text); }
+      .clip { position: absolute; inset: 0; }
+      img { display: block; }
+
+      /* ---------- Background ---------- */
+      #bg { background: var(--bg); overflow: hidden; }
+      .glow { position: absolute; border-radius: 50%; }
+      .glow--a { left: 140px; top: 260px; width: 1300px; height: 1300px; background: radial-gradient(closest-side, rgba(255, 110, 50, 0.30), transparent); }
+      .glow--b { left: -500px; top: 1250px; width: 1000px; height: 1000px; background: radial-gradient(closest-side, rgba(95, 179, 90, 0.12), transparent); }
+      .glow--c { left: -300px; top: -400px; width: 900px; height: 900px; background: radial-gradient(closest-side, rgba(255, 201, 92, 0.10), transparent); }
+      .dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1.5px, transparent 1.5px); background-size: 36px 36px;
+        -webkit-mask-image: radial-gradient(70% 60% at 50% 50%, #000, transparent); mask-image: radial-gradient(70% 60% at 50% 50%, #000, transparent); }
+
+      /* ---------- Shared type ---------- */
+      .eyebrow { display: flex; align-items: center; gap: 18px; font: 700 26px/1 var(--sans); letter-spacing: 0.24em; text-transform: uppercase; color: var(--cheese); }
+      .eyebrow i { display: block; width: 52px; height: 3px; border-radius: 3px; background: currentColor; }
+      .title { font: 500 112px/0.98 var(--display); letter-spacing: -0.025em; color: var(--text); }
+      .title em { font-style: italic; color: var(--tomato); }
+      .ln { display: block; overflow: hidden; padding-bottom: 0.08em; }
+      .ln > span { display: inline-block; }
+      .lead { font: 400 36px/1.35 var(--sans); color: var(--muted); }
+      .head { position: absolute; left: 70px; top: 150px; width: 940px; }
+      .head .title { margin-top: 26px; }
+
+      /* Pizza discs */
+      .disc { position: absolute; border-radius: 50%; overflow: hidden; box-shadow: 0 40px 70px -20px rgba(0, 0, 0, 0.85), 0 0 0 6px rgba(255, 255, 255, 0.03); }
+      .disc img { width: 100%; height: 100%; object-fit: cover; }
+      .disc.ill img { transform: scale(1.32); }
+      .disc.real img { transform: scale(1.06); }
+
+      /* Persistent mini logo */
+      .logo { display: flex; flex-direction: column; font: 700 44px/1 var(--display); letter-spacing: 0.16em; color: var(--text); }
+      .logo small { font: 700 14px/1 var(--sans); letter-spacing: 0.55em; color: var(--cheese); margin-top: 7px; padding-left: 3px; }
+      #brand { position: absolute; left: 70px; top: 64px; }
+      #brand .logo { font-size: 34px; }
+      #brand .logo small { font-size: 11px; }
+      #tagline { position: absolute; right: 70px; top: 72px; font: 500 22px/1 var(--sans); letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+      /* ---------- 1 · Hook ---------- */
+      #s1 .plate { position: absolute; left: 140px; top: 240px; width: 800px; height: 800px; perspective: 1600px; }
+      #s1 .tilt { position: absolute; inset: 0; transform-style: preserve-3d; }
+      #s1 .rim { position: absolute; inset: -10px; border-radius: 50%; background: #3b2417; box-shadow: 0 60px 90px -20px rgba(0, 0, 0, 0.9); }
+      #hero-disc { left: 0; top: 0; width: 800px; height: 800px; }
+      #s1 .mini { width: 170px; height: 170px; }
+      #m1 { left: 820px; top: 230px; } #m2 { left: 50px; top: 960px; width: 150px; height: 150px; } #m3 { left: 30px; top: 330px; width: 120px; height: 120px; }
+      .steam { position: absolute; left: 340px; top: 120px; width: 400px; height: 360px; overflow: visible; }
+      .steam path { fill: none; stroke: rgba(255, 244, 230, 0.55); stroke-width: 14; stroke-linecap: round; filter: blur(9px); }
+      #s1 .copy { position: absolute; left: 70px; top: 1210px; width: 940px; }
+      #s1 h1 { margin-top: 30px; font: 500 150px/0.92 var(--display); letter-spacing: -0.035em; }
+      #s1 h1 em { font-style: italic; color: var(--tomato); }
+      #s1 .lead { margin-top: 34px; max-width: 24ch; }
+      .badge { position: absolute; padding: 20px 26px; border-radius: 26px; background: rgba(33, 25, 21, 0.78); box-shadow: inset 0 0 0 1.5px var(--line2), 0 30px 50px -18px rgba(0, 0, 0, 0.8); font: 400 24px/1.3 var(--sans); color: var(--muted); }
+      .badge b { display: block; color: var(--text); font: 700 30px/1.2 var(--sans); }
+      .badge .price { font: 500 44px/1.1 var(--display); color: var(--cheese); }
+      #b1 { left: 60px; top: 170px; } #b2 { left: 690px; top: 930px; }
+
+      /* ---------- 2 · Pizzas ---------- */
+      #s2 .big { position: absolute; left: 70px; top: 230px; display: flex; align-items: flex-end; gap: 30px; }
+      #s2 .num { font: italic 700 360px/0.8 var(--display); letter-spacing: -0.05em; color: var(--tomato); width: 420px; }
+      #s2 .num-side { padding-bottom: 20px; }
+      #s2 .num-side b { display: block; font: 500 84px/1 var(--display); color: var(--text); letter-spacing: -0.02em; }
+      #s2 .num-side span { display: block; margin-top: 12px; font: 400 32px/1.2 var(--sans); color: var(--muted); }
+      .wheel { position: absolute; left: 540px; top: 1850px; width: 0; height: 0; }
+      .wheel .slot { position: absolute; left: -260px; top: -1160px; width: 520px; height: 520px; transform-origin: 260px 1160px; }
+      .wheel .slot .disc { left: 0; top: 0; width: 520px; height: 520px; }
+      .namebox { position: absolute; left: 70px; top: 1340px; width: 940px; height: 240px; overflow: hidden; text-align: center; }
+      .pname { position: absolute; left: 0; right: 0; top: 0; }
+      .pname b { display: block; font: 500 104px/1.05 var(--display); letter-spacing: -0.02em; color: var(--text); }
+      .pname span { display: block; margin-top: 10px; font: 500 34px/1.2 var(--sans); color: var(--muted); }
+      .pname span em { font-style: normal; color: var(--cheese); font-family: var(--display); font-size: 44px; }
+      #s2 .from { position: absolute; left: 50%; top: 1640px; transform: translateX(-50%); display: flex; gap: 14px; }
+      .chip { padding: 16px 26px; border-radius: 999px; font: 700 26px/1 var(--sans); background: rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 0 1.5px var(--line2); color: var(--text); white-space: nowrap; }
+      .chip.hot { background: var(--tomato); box-shadow: 0 14px 34px -10px rgba(255, 90, 54, 0.7); color: #1a0d08; }
+
+      /* ---------- 3 · Categories ---------- */
+      .cats { position: absolute; left: 70px; top: 610px; width: 940px; display: flex; flex-direction: column; gap: 26px; }
+      .cat { position: relative; height: 222px; border-radius: 34px; padding: 0 40px; display: flex; flex-direction: column; justify-content: center; background: linear-gradient(160deg, var(--card2), var(--card)); box-shadow: inset 0 0 0 1.5px var(--line); }
+      .cat .n { font: 700 20px/1 var(--sans); letter-spacing: 0.2em; color: var(--dim); }
+      .cat h3 { margin-top: 10px; font: 500 64px/1 var(--display); letter-spacing: -0.02em; }
+      .cat p { margin-top: 10px; font: 400 28px/1.2 var(--sans); color: var(--muted); }
+      .cat p em { font-style: normal; color: var(--cheese); font-weight: 700; }
+      .cat .disc { right: -30px; top: -22px; width: 266px; height: 266px; }
+
+      /* ---------- 4 · Promos ---------- */
+      .promo { position: absolute; left: 70px; width: 940px; border-radius: 40px; overflow: hidden; background: var(--card); box-shadow: inset 0 0 0 1.5px var(--line); }
+      .promo .tag { display: inline-block; padding: 11px 18px; border-radius: 99px; font: 700 20px/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; background: rgba(255, 201, 92, 0.12); color: var(--cheese); }
+      #hot { top: 560px; height: 560px; padding: 50px; background: linear-gradient(140deg, #ff6a3d, #c8341a 70%); box-shadow: 0 50px 90px -40px rgba(255, 90, 54, 0.8); }
+      #hot .tag { background: rgba(0, 0, 0, 0.22); color: #fff; }
+      #hot h3 { margin-top: 30px; font: 500 84px/1 var(--display); letter-spacing: -0.02em; color: #fff; max-width: 9ch; }
+      #hot p { margin-top: 14px; font: 400 30px/1.3 var(--sans); color: rgba(255, 255, 255, 0.92); }
+      #hot .big { position: absolute; left: 50px; bottom: 44px; font: 500 150px/0.9 var(--display); letter-spacing: -0.04em; color: #fff; }
+      #hot .big small { font-size: 0.42em; }
+      #hot .disc { right: -120px; top: -110px; width: 520px; height: 520px; }
+      .plus { position: absolute; width: 96px; height: 96px; border-radius: 50%; background: var(--text); color: var(--bg); display: flex; align-items: center; justify-content: center; font: 500 56px/1 var(--sans); }
+      #hot .plus { right: 46px; bottom: 46px; }
+      .promo.sm { height: 176px; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+      .promo.sm h4 { margin-top: 12px; font: 500 40px/1.05 var(--display); max-width: 15ch; }
+      .promo.sm .pr { font: 500 78px/1 var(--display); letter-spacing: -0.03em; white-space: nowrap; }
+      .promo.sm .pr small { font-size: 0.45em; }
+      #pm1 { top: 1150px; } #pm2 { top: 1350px; } #pm3 { top: 1550px; }
+      .band { position: absolute; left: -100px; top: 1770px; width: 1400px; height: 96px; background: var(--cheese); transform: rotate(-4deg); overflow: hidden; display: flex; align-items: center; }
+      .band .track { display: flex; gap: 40px; white-space: nowrap; font: italic 500 46px/1 var(--display); color: #2a1609; }
+      .band .track span::after { content: "✺"; font-style: normal; color: var(--tomato2); margin-left: 40px; font-size: 0.7em; }
+
+      /* ---------- 5 · Builder ---------- */
+      #s5 .plate { position: absolute; left: 240px; top: 530px; width: 600px; height: 600px; perspective: 1400px; }
+      #s5 .tilt { position: absolute; inset: 0; transform-style: preserve-3d; }
+      #s5 .rim { position: absolute; inset: -8px; border-radius: 50%; background: #3b2417; box-shadow: 0 50px 80px -20px rgba(0, 0, 0, 0.9); }
+      #s5 .plate .disc { left: 0; top: 0; width: 600px; height: 600px; }
+      .pills { position: absolute; left: 70px; top: 1200px; width: 940px; display: flex; flex-wrap: wrap; gap: 16px; }
+      .pill { position: relative; display: flex; align-items: center; gap: 12px; padding: 16px 24px; border-radius: 999px; font: 700 28px/1 var(--sans); background: rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 0 1.5px var(--line2); color: var(--text); }
+      .pill i { display: block; width: 18px; height: 18px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3); }
+      .pill .on { position: absolute; inset: 0; border-radius: 999px; background: var(--text); color: var(--bg); display: flex; align-items: center; gap: 12px; padding: 16px 24px; opacity: 0; }
+      .tap { position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%; border: 4px solid var(--cheese); opacity: 0; }
+      .match { position: absolute; left: 70px; top: 1500px; width: 940px; height: 300px; border-radius: 36px; padding: 34px 40px; display: flex; align-items: center; gap: 34px; background: linear-gradient(160deg, var(--card2), var(--card)); box-shadow: inset 0 0 0 2px rgba(255, 201, 92, 0.35), 0 40px 70px -30px rgba(0, 0, 0, 0.9); }
+      .match .disc { position: relative; flex: none; width: 200px; height: 200px; }
+      .match .lbl { font: 700 20px/1 var(--sans); letter-spacing: 0.22em; text-transform: uppercase; color: var(--cheese); }
+      .match h4 { margin-top: 12px; font: 500 68px/1 var(--display); }
+      .match p { margin-top: 12px; font: 400 26px/1.3 var(--sans); color: var(--muted); }
+      .match p b { color: var(--basil); font-weight: 700; }
+      .match > div:nth-child(2) { flex: 1; min-width: 0; }
+      .match .pr { margin-left: auto; text-align: right; font: 500 54px/1 var(--display); color: var(--cheese); white-space: nowrap; flex: none; }
+      .match .pr small { display: block; margin-top: 8px; font: 400 22px/1 var(--sans); color: var(--dim); }
+
+      /* ---------- 6 · The web in a phone ---------- */
+      .phone { position: absolute; left: 245px; top: 640px; width: 590px; height: 1200px; border-radius: 80px; background: #0b0807; padding: 16px;
+        box-shadow: 0 70px 120px -30px rgba(0, 0, 0, 0.95), inset 0 0 0 3px #3a2c25, 0 0 0 2px rgba(255, 236, 214, 0.08); }
+      .screen { position: relative; width: 558px; height: 1168px; border-radius: 66px; overflow: hidden; background: var(--bg); }
+      .page { position: absolute; left: 0; top: 0; width: 558px; height: 13606px; }
+      .phone .hdr { position: absolute; left: 0; top: 0; width: 558px; height: 110px; }
+      .notch { position: absolute; left: 50%; top: 22px; width: 130px; height: 34px; margin-left: -65px; border-radius: 20px; background: #0b0807; }
+      .callout { position: absolute; display: flex; align-items: center; gap: 14px; padding: 20px 28px; border-radius: 26px; background: rgba(33, 25, 21, 0.92); box-shadow: inset 0 0 0 1.5px var(--line2), 0 30px 50px -16px rgba(0, 0, 0, 0.9); font: 700 30px/1 var(--sans); white-space: nowrap; }
+      .callout i { display: block; width: 16px; height: 16px; border-radius: 50%; background: var(--tomato); box-shadow: 0 0 0 6px rgba(255, 90, 54, 0.22); }
+      #co1 { left: 40px; top: 900px; } #co2 { left: 600px; top: 1150px; } #co3 { left: 40px; top: 1420px; } #co4 { left: 560px; top: 1640px; }
+
+      /* ---------- 7 · CTA ---------- */
+      .wipe { position: absolute; left: 540px; top: 960px; width: 0; height: 0; }
+      .wipe i { position: absolute; left: -1200px; top: -1200px; width: 2400px; height: 2400px; border-radius: 50%; }
+      .wipe .w1 { background: var(--tomato); }
+      .wipe .w2 { background: var(--bg); }
+      #s7 .endglow { position: absolute; left: -110px; top: 900px; width: 1300px; height: 1300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 110, 50, 0.38), transparent); }
+      #s7 .disc { left: 190px; top: 1230px; width: 700px; height: 700px; }
+      #s7 .disc.ill img { transform: scale(1.2); }
+      #s7 .copy { position: absolute; left: 70px; top: 190px; width: 940px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+      #s7 .title { margin-top: 30px; font-size: 128px; }
+      .ctas { margin-top: 56px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+      .btn { display: flex; align-items: center; gap: 18px; padding: 30px 46px; border-radius: 999px; font: 800 44px/1 var(--sans); white-space: nowrap; }
+      .btn.primary { background: var(--tomato); color: #1a0d08; box-shadow: 0 24px 50px -14px rgba(255, 90, 54, 0.8), inset 0 2px 0 rgba(255, 255, 255, 0.25); }
+      .btn.ghost { background: rgba(255, 255, 255, 0.06); box-shadow: inset 0 0 0 2px var(--line2); color: var(--text); font-weight: 700; font-size: 38px; }
+      .btn svg { width: 44px; height: 44px; flex: none; }
+      #s7 .logo { margin-top: 60px; font-size: 64px; align-items: center; }
+      #s7 .logo small { font-size: 18px; margin-top: 10px; padding-left: 0.55em; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="50" data-width="1080" data-height="1920">
+
+      <!-- Music bed (generated by scripts/make-music.py, cut to the scene starts) -->
+      <audio id="bgm" data-start="0" data-duration="50" data-volume="1" data-fade-out="1.5" src="assets/audio/insitu-bgm.m4a"></audio>
+
+      <!-- Persistent background: the site's warm glows + dot grid -->
+      <div id="bg" class="clip" data-start="0" data-duration="50" data-track-index="0">
+        <div class="glow glow--a" id="glow-a" data-layout-allow-overflow></div>
+        <div class="glow glow--b" id="glow-b" data-layout-allow-overflow></div>
+        <div class="glow glow--c" id="glow-c" data-layout-allow-overflow></div>
+        <div class="dots"></div>
+      </div>
+
+      <!-- 1 · Hook: the hot pizza lands, steam rises, the site's headline -->
+      <section id="s1" class="clip" data-start="0" data-duration="4.2" data-track-index="1">
+        <div class="plate" id="s1-plate">
+          <div class="tilt" id="s1-tilt">
+            <div class="rim"></div>
+            <div class="disc ill" id="hero-disc"><img id="hero-img" src="assets/img/im-pep.jpg" alt="" /></div>
+          </div>
+        </div>
+        <svg class="steam" id="steam" viewBox="0 0 400 360" aria-hidden="true">
+          <path d="M120 340 C 80 280, 160 230, 120 170 S 150 60, 120 10" />
+          <path d="M200 340 C 240 270, 160 220, 200 150 S 170 70, 200 0" />
+          <path d="M280 340 C 240 280, 320 230, 280 170 S 310 60, 280 20" />
+        </svg>
+        <div class="disc ill mini" id="m1"><img src="assets/img/im-cheese.jpg" alt="" /></div>
+        <div class="disc ill mini" id="m2"><img src="assets/img/im-veg.jpg" alt="" /></div>
+        <div class="disc ill mini" id="m3"><img src="assets/img/im-bbq.jpg" alt="" /></div>
+        <div class="badge" id="b1"><b>Margarita</b>individual desde 11,50 €</div>
+        <div class="badge" id="b2">2 pizzas medianas<br /><span class="price">25,90 €</span></div>
+        <div class="copy">
+          <div class="eyebrow" id="s1-eye"><i></i>Bienvenido a Insitu</div>
+          <h1><span class="ln"><span>El sabor que</span></span><span class="ln"><span><em>nos reúne.</em></span></span></h1>
+          <p class="lead" id="s1-lead">Pizzas recién horneadas, calzones, empanadas y todo lo que te apetece compartir.</p>
+        </div>
+      </section>
+
+      <!-- Mini brand, visible through the middle of the film -->
+      <div id="chrome" class="clip" data-start="4" data-duration="38" data-track-index="5">
+        <div id="brand"><div class="logo">INSITU<small>PIZZERÍA</small></div></div>
+        <div id="tagline">Recién horneadas</div>
+      </div>
+
+      <!-- 2 · 29 pizzas: count-up + a wheel of the real menu photos -->
+      <section id="s2" class="clip" data-start="4" data-duration="6" data-track-index="1">
+        <div class="big">
+          <div class="num" id="num29">0</div>
+          <div class="num-side" id="num-side"><b>pizzas</b><span>en dos tamaños:<br />individual y mediana</span></div>
+        </div>
+        <div class="wheel" id="wheel" data-layout-allow-overflow>
+          <div class="slot" style="transform: rotate(0deg)"><div class="disc real"><img src="assets/img/ph-p004.jpg" alt="" /></div></div>
+          <div class="slot" style="transform: rotate(40deg)"><div class="disc real"><img src="assets/img/ph-p006.jpg" alt="" /></div></div>
+          <div class="slot" style="transform: rotate(80deg)"><div class="disc real"><img src="assets/img/ph-p002.jpg" alt="" /></div></div>
+          <div class="slot" style="transform: rotate(120deg)"><div class="disc real"><img src="assets/img/ph-p016.jpg" alt="" /></div></div>
+          <div class="slot" style="transform: rotate(160deg)"><div class="disc real"><img src="assets/img/ph-p024.jpg" alt="" /></div></div>
+          <div class="slot" style="transform: rotate(200deg)"><div class="disc real"><img src="assets/img/ph-p028.jpg" alt="" /></div></div>
+          <div class="slot" style="transform: rotate(240deg)"><div class="disc real"><img src="assets/img/ph-p010.jpg" alt="" /></div></div>
+          <div class="slot" style="transform: rotate(280deg)"><div class="disc real"><img src="assets/img/ph-p019.jpg" alt="" /></div></div>
+          <div class="slot" style="transform: rotate(320deg)"><div class="disc real"><img src="assets/img/ph-p008.jpg" alt="" /></div></div>
+        </div>
+        <div class="namebox">
+          <div class="pname"><b>Barbacoa</b><span>Salsa barbacoa, carne, bacon · <em>13,90 €</em></span></div>
+          <div class="pname"><b>Carbonara</b><span>Champiñones, bacon · <em>13,90 €</em></span></div>
+          <div class="pname"><b>4 quesos</b><span>Emmental, parmesano, roquefort · <em>14,90 €</em></span></div>
+          <div class="pname"><b>Hawaiana</b><span>Jamón dulce y piña · <em>12,50 €</em></span></div>
+          <div class="pname"><b>Serrana</b><span>Jamón serrano y rúcula</span></div>
+          <div class="pname"><b>Vegetariana</b><span>Cherry, alcachofas, olivas</span></div>
+        </div>
+        <div class="from" id="s2-from"><span class="chip hot">Desde 11,50 €</span><span class="chip">6 bases distintas</span></div>
+      </section>
+
+      <!-- 3 · Everything else on the menu -->
+      <section id="s3" class="clip" data-start="10" data-duration="6" data-track-index="1">
+        <div class="head">
+          <div class="eyebrow"><i></i>Y mucho más</div>
+          <h2 class="title"><span class="ln"><span>Algo rico para</span></span><span class="ln"><span><em>cada momento</em></span></span></h2>
+        </div>
+        <div class="cats">
+          <div class="cat"><span class="n">02</span><h3>Calzones</h3><p>Cerrados, rellenos y gratinados</p><div class="disc real"><img src="assets/img/ph-p052.jpg" alt="" /></div></div>
+          <div class="cat"><span class="n">03</span><h3>Empanadas</h3><p>13 sabores, <em>todas a 3,50 €</em></p><div class="disc real"><img src="assets/img/ph-p036.jpg" alt="" /></div></div>
+          <div class="cat"><span class="n">04</span><h3>Entrantes</h3><p>Burrata, croquetas, bravas…</p><div class="disc real"><img src="assets/img/ph-p043.jpg" alt="" /></div></div>
+          <div class="cat"><span class="n">05</span><h3>Postres</h3><p>Tiramisú, coulant, cheesecake</p><div class="disc real"><img src="assets/img/ph-p057.jpg" alt="" /></div></div>
+          <div class="cat"><span class="n">06</span><h3>Bebidas</h3><p>Cervezas, vinos, cafés y más</p><div class="disc real"><img src="assets/img/ph-p066.jpg" alt="" /></div></div>
+        </div>
+      </section>
+
+      <!-- 4 · Promotions -->
+      <section id="s4" class="clip" data-start="16" data-duration="8" data-track-index="1">
+        <div class="head">
+          <div class="eyebrow"><i></i>Para compartir</div>
+          <h2 class="title"><span class="ln"><span>Promociones que</span></span><span class="ln"><span><em>saben a más</em></span></span></h2>
+        </div>
+        <article class="promo" id="hot">
+          <div class="disc ill" id="hot-disc"><img src="assets/img/im-ham.jpg" alt="" /></div>
+          <span class="tag">La favorita</span>
+          <h3>2 pizzas medianas</h3>
+          <p>Refresco de 1 L opcional</p>
+          <div class="big"><span id="price-hot">25,90</span><small> €</small></div>
+          <div class="plus" id="hot-plus">+</div>
+        </article>
+        <article class="promo sm" id="pm1"><div><span class="tag">Combo</span><h4>1 mediana + 6 empanadas + refresco</h4></div><div class="pr">29,90<small> €</small></div></article>
+        <article class="promo sm" id="pm2"><div><span class="tag">Combo</span><h4>3 pizzas medianas + refresco</h4></div><div class="pr">36,90<small> €</small></div></article>
+        <article class="promo sm" id="pm3"><div><span class="tag">Combo</span><h4>12 empanadas + refresco</h4></div><div class="pr">36,90<small> €</small></div></article>
+        <div class="band" id="band" data-layout-allow-overflow>
+          <div class="track" id="track"><span>Pizzas recién horneadas</span><span>Calzones</span><span>Empanadas</span><span>Mozzarella fundida</span><span>Masa crujiente</span><span>Para compartir</span><span>Pizzas recién horneadas</span><span>Calzones</span><span>Empanadas</span><span>Mozzarella fundida</span></div>
+        </div>
+      </section>
+
+      <!-- 5 · "Tu pizza ideal": pick ingredients, get a recommendation -->
+      <section id="s5" class="clip" data-start="24" data-duration="8" data-track-index="1">
+        <div class="head">
+          <div class="eyebrow"><i></i>Tu pizza ideal</div>
+          <h2 class="title" style="font-size: 96px"><span class="ln"><span>Elige ingredientes,</span></span><span class="ln"><span><em>te decimos cuál pedir</em></span></span></h2>
+        </div>
+        <div class="plate" id="s5-plate">
+          <div class="tilt" id="s5-tilt">
+            <div class="rim"></div>
+            <div class="disc real" id="bd-a"><img src="assets/img/ph-p019.jpg" alt="" /></div>
+            <div class="disc real" id="bd-b"><img src="assets/img/ph-p018.jpg" alt="" /></div>
+          </div>
+        </div>
+        <div class="pills" id="pills">
+          <div class="pill" id="pl-tomate" style="--c: #c4321b"><i></i>Tomate<div class="on"><i></i>Tomate</div><span class="tap"></span></div>
+          <div class="pill" style="--c: #5a2412"><i></i>Barbacoa</div>
+          <div class="pill" style="--c: #f1e3c0"><i></i>Carbonara</div>
+          <div class="pill" id="pl-champ" style="--c: #d9c3a3"><i></i>Champiñones<div class="on"><i></i>Champiñones</div><span class="tap"></span></div>
+          <div class="pill" style="--c: #c8584a"><i></i>Bacon</div>
+          <div class="pill" id="pl-jamon" style="--c: #e88f8f"><i></i>Jamón<div class="on"><i></i>Jamón</div><span class="tap"></span></div>
+          <div class="pill" style="--c: #4f9a3c"><i></i>Rúcula</div>
+          <div class="pill" style="--c: #f7f3ea"><i></i>Queso de cabra</div>
+        </div>
+        <div class="match" id="match">
+          <div class="disc real"><img src="assets/img/ph-p018.jpg" alt="" /></div>
+          <div><div class="lbl">Te recomendamos</div><h4>Ideal</h4><p><b>Tomate</b>, mozzarella, <b>champiñones</b>, <b>jamón</b></p></div>
+          <div class="pr">12,50 €<small>individual</small></div>
+        </div>
+      </section>
+
+      <!-- 6 · The new site, scrolling in a phone -->
+      <section id="s6" class="clip" data-start="32" data-duration="10" data-track-index="1">
+        <div class="head">
+          <div class="eyebrow"><i></i>Descubre la carta en 3D</div>
+          <h2 class="title" style="font-size: 104px"><span class="ln"><span>Toda la carta,</span></span><span class="ln"><span><em>en tu móvil.</em></span></span></h2>
+        </div>
+        <div class="phone" id="phone">
+          <div class="screen">
+            <img class="page" id="page" src="assets/site/page.jpg" alt="" data-layout-allow-overflow />
+            <img class="hdr" src="assets/site/header.png" alt="" />
+          </div>
+          <div class="notch"></div>
+        </div>
+        <div class="callout" id="co1"><i></i>Pizzas en 3D</div>
+        <div class="callout" id="co2"><i></i>Promociones</div>
+        <div class="callout" id="co3"><i></i>Tu pizza ideal</div>
+        <div class="callout" id="co4"><i></i>192 productos</div>
+      </section>
+
+      <!-- 7 · Call to action -->
+      <section id="s7" class="clip" data-start="42" data-duration="8" data-track-index="2">
+        <div class="wipe" id="wipe" data-layout-allow-overflow><i class="w1" id="w1"></i><i class="w2" id="w2"></i></div>
+        <div class="endglow" id="endglow" data-layout-allow-overflow></div>
+        <div class="disc ill" id="end-disc" data-layout-allow-overflow><img src="assets/img/im-cheese.jpg" alt="" /></div>
+        <div class="copy">
+          <div class="eyebrow" id="s7-eye"><i></i>Te esperamos<i></i></div>
+          <h2 class="title"><span class="ln"><span>Ven a probarla</span></span><span class="ln"><span><em>recién hecha.</em></span></span></h2>
+          <div class="ctas">
+            <div class="btn primary" id="cta1">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" /></svg>
+              pizzeriainsitu.com
+            </div>
+            <div class="btn ghost" id="cta2">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#ffc95c" stroke-width="2" d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" /></svg>
+              <span id="place">Ven al local · Tarragona</span>
+            </div>
+          </div>
+          <div class="logo" id="end-logo">INSITU<small>PIZZERÍA</small></div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const out = "power3.out";
+      const inn = "power2.in";
+      const soft = "expo.out";
+      const back = "back.out(1.7)";
+      const END = 50;
+
+      // Background drift
+      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: -260, y: 220, duration: END, ease: "none" }, 0);
+      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: 260, y: -160, duration: END, ease: "none" }, 0);
+      tl.fromTo("#glow-c", { x: 0, y: 0 }, { x: 180, y: 120, duration: END, ease: "none" }, 0);
+
+      // Little helper: headline lines rise from their mask
+      const rise = (sel, t, stagger = 0.1) => tl.fromTo(sel, { yPercent: 110 }, { yPercent: 0, duration: 0.85, ease: soft, stagger }, t);
+      const exit = (sel, t) => tl.to(sel, { autoAlpha: 0, y: -60, duration: 0.4, ease: inn, stagger: 0.04 }, t);
+
+      // ---------- 1 · Hook (0 – 4.2) ----------
+      tl.fromTo("#s1-plate", { scale: 1.9, opacity: 0, y: -200 }, { scale: 1, opacity: 1, y: 0, duration: 0.7, ease: "power4.out" }, 0.0);
+      tl.fromTo("#s1-tilt", { rotationX: 60, rotationZ: -30 }, { rotationX: 30, rotationZ: 0, duration: 1.2, ease: soft }, 0.0);
+      tl.to("#s1-tilt", { rotationX: 22, rotationY: 8, duration: 3.0, ease: "sine.inOut" }, 1.2);
+      tl.fromTo("#hero-img", { rotation: 0 }, { rotation: 70, duration: 4.2, ease: "none" }, 0);
+      // squash on landing
+      tl.fromTo("#s1-plate", { scaleY: 1 }, { scaleY: 0.94, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.out", immediateRender: false }, 0.68);
+      // steam
+      tl.fromTo("#steam path", { strokeDasharray: "420 420", strokeDashoffset: 420, opacity: 0, y: 40 }, { strokeDashoffset: 0, opacity: 1, y: -40, duration: 1.6, ease: "sine.out", stagger: 0.25 }, 0.6);
+      tl.to("#steam path", { opacity: 0, y: -110, duration: 1.2, ease: "sine.in", stagger: 0.2 }, 2.2);
+      // minis + badges pop
+      tl.fromTo(["#m1", "#m2", "#m3"], { scale: 0, rotation: -90 }, { scale: 1, rotation: 0, duration: 0.7, ease: back, stagger: 0.12 }, 0.5);
+      tl.fromTo("#m1", { y: 0 }, { y: -26, duration: 1.8, ease: "sine.inOut", yoyo: true, repeat: 1, immediateRender: false }, 1.2);
+      tl.fromTo("#m2", { y: 0 }, { y: 22, duration: 1.6, ease: "sine.inOut", yoyo: true, repeat: 1, immediateRender: false }, 1.2);
+      tl.fromTo("#b1", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.6, ease: out }, 0.9);
+      tl.fromTo("#b2", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.6, ease: out }, 1.1);
+      tl.fromTo("#s1-eye", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.6, ease: out }, 0.7);
+      rise("#s1 h1 .ln > span", 0.85, 0.14);
+      tl.fromTo("#s1-lead", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: out }, 1.5);
+      // exit: the pizza zooms through camera
+      tl.to("#s1-plate", { scale: 2.6, opacity: 0, duration: 0.6, ease: "power3.in" }, 3.6);
+      tl.to(["#m1", "#m2", "#m3", "#b1", "#b2"], { scale: 0.4, opacity: 0, duration: 0.4, ease: inn, stagger: 0.03 }, 3.55);
+      exit(["#s1-eye", "#s1 h1", "#s1-lead"], 3.6);
+
+      // Chrome (brand mini)
+      tl.fromTo("#brand", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6, ease: out }, 4.2);
+      tl.fromTo("#tagline", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 4.4);
+      tl.to("#chrome", { opacity: 0, duration: 0.3 }, 41.6);
+
+      // ---------- 2 · 29 pizzas (4 – 10) ----------
+      const counter = { v: 0 };
+      tl.fromTo("#num29", { scale: 0.6, opacity: 0, transformOrigin: "0% 100%" }, { scale: 1, opacity: 1, duration: 0.6, ease: back }, 4.1);
+      tl.fromTo(counter, { v: 0 }, { v: 29, duration: 1.4, ease: "power2.out", onUpdate: () => { document.getElementById("num29").textContent = Math.round(counter.v); } }, 4.15);
+      tl.fromTo("#num-side > *", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: out, stagger: 0.12 }, 4.6);
+      // wheel comes up then steps one pizza per 0.8 s
+      tl.fromTo("#wheel", { y: 700, rotation: 30 }, { y: 0, rotation: 0, duration: 1.0, ease: soft }, 4.2);
+      const STEPS = 6;
+      for (let i = 1; i < STEPS; i++) {
+        tl.to("#wheel", { rotation: -40 * i, duration: 0.55, ease: "back.inOut(1.4)" }, 5.4 + (i - 1) * 0.75);
+      }
+      // names: slide up in sync
+      const names = gsap.utils.toArray("#s2 .pname");
+      names.forEach((el, i) => {
+        const t = i === 0 ? 4.9 : 5.4 + (i - 1) * 0.75 + 0.12;
+        tl.fromTo(el, { yPercent: 105, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.45, ease: out }, t);
+        if (i < names.length - 1) tl.to(el, { yPercent: -105, opacity: 0, duration: 0.35, ease: inn }, 5.4 + i * 0.75);
+      });
+      tl.fromTo("#s2-from .chip", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: back, stagger: 0.12 }, 5.3);
+      tl.to("#wheel", { y: 800, duration: 0.5, ease: "power3.in" }, 9.55);
+      exit(["#s2 .big", "#s2 .namebox", "#s2-from"], 9.55);
+
+      // ---------- 3 · Categories (10 – 16) ----------
+      tl.fromTo("#s3 .eyebrow", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: out }, 10.05);
+      rise("#s3 .title .ln > span", 10.1);
+      gsap.utils.toArray("#s3 .cat").forEach((el, i) => {
+        const t = 10.6 + i * 0.32;
+        tl.fromTo(el, { x: i % 2 ? 1100 : -1100, rotation: i % 2 ? 4 : -4 }, { x: 0, rotation: 0, duration: 0.75, ease: soft }, t);
+        tl.fromTo(el.querySelector(".disc"), { scale: 0.3, rotation: -120 }, { scale: 1, rotation: -8, duration: 0.9, ease: back }, t + 0.15);
+        tl.to(el.querySelector(".disc"), { rotation: 14, duration: 4.4, ease: "none" }, t + 1.05);
+      });
+      exit(["#s3 .head"], 15.5);
+      tl.to("#s3 .cat", { x: (i) => (i % 2 ? -1100 : 1100), duration: 0.5, ease: "power3.in", stagger: 0.05 }, 15.45);
+
+      // ---------- 4 · Promos (16 – 24) ----------
+      tl.fromTo("#s4 .eyebrow", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: out }, 16.05);
+      rise("#s4 .title .ln > span", 16.1);
+      tl.fromTo("#hot", { y: 500, rotation: 6, opacity: 0 }, { y: 0, rotation: 0, opacity: 1, duration: 0.9, ease: soft }, 16.5);
+      tl.fromTo("#hot-disc", { scale: 0.2, rotation: -180 }, { scale: 1, rotation: 0, duration: 1.1, ease: back }, 16.8);
+      tl.to("#hot-disc img", { rotation: 90, duration: 7, ease: "none" }, 17);
+      const price = { v: 0 };
+      tl.fromTo(price, { v: 0 }, { v: 25.9, duration: 1.2, ease: "power3.out", onUpdate: () => { document.getElementById("price-hot").textContent = price.v.toFixed(2).replace(".", ","); } }, 17.1);
+      tl.fromTo("#hot-plus", { scale: 0, rotation: -180 }, { scale: 1, rotation: 0, duration: 0.6, ease: back }, 17.6);
+      tl.to("#hot-plus", { rotation: 90, scale: 1.15, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out" }, 18.6);
+      tl.fromTo(["#pm1", "#pm2", "#pm3"], { x: 1100 }, { x: 0, duration: 0.7, ease: soft, stagger: 0.28 }, 18.6);
+      tl.fromTo("#band", { y: 300 }, { y: 0, duration: 0.8, ease: soft }, 19.4);
+      tl.fromTo("#track", { x: 0 }, { x: -900, duration: 4.6, ease: "none" }, 19.4);
+      tl.to("#hot", { scale: 1.02, duration: 0.6, yoyo: true, repeat: 3, ease: "sine.inOut" }, 20.2);
+      exit(["#s4 .head", "#hot", "#pm1", "#pm2", "#pm3"], 23.5);
+      tl.to("#band", { y: 300, duration: 0.4, ease: inn }, 23.55);
+
+      // ---------- 5 · Tu pizza ideal (24 – 32) ----------
+      tl.fromTo("#s5 .eyebrow", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: out }, 24.05);
+      rise("#s5 .title .ln > span", 24.1);
+      tl.fromTo("#s5-plate", { scale: 0.4, opacity: 0, y: 200 }, { scale: 1, opacity: 1, y: 0, duration: 0.9, ease: soft }, 24.4);
+      tl.fromTo("#s5-tilt", { rotationX: 55 }, { rotationX: 32, duration: 1.2, ease: soft }, 24.4);
+      tl.to("#s5-tilt", { rotationY: -10, duration: 6.5, ease: "sine.inOut" }, 25.4);
+      tl.fromTo("#s5 .disc img", { rotation: 0 }, { rotation: 80, duration: 8, ease: "none" }, 24);
+      tl.set("#bd-b", { opacity: 0 }, 24);
+      tl.fromTo("#pills .pill", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: back, stagger: 0.3 }, 25.3);
+      [["#pl-tomate", 27.8], ["#pl-champ", 28.15], ["#pl-jamon", 28.5]].forEach(([id, t]) => {
+        tl.fromTo(`${id} .tap`, { scale: 0.3, opacity: 1 }, { scale: 1.6, opacity: 0, duration: 0.5, ease: "power2.out" }, t);
+        tl.fromTo(`${id} .on`, { opacity: 0 }, { opacity: 1, duration: 0.15 }, t + 0.05);
+        tl.fromTo(id, { scale: 1 }, { scale: 1.12, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, t);
+      });
+      // the plate swaps to the recommended pizza (site's "pop")
+      tl.fromTo("#bd-b", { opacity: 0, scale: 0.6, rotation: -90 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: soft }, 28.9);
+      tl.fromTo("#match", { y: 380, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: soft }, 29.1);
+      tl.fromTo("#match .disc", { scale: 0, rotation: -120 }, { scale: 1, rotation: 0, duration: 0.8, ease: back }, 29.3);
+      exit(["#s5 .head", "#s5-plate", "#pills", "#match"], 31.5);
+
+      // ---------- 6 · Phone tour (32 – 42) ----------
+      tl.fromTo("#s6 .eyebrow", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: out }, 32.05);
+      rise("#s6 .title .ln > span", 32.1);
+      tl.fromTo("#phone", { y: 900, rotation: 8 }, { y: 0, rotation: 0, duration: 1.1, ease: soft }, 32.2);
+      // scroll the captured page (page px at 558 wide = capture px * 0.6488)
+      const k = 558 / 860;
+      const scroll = [
+        [33.6, 0],
+        [34.6, 2294 + 700, "power2.inOut"],     // categorías
+        [35.4, 2294 + 700],
+        [36.4, 6786, "power2.inOut"],           // promociones
+        [37.2, 6786],
+        [38.2, 9612 + 120, "power2.inOut"],     // tu pizza ideal
+        [39.0, 9612 + 120],
+        [40.0, 13176 + 1500, "power2.inOut"],   // carta
+        [41.0, 13176 + 2700, "sine.inOut"],
+      ];
+      tl.set("#page", { y: 0 }, 32);
+      for (let i = 1; i < scroll.length; i++) {
+        const [t0, y0] = scroll[i - 1];
+        const [t1, y1, ease] = scroll[i];
+        if (y1 !== y0) tl.fromTo("#page", { y: -y0 * k }, { y: -y1 * k, duration: t1 - t0, ease: ease || "none", immediateRender: false }, t0);
+      }
+      [["#co1", 33.4, -1], ["#co2", 35.9, 1], ["#co3", 37.7, -1], ["#co4", 39.5, 1]].forEach(([id, t, dir]) => {
+        tl.fromTo(id, { opacity: 0, x: 80 * dir, scale: 0.8 }, { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: back }, t);
+        tl.fromTo(id, { y: 0 }, { y: -12, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1, immediateRender: false }, t + 0.5);
+      });
+      tl.to("#phone", { y: -16, duration: 4, ease: "sine.inOut", yoyo: true, repeat: 1 }, 33.4);
+      exit(["#s6 .head", "#co1", "#co2", "#co3", "#co4"], 41.5);
+      tl.to("#phone", { y: 1000, duration: 0.5, ease: "power3.in" }, 41.5);
+
+      // ---------- 7 · CTA (42 – 50) ----------
+      tl.fromTo("#w1", { scale: 0 }, { scale: 1, duration: 0.55, ease: "power3.inOut" }, 42.0);
+      tl.fromTo("#w2", { scale: 0 }, { scale: 1, duration: 0.6, ease: "power3.inOut" }, 42.22);
+      tl.fromTo("#endglow", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 1.4, ease: soft }, 42.6);
+      tl.fromTo("#end-disc", { y: 700, rotation: -60 }, { y: 0, rotation: 0, duration: 1.3, ease: soft }, 42.6);
+      tl.to("#end-disc img", { rotation: 40, duration: 7, ease: "none" }, 43);
+      tl.fromTo("#s7-eye", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: out }, 42.7);
+      rise("#s7 .title .ln > span", 42.8, 0.14);
+      tl.fromTo("#cta1", { opacity: 0, y: 60, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: back }, 43.6);
+      tl.fromTo("#cta2", { opacity: 0, y: 60, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: back }, 43.9);
+      tl.fromTo("#end-logo", { opacity: 0, y: 30, scale: 1.25 }, { opacity: 1, y: 0, scale: 1, duration: 1.0, ease: soft }, 44.4);
+      // call-to-action pulses on the beat
+      for (let i = 0; i < 4; i++) tl.to("#cta1", { scale: 1.05, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, 45.5 + i);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

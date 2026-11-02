@@ -1,0 +1,1352 @@
+[
+ {
+  "category": "Promociones",
+  "name": "2 pizzas medianas",
+  "price": 25.9,
+  "description": "Refresco de 1 L opcional"
+ },
+ {
+  "category": "Promociones",
+  "name": "1 pizza mediana + 6 empanadas + refresco",
+  "price": 29.9,
+  "description": ""
+ },
+ {
+  "category": "Promociones",
+  "name": "3 pizzas medianas + refresco",
+  "price": 36.9,
+  "description": ""
+ },
+ {
+  "category": "Promociones",
+  "name": "12 empanadas + refresco",
+  "price": 36.9,
+  "description": "Entrega rápida"
+ },
+ {
+  "category": "Promociones",
+  "name": "Refresco promoción",
+  "price": 3.0,
+  "description": ""
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "4 estaciones",
+  "price": 15.9,
+  "description": "Salsa de tomate, mozzarella, champiñones, alcachofas, olivas negras, anchoas"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "3 delicias",
+  "price": 15.9,
+  "description": "Sin salsa, mozzarella, jamón Serrano, queso curado, mermelada de tomate"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "4 quesos",
+  "price": 14.9,
+  "description": "Salsa de tomate, mozzarella, emmental, parmesano, roquefort, cheddar"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Acapulco",
+  "price": 12.5,
+  "description": "Salsa de tomate, mozzarella, champiñones, pollo"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Barbacoa",
+  "price": 13.9,
+  "description": "Salsa barbacoa, mozzarella, carne, bacon"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Clásica",
+  "price": 12.5,
+  "description": "Salsa de tomate, mozzarella, jamón dulce"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Carbonara",
+  "price": 13.9,
+  "description": "Salsa carbonara, mozzarella, champiñones, bacon"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Calabresa",
+  "price": 12.5,
+  "description": "Salsa de tomate, mozzarella, espianata, bacon"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Catalana",
+  "price": 14.9,
+  "description": "Salsa de tomate, mozzarella, berenjena, cebolla, atún, pimiento rojo"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Campestre",
+  "price": 14.9,
+  "description": "Salsa barbacoa, mozzarella, cebolla, pollo, bacon"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Diábola",
+  "price": 14.9,
+  "description": "Salsa chili, mozzarella, carne, bacon, jalapeño"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "De la casa",
+  "price": 15.9,
+  "description": "Sin salsa, mozzarella, queso de cabra, nueces, miel"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Especial atún",
+  "price": 13.9,
+  "description": "Salsa de tomate, mozzarella, cebolla, atún, olivas negras"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Especial argentina",
+  "price": 14.9,
+  "description": "Salsa de tomate, mozzarella, jamón dulce, pimiento rojo, olivas verdes, huevo duro"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Frankfurt",
+  "price": 14.9,
+  "description": "Salsa de tomate, mozzarella, cebolla, frankfurt, huevo duro, emmental"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Fugazza",
+  "price": 12.5,
+  "description": "Sin salsa, mozzarella, cebolla, orégano"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Hawaiana",
+  "price": 12.5,
+  "description": "Salsa de tomate, mozzarella, jamón dulce, piña"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Halloween",
+  "price": 14.9,
+  "description": ""
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Ideal",
+  "price": 12.5,
+  "description": "Salsa de tomate, mozzarella, champiñones, jamón dulce"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Margarita",
+  "price": 11.5,
+  "description": "Salsa de tomate, mozzarella"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Mixta",
+  "price": 12.5,
+  "description": "Salsa de tomate, mozzarella, pimiento verde, tomate cherry, rúcula"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Napolitana",
+  "price": 12.5,
+  "description": "Salsa de tomate, mozzarella, tomate natural, ajo, orégano"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Mediterránea",
+  "price": 14.9,
+  "description": "Salsa de champiñones, champiñones, alcachofas, espárragos"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Romana",
+  "price": 14.9,
+  "description": "Salsa de tomate, mozzarella, pimiento verde, alcachofas, atún, alcaparras"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Serrana",
+  "price": 13.9,
+  "description": "Salsa de tomate, mozzarella, jamón Serrano, tomate cherry, rúcula"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Strómboli",
+  "price": 15.9,
+  "description": "Salsa de champiñones, espinata, queso de cabra, huevo duro, rúcula"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Veneciana",
+  "price": 13.9,
+  "description": "Salsa de tomate, mozzarella, jamón dulce, bacon, emmental"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Tono",
+  "price": 12.5,
+  "description": "Salsa de tomate, mozzarella, atún"
+ },
+ {
+  "category": "Pizzas individuales",
+  "name": "Vegetariana",
+  "price": 14.9,
+  "description": "Salsa de tomate, mozzarella, champiñones, alcachofas, tomate cherry, olivas negras"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "4 estaciones",
+  "price": 17.9,
+  "description": "Salsa de tomate, mozzarella, champiñones, alcachofas, olivas negras, anchoas"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "3 delicias",
+  "price": 17.9,
+  "description": "Sin salsa, mozzarella, jamón Serrano, queso curado, mermelada de tomate"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "4 quesos",
+  "price": 16.9,
+  "description": "Salsa de tomate, mozzarella, emmental, parmesano, roquefort, cheddar"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Acapulco",
+  "price": 14.5,
+  "description": "Salsa de tomate, mozzarella, champiñones, pollo"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Barbacoa",
+  "price": 15.9,
+  "description": "Salsa barbacoa, mozzarella, carne, bacon"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Clásica",
+  "price": 14.5,
+  "description": "Salsa de tomate, mozzarella, jamón dulce"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Carbonara",
+  "price": 15.9,
+  "description": "Salsa carbonara, mozzarella, champiñones, bacon"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Calabresa",
+  "price": 14.5,
+  "description": "Salsa de tomate, mozzarella, espianata, bacon"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Catalana",
+  "price": 16.9,
+  "description": "Salsa de tomate, mozzarella, berenjena, cebolla, atún, pimiento rojo"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Campestre",
+  "price": 16.9,
+  "description": "Salsa barbacoa, mozzarella, cebolla, pollo, bacon"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Diábola",
+  "price": 16.9,
+  "description": "Salsa chili, mozzarella, carne, bacon, jalapeño"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "De la casa",
+  "price": 17.9,
+  "description": "Sin salsa, mozzarella, queso de cabra, nueces, miel"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Especial atún",
+  "price": 15.9,
+  "description": "Salsa de tomate, mozzarella, cebolla, atún, olivas negras"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Especial argentina",
+  "price": 16.9,
+  "description": "Salsa de tomate, mozzarella, jamón dulce, pimiento rojo, olivas verdes, huevo duro"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Frankfurt",
+  "price": 16.9,
+  "description": "Salsa de tomate, mozzarella, cebolla, frankfurt, huevo duro, emmental"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Fugazza",
+  "price": 14.5,
+  "description": "Sin salsa, mozzarella, cebolla, orégano"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Hawaiana",
+  "price": 14.5,
+  "description": "Salsa de tomate, mozzarella, jamón dulce, piña"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Halloween",
+  "price": 16.9,
+  "description": ""
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Ideal",
+  "price": 14.5,
+  "description": "Salsa de tomate, mozzarella, champiñones, jamón dulce"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Margarita",
+  "price": 13.1,
+  "description": "Salsa de tomate, mozzarella"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Mixta",
+  "price": 14.5,
+  "description": "Salsa de tomate, mozzarella, pimiento verde, tomate cherry, rúcula"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Napolitana",
+  "price": 14.5,
+  "description": "Salsa de tomate, mozzarella, tomate natural, ajo, orégano"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Mediterránea",
+  "price": 16.9,
+  "description": "Salsa de champiñones, champiñones, alcachofas, espárragos"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Romana",
+  "price": 16.9,
+  "description": "Salsa de tomate, mozzarella, pimiento verde, alcachofas, atún, alcaparras"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Serrana",
+  "price": 15.9,
+  "description": "Salsa de tomate, mozzarella, jamón Serrano, tomate cherry, rúcula"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Strómboli",
+  "price": 17.9,
+  "description": "Salsa de champiñones, espianata, queso de cabra, huevo duro, rúcula"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Veneciana",
+  "price": 15.9,
+  "description": "Salsa de tomate, mozzarella, jamón dulce, bacon, emmental"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Tono",
+  "price": 14.5,
+  "description": "Salsa de tomate, mozzarella, atún"
+ },
+ {
+  "category": "Pizzas medianas",
+  "name": "Vegetariana",
+  "price": 16.9,
+  "description": "Salsa de tomate, mozzarella, champiñones, alcachofas, tomate cherry, olivas negras"
+ },
+ {
+  "category": "Empanadas",
+  "name": "4 quesos",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Empanadas",
+  "name": "Atún",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Empanadas",
+  "name": "Bacon",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Empanadas",
+  "name": "Carne",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Empanadas",
+  "name": "Caprese",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Empanadas",
+  "name": "Calabaza",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Empanadas",
+  "name": "Espinacas",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Empanadas",
+  "name": "Frankfurt",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Empanadas",
+  "name": "Jamón y queso",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Empanadas",
+  "name": "Pollo",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Empanadas",
+  "name": "Queso de cabra",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Empanadas",
+  "name": "Provolone",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Empanadas",
+  "name": "Jamón y queso frita",
+  "price": 3.8,
+  "description": ""
+ },
+ {
+  "category": "Entrantes",
+  "name": "Olivas",
+  "price": 2.5,
+  "description": ""
+ },
+ {
+  "category": "Entrantes",
+  "name": "Alitas de pollo",
+  "price": 7.9,
+  "description": ""
+ },
+ {
+  "category": "Entrantes",
+  "name": "Burrata",
+  "price": 9.0,
+  "description": "Sobre pan de pizza, rúcula, albahaca, olivas negras, nueces · Pídelo al camarero"
+ },
+ {
+  "category": "Entrantes",
+  "name": "Croquetas de jamón ibérico",
+  "price": 8.0,
+  "description": ""
+ },
+ {
+  "category": "Entrantes",
+  "name": "Ensalada de la huerta",
+  "price": 6.0,
+  "description": "Lechuga, champiñones, alcachofa, cherry, espárrago, albahaca, olivas negras"
+ },
+ {
+  "category": "Entrantes",
+  "name": "Ensalada queso de cabra",
+  "price": 8.0,
+  "description": "Lechuga, cherry, bacon, pimiento rojo, nueces, aceite balsámico"
+ },
+ {
+  "category": "Entrantes",
+  "name": "Fingers de pollo",
+  "price": 5.9,
+  "description": ""
+ },
+ {
+  "category": "Entrantes",
+  "name": "Guacamole",
+  "price": 6.0,
+  "description": "Guacamole con salsa criolla y varitas de pizza"
+ },
+ {
+  "category": "Entrantes",
+  "name": "Patatas bravas",
+  "price": 6.9,
+  "description": ""
+ },
+ {
+  "category": "Entrantes",
+  "name": "Panchito",
+  "price": 5.5,
+  "description": "Masa de pizza, salsa chili, frankfurt, queso emmental"
+ },
+ {
+  "category": "Entrantes",
+  "name": "Patatas chips",
+  "price": 1.5,
+  "description": "Pídelo al camarero"
+ },
+ {
+  "category": "Entrantes",
+  "name": "Extra varitas pan",
+  "price": 1.5,
+  "description": "Pídelo al camarero"
+ },
+ {
+  "category": "Calzones",
+  "name": "Caprese (individual)",
+  "price": 16.9,
+  "description": "Mozzarella, tomate natural, tomate seco, salsa de tomate, emmental, orégano"
+ },
+ {
+  "category": "Calzones",
+  "name": "Caprese (mediano)",
+  "price": 18.9,
+  "description": "Mozzarella, tomate natural, tomate seco, salsa de tomate, emmental, orégano"
+ },
+ {
+  "category": "Calzones",
+  "name": "4 quesos (individual)",
+  "price": 16.9,
+  "description": "Mozzarella, roquefort, parmesano, cheddar, emmental, salsa de tomate, orégano"
+ },
+ {
+  "category": "Calzones",
+  "name": "4 quesos (mediano)",
+  "price": 18.9,
+  "description": "Mozzarella, roquefort, parmesano, cheddar, emmental, salsa de tomate, orégano"
+ },
+ {
+  "category": "Calzones",
+  "name": "Chili (individual)",
+  "price": 16.9,
+  "description": "Mozzarella, espinata, pimiento rojo, jalapeño, salsa de tomate, emmental, orégano"
+ },
+ {
+  "category": "Calzones",
+  "name": "Chili (mediano)",
+  "price": 18.9,
+  "description": "Mozzarella, espianata, pimiento rojo, jalapeño, salsa de tomate, emmental, orégano"
+ },
+ {
+  "category": "Calzones",
+  "name": "Vegetariano (individual)",
+  "price": 16.9,
+  "description": "Mozzarella, champiñones, alcachofa, tomate cherry, salsa de tomate, emmental, orégano"
+ },
+ {
+  "category": "Calzones",
+  "name": "Vegetariano (mediano)",
+  "price": 18.9,
+  "description": "Mozzarella, champiñones, alcachofa, tomate cherry, salsa de tomate, emmental, orégano"
+ },
+ {
+  "category": "Postres",
+  "name": "Bocaditos Maxibon",
+  "price": 5.0,
+  "description": "Helado en tarrina"
+ },
+ {
+  "category": "Postres",
+  "name": "Cheesecake",
+  "price": 6.0,
+  "description": ""
+ },
+ {
+  "category": "Postres",
+  "name": "Coulant de chocolate",
+  "price": 6.0,
+  "description": "Pídelo al camarero"
+ },
+ {
+  "category": "Postres",
+  "name": "Don Pedro",
+  "price": 6.5,
+  "description": "Helado de crema americana, nueces y whisky · Pídelo al camarero"
+ },
+ {
+  "category": "Postres",
+  "name": "Oreo cheesecake",
+  "price": 6.0,
+  "description": ""
+ },
+ {
+  "category": "Postres",
+  "name": "Tarrina Oreo",
+  "price": 5.0,
+  "description": ""
+ },
+ {
+  "category": "Postres",
+  "name": "Tarrina Milka",
+  "price": 5.0,
+  "description": ""
+ },
+ {
+  "category": "Postres",
+  "name": "Trufas heladas",
+  "price": 5.0,
+  "description": ""
+ },
+ {
+  "category": "Postres",
+  "name": "Tres bolas de helado",
+  "price": 6.0,
+  "description": "Pídelo al camarero"
+ },
+ {
+  "category": "Postres",
+  "name": "Sorbete de limón",
+  "price": 6.5,
+  "description": "En su corteza"
+ },
+ {
+  "category": "Postres",
+  "name": "Bola de helado",
+  "price": 2.5,
+  "description": "Pídelo al camarero"
+ },
+ {
+  "category": "Postres",
+  "name": "Tiramisú",
+  "price": 5.0,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Caña",
+  "price": 2.5,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Caña pequeña",
+  "price": 1.9,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Champú",
+  "price": 2.5,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Champú pequeño",
+  "price": 1.9,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Caña Turia",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Caña pequeña Turia",
+  "price": 2.2,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Clara",
+  "price": 2.5,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Clara pequeña",
+  "price": 1.9,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Jarra cerveza",
+  "price": 3.9,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Jarra Turia",
+  "price": 4.9,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Jarra champú",
+  "price": 3.9,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Coronita",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Estrella Galicia",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Estrella mediana",
+  "price": 2.7,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Cerveza sin alcohol",
+  "price": 3.0,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Cerveza sin alcohol tostada",
+  "price": 3.0,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Cerveza sin alcohol limón",
+  "price": 3.0,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Cerveza con limón",
+  "price": 2.3,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Cerveza Moon",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Cerveza sin gluten",
+  "price": 3.0,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Lata Estrella",
+  "price": 2.3,
+  "description": ""
+ },
+ {
+  "category": "Cervezas",
+  "name": "Caña para llevar",
+  "price": 3.0,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Agua 50 cl",
+  "price": 1.9,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Coca-Cola Zero",
+  "price": 2.7,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Coca-Cola",
+  "price": 2.7,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Fanta naranja",
+  "price": 2.7,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Fanta limón",
+  "price": 2.7,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Aquarius naranja",
+  "price": 2.7,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Aquarius limón",
+  "price": 2.7,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Nestea",
+  "price": 2.7,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Tónica",
+  "price": 2.7,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Sprite",
+  "price": 2.7,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Vichy",
+  "price": 2.5,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Botella gaseosa",
+  "price": 1.5,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Zumo melocotón",
+  "price": 2.7,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Zumo naranja",
+  "price": 2.7,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Bitter Kas",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Fanta / Coca-Cola litro",
+  "price": 3.9,
+  "description": ""
+ },
+ {
+  "category": "Refrescos",
+  "name": "Cacaolat",
+  "price": 1.9,
+  "description": ""
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Copa tinto de verano",
+  "price": 3.9,
+  "description": ""
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Copa sangría",
+  "price": 3.9,
+  "description": ""
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Copa cava",
+  "price": 3.9,
+  "description": ""
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Rosado Viñas del Vero",
+  "price": 12.5,
+  "description": ""
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Lambrusco Emilia",
+  "price": 12.0,
+  "description": ""
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Copa Mas de la Pau tinto",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Copa Rioja",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Botella Mas de la Pau",
+  "price": 11.5,
+  "description": "Montsant"
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Ramón Bilbao",
+  "price": 16.0,
+  "description": "Crianza Rioja"
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Herència Altés tinto",
+  "price": 16.0,
+  "description": "Terra Alta"
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Copa Grimau blanco",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Copa Verdejo",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Herència Altés blanco",
+  "price": 16.0,
+  "description": "Terra Alta"
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Grimau blanco",
+  "price": 13.0,
+  "description": "DO Penedès"
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Carramata",
+  "price": 12.0,
+  "description": "Rueda"
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Cava Brut Nature",
+  "price": 13.5,
+  "description": ""
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Botellín cava",
+  "price": 4.9,
+  "description": ""
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Sangría de vino",
+  "price": 11.5,
+  "description": ""
+ },
+ {
+  "category": "Vinos y cavas",
+  "name": "Sangría de cava",
+  "price": 12.9,
+  "description": ""
+ },
+ {
+  "category": "Cafés e infusiones",
+  "name": "Café solo",
+  "price": 1.3,
+  "description": ""
+ },
+ {
+  "category": "Cafés e infusiones",
+  "name": "Café cortado",
+  "price": 1.5,
+  "description": ""
+ },
+ {
+  "category": "Cafés e infusiones",
+  "name": "Café con leche",
+  "price": 1.9,
+  "description": ""
+ },
+ {
+  "category": "Cafés e infusiones",
+  "name": "Carajillo",
+  "price": 2.5,
+  "description": ""
+ },
+ {
+  "category": "Cafés e infusiones",
+  "name": "Infusiones",
+  "price": 2.5,
+  "description": ""
+ },
+ {
+  "category": "Cafés e infusiones",
+  "name": "Americano",
+  "price": 1.9,
+  "description": ""
+ },
+ {
+  "category": "Cafés e infusiones",
+  "name": "Trifásico",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Combinados",
+  "name": "JB",
+  "price": 8.0,
+  "description": ""
+ },
+ {
+  "category": "Combinados",
+  "name": "Tanqueray",
+  "price": 8.0,
+  "description": ""
+ },
+ {
+  "category": "Combinados",
+  "name": "Seagram’s gin",
+  "price": 8.0,
+  "description": ""
+ },
+ {
+  "category": "Combinados",
+  "name": "Nordés gin",
+  "price": 9.0,
+  "description": ""
+ },
+ {
+  "category": "Combinados",
+  "name": "Gin Mare",
+  "price": 10.0,
+  "description": ""
+ },
+ {
+  "category": "Combinados",
+  "name": "Ron Barceló",
+  "price": 8.0,
+  "description": ""
+ },
+ {
+  "category": "Combinados",
+  "name": "Cacique",
+  "price": 8.0,
+  "description": ""
+ },
+ {
+  "category": "Combinados",
+  "name": "Havana Club",
+  "price": 9.0,
+  "description": ""
+ },
+ {
+  "category": "Combinados",
+  "name": "Brugal",
+  "price": 8.0,
+  "description": ""
+ },
+ {
+  "category": "Combinados",
+  "name": "Absolut vodka",
+  "price": 8.0,
+  "description": ""
+ },
+ {
+  "category": "Combinados",
+  "name": "Fernet Cola",
+  "price": 8.0,
+  "description": ""
+ },
+ {
+  "category": "Combinados",
+  "name": "Calimocho",
+  "price": 5.0,
+  "description": ""
+ },
+ {
+  "category": "Combinados",
+  "name": "Puerto de Indias",
+  "price": 8.0,
+  "description": ""
+ },
+ {
+  "category": "Vermuts",
+  "name": "Miró",
+  "price": 2.5,
+  "description": ""
+ },
+ {
+  "category": "Vermuts",
+  "name": "Martini blanco",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Vermuts",
+  "name": "Promo vermut + patatas",
+  "price": 3.9,
+  "description": ""
+ },
+ {
+  "category": "Vermuts",
+  "name": "Promo vermut + olivas",
+  "price": 3.9,
+  "description": ""
+ },
+ {
+  "category": "Vermuts",
+  "name": "Yzaguirre negro",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Vermuts",
+  "name": "Yzaguirre blanco",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Chupito Baileys",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Chupito orujo blanco",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Chupito orujo hierbas",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Chupito limoncello",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Chupito arroz",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Chupito Jack Daniel’s",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Chupito Ballantine’s",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Chupito JB",
+  "price": 2.9,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Chupito Chartreuse amarillo",
+  "price": 3.9,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Chupito Chartreuse verde",
+  "price": 3.9,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Chupito sin alcohol manzana",
+  "price": 2.3,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Copa Baileys",
+  "price": 4.3,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Copa arroz",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Copa hierbas",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Copa orujo blanco",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Copa limoncello",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Copa Chartreuse verde",
+  "price": 7.5,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Copa Chartreuse amarillo",
+  "price": 6.9,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Copa JB",
+  "price": 3.5,
+  "description": ""
+ },
+ {
+  "category": "Licores",
+  "name": "Copa Jack Daniel’s",
+  "price": 5.5,
+  "description": ""
+ },
+ {
+  "category": "Extras y varios",
+  "name": "Caja",
+  "price": 0.5,
+  "description": ""
+ },
+ {
+  "category": "Extras y varios",
+  "name": "Extra ingrediente",
+  "price": 2.0,
+  "description": ""
+ },
+ {
+  "category": "Extras y varios",
+  "name": "Vaso de leche",
+  "price": 1.5,
+  "description": ""
+ },
+ {
+  "category": "Extras y varios",
+  "name": "ColaCao",
+  "price": 2.5,
+  "description": ""
+ },
+ {
+  "category": "Extras y varios",
+  "name": "Hielo",
+  "price": 0.1,
+  "description": ""
+ },
+ {
+  "category": "Extras y varios",
+  "name": "Doble masa",
+  "price": 3.0,
+  "description": ""
+ },
+ {
+  "category": "Salsas",
+  "name": "Chili",
+  "price": 1.5,
+  "description": ""
+ },
+ {
+  "category": "Salsas",
+  "name": "Ketchup",
+  "price": 1.5,
+  "description": ""
+ },
+ {
+  "category": "Salsas",
+  "name": "Miel",
+  "price": 1.5,
+  "description": ""
+ },
+ {
+  "category": "Salsas",
+  "name": "Barbacoa",
+  "price": 1.5,
+  "description": ""
+ },
+ {
+  "category": "Salsas",
+  "name": "Salsa picante",
+  "price": 1.0,
+  "description": ""
+ },
+ {
+  "category": "Salsas",
+  "name": "Salsa criolla",
+  "price": 1.5,
+  "description": ""
+ },
+ {
+  "category": "Salsas",
+  "name": "Salsa patata brava",
+  "price": 1.5,
+  "description": ""
+ }
+]
