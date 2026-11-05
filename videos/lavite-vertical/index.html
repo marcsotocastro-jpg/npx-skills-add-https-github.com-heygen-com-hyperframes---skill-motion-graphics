@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>LA VITE Aesthetics Boutique — vídeo promocional</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 400; src: url("assets/fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 500; src: url("assets/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 400; font-style: italic; src: url("assets/fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2"); }
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 500; font-style: italic; src: url("assets/fonts/cormorant-garamond-latin-500-italic.woff2") format("woff2"); }
+      @font-face { font-family: "Jost"; font-weight: 300; src: url("assets/fonts/jost-latin-300-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Jost"; font-weight: 400; src: url("assets/fonts/jost-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Jost"; font-weight: 500; src: url("assets/fonts/jost-latin-500-normal.woff2") format("woff2"); }
+
+      /* Brand tokens, taken from the LA VITE site */
+      :root {
+        --cream: #f7f3ee; --sand: #efe6dc; --paper: #fffdfa;
+        --ink: #231e1b; --ink2: #2d2723; --text: #2a2420; --muted: #6f655d;
+        --gold: #b39257; --gold-d: #866a3a; --gold-l: #d6bf8f;
+        --line: rgba(35, 30, 27, 0.14);
+        --serif: "Cormorant Garamond", Georgia, serif;
+        --sans: "Jost", system-ui, sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--cream); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: var(--sans); color: var(--text); }
+      .clip { position: absolute; inset: 0; }
+      img { display: block; }
+
+      /* ---------- Shared ---------- */
+      .eyebrow { display: flex; align-items: center; gap: 22px; font: 400 24px/1 var(--sans); letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold-d); }
+      .eyebrow i { display: block; width: 70px; height: 2px; background: currentColor; }
+      .center .eyebrow { justify-content: center; }
+      .title { font: 400 108px/1.0 var(--serif); letter-spacing: -0.01em; color: var(--text); }
+      .title em { font-style: italic; color: var(--gold-d); }
+      .ln { display: block; overflow: hidden; padding-bottom: 0.1em; }
+      .ln > span { display: inline-block; }
+      .lead { font: 300 34px/1.45 var(--sans); color: var(--muted); }
+      .center { text-align: center; }
+      .grain { position: absolute; inset: 0; background-image: radial-gradient(rgba(35, 30, 27, 0.05) 1.2px, transparent 1.2px); background-size: 28px 28px; opacity: 0.6; }
+      .glow { position: absolute; border-radius: 50%; }
+
+      #bg { background: var(--cream); overflow: hidden; }
+      .glow--a { left: 200px; top: -300px; width: 1400px; height: 1400px; background: radial-gradient(closest-side, rgba(214, 191, 143, 0.35), transparent); }
+      .glow--b { left: -600px; top: 1100px; width: 1300px; height: 1300px; background: radial-gradient(closest-side, rgba(214, 191, 143, 0.28), transparent); }
+
+      /* ---------- 1 · Hook ---------- */
+      #s1 .ph { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; }
+      #s1 .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+      #s1 .frame { position: absolute; left: 70px; top: 140px; width: 940px; height: 1160px; border: 2px solid var(--gold); border-radius: 470px 470px 0 0; }
+      #s1 .copy { position: absolute; left: 90px; top: 1380px; width: 900px; }
+      #s1 h1 { margin-top: 30px; font: 400 128px/0.98 var(--serif); letter-spacing: -0.015em; }
+      #s1 h1 em { font-style: italic; color: var(--gold-d); }
+
+      /* ---------- 2 · Brand ---------- */
+      #s2 .logo { position: absolute; left: 160px; top: 230px; width: 760px; }
+      #s2 .rule { position: absolute; left: 440px; top: 640px; width: 200px; height: 2px; background: var(--gold); }
+      #s2 .copy { position: absolute; left: 70px; top: 720px; width: 940px; }
+      #s2 .title { margin-top: 34px; font-size: 92px; }
+      #s2 .lead { margin: 36px auto 0; max-width: 24ch; }
+      #s2 .row { position: absolute; left: 70px; top: 1380px; width: 940px; display: flex; gap: 20px; }
+      #s2 .tile { flex: 1; height: 420px; overflow: hidden; border-radius: 160px 160px 0 0; }
+      #s2 .tile img { width: 100%; height: 100%; object-fit: cover; }
+
+      /* ---------- 3 · Values ---------- */
+      #s3 .wash { position: absolute; inset: 0; background: var(--sand); }
+      #s3 .arch { position: absolute; left: 90px; top: 130px; width: 900px; height: 980px; overflow: hidden; border-radius: 450px 450px 0 0; }
+      #s3 .arch img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+      #s3 .tag { position: absolute; left: 90px; top: 1040px; padding: 22px 30px; background: var(--paper); font: italic 400 40px/1 var(--serif); color: var(--text); box-shadow: 0 30px 60px -30px rgba(35, 30, 27, 0.4); }
+      .vals { position: absolute; left: 90px; top: 1200px; width: 900px; }
+      .val { display: flex; align-items: baseline; gap: 34px; padding: 30px 0; border-top: 2px solid var(--line); }
+      .val b { width: 80px; font: italic 400 54px/1 var(--serif); color: var(--gold-d); }
+      .val h3 { font: 400 64px/1 var(--serif); color: var(--text); }
+      .val p { margin-top: 10px; font: 300 28px/1.3 var(--sans); color: var(--muted); }
+
+      /* ---------- 4 · Treatments ---------- */
+      #s4 .head { position: absolute; left: 70px; top: 130px; width: 940px; }
+      #s4 .title { margin-top: 28px; font-size: 96px; }
+      .deck { position: absolute; left: 90px; top: 520px; width: 900px; height: 1100px; }
+      .card { position: absolute; left: 0; top: 0; width: 900px; height: 1060px; background: var(--paper); box-shadow: 0 50px 90px -40px rgba(35, 30, 27, 0.45), 0 0 0 1.5px var(--line); }
+      .card .pic { position: absolute; left: 26px; top: 26px; width: 848px; height: 620px; overflow: hidden; }
+      .card .pic img { width: 100%; height: 100%; object-fit: cover; }
+      .card .no { position: absolute; left: 50px; top: 50px; padding: 10px 16px; background: rgba(255, 253, 250, 0.92); font: 400 24px/1 var(--sans); letter-spacing: 0.2em; color: var(--text); }
+      .card h3 { position: absolute; left: 56px; top: 690px; width: 790px; font: 400 76px/1 var(--serif); color: var(--text); }
+      .card p { position: absolute; left: 56px; top: 800px; width: 780px; font: 300 32px/1.4 var(--sans); color: var(--muted); }
+      .card .more { position: absolute; left: 56px; top: 940px; padding: 20px 28px; border: 1.5px solid var(--gold); font: 400 22px/1 var(--sans); letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-d); }
+      .count { position: absolute; left: 90px; top: 1700px; width: 900px; display: flex; align-items: center; gap: 24px; font: 400 26px/1 var(--sans); letter-spacing: 0.2em; color: var(--muted); }
+      .count .bar { flex: 1; height: 2px; background: var(--line); position: relative; }
+      .count .bar i { position: absolute; left: 0; top: 0; height: 2px; width: 100%; background: var(--gold); transform-origin: 0 50%; }
+      .count b { font: italic 400 44px/1 var(--serif); letter-spacing: 0; color: var(--gold-d); width: 56px; }
+
+      /* ---------- 5 · The web in a phone ---------- */
+      #s5 .wash { position: absolute; inset: 0; background: var(--ink); }
+      #s5 .glow--c { left: -200px; top: 300px; width: 1500px; height: 1500px; background: radial-gradient(closest-side, rgba(179, 146, 87, 0.30), transparent); }
+      #s5 .head { position: absolute; left: 70px; top: 120px; width: 940px; }
+      #s5 .eyebrow { color: var(--gold-l); }
+      #s5 .title { margin-top: 24px; font-size: 96px; color: var(--cream); }
+      #s5 .title em { color: var(--gold-l); }
+      #phone { position: absolute; z-index: 2; left: 245px; top: 520px; width: 590px; height: 1082px; border-radius: 74px; background: #0d0b0a; padding: 16px;
+        box-shadow: 0 80px 140px -30px rgba(0, 0, 0, 0.9), inset 0 0 0 3px #4a4038, 0 0 0 2px rgba(214, 191, 143, 0.25); }
+      .screen { position: relative; width: 558px; height: 1050px; border-radius: 60px; overflow: hidden; background: var(--cream); }
+      .screen video { position: absolute; left: 0; top: 0; width: 558px; height: 1050px; object-fit: cover; }
+      .notch { position: absolute; left: 50%; top: 30px; width: 130px; height: 34px; margin-left: -65px; border-radius: 20px; background: #0d0b0a; }
+      .callout { position: absolute; z-index: 5; display: flex; align-items: center; gap: 16px; padding: 22px 30px; background: var(--paper); box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7); font: 400 30px/1 var(--sans); color: var(--text); white-space: nowrap; }
+      .callout i { display: block; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 7px rgba(179, 146, 87, 0.25); }
+      #co1 { left: 50px; top: 760px; } #co2 { left: 560px; top: 1010px; } #co3 { left: 50px; top: 1260px; } #co4 { left: 560px; top: 1480px; }
+      #s5 .url { position: absolute; left: 0; width: 1080px; top: 1700px; text-align: center; font: 400 30px/1 var(--sans); letter-spacing: 0.12em; color: var(--gold-l); }
+
+      /* ---------- 6 · Luxury ---------- */
+      #s6 .wash { position: absolute; inset: 0; background: var(--ink); }
+      #s6 .ph { position: absolute; left: 0; top: 0; width: 1080px; height: 1240px; overflow: hidden; }
+      #s6 .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+      #s6 .fade { position: absolute; left: 0; top: 700px; width: 1080px; height: 560px; background: linear-gradient(rgba(35, 30, 27, 0), var(--ink)); }
+      #s6 .copy { position: absolute; left: 90px; top: 1180px; width: 900px; }
+      #s6 .eyebrow { color: var(--gold-l); }
+      #s6 .title { margin-top: 30px; font-size: 112px; color: var(--cream); }
+      #s6 .title em { color: var(--gold-l); }
+
+      /* ---------- 7 · CTA ---------- */
+      #s7 .wash { position: absolute; inset: 0; background: var(--cream); }
+      #s7 .logo { position: absolute; left: 290px; top: 110px; width: 500px; }
+      #s7 .copy { position: absolute; left: 70px; top: 380px; width: 940px; }
+      #s7 .title { margin-top: 26px; font-size: 112px; }
+      #s7 .arch { position: absolute; left: 300px; top: 760px; width: 480px; height: 600px; overflow: hidden; border-radius: 240px 240px 0 0; }
+      #s7 .arch img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+      #s7 .ring { position: absolute; left: 280px; top: 740px; width: 520px; height: 640px; border: 2px solid var(--gold); border-radius: 260px 260px 0 0; }
+      .ctas { position: absolute; left: 90px; top: 1430px; width: 900px; display: flex; flex-direction: column; gap: 20px; }
+      .btn { display: flex; align-items: center; justify-content: center; gap: 20px; height: 112px; font: 400 30px/1 var(--sans); letter-spacing: 0.24em; text-transform: uppercase; white-space: nowrap; }
+      .btn.primary { background: var(--ink); color: var(--cream); }
+      .btn.gold { background: var(--gold); color: var(--ink); }
+      .btn svg { width: 34px; height: 34px; flex: none; }
+      .meta { position: absolute; left: 0; width: 1080px; top: 1720px; text-align: center; font: 400 28px/1.6 var(--sans); letter-spacing: 0.08em; color: var(--muted); }
+      .meta b { font-weight: 500; color: var(--text); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="38" data-width="1080" data-height="1920">
+
+      <!-- Music bed (generated by scripts/make-music.py, cut to the scene starts) -->
+      <audio id="bgm" data-start="0" data-duration="38" data-volume="1" data-fade-out="2" src="assets/audio/lavite-bgm.m4a"></audio>
+
+      <!-- Persistent cream background with soft golden light -->
+      <div id="bg" class="clip" data-start="0" data-duration="38" data-track-index="0">
+        <div class="glow glow--a" id="glow-a" data-layout-allow-overflow></div>
+        <div class="glow glow--b" id="glow-b" data-layout-allow-overflow></div>
+        <div class="grain"></div>
+      </div>
+
+      <!-- 1 · Hook: the face fills the frame, then settles into the site's arch -->
+      <section id="s1" class="clip" data-start="0" data-duration="4.5" data-track-index="1">
+        <div class="ph" id="s1-ph"><img id="s1-img" src="assets/img/face.jpg" alt="" /></div>
+        <div class="frame" id="s1-frame"></div>
+        <div class="copy">
+          <div class="eyebrow" id="s1-eye"><i></i>Vila-seca · Costa Dorada</div>
+          <h1>
+            <span class="ln"><span>Tu belleza.</span></span>
+            <span class="ln"><span>Tu esencia.</span></span>
+            <span class="ln"><span><em>Tu momento.</em></span></span>
+          </h1>
+        </div>
+      </section>
+
+      <!-- 2 · Brand: logo, promise and three treatment tiles -->
+      <section id="s2" class="clip" data-start="4.5" data-duration="3.5" data-track-index="1">
+        <img class="logo" id="s2-logo" src="assets/img/logo.png" alt="LA VITE Aesthetic Boutique" />
+        <div class="rule" id="s2-rule"></div>
+        <div class="copy center">
+          <div class="eyebrow" id="s2-eye">Nuestra esencia</div>
+          <h2 class="title">
+            <span class="ln"><span>Mucho más que estética.</span></span>
+            <span class="ln"><span><em>Una forma de cuidarte.</em></span></span>
+          </h2>
+        </div>
+        <div class="row">
+          <div class="tile"><img src="assets/img/facial.jpg" alt="" /></div>
+          <div class="tile"><img src="assets/img/corporal.jpg" alt="" /></div>
+          <div class="tile"><img src="assets/img/depil.jpg" alt="" /></div>
+        </div>
+      </section>
+
+      <!-- 3 · Values -->
+      <section id="s3" class="clip" data-start="8" data-duration="3.5" data-track-index="1">
+        <div class="wash" id="s3-wash"></div>
+        <div class="arch" id="s3-arch"><img id="s3-img" src="assets/img/bluelight.jpg" alt="" /></div>
+        <div class="tag" id="s3-tag">Atención personalizada</div>
+        <div class="vals">
+          <div class="val"><b>I</b><div><h3>Personalización</h3><p>Cada tratamiento se diseña contigo.</p></div></div>
+          <div class="val"><b>II</b><div><h3>Cercanía</h3><p>Un trato amable, sin prisas.</p></div></div>
+          <div class="val"><b>III</b><div><h3>Detalle</h3><p>Meticulosidad en cada gesto.</p></div></div>
+        </div>
+      </section>
+
+      <!-- 4 · The six treatments as a deck of cards -->
+      <section id="s4" class="clip" data-start="11.5" data-duration="8.5" data-track-index="1">
+        <div class="head center">
+          <div class="eyebrow" id="s4-eye">El universo de tratamientos</div>
+          <h2 class="title">
+            <span class="ln"><span>Un cuidado para cada</span></span>
+            <span class="ln"><span><em>detalle de ti.</em></span></span>
+          </h2>
+        </div>
+        <div class="deck" data-layout-allow-overlap data-layout-allow-occlusion>
+          <div class="card" id="c0"><div class="pic"><img src="assets/img/micro.jpg" alt="" /></div><div class="no">01</div><h3>Micropigmentación</h3><p>Realce armonioso de cejas, labios u ojos, con un acabado natural.</p><div class="more">Descubrir tratamiento ↘</div></div>
+          <div class="card" id="c1"><div class="pic"><img src="assets/img/facial.jpg" alt="" /></div><div class="no">02</div><h3>Tratamientos faciales</h3><p>Rituales para la luminosidad y la hidratación de tu piel.</p><div class="more">Descubrir tratamiento ↘</div></div>
+          <div class="card" id="c2"><div class="pic"><img src="assets/img/corporal.jpg" alt="" /></div><div class="no">03</div><h3>Tratamientos corporales</h3><p>Bienestar para tu cuerpo y el aspecto de tu piel.</p><div class="more">Descubrir tratamiento ↘</div></div>
+          <div class="card" id="c3"><div class="pic"><img src="assets/img/cejas.jpg" alt="" /></div><div class="no">04</div><h3>Cejas y pestañas</h3><p>Diseño y definición de la mirada.</p><div class="more">Descubrir tratamiento ↘</div></div>
+          <div class="card" id="c4"><div class="pic"><img src="assets/img/masaje.jpg" alt="" /></div><div class="no">05</div><h3>Masajes y bienestar</h3><p>Un paréntesis de calma para el cuerpo y la mente.</p><div class="more">Descubrir tratamiento ↘</div></div>
+          <div class="card" id="c5"><div class="pic"><img src="assets/img/depil.jpg" alt="" /></div><div class="no">06</div><h3>Depilación y despigmentación</h3><p>Láser y despigmentación, con claridad y sin promesas exageradas.</p><div class="more">Descubrir tratamiento ↘</div></div>
+        </div>
+        <div class="count" id="s4-count"><b id="cnum">01</b><div class="bar"><i id="cbar"></i></div><span>06</span></div>
+      </section>
+
+      <!-- 5 · The website in a phone -->
+      <section id="s5" class="clip" data-start="20" data-duration="8.5" data-track-index="1">
+        <div class="wash"></div>
+        <div class="glow glow--c" data-layout-allow-overflow></div>
+        <div class="head center">
+          <div class="eyebrow" id="s5-eye">Descubre la web</div>
+          <h2 class="title"><span class="ln"><span>Tu cita, <em>a un toque.</em></span></span></h2>
+        </div>
+        <div class="callout" id="co1"><i></i>Diseño a medida</div>
+        <div class="callout" id="co2"><i></i>6 tratamientos</div>
+        <div class="callout" id="co3"><i></i>Reserva online</div>
+        <div class="callout" id="co4"><i></i>WhatsApp directo</div>
+        <div class="url" id="s5-url">la-vite-aesthetics.agcy.dev</div>
+      </section>
+
+      <!-- Phone lives outside #s5 so its videos keep their own absolute timing -->
+      <div id="phone">
+          <div class="screen">
+            <video id="tour-a" class="clip" data-start="20" data-duration="4.4" data-media-start="0" muted playsinline src="assets/video/tour-a.mp4"></video>
+            <video id="tour-b" class="clip" data-start="24.4" data-duration="4.1" data-media-start="2.4" muted playsinline src="assets/video/tour-b.mp4"></video>
+          </div>
+          <div class="notch"></div>
+        </div>
+
+      <!-- 6 · The promise -->
+      <section id="s6" class="clip" data-start="28.5" data-duration="3.5" data-track-index="1">
+        <div class="wash"></div>
+        <div class="ph" id="s6-ph" data-layout-allow-overflow><img id="s6-img" src="assets/img/dark.jpg" alt="" /></div>
+        <div class="fade"></div>
+        <div class="copy">
+          <div class="eyebrow" id="s6-eye"><i></i>La experiencia LA VITE</div>
+          <h2 class="title">
+            <span class="ln"><span>El verdadero lujo es</span></span>
+            <span class="ln"><span><em>sentirte bien</em></span></span>
+            <span class="ln"><span><em>contigo misma.</em></span></span>
+          </h2>
+        </div>
+      </section>
+
+      <!-- 7 · Call to action -->
+      <section id="s7" class="clip" data-start="32" data-duration="6" data-track-index="2">
+        <div class="wash" id="s7-wash"></div>
+        <img class="logo" id="s7-logo" src="assets/img/logo.png" alt="LA VITE Aesthetic Boutique" />
+        <div class="copy center">
+          <div class="eyebrow" id="s7-eye">Te esperamos en Vila-seca</div>
+          <h2 class="title"><span class="ln"><span>Reserva tu <em>momento.</em></span></span></h2>
+        </div>
+        <div class="ring" id="s7-ring"></div>
+        <div class="arch" id="s7-arch" data-layout-allow-overflow><img id="s7-img" src="assets/img/face.jpg" alt="" /></div>
+        <div class="ctas">
+          <div class="btn primary" id="cta1">
+            Reservar cita
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M6 6l12 12M18 8v10H8" /></svg>
+          </div>
+          <div class="btn gold" id="cta2">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z" /></svg>
+            877 238 536
+          </div>
+        </div>
+        <div class="meta" id="s7-meta"><b>la-vite-aesthetics.agcy.dev</b><br />@lavite.aesthetics · Vila-seca, Tarragona</div>
+      </section>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const out = "power3.out";
+      const inn = "power2.in";
+      const soft = "expo.out";
+      const silk = "power4.inOut";
+      const END = 38;
+
+      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: -300, y: 260, duration: END, ease: "none" }, 0);
+      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: 300, y: -200, duration: END, ease: "none" }, 0);
+
+      const rise = (sel, t, stagger = 0.12) => tl.fromTo(sel, { yPercent: 115 }, { yPercent: 0, duration: 1.0, ease: soft, stagger }, t);
+      const fadeUp = (sel, t, stagger = 0) => tl.fromTo(sel, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: out, stagger }, t);
+
+      // ---------- 1 · Hook ----------
+      tl.fromTo("#s1-img", { scale: 1.35 }, { scale: 1.0, duration: 4.5, ease: "power2.out" }, 0);
+      tl.fromTo("#s1-ph", { clipPath: "inset(0px 0px 0px 0px round 0px 0px 0px 0px)" },
+        { clipPath: "inset(160px 90px 640px 90px round 450px 450px 0px 0px)", duration: 1.5, ease: silk }, 0.6);
+      tl.fromTo("#s1-frame", { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 1.0, ease: out }, 1.6);
+      tl.fromTo("#s1-eye", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.8, ease: out }, 1.6);
+      rise("#s1 h1 .ln > span", 1.8, 0.22);
+      tl.to("#s1 .copy, #s1-frame", { opacity: 0, y: -40, duration: 0.45, ease: inn }, 4.0);
+      tl.to("#s1-ph", { clipPath: "inset(960px 540px 960px 540px round 450px 450px 0px 0px)", duration: 0.55, ease: "power3.in" }, 3.95);
+
+      // ---------- 2 · Brand ----------
+      tl.fromTo("#s2-logo", { opacity: 0, scale: 0.86, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.1, ease: out }, 4.5);
+      tl.fromTo("#s2-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: silk }, 5.0);
+      fadeUp("#s2-eye", 5.1);
+      rise("#s2 .title .ln > span", 5.25, 0.18);
+      tl.fromTo("#s2 .tile", { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.0, ease: soft, stagger: 0.12 }, 5.6);
+      tl.fromTo("#s2 .tile img", { scale: 1.3 }, { scale: 1.05, duration: 2.4, ease: "power2.out", stagger: 0.12 }, 5.6);
+      tl.to("#s2 .logo, #s2 .rule, #s2 .copy", { opacity: 0, y: -50, duration: 0.45, ease: inn, stagger: 0.04 }, 7.5);
+      tl.to("#s2 .tile", { yPercent: 110, duration: 0.5, ease: inn, stagger: 0.05 }, 7.45);
+
+      // ---------- 3 · Values ----------
+      tl.fromTo("#s3-wash", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.7, ease: silk }, 8.0);
+      tl.fromTo("#s3-arch", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.0, ease: silk }, 8.2);
+      tl.fromTo("#s3-img", { scale: 1.3 }, { scale: 1.02, duration: 3.3, ease: "power2.out" }, 8.2);
+      tl.fromTo("#s3-tag", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.7, ease: out }, 8.9);
+      tl.fromTo("#s3 .val", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.8, ease: out, stagger: 0.28 }, 9.0);
+      tl.to("#s3 .vals, #s3-tag", { opacity: 0, y: -40, duration: 0.4, ease: inn }, 11.1);
+      tl.to("#s3-arch", { clipPath: "inset(0% 0% 100% 0%)", duration: 0.5, ease: "power3.in" }, 11.0);
+      tl.to("#s3-wash", { clipPath: "inset(0% 0% 100% 0%)", duration: 0.5, ease: "power3.in" }, 11.15);
+
+      // ---------- 4 · Treatments ----------
+      fadeUp("#s4-eye", 11.6);
+      rise("#s4 .title .ln > span", 11.7, 0.16);
+      fadeUp("#s4-count", 12.2);
+      const T0 = 12.3, STEP = 1.25;
+      for (let i = 0; i < 6; i++) {
+        const t = T0 + i * STEP;
+        tl.fromTo(`#c${i}`, { x: 1100, rotation: 8, opacity: 1 }, { x: 0, rotation: (i % 2 ? 1.2 : -1.2), duration: 0.8, ease: "power4.out" }, t);
+        tl.fromTo(`#c${i} .pic img`, { scale: 1.25 }, { scale: 1.0, duration: 1.6, ease: "power2.out" }, t);
+        tl.fromTo(`#c${i} h3, #c${i} p, #c${i} .more`, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: out, stagger: 0.07 }, t + 0.3);
+        if (i > 0) tl.to(`#c${i - 1}`, { scale: 0.92, y: -40, opacity: 0.0, duration: 0.7, ease: "power2.inOut" }, t + 0.1);
+        tl.fromTo("#cbar", { scaleX: i / 6 }, { scaleX: (i + 1) / 6, duration: 0.7, ease: out, immediateRender: false, overwrite: "auto" }, t + 0.1);
+      }
+      const cnum = document.getElementById("cnum");
+      const ctr = { t: 0 };
+      tl.fromTo(ctr, { t: 0 }, { t: 6 * STEP, duration: 6 * STEP, ease: "none", onUpdate: () => { cnum.textContent = "0" + Math.min(6, Math.floor(ctr.t / STEP) + 1); } }, T0 + 0.25);
+      tl.to("#s4 .head, #s4-count", { opacity: 0, y: -40, duration: 0.4, ease: inn }, 19.6);
+      tl.to("#c5", { scale: 0.85, opacity: 0, duration: 0.5, ease: inn }, 19.5);
+
+      // ---------- 5 · Phone ----------
+      tl.fromTo("#s5 .wash", { clipPath: "circle(0% at 50% 60%)" }, { clipPath: "circle(120% at 50% 60%)", duration: 0.9, ease: silk }, 19.8);
+      fadeUp("#s5-eye", 20.2);
+      rise("#s5 .title .ln > span", 20.3);
+      tl.set("#phone", { autoAlpha: 0 }, 0);
+      tl.set("#phone", { autoAlpha: 1 }, 20.0);
+      tl.set("#phone", { autoAlpha: 0 }, 28.5);
+      tl.fromTo("#phone", { y: 900, rotation: -6 }, { y: 0, rotation: 0, duration: 1.1, ease: soft }, 20.0);
+      tl.to("#phone", { y: -16, duration: 3.3, ease: "sine.inOut", yoyo: true, repeat: 1 }, 21.2);
+      const cos = ["#co1", "#co2", "#co3", "#co4"];
+      cos.forEach((c, i) => {
+        const fromX = i % 2 ? 80 : -80;
+        tl.fromTo(c, { opacity: 0, x: fromX, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.7, ease: "back.out(1.6)" }, 21.4 + i * 1.3);
+      });
+      fadeUp("#s5-url", 22.0);
+      tl.to(cos.concat(["#s5 .head", "#s5-url"]), { opacity: 0, duration: 0.4, ease: inn }, 28.1);
+      tl.to("#phone", { y: 1000, rotation: 6, duration: 0.6, ease: "power3.in" }, 27.9);
+
+      // ---------- 6 · Promise ----------
+      tl.fromTo("#s6 .wash", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 28.5);
+      tl.fromTo("#s6-ph", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: out }, 28.5);
+      tl.fromTo("#s6-img", { scale: 1.25 }, { scale: 1.05, duration: 3.5, ease: "power1.out" }, 28.5);
+      fadeUp("#s6-eye", 28.9);
+      rise("#s6 .title .ln > span", 29.0, 0.22);
+      tl.to("#s6 .copy, #s6-ph", { opacity: 0, duration: 0.45, ease: inn }, 31.6);
+
+      // ---------- 7 · CTA ----------
+      tl.fromTo("#s7-wash", { clipPath: "inset(0% 0% 100% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.7, ease: silk }, 31.8);
+      tl.fromTo("#s7-logo", { opacity: 0, y: -30, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: out }, 32.3);
+      fadeUp("#s7-eye", 32.5);
+      rise("#s7 .title .ln > span", 32.6);
+      tl.fromTo("#s7-arch", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: silk }, 32.8);
+      tl.fromTo("#s7-img", { scale: 1.3 }, { scale: 1.0, duration: 5.2, ease: "power2.out" }, 32.8);
+      tl.fromTo("#s7-ring", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 1.0, ease: out }, 33.4);
+      tl.fromTo(".ctas .btn", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: out, stagger: 0.15 }, 33.6);
+      fadeUp("#s7-meta", 34.1);
+      for (let i = 0; i < 3; i++) tl.to("#cta1", { scale: 1.03, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut" }, 35.0 + i * 1.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
