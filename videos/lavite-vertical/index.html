@@ -106,7 +106,6 @@
       .callout { position: absolute; z-index: 5; display: flex; align-items: center; gap: 16px; padding: 22px 30px; background: var(--paper); box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7); font: 400 30px/1 var(--sans); color: var(--text); white-space: nowrap; }
       .callout i { display: block; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 7px rgba(179, 146, 87, 0.25); }
       #co1 { left: 50px; top: 760px; } #co2 { left: 560px; top: 1010px; } #co3 { left: 50px; top: 1260px; } #co4 { left: 560px; top: 1480px; }
-      #s5 .url { position: absolute; left: 0; width: 1080px; top: 1700px; text-align: center; font: 400 30px/1 var(--sans); letter-spacing: 0.12em; color: var(--gold-l); }
 
       /* ---------- 6 · Luxury ---------- */
       #s6 .wash { position: absolute; inset: 0; background: var(--ink); }
@@ -131,7 +130,7 @@
       .btn.primary { background: var(--ink); color: var(--cream); }
       .btn.gold { background: var(--gold); color: var(--ink); }
       .btn svg { width: 34px; height: 34px; flex: none; }
-      .meta { position: absolute; left: 0; width: 1080px; top: 1720px; text-align: center; font: 400 28px/1.6 var(--sans); letter-spacing: 0.08em; color: var(--muted); }
+      .meta { position: absolute; left: 0; width: 1080px; top: 1740px; text-align: center; font: 400 30px/1.6 var(--sans); letter-spacing: 0.08em; color: var(--muted); }
       .meta b { font-weight: 500; color: var(--text); }
     </style>
   </head>
@@ -224,7 +223,6 @@
         <div class="callout" id="co2"><i></i>6 tratamientos</div>
         <div class="callout" id="co3"><i></i>Reserva online</div>
         <div class="callout" id="co4"><i></i>WhatsApp directo</div>
-        <div class="url" id="s5-url">la-vite-aesthetics.agcy.dev</div>
       </section>
 
       <!-- Phone lives outside #s5 so its videos keep their own absolute timing -->
@@ -271,7 +269,7 @@
             877 238 536
           </div>
         </div>
-        <div class="meta" id="s7-meta"><b>la-vite-aesthetics.agcy.dev</b><br />@lavite.aesthetics · Vila-seca, Tarragona</div>
+        <div class="meta" id="s7-meta"><b>@lavite.aesthetics</b> · Vila-seca, Tarragona</div>
       </section>
     </div>
 
@@ -352,8 +350,7 @@
         const fromX = i % 2 ? 80 : -80;
         tl.fromTo(c, { opacity: 0, x: fromX, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.7, ease: "back.out(1.6)" }, 21.6 + i * 2.0);
       });
-      fadeUp("#s5-url", 22.0);
-      tl.to(cos.concat(["#s5 .head", "#s5-url"]), { opacity: 0, duration: 0.4, ease: inn }, 31.6);
+      tl.to(cos.concat(["#s5 .head"]), { opacity: 0, duration: 0.4, ease: inn }, 31.6);
       tl.to("#phone", { y: 1000, rotation: 6, duration: 0.6, ease: "power3.in" }, 31.4);
 
       // ---------- 6 · Promise ----------
