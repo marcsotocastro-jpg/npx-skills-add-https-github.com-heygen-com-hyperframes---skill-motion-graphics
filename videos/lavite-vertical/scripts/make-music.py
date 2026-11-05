@@ -13,14 +13,14 @@ import wave
 import numpy as np
 
 SR = 48000
-DUR = 38.0
+DUR = 41.5
 BPM = 84
 BEAT = 60 / BPM
 BAR = 4 * BEAT
 PULSE = 11.5                                   # soft groove from the treatments on
-SCENES = [4.5, 8.0, 11.5, 20.0, 28.5, 32.0]    # scene starts in index.html
+SCENES = [4.5, 8.0, 11.5, 20.0, 32.0, 35.5]    # scene starts in index.html
 CHIMES = [12.9, 14.15, 15.4, 16.65, 17.9, 19.15]  # one per treatment card
-END_CHORD = 32.0
+END_CHORD = 35.5
 rng = np.random.default_rng(7)
 
 n = int(SR * DUR)
