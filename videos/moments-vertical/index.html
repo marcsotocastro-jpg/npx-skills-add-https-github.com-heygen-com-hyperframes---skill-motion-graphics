@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Moments Floristería Cafetería — vídeo promocional</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 400; src: url("assets/fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 500; src: url("assets/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 400; font-style: italic; src: url("assets/fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2"); }
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 500; font-style: italic; src: url("assets/fonts/cormorant-garamond-latin-500-italic.woff2") format("woff2"); }
+      @font-face { font-family: "DM Sans"; font-weight: 300; src: url("assets/fonts/dm-sans-latin-300-normal.woff2") format("woff2"); }
+      @font-face { font-family: "DM Sans"; font-weight: 400; src: url("assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "DM Sans"; font-weight: 500; src: url("assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2"); }
+
+      /* Brand tokens, taken from the Moments site */
+      :root {
+        --cream: #f2ede2; --sand: #ece2d5; --paper: #fbf8f2; --sage: #d9dccb;
+        --green: #1f2a23; --green2: #2a382f; --text: #23261f; --muted: #5c5b52;
+        --rose: #a8675a; --rose-l: #e2b4a6; --leaf: #8d9a7a;
+        --line: rgba(35, 38, 31, 0.16);
+        --serif: "Cormorant Garamond", Georgia, serif;
+        --sans: "DM Sans", system-ui, sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--cream); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: var(--sans); color: var(--text); }
+      .clip { position: absolute; inset: 0; }
+      img { display: block; }
+
+      /* ---------- Shared ---------- */
+      .eyebrow { display: flex; align-items: center; gap: 22px; font: 400 23px/1 var(--sans); letter-spacing: 0.36em; text-transform: uppercase; color: var(--muted); }
+      .eyebrow i { display: block; width: 70px; height: 2px; background: var(--rose); }
+      .center .eyebrow { justify-content: center; }
+      .title { font: 400 104px/1.0 var(--serif); letter-spacing: -0.01em; color: var(--text); }
+      .title em { font-style: italic; }
+      .ln { display: block; overflow: hidden; padding-bottom: 0.12em; }
+      .ln > span { display: inline-block; }
+      .center { text-align: center; }
+      .wash { position: absolute; inset: 0; }
+      .link { display: inline-flex; align-items: center; gap: 16px; font: 500 24px/1 var(--sans); letter-spacing: 0.24em; text-transform: uppercase; color: var(--text); }
+      .link svg { width: 30px; height: 30px; }
+      .grain { position: absolute; inset: 0; background-image: radial-gradient(rgba(35, 38, 31, 0.05) 1.2px, transparent 1.2px); background-size: 28px 28px; opacity: 0.6; }
+      .glow { position: absolute; border-radius: 50%; }
+
+      #bg { background: var(--cream); overflow: hidden; }
+      .glow--a { left: 200px; top: -300px; width: 1400px; height: 1400px; background: radial-gradient(closest-side, rgba(226, 180, 166, 0.30), transparent); }
+      .glow--b { left: -600px; top: 1100px; width: 1300px; height: 1300px; background: radial-gradient(closest-side, rgba(141, 154, 122, 0.28), transparent); }
+
+      /* ---------- 1 · Hook ---------- */
+      #s1 .ph { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; }
+      #s1 .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; }
+      #s1 .frame { position: absolute; left: 120px; top: 180px; width: 900px; height: 1100px; border: 2px solid var(--rose); }
+      #s1 .quote { position: absolute; left: 60px; top: 1060px; width: 520px; padding: 30px 34px; background: var(--paper); box-shadow: 0 30px 60px -30px rgba(35, 38, 31, 0.45); }
+      #s1 .quote p { font: italic 400 36px/1.25 var(--serif); color: var(--text); }
+      #s1 .quote b { display: block; margin-top: 16px; font: 400 18px/1 var(--sans); letter-spacing: 0.3em; color: var(--muted); }
+      #s1 .copy { position: absolute; left: 90px; top: 1340px; width: 900px; }
+      #s1 h1 { margin-top: 30px; font: 400 124px/0.98 var(--serif); letter-spacing: -0.015em; }
+      #s1 h1 em { font-style: italic; }
+
+      /* ---------- 2 · Brand ---------- */
+      #s2 .logo { position: absolute; left: 175px; top: 170px; width: 730px; }
+      #s2 .sub { position: absolute; left: 0; top: 450px; width: 1080px; text-align: center; font: 500 26px/1 var(--sans); letter-spacing: 0.5em; text-transform: uppercase; color: var(--rose); }
+      #s2 .copy { position: absolute; left: 70px; top: 600px; width: 940px; }
+      #s2 .title { margin-top: 30px; font-size: 100px; }
+      #s2 .row { position: absolute; left: 70px; top: 1000px; width: 940px; display: flex; gap: 20px; }
+      #s2 .col { flex: 1; }
+      #s2 .tile { height: 620px; overflow: hidden; }
+      #s2 .tile img { width: 100%; height: 100%; object-fit: cover; }
+      #s2 .col h3 { margin-top: 26px; padding-top: 22px; border-top: 2px solid var(--line); font: 400 46px/1 var(--serif); color: var(--text); }
+      #s2 .col p { margin-top: 12px; font: 300 24px/1.35 var(--sans); color: var(--muted); }
+
+      /* ---------- 3 · Cafetería ---------- */
+      #s3 .wash { background: var(--green); }
+      #s3 .glow--c { right: -500px; top: -400px; width: 1300px; height: 1300px; background: radial-gradient(closest-side, rgba(141, 154, 122, 0.22), transparent); }
+      #s3 .head { position: absolute; left: 90px; top: 140px; width: 900px; }
+      #s3 .eyebrow { color: rgba(242, 237, 226, 0.6); }
+      #s3 .title { margin-top: 28px; color: var(--cream); font-size: 116px; }
+      #s3 .big { position: absolute; left: 90px; top: 500px; width: 900px; height: 432px; overflow: hidden; }
+      #s3 .sm { position: absolute; top: 952px; width: 440px; height: 346px; overflow: hidden; }
+      #s3 .sm--a { left: 90px; } #s3 .sm--b { left: 550px; }
+      #s3 img { width: 100%; height: 100%; object-fit: cover; }
+      #s3 .sm--b span { position: absolute; left: 0; bottom: 0; width: 100%; padding: 20px 24px; background: linear-gradient(rgba(31, 42, 35, 0), rgba(31, 42, 35, 0.85)); font: 400 18px/1 var(--sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream); }
+      #s3 ul { position: absolute; left: 90px; top: 1380px; width: 900px; list-style: none; }
+      #s3 li { display: flex; align-items: center; gap: 24px; padding: 22px 0; border-top: 1.5px solid rgba(242, 237, 226, 0.16); font: 300 38px/1 var(--sans); color: var(--cream); }
+      #s3 li i { display: block; width: 12px; height: 12px; border-radius: 50%; background: var(--rose-l); }
+      #s3 .btn { position: absolute; left: 90px; top: 1690px; display: flex; align-items: center; gap: 18px; padding: 30px 40px; background: var(--cream); font: 500 24px/1 var(--sans); letter-spacing: 0.24em; text-transform: uppercase; color: var(--green); }
+      #s3 .btn svg { width: 28px; height: 28px; }
+
+      /* ---------- 4 · Floristería deck ---------- */
+      #s4 .head { position: absolute; left: 70px; top: 120px; width: 940px; }
+      #s4 .title { margin-top: 26px; font-size: 104px; }
+      .deck { position: absolute; left: 90px; top: 470px; width: 900px; height: 1120px; }
+      .card { position: absolute; left: 0; top: 0; width: 900px; height: 1100px; background: var(--paper); box-shadow: 0 50px 90px -40px rgba(35, 38, 31, 0.45), 0 0 0 1.5px var(--line); }
+      .card .pic { position: absolute; left: 26px; top: 26px; width: 848px; height: 820px; overflow: hidden; }
+      .card .pic img { width: 100%; height: 100%; object-fit: cover; }
+      .card h3 { position: absolute; left: 50px; top: 890px; width: 700px; font: 400 72px/1 var(--serif); color: var(--text); }
+      .card p { position: absolute; left: 52px; top: 984px; width: 780px; font: 300 32px/1.3 var(--sans); color: var(--muted); }
+      .card .no { position: absolute; right: 50px; top: 904px; font: italic 400 48px/1 var(--serif); color: var(--rose); }
+      .count { position: absolute; left: 90px; top: 1660px; width: 900px; display: flex; align-items: center; gap: 24px; font: 400 26px/1 var(--sans); letter-spacing: 0.2em; color: var(--muted); }
+      .count .bar { flex: 1; height: 2px; background: var(--line); position: relative; }
+      .count .bar i { position: absolute; left: 0; top: 0; height: 2px; width: 100%; background: var(--rose); transform-origin: 0 50%; }
+      .count b { font: italic 400 44px/1 var(--serif); letter-spacing: 0; color: var(--rose); width: 56px; }
+      #s4 .more { position: absolute; left: 0; top: 1760px; width: 1080px; text-align: center; }
+
+      /* ---------- 5 · Gallery ---------- */
+      #s5 .wash { background: var(--sand); }
+      #s5 .cols { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; }
+      .gcol { position: absolute; top: 0; width: 470px; display: flex; flex-direction: column; gap: 20px; }
+      .gcol--a { left: 60px; } .gcol--b { left: 550px; }
+      .gcol div { width: 470px; overflow: hidden; }
+      .gcol img { width: 100%; height: 100%; object-fit: cover; }
+      #s5 .veil { position: absolute; left: 0; top: 0; width: 1080px; height: 860px; background: linear-gradient(var(--sand) 62%, rgba(236, 226, 213, 0)); }
+      #s5 .head { position: absolute; left: 90px; top: 150px; width: 900px; }
+      #s5 .title { margin-top: 26px; font-size: 112px; }
+
+      /* ---------- 6 · The website ---------- */
+      #s6 .wash { background: var(--green); }
+      #s6 .glow--d { left: -300px; top: 400px; width: 1600px; height: 1600px; background: radial-gradient(closest-side, rgba(226, 180, 166, 0.20), transparent); }
+      #s6 .head { position: absolute; left: 70px; top: 130px; width: 940px; }
+      #s6 .eyebrow { color: rgba(242, 237, 226, 0.6); }
+      #s6 .title { margin-top: 26px; font-size: 100px; color: var(--cream); }
+      #browser { position: absolute; z-index: 2; left: 60px; top: 520px; width: 960px; height: 1134px; border-radius: 22px; overflow: hidden; background: var(--cream);
+        box-shadow: 0 80px 140px -30px rgba(0, 0, 0, 0.85), 0 0 0 2px rgba(242, 237, 226, 0.14); }
+      .bar { position: absolute; left: 0; top: 0; width: 960px; height: 72px; background: #e6e0d4; display: flex; align-items: center; gap: 14px; padding: 0 28px; }
+      .bar i { display: block; width: 18px; height: 18px; border-radius: 50%; background: #c9c1b3; }
+      .bar i:nth-child(1) { background: #d98b7c; } .bar i:nth-child(2) { background: #dcbf7f; } .bar i:nth-child(3) { background: #9db08c; }
+      .bar span { margin-left: 30px; flex: 1; height: 42px; border-radius: 21px; background: var(--paper); display: flex; align-items: center; justify-content: center; gap: 12px; font: 400 21px/1 var(--sans); color: var(--muted); }
+      .bar span svg { width: 18px; height: 18px; }
+      .view { position: absolute; left: 0; top: 72px; width: 960px; height: 1062px; overflow: hidden; }
+      .view video { position: absolute; left: 0; top: 0; width: 960px; height: 1062px; object-fit: cover; }
+      .callout { position: absolute; z-index: 5; display: flex; align-items: center; gap: 16px; padding: 22px 30px; background: var(--paper); box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7); font: 400 30px/1 var(--sans); color: var(--text); white-space: nowrap; }
+      .callout i { display: block; width: 12px; height: 12px; border-radius: 50%; background: var(--rose); box-shadow: 0 0 0 7px rgba(168, 103, 90, 0.22); }
+      #co1 { left: 30px; top: 760px; } #co2 { right: 30px; top: 1010px; } #co3 { left: 30px; top: 1260px; } #co4 { right: 30px; top: 1500px; }
+
+      /* ---------- 7 · Visit ---------- */
+      #s7 .ph { position: absolute; left: 0; top: 0; width: 1080px; height: 1260px; overflow: hidden; }
+      #s7 .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
+      #s7 .fade { position: absolute; left: 0; top: 760px; width: 1080px; height: 520px; background: linear-gradient(rgba(242, 237, 226, 0), var(--cream) 92%); }
+      #s7 .copy { position: absolute; left: 90px; top: 1130px; width: 900px; }
+      #s7 .title { margin-top: 26px; font-size: 112px; }
+      .info { position: absolute; left: 90px; top: 1530px; width: 900px; display: flex; flex-direction: column; gap: 26px; }
+      .info div { display: flex; align-items: flex-start; gap: 24px; font: 400 34px/1.3 var(--sans); color: var(--text); }
+      .info small { display: block; margin-bottom: 6px; font: 400 18px/1 var(--sans); letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+      .info svg { flex: none; width: 36px; height: 36px; margin-top: 4px; color: var(--rose); }
+
+      /* ---------- 8 · CTA ---------- */
+      #s8 .wash { background: var(--sage); }
+      #s8 .icon { position: absolute; left: 470px; top: 130px; width: 140px; }
+      #s8 .copy { position: absolute; left: 60px; top: 360px; width: 960px; }
+      #s8 .title { margin-top: 30px; font-size: 104px; }
+      .arches { position: absolute; left: 90px; top: 960px; width: 900px; display: flex; gap: 20px; }
+      .arches div { flex: 1; height: 400px; overflow: hidden; border-radius: 150px 150px 0 0; }
+      .arches img { width: 100%; height: 100%; object-fit: cover; }
+      .ctas { position: absolute; left: 90px; top: 1430px; width: 900px; display: flex; flex-direction: column; gap: 20px; }
+      .btn2 { display: flex; align-items: center; justify-content: center; gap: 20px; height: 112px; font: 500 28px/1 var(--sans); letter-spacing: 0.24em; text-transform: uppercase; white-space: nowrap; }
+      .btn2.primary { background: var(--green); color: var(--cream); }
+      .btn2.ghost { border: 2px solid rgba(35, 38, 31, 0.35); color: var(--text); }
+      .btn2 svg { width: 32px; height: 32px; flex: none; }
+      .meta { position: absolute; left: 0; width: 1080px; top: 1720px; text-align: center; font: 400 28px/1.6 var(--sans); letter-spacing: 0.06em; color: var(--muted); }
+      .meta b { font-weight: 500; color: var(--text); }
+      .meta img { display: inline-block; width: 300px; margin-bottom: 18px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="45" data-width="1080" data-height="1920">
+
+      <!-- Music bed (generated by scripts/make-music.py, cut to the scene starts) -->
+      <audio id="bgm" data-start="0" data-duration="45" data-volume="1" data-fade-out="2" src="assets/audio/moments-bgm.m4a"></audio>
+
+      <!-- Persistent cream background with soft rose and leaf light -->
+      <div id="bg" class="clip" data-start="0" data-duration="45" data-track-index="0">
+        <div class="glow glow--a" id="glow-a" data-layout-allow-overflow></div>
+        <div class="glow glow--b" id="glow-b" data-layout-allow-overflow></div>
+        <div class="grain"></div>
+      </div>
+
+      <!-- 1 · Hook: the bouquet on the counter fills the frame, then settles into the site's hero -->
+      <section id="s1" class="clip" data-start="0" data-duration="5" data-track-index="1">
+        <div class="frame" id="s1-frame"></div>
+        <div class="ph" id="s1-ph"><img id="s1-img" src="assets/img/hero.jpg" alt="" /></div>
+        <div class="quote" id="s1-quote">
+          <p>«Las flores y el café comparten algo: invitan a bajar el ritmo.»</p>
+          <b>MOMENTS · VALLS</b>
+        </div>
+        <div class="copy">
+          <div class="eyebrow" id="s1-eye"><i></i>Floristería · Cafetería · Valls</div>
+          <h1>
+            <span class="ln"><span>Un pequeño oasis</span></span>
+            <span class="ln"><span><em>entre flores y café.</em></span></span>
+          </h1>
+        </div>
+      </section>
+
+      <!-- 2 · Brand: logo, promise and the three pillars -->
+      <section id="s2" class="clip" data-start="5" data-duration="4.5" data-track-index="1">
+        <img class="logo" id="s2-logo" src="assets/img/logo-green.png" alt="Moments" />
+        <div class="sub" id="s2-sub">Floristería · Cafetería</div>
+        <div class="copy center">
+          <div class="eyebrow" id="s2-eye">Nuestra esencia</div>
+          <h2 class="title">
+            <span class="ln"><span>Dos pasiones,</span></span>
+            <span class="ln"><span><em>un mismo espacio.</em></span></span>
+          </h2>
+        </div>
+        <div class="row">
+          <div class="col"><div class="tile"><img src="assets/img/counter.jpg" alt="" /></div><h3>Cafetería</h3><p>Desayunos, cafés y un ritmo tranquilo.</p></div>
+          <div class="col"><div class="tile"><img src="assets/img/roses.jpg" alt="" /></div><h3>Floristería</h3><p>Flores, plantas y detalles para cada momento.</p></div>
+          <div class="col"><div class="tile"><img src="assets/img/woman2.jpg" alt="" /></div><h3>En Valls</h3><p>En pleno centro, fácil de encontrar.</p></div>
+        </div>
+      </section>
+
+      <!-- 3 · La cafetería -->
+      <section id="s3" class="clip" data-start="9.5" data-duration="5" data-track-index="1">
+        <div class="wash" id="s3-wash"></div>
+        <div class="glow glow--c" data-layout-allow-overflow></div>
+        <div class="head">
+          <div class="eyebrow" id="s3-eye"><i></i>La cafetería</div>
+          <h2 class="title">
+            <span class="ln"><span>Desayunar</span></span>
+            <span class="ln"><span><em>sin prisas.</em></span></span>
+          </h2>
+        </div>
+        <div class="big" id="s3-big"><img src="assets/img/bouquet.jpg" alt="" /></div>
+        <div class="sm sm--a" id="s3-sa"><img src="assets/img/roses2.jpg" alt="" /></div>
+        <div class="sm sm--b" id="s3-sb"><img src="assets/img/white.jpg" alt="" /><span>Espacios para quedarse</span></div>
+        <ul>
+          <li><i></i>Cafés y bebidas calientes</li>
+          <li><i></i>Desayunos dulces</li>
+          <li><i></i>Opciones saladas y brunch</li>
+        </ul>
+        <div class="btn" id="s3-btn">Ver la cafetería
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 12h16M14 6l6 6-6 6" /></svg>
+        </div>
+      </section>
+
+      <!-- 4 · La floristería as a deck of cards -->
+      <section id="s4" class="clip" data-start="14.5" data-duration="7" data-track-index="1">
+        <div class="head center">
+          <div class="eyebrow" id="s4-eye">La floristería</div>
+          <h2 class="title">
+            <span class="ln"><span>El rincón floral</span></span>
+            <span class="ln"><span><em>de Moments.</em></span></span>
+          </h2>
+        </div>
+        <div class="deck" data-layout-allow-overlap data-layout-allow-occlusion>
+          <div class="card" id="c0"><div class="pic"><img src="assets/img/woman.jpg" alt="" /></div><h3>Flores y plantas</h3><b class="no">01</b><p>Para tu casa o para regalar.</p></div>
+          <div class="card" id="c1"><div class="pic"><img src="assets/img/white.jpg" alt="" /></div><h3>Un detalle con alma</h3><b class="no">02</b><p>Flores que cuentan algo.</p></div>
+          <div class="card" id="c2"><div class="pic"><img src="assets/img/man2.jpg" alt="" /></div><h3>Lo de temporada</h3><b class="no">03</b><p>La belleza de cada estación.</p></div>
+        </div>
+        <div class="count" id="s4-count"><b id="cnum">01</b><div class="bar"><i id="cbar"></i></div><span>03</span></div>
+      </section>
+
+      <!-- 5 · Gallery: two columns drifting in opposite directions -->
+      <section id="s5" class="clip" data-start="21.5" data-duration="4.5" data-track-index="1">
+        <div class="wash" id="s5-wash"></div>
+        <div class="cols" id="s5-cols">
+          <div class="gcol gcol--a" id="gca" data-layout-allow-overflow>
+            <div style="height: 620px"><img src="assets/img/white.jpg" alt="" /></div>
+            <div style="height: 470px"><img src="assets/img/man2.jpg" alt="" /></div>
+            <div style="height: 680px"><img src="assets/img/roses.jpg" alt="" /></div>
+            <div style="height: 470px"><img src="assets/img/woman.jpg" alt="" /></div>
+          </div>
+          <div class="gcol gcol--b" id="gcb" data-layout-allow-overflow>
+            <div style="height: 680px"><img src="assets/img/hero.jpg" alt="" /></div>
+            <div style="height: 560px"><img src="assets/img/gallery-roses.jpg" alt="" /></div>
+            <div style="height: 760px"><img src="assets/img/woman2.jpg" alt="" /></div>
+            <div style="height: 640px"><img src="assets/img/man.jpg" alt="" /></div>
+          </div>
+        </div>
+        <div class="veil"></div>
+        <div class="head">
+          <div class="eyebrow" id="s5-eye"><i></i>Galería</div>
+          <h2 class="title">
+            <span class="ln"><span>Momentos que</span></span>
+            <span class="ln"><span><em>se quedan.</em></span></span>
+          </h2>
+        </div>
+      </section>
+
+      <!-- 6 · The website in a browser window -->
+      <section id="s6" class="clip" data-start="26" data-duration="10" data-track-index="1">
+        <div class="wash" id="s6-wash"></div>
+        <div class="glow glow--d" data-layout-allow-overflow></div>
+        <div class="head center">
+          <div class="eyebrow" id="s6-eye">Descubre la web</div>
+          <h2 class="title">
+            <span class="ln"><span>Todo Moments,</span></span>
+            <span class="ln"><span><em>en una sola página.</em></span></span>
+          </h2>
+        </div>
+        <div class="callout" id="co1"><i></i>Diseño a medida</div>
+        <div class="callout" id="co2"><i></i>Cafetería y floristería</div>
+        <div class="callout" id="co3"><i></i>Galería de momentos</div>
+        <div class="callout" id="co4"><i></i>Cómo llegar, en un toque</div>
+      </section>
+
+      <!-- Browser lives outside #s6 so its video keeps its own absolute timing -->
+      <div id="browser">
+        <div class="bar"><i></i><i></i><i></i>
+          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M7 11V8a5 5 0 0 1 10 0v3M6 11h12v9H6z" /></svg>Moments · Floristería Cafetería · Valls</span>
+        </div>
+        <div class="view">
+          <video id="tour" class="clip" data-start="26.6" data-duration="9" data-media-start="0" muted playsinline src="assets/video/tour.mp4"></video>
+        </div>
+      </div>
+
+      <!-- 7 · Visit -->
+      <section id="s7" class="clip" data-start="36" data-duration="4" data-track-index="1">
+        <div class="ph" id="s7-ph" data-layout-allow-overflow><img id="s7-img" src="assets/img/man.jpg" alt="" /></div>
+        <div class="fade"></div>
+        <div class="copy">
+          <div class="eyebrow" id="s7-eye"><i></i>Encuéntranos</div>
+          <h2 class="title">
+            <span class="ln"><span>Una visita,</span></span>
+            <span class="ln"><span><em>un momento para ti.</em></span></span>
+          </h2>
+        </div>
+        <div class="info">
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6" /></svg><span><small>Dirección</small>Carrer Vapor de Maó, 13 · 43800 Valls</span></div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z" /></svg><span><small>Teléfono</small>666 69 87 08</span></div>
+        </div>
+      </section>
+
+      <!-- 8 · Call to action -->
+      <section id="s8" class="clip" data-start="40" data-duration="5" data-track-index="2">
+        <div class="wash" id="s8-wash"></div>
+        <img class="icon" id="s8-icon" src="assets/img/icon-green.png" alt="" />
+        <div class="copy center">
+          <div class="eyebrow" id="s8-eye">Te esperamos</div>
+          <h2 class="title">
+            <span class="ln"><span>Ven a conocernos</span></span>
+            <span class="ln"><span>y descubre <em>un nuevo</em></span></span>
+            <span class="ln"><span><em>rincón en Valls.</em></span></span>
+          </h2>
+        </div>
+        <div class="arches">
+          <div><img src="assets/img/woman.jpg" alt="" /></div>
+          <div><img src="assets/img/hero.jpg" alt="" /></div>
+          <div><img src="assets/img/man2.jpg" alt="" /></div>
+        </div>
+        <div class="ctas">
+          <div class="btn2 primary" id="cta1">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z" /></svg>
+            Llamar al 666 69 87 08
+          </div>
+          <div class="btn2 ghost" id="cta2">Encuentra Moments</div>
+        </div>
+        <div class="meta" id="s8-meta"><b>Carrer Vapor de Maó, 13</b> · Valls, Tarragona</div>
+      </section>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const out = "power3.out";
+      const inn = "power2.in";
+      const soft = "expo.out";
+      const silk = "power4.inOut";
+      const END = 45;
+
+      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: -300, y: 260, duration: END, ease: "none" }, 0);
+      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: 300, y: -200, duration: END, ease: "none" }, 0);
+
+      const rise = (sel, t, stagger = 0.12) => tl.fromTo(sel, { yPercent: 115 }, { yPercent: 0, duration: 1.0, ease: soft, stagger }, t);
+      const fadeUp = (sel, t, stagger = 0) => tl.fromTo(sel, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: out, stagger }, t);
+
+      // ---------- 1 · Hook ----------
+      tl.fromTo("#s1-img", { scale: 1.3 }, { scale: 1.0, duration: 5, ease: "power2.out" }, 0);
+      tl.fromTo("#s1-ph", { clipPath: "inset(0px 0px 0px 0px)" }, { clipPath: "inset(150px 90px 690px 90px)", duration: 1.6, ease: silk }, 0.7);
+      tl.fromTo("#s1-frame", { opacity: 0, x: -30, y: -30 }, { opacity: 1, x: 0, y: 0, duration: 1.0, ease: out }, 1.8);
+      tl.fromTo("#s1-quote", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, ease: out }, 2.4);
+      tl.fromTo("#s1-eye", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.8, ease: out }, 1.9);
+      rise("#s1 h1 .ln > span", 2.0, 0.22);
+      tl.to("#s1 .copy, #s1-frame, #s1-quote", { opacity: 0, y: -40, duration: 0.45, ease: inn }, 4.5);
+      tl.to("#s1-ph", { clipPath: "inset(960px 540px 960px 540px)", duration: 0.55, ease: "power3.in" }, 4.45);
+
+      // ---------- 2 · Brand ----------
+      tl.fromTo("#s2-logo", { opacity: 0, scale: 0.86, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.1, ease: out }, 5.0);
+      tl.fromTo("#s2-sub", { opacity: 0, scale: 1.12 }, { opacity: 1, scale: 1, duration: 1.2, ease: out }, 5.4);
+      fadeUp("#s2-eye", 5.6);
+      rise("#s2 .title .ln > span", 5.7, 0.18);
+      tl.fromTo("#s2 .col", { yPercent: 40, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.0, ease: soft, stagger: 0.14 }, 6.1);
+      tl.fromTo("#s2 .tile img", { scale: 1.3 }, { scale: 1.05, duration: 3.0, ease: "power2.out", stagger: 0.14 }, 6.1);
+      tl.to("#s2 .logo, #s2 .sub, #s2 .copy", { opacity: 0, y: -50, duration: 0.45, ease: inn, stagger: 0.04 }, 9.0);
+      tl.to("#s2 .col", { yPercent: 60, opacity: 0, duration: 0.5, ease: inn, stagger: 0.05 }, 8.95);
+
+      // ---------- 3 · Cafetería ----------
+      tl.fromTo("#s3-wash", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.7, ease: silk }, 9.4);
+      fadeUp("#s3-eye", 9.9);
+      rise("#s3 .title .ln > span", 10.0, 0.18);
+      tl.fromTo("#s3-big", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.0, ease: silk }, 10.2);
+      tl.fromTo("#s3-big img", { scale: 1.25 }, { scale: 1.02, duration: 4.2, ease: "power2.out" }, 10.2);
+      tl.fromTo("#s3-sa, #s3-sb", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.9, ease: silk, stagger: 0.15 }, 10.6);
+      tl.fromTo("#s3-sa img, #s3-sb img", { scale: 1.3 }, { scale: 1.05, duration: 3.8, ease: "power2.out" }, 10.6);
+      tl.fromTo("#s3 li", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.7, ease: out, stagger: 0.22 }, 11.3);
+      tl.fromTo("#s3-btn", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: out }, 12.2);
+      tl.to("#s3-btn", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut" }, 13.2);
+      tl.to("#s3 .head, #s3 ul, #s3-btn, #s3-big, #s3-sa, #s3-sb", { opacity: 0, y: -40, duration: 0.4, ease: inn, stagger: 0.03 }, 14.0);
+      tl.to("#s3-wash", { clipPath: "inset(0% 0% 100% 0%)", duration: 0.5, ease: "power3.in" }, 14.2);
+
+      // ---------- 4 · Floristería ----------
+      fadeUp("#s4-eye", 14.6);
+      rise("#s4 .title .ln > span", 14.7, 0.16);
+      fadeUp("#s4-count", 15.2);
+      const T0 = 15.2, STEP = 1.95;
+      for (let i = 0; i < 3; i++) {
+        const t = T0 + i * STEP;
+        tl.fromTo(`#c${i}`, { x: 1100, rotation: 8, opacity: 1 }, { x: 0, rotation: (i % 2 ? 1.5 : -1.5), duration: 0.85, ease: "power4.out" }, t);
+        tl.fromTo(`#c${i} .pic img`, { scale: 1.25 }, { scale: 1.0, duration: 2.2, ease: "power2.out" }, t);
+        tl.fromTo(`#c${i} h3, #c${i} .no, #c${i} p`, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: out, stagger: 0.08 }, t + 0.3);
+        if (i > 0) tl.to(`#c${i - 1}`, { scale: 0.92, y: -40, opacity: 0.0, duration: 0.7, ease: "power2.inOut" }, t + 0.1);
+        tl.fromTo("#cbar", { scaleX: i / 3 }, { scaleX: (i + 1) / 3, duration: 0.7, ease: out, immediateRender: false, overwrite: "auto" }, t + 0.1);
+      }
+      const cnum = document.getElementById("cnum");
+      const ctr = { t: 0 };
+      tl.fromTo(ctr, { t: 0 }, { t: 3 * STEP, duration: 3 * STEP, ease: "none", onUpdate: () => { cnum.textContent = "0" + Math.min(3, Math.floor(ctr.t / STEP) + 1); } }, T0 + 0.25);
+      tl.to("#s4 .head, #s4-count", { opacity: 0, y: -40, duration: 0.4, ease: inn }, 21.1);
+      tl.to("#c2", { scale: 0.85, opacity: 0, duration: 0.5, ease: inn }, 21.0);
+
+      // ---------- 5 · Gallery ----------
+      tl.fromTo("#s5-wash", { clipPath: "circle(0% at 50% 50%)" }, { clipPath: "circle(120% at 50% 50%)", duration: 0.8, ease: silk }, 21.4);
+      tl.fromTo("#gca", { y: 520 }, { y: -560, duration: 4.6, ease: "power1.inOut" }, 21.4);
+      tl.fromTo("#gcb", { y: -1200 }, { y: -80, duration: 4.6, ease: "power1.inOut" }, 21.4);
+      tl.fromTo("#s5-cols", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: out }, 21.6);
+      fadeUp("#s5-eye", 21.9);
+      rise("#s5 .title .ln > span", 22.0, 0.16);
+      tl.to("#s5 .head, #s5-cols", { opacity: 0, duration: 0.4, ease: inn }, 25.6);
+
+      // ---------- 6 · Website ----------
+      tl.fromTo("#s6-wash", { clipPath: "circle(0% at 50% 60%)" }, { clipPath: "circle(120% at 50% 60%)", duration: 0.9, ease: silk }, 25.8);
+      fadeUp("#s6-eye", 26.2);
+      rise("#s6 .title .ln > span", 26.3, 0.16);
+      tl.set("#browser", { autoAlpha: 0 }, 0);
+      tl.set("#browser", { autoAlpha: 1 }, 26.0);
+      tl.set("#browser", { autoAlpha: 0 }, 36.0);
+      tl.fromTo("#browser", { y: 1100, rotation: -4 }, { y: 0, rotation: 0, duration: 1.1, ease: soft }, 26.0);
+      tl.to("#browser", { y: -14, duration: 4.0, ease: "sine.inOut", yoyo: true, repeat: 1 }, 27.2);
+      const cos = ["#co1", "#co2", "#co3", "#co4"];
+      [27.2, 29.6, 32.0, 33.8].forEach((t, i) => {
+        const fromX = i % 2 ? 80 : -80;
+        tl.fromTo(cos[i], { opacity: 0, x: fromX, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.7, ease: "back.out(1.6)" }, t);
+      });
+      tl.to(cos.concat(["#s6 .head"]), { opacity: 0, duration: 0.4, ease: inn }, 35.6);
+      tl.to("#browser", { y: 1100, rotation: 4, duration: 0.6, ease: "power3.in" }, 35.4);
+      tl.to("#s6-wash", { opacity: 0, duration: 0.4 }, 35.8);
+
+      // ---------- 7 · Visit ----------
+      tl.fromTo("#s7-ph", { clipPath: "inset(0% 0% 100% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.9, ease: silk }, 36.0);
+      tl.fromTo("#s7-img", { scale: 1.25 }, { scale: 1.02, duration: 4.0, ease: "power1.out" }, 36.0);
+      fadeUp("#s7-eye", 36.4);
+      rise("#s7 .title .ln > span", 36.5, 0.2);
+      tl.fromTo(".info > div", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.7, ease: out, stagger: 0.2 }, 37.1);
+      tl.to("#s7 .copy, .info, #s7-ph", { opacity: 0, duration: 0.45, ease: inn }, 39.6);
+
+      // ---------- 8 · CTA ----------
+      tl.fromTo("#s8-wash", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.7, ease: silk }, 39.8);
+      tl.fromTo("#s8-icon", { opacity: 0, y: -30, scale: 0.8, filter: "blur(8px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.9, ease: out }, 40.2);
+      fadeUp("#s8-eye", 40.3);
+      rise("#s8 .title .ln > span", 40.4, 0.16);
+      tl.fromTo(".arches div", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.0, ease: silk, stagger: 0.12 }, 40.9);
+      tl.fromTo(".arches img", { scale: 1.3 }, { scale: 1.05, duration: 4.0, ease: "power2.out", stagger: 0.12 }, 40.9);
+      tl.fromTo(".ctas .btn2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: out, stagger: 0.15 }, 41.4);
+      fadeUp("#s8-meta", 41.8);
+      for (let i = 0; i < 2; i++) tl.to("#cta1", { scale: 1.03, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut" }, 42.7 + i * 1.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
