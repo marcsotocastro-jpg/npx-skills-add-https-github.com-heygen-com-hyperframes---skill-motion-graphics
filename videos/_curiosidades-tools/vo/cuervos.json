@@ -1,0 +1,393 @@
+{
+ "total": 26.33,
+ "lines": [
+  {
+   "i": 1,
+   "text": "¿Sabías que los cuervos pueden recordar tu cara durante años?",
+   "start": 0.35,
+   "end": 3.73,
+   "heard": "sabías que los cuervos pueden recordar tu cara durante años.",
+   "words": [
+    [
+     0.35,
+     0.79,
+     "sabías"
+    ],
+    [
+     0.79,
+     0.97,
+     "que"
+    ],
+    [
+     0.97,
+     1.09,
+     "los"
+    ],
+    [
+     1.09,
+     1.57,
+     "cuervos"
+    ],
+    [
+     1.57,
+     1.87,
+     "pueden"
+    ],
+    [
+     1.87,
+     2.45,
+     "recordar"
+    ],
+    [
+     2.45,
+     2.61,
+     "tu"
+    ],
+    [
+     2.61,
+     2.83,
+     "cara"
+    ],
+    [
+     2.83,
+     3.17,
+     "durante"
+    ],
+    [
+     3.17,
+     3.49,
+     "años."
+    ]
+   ]
+  },
+  {
+   "i": 2,
+   "text": "En un experimento, unos científicos con una máscara atraparon a varios cuervos.",
+   "start": 4.05,
+   "end": 8.59,
+   "heard": "en un experimento unos científicos con una máscara atraparon a varios cuervos.",
+   "words": [
+    [
+     4.05,
+     4.19,
+     "en"
+    ],
+    [
+     4.19,
+     4.33,
+     "un"
+    ],
+    [
+     4.33,
+     5.17,
+     "experimento"
+    ],
+    [
+     5.17,
+     5.37,
+     "unos"
+    ],
+    [
+     5.37,
+     6.27,
+     "científicos"
+    ],
+    [
+     6.27,
+     6.43,
+     "con"
+    ],
+    [
+     6.43,
+     6.61,
+     "una"
+    ],
+    [
+     6.61,
+     7.05,
+     "máscara"
+    ],
+    [
+     7.05,
+     7.59,
+     "atraparon"
+    ],
+    [
+     7.59,
+     7.67,
+     "a"
+    ],
+    [
+     7.67,
+     7.91,
+     "varios"
+    ],
+    [
+     7.91,
+     8.45,
+     "cuervos."
+    ]
+   ]
+  },
+  {
+   "i": 3,
+   "text": "Años después, los cuervos seguían graznando a cualquiera que llevara esa máscara.",
+   "start": 8.91,
+   "end": 13.75,
+   "heard": "Años después los cuervos serían grasnando a cualquiera que llevar a esa máscara.",
+   "words": [
+    [
+     8.91,
+     9.17,
+     "Años"
+    ],
+    [
+     9.17,
+     9.53,
+     "después"
+    ],
+    [
+     9.53,
+     10.07,
+     "los"
+    ],
+    [
+     10.07,
+     10.69,
+     "cuervos"
+    ],
+    [
+     10.69,
+     11.21,
+     "serían"
+    ],
+    [
+     11.21,
+     11.71,
+     "grasnando"
+    ],
+    [
+     11.71,
+     11.79,
+     "a"
+    ],
+    [
+     11.79,
+     12.35,
+     "cualquiera"
+    ],
+    [
+     12.35,
+     12.53,
+     "que"
+    ],
+    [
+     12.53,
+     12.79,
+     "llevar"
+    ],
+    [
+     12.79,
+     12.87,
+     "a"
+    ],
+    [
+     12.87,
+     13.07,
+     "esa"
+    ],
+    [
+     13.07,
+     13.63,
+     "máscara."
+    ]
+   ]
+  },
+  {
+   "i": 4,
+   "text": "Y hay algo todavía más sorprendente.",
+   "start": 14.07,
+   "end": 16.19,
+   "heard": "y hay algo todavía más sorprendente.",
+   "words": [
+    [
+     14.07,
+     14.19,
+     "y"
+    ],
+    [
+     14.19,
+     14.33,
+     "hay"
+    ],
+    [
+     14.33,
+     14.57,
+     "algo"
+    ],
+    [
+     14.57,
+     14.93,
+     "todavía"
+    ],
+    [
+     14.93,
+     15.25,
+     "más"
+    ],
+    [
+     15.25,
+     16.07,
+     "sorprendente."
+    ]
+   ]
+  },
+  {
+   "i": 5,
+   "text": "Enseñaron a otros cuervos a reconocerla, incluso a los que nunca la habían visto.",
+   "start": 16.74,
+   "end": 21.48,
+   "heard": "enseñaron a otros cuervos a reconocerla, incluso a los que nunca la habían visto.",
+   "words": [
+    [
+     16.74,
+     17.36,
+     "enseñaron"
+    ],
+    [
+     17.36,
+     17.46,
+     "a"
+    ],
+    [
+     17.46,
+     17.66,
+     "otros"
+    ],
+    [
+     17.66,
+     18.22,
+     "cuervos"
+    ],
+    [
+     18.22,
+     18.3,
+     "a"
+    ],
+    [
+     18.3,
+     19.08,
+     "reconocerla,"
+    ],
+    [
+     19.3,
+     19.64,
+     "incluso"
+    ],
+    [
+     19.64,
+     19.86,
+     "a"
+    ],
+    [
+     19.86,
+     20.0,
+     "los"
+    ],
+    [
+     20.0,
+     20.12,
+     "que"
+    ],
+    [
+     20.12,
+     20.36,
+     "nunca"
+    ],
+    [
+     20.36,
+     20.6,
+     "la"
+    ],
+    [
+     20.6,
+     20.86,
+     "habían"
+    ],
+    [
+     20.86,
+     21.24,
+     "visto."
+    ]
+   ]
+  },
+  {
+   "i": 6,
+   "text": "Así que mejor llévate bien con ellos.",
+   "start": 21.8,
+   "end": 23.82,
+   "heard": "Así que mejor llévate bien con ellos.",
+   "words": [
+    [
+     21.8,
+     22.0,
+     "Así"
+    ],
+    [
+     22.0,
+     22.18,
+     "que"
+    ],
+    [
+     22.18,
+     22.44,
+     "mejor"
+    ],
+    [
+     22.44,
+     22.86,
+     "llévate"
+    ],
+    [
+     22.86,
+     23.12,
+     "bien"
+    ],
+    [
+     23.12,
+     23.36,
+     "con"
+    ],
+    [
+     23.36,
+     23.58,
+     "ellos."
+    ]
+   ]
+  },
+  {
+   "i": 7,
+   "text": "¿Conocías este secreto?",
+   "start": 24.14,
+   "end": 25.81,
+   "heard": "conocías este secreto.",
+   "words": [
+    [
+     24.14,
+     24.68,
+     "conocías"
+    ],
+    [
+     24.68,
+     25.18,
+     "este"
+    ],
+    [
+     25.18,
+     25.74,
+     "secreto."
+    ]
+   ]
+  }
+ ]
+}

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Curiosidades de la vida — Los cuervos recuerdan tu cara durante años</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Montserrat"; font-weight: 800; src: url("assets/fonts/montserrat-latin-800-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Montserrat"; font-weight: 900; src: url("assets/fonts/montserrat-latin-900-normal.woff2") format("woff2"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100vw; height: 100vh; overflow: hidden; background: #000; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Montserrat", system-ui, sans-serif; background: #000; }
+      .clip { position: absolute; inset: 0; }
+      .shot { overflow: hidden; background: #000; }
+      .shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(1.08) contrast(1.06); }
+      #grade { z-index: 50; pointer-events: none;
+        background:
+          linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 16%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.62) 86%, rgba(0,0,0,0.75) 100%),
+          radial-gradient(ellipse 85% 70% at 50% 48%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%); }
+      #flash { z-index: 55; background: #fff; opacity: 0; }
+      #brand { position: absolute; z-index: 60; left: 0; right: 0; top: 118px; text-align: center; font: 800 30px/1 "Montserrat", sans-serif; letter-spacing: 0.12em; color: #ffd400; -webkit-text-stroke: 6px #000; paint-order: stroke fill; text-shadow: 0 2px 6px rgba(0,0,0,0.85); }
+      #brand i { font-style: normal; color: #fff; margin: 0 14px; }
+      #caps { z-index: 70; }
+      .cap { position: absolute; left: 60px; right: 60px; top: 1380px; text-align: center; opacity: 0; }
+      .cap span { display: block; white-space: nowrap; font: 900 58px/1.14 "Montserrat", sans-serif; letter-spacing: 0.01em; -webkit-text-stroke: 9px #000; paint-order: stroke fill; text-shadow: 0 6px 14px rgba(0,0,0,0.7); }
+      .cap .w { color: #fff; }
+      .cap .y { color: #ffd400; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="26.73" data-width="1080" data-height="1920">
+      <audio id="voz" data-start="0" data-duration="26.33" data-volume="1" src="assets/audio/voz.m4a"></audio>
+      <audio id="musica" data-start="0" data-duration="26.73" data-volume="1" data-fade-out="1.2" src="assets/audio/musica.m4a"></audio>
+
+      <div id="sh1" class="clip shot" data-start="0.00" data-duration="3.95" data-track-index="1" style="z-index:1">
+        <img id="im1" src="assets/img/shot1.jpg" alt="" style="object-position:55% 45%" data-layout-allow-overflow />
+      </div>
+      <div id="sh2" class="clip shot" data-start="3.60" data-duration="5.20" data-track-index="1" style="z-index:2">
+        <img id="im2" src="assets/img/shot2.jpg" alt="" style="object-position:70% 50%" data-layout-allow-overflow />
+      </div>
+      <div id="sh3" class="clip shot" data-start="8.45" data-duration="5.55" data-track-index="1" style="z-index:3">
+        <img id="im3" src="assets/img/shot3.jpg" alt="" style="object-position:45% 40%" data-layout-allow-overflow />
+      </div>
+      <div id="sh4" class="clip shot" data-start="13.65" data-duration="3.00" data-track-index="1" style="z-index:4">
+        <img id="im4" src="assets/img/shot4.jpg" alt="" style="object-position:40% 45%" data-layout-allow-overflow />
+      </div>
+      <div id="sh5" class="clip shot" data-start="16.30" data-duration="5.40" data-track-index="1" style="z-index:5">
+        <img id="im5" src="assets/img/shot5.jpg" alt="" style="object-position:50% 35%" data-layout-allow-overflow />
+      </div>
+      <div id="sh6" class="clip shot" data-start="21.35" data-duration="2.70" data-track-index="1" style="z-index:6">
+        <img id="im6" src="assets/img/shot6.jpg" alt="" style="object-position:50% 45%" data-layout-allow-overflow />
+      </div>
+      <div id="sh7" class="clip shot" data-start="23.70" data-duration="3.03" data-track-index="1" style="z-index:7">
+        <img id="im7" src="assets/img/shot7.jpg" alt="" style="object-position:50% 50%" data-layout-allow-overflow />
+      </div>
+
+      <div id="grade" class="clip" data-start="0" data-duration="26.73" data-track-index="2"></div>
+      <div id="flash" class="clip" data-start="0" data-duration="26.73" data-track-index="3"></div>
+      <div id="brand" class="clip" data-start="0" data-duration="26.73" data-track-index="4" style="inset: auto; left: 0; right: 0; top: 118px">CURIOSIDADES DE LA VIDA<i>•</i>EP. 02</div>
+      <div id="caps" class="clip" data-start="0" data-duration="26.73" data-track-index="5">
+        <div class="cap" id="cap0"><span class="w">¿SABÍAS QUE</span><span class="y">LOS CUERVOS</span></div>
+        <div class="cap" id="cap1"><span class="w">PUEDEN RECORDAR</span><span class="y">TU CARA</span></div>
+        <div class="cap" id="cap2"><span class="y">DURANTE AÑOS?</span></div>
+        <div class="cap" id="cap3"><span class="w">EN UN EXPERIMENTO,</span><span class="y">UNOS CIENTÍFICOS</span></div>
+        <div class="cap" id="cap4"><span class="w">CON UNA MÁSCARA</span><span class="y">ATRAPARON</span></div>
+        <div class="cap" id="cap5"><span class="w">A VARIOS</span><span class="y">CUERVOS.</span></div>
+        <div class="cap" id="cap6"><span class="w">AÑOS DESPUÉS,</span><span class="y">LOS CUERVOS</span></div>
+        <div class="cap" id="cap7"><span class="w">SEGUÍAN GRAZNANDO</span><span class="y">A CUALQUIERA</span></div>
+        <div class="cap" id="cap8"><span class="w">QUE LLEVARA</span><span class="y">ESA MÁSCARA.</span></div>
+        <div class="cap" id="cap9"><span class="w">Y HAY ALGO TODAVÍA</span><span class="y">MÁS SORPRENDENTE.</span></div>
+        <div class="cap" id="cap10"><span class="w">ENSEÑARON A OTROS</span><span class="y">CUERVOS A RECONOCERLA,</span></div>
+        <div class="cap" id="cap11"><span class="w">INCLUSO A LOS QUE</span><span class="y">NUNCA LA HABÍAN VISTO.</span></div>
+        <div class="cap" id="cap12"><span class="w">ASÍ QUE MEJOR</span><span class="y">LLÉVATE BIEN CON ELLOS.</span></div>
+        <div class="cap" id="cap13"><span class="w">¿CONOCÍAS</span><span class="y">ESTE SECRETO?</span></div>
+      </div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#im1", { scale: 1.02, x: 0 }, { scale: 1.16, x: 0, duration: 3.95, ease: "none" }, 0.00);
+      tl.fromTo("#im2", { scale: 1.16, x: 20 }, { scale: 1.02, x: -20, duration: 5.20, ease: "none" }, 3.60);
+      tl.fromTo("#sh2", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 3.60);
+      tl.fromTo("#im3", { scale: 1.02, x: -25 }, { scale: 1.16, x: 25, duration: 5.55, ease: "none" }, 8.45);
+      tl.fromTo("#sh3", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 8.45);
+      tl.fromTo("#im4", { scale: 1.02, x: 0 }, { scale: 1.16, x: 0, duration: 3.00, ease: "none" }, 13.65);
+      tl.fromTo("#sh4", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 13.65);
+      tl.fromTo("#im5", { scale: 1.16, x: 0 }, { scale: 1.02, x: 0, duration: 5.40, ease: "none" }, 16.30);
+      tl.fromTo("#sh5", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 16.30);
+      tl.fromTo("#im6", { scale: 1.02, x: 30 }, { scale: 1.16, x: -30, duration: 2.70, ease: "none" }, 21.35);
+      tl.fromTo("#sh6", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 21.35);
+      tl.fromTo("#im7", { scale: 1.02, x: 25 }, { scale: 1.16, x: -25, duration: 3.03, ease: "none" }, 23.70);
+      tl.fromTo("#sh7", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 23.70);
+      tl.fromTo("#cap0", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 0.30);
+      tl.to("#cap0", { opacity: 0, duration: 0.08 }, 1.44);
+      tl.fromTo("#cap1", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 1.52);
+      tl.to("#cap1", { opacity: 0, duration: 0.08 }, 2.70);
+      tl.fromTo("#cap2", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 2.78);
+      tl.to("#cap2", { opacity: 0, duration: 0.08 }, 3.90);
+      tl.fromTo("#cap3", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 4.00);
+      tl.to("#cap3", { opacity: 0, duration: 0.08 }, 6.14);
+      tl.fromTo("#cap4", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 6.22);
+      tl.to("#cap4", { opacity: 0, duration: 0.08 }, 7.46);
+      tl.fromTo("#cap5", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 7.54);
+      tl.to("#cap5", { opacity: 0, duration: 0.08 }, 8.76);
+      tl.fromTo("#cap6", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 8.86);
+      tl.to("#cap6", { opacity: 0, duration: 0.08 }, 10.39);
+      tl.fromTo("#cap7", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 10.47);
+      tl.to("#cap7", { opacity: 0, duration: 0.08 }, 12.01);
+      tl.fromTo("#cap8", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 12.09);
+      tl.to("#cap8", { opacity: 0, duration: 0.08 }, 13.92);
+      tl.fromTo("#cap9", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 14.02);
+      tl.to("#cap9", { opacity: 0, duration: 0.08 }, 16.36);
+      tl.fromTo("#cap10", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 16.69);
+      tl.to("#cap10", { opacity: 0, duration: 0.08 }, 19.17);
+      tl.fromTo("#cap11", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 19.25);
+      tl.to("#cap11", { opacity: 0, duration: 0.08 }, 21.65);
+      tl.fromTo("#cap12", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 21.75);
+      tl.to("#cap12", { opacity: 0, duration: 0.08 }, 23.99);
+      tl.fromTo("#cap13", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 24.09);
+      tl.to("#cap13", { opacity: 0, duration: 0.08 }, 26.33);
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.55, duration: 0.08, ease: "none" }, 14.07);
+      tl.to("#flash", { opacity: 0, duration: 0.5, ease: "power2.out" }, 14.15);
+      tl.set({}, {}, 26.73);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

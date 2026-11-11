@@ -1,0 +1,398 @@
+{
+ "total": 24.28,
+ "lines": [
+  {
+   "i": 1,
+   "text": "¿Sabías que las nutrias marinas se dan la mano para dormir?",
+   "start": 0.35,
+   "end": 3.86,
+   "heard": "sabías que las nutrias marinas se dan la mano para dormir.",
+   "words": [
+    [
+     0.35,
+     0.77,
+     "sabías"
+    ],
+    [
+     0.77,
+     0.95,
+     "que"
+    ],
+    [
+     0.95,
+     1.11,
+     "las"
+    ],
+    [
+     1.11,
+     1.65,
+     "nutrias"
+    ],
+    [
+     1.65,
+     2.15,
+     "marinas"
+    ],
+    [
+     2.15,
+     2.55,
+     "se"
+    ],
+    [
+     2.55,
+     2.71,
+     "dan"
+    ],
+    [
+     2.71,
+     2.87,
+     "la"
+    ],
+    [
+     2.87,
+     3.11,
+     "mano"
+    ],
+    [
+     3.11,
+     3.35,
+     "para"
+    ],
+    [
+     3.35,
+     3.63,
+     "dormir."
+    ]
+   ]
+  },
+  {
+   "i": 2,
+   "text": "Lo hacen para que la corriente no las separe mientras descansan.",
+   "start": 4.18,
+   "end": 7.47,
+   "heard": "lo hacen para que la corriente no la separe mientras descansan.",
+   "words": [
+    [
+     4.18,
+     4.4,
+     "lo"
+    ],
+    [
+     4.4,
+     4.62,
+     "hacen"
+    ],
+    [
+     4.62,
+     4.82,
+     "para"
+    ],
+    [
+     4.82,
+     4.98,
+     "que"
+    ],
+    [
+     4.98,
+     5.12,
+     "la"
+    ],
+    [
+     5.12,
+     5.6,
+     "corriente"
+    ],
+    [
+     5.6,
+     5.76,
+     "no"
+    ],
+    [
+     5.76,
+     5.88,
+     "la"
+    ],
+    [
+     5.88,
+     6.28,
+     "separe"
+    ],
+    [
+     6.28,
+     6.54,
+     "mientras"
+    ],
+    [
+     6.54,
+     7.3,
+     "descansan."
+    ]
+   ]
+  },
+  {
+   "i": 3,
+   "text": "A veces, incluso se enrollan en algas, como si fueran una manta.",
+   "start": 7.79,
+   "end": 11.82,
+   "heard": "A veces, incluso se enrollan en algas como si fueran una manta.",
+   "words": [
+    [
+     7.79,
+     7.89,
+     "A"
+    ],
+    [
+     7.89,
+     8.13,
+     "veces,"
+    ],
+    [
+     8.53,
+     8.85,
+     "incluso"
+    ],
+    [
+     8.85,
+     9.17,
+     "se"
+    ],
+    [
+     9.17,
+     9.63,
+     "enrollan"
+    ],
+    [
+     9.63,
+     9.75,
+     "en"
+    ],
+    [
+     9.75,
+     10.19,
+     "algas"
+    ],
+    [
+     10.19,
+     10.57,
+     "como"
+    ],
+    [
+     10.57,
+     10.77,
+     "si"
+    ],
+    [
+     10.77,
+     11.15,
+     "fueran"
+    ],
+    [
+     11.15,
+     11.27,
+     "una"
+    ],
+    [
+     11.27,
+     11.63,
+     "manta."
+    ]
+   ]
+  },
+  {
+   "i": 4,
+   "text": "Y hay algo todavía más sorprendente.",
+   "start": 12.14,
+   "end": 14.26,
+   "heard": "y hay algo todavía más sorprendente.",
+   "words": [
+    [
+     12.14,
+     12.26,
+     "y"
+    ],
+    [
+     12.26,
+     12.38,
+     "hay"
+    ],
+    [
+     12.38,
+     12.62,
+     "algo"
+    ],
+    [
+     12.62,
+     13.02,
+     "todavía"
+    ],
+    [
+     13.02,
+     13.34,
+     "más"
+    ],
+    [
+     13.34,
+     14.14,
+     "sorprendente."
+    ]
+   ]
+  },
+  {
+   "i": 5,
+   "text": "Bajo el brazo tienen un bolsillo de piel donde guardan su piedra favorita.",
+   "start": 14.81,
+   "end": 18.95,
+   "heard": "Bajo el brazo tienen un bolsillo de piel donde guardan su piedra favorita.",
+   "words": [
+    [
+     14.81,
+     15.15,
+     "Bajo"
+    ],
+    [
+     15.15,
+     15.31,
+     "el"
+    ],
+    [
+     15.31,
+     15.67,
+     "brazo"
+    ],
+    [
+     15.67,
+     15.95,
+     "tienen"
+    ],
+    [
+     15.95,
+     16.13,
+     "un"
+    ],
+    [
+     16.13,
+     16.57,
+     "bolsillo"
+    ],
+    [
+     16.57,
+     16.73,
+     "de"
+    ],
+    [
+     16.73,
+     16.95,
+     "piel"
+    ],
+    [
+     16.95,
+     17.19,
+     "donde"
+    ],
+    [
+     17.19,
+     17.75,
+     "guardan"
+    ],
+    [
+     17.75,
+     17.91,
+     "su"
+    ],
+    [
+     17.91,
+     18.29,
+     "piedra"
+    ],
+    [
+     18.29,
+     18.83,
+     "favorita."
+    ]
+   ]
+  },
+  {
+   "i": 6,
+   "text": "La usan para romper conchas y abrir su comida.",
+   "start": 19.27,
+   "end": 21.87,
+   "heard": "la usan para romper conchas y abrir su comida.",
+   "words": [
+    [
+     19.27,
+     19.45,
+     "la"
+    ],
+    [
+     19.45,
+     19.73,
+     "usan"
+    ],
+    [
+     19.73,
+     19.87,
+     "para"
+    ],
+    [
+     19.87,
+     20.33,
+     "romper"
+    ],
+    [
+     20.33,
+     20.77,
+     "conchas"
+    ],
+    [
+     20.77,
+     20.95,
+     "y"
+    ],
+    [
+     20.95,
+     21.15,
+     "abrir"
+    ],
+    [
+     21.15,
+     21.37,
+     "su"
+    ],
+    [
+     21.37,
+     21.63,
+     "comida."
+    ]
+   ]
+  },
+  {
+   "i": 7,
+   "text": "¿Conocías este secreto?",
+   "start": 22.19,
+   "end": 23.76,
+   "heard": "¿Lo conocías este secreto?",
+   "words": [
+    [
+     22.19,
+     22.19,
+     "¿Lo"
+    ],
+    [
+     22.19,
+     22.71,
+     "conocías"
+    ],
+    [
+     22.71,
+     23.17,
+     "este"
+    ],
+    [
+     23.17,
+     23.69,
+     "secreto?"
+    ]
+   ]
+  }
+ ]
+}
