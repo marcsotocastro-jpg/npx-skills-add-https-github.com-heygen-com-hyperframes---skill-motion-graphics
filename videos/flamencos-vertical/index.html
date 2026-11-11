@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Curiosidades de la vida — ¿Por qué los flamencos son rosas?</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Nunito"; font-weight: 800; src: url("assets/fonts/nunito-latin-800-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Nunito"; font-weight: 900; src: url("assets/fonts/nunito-latin-900-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Fredoka"; font-weight: 600; src: url("assets/fonts/fredoka-latin-600-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Fredoka"; font-weight: 700; src: url("assets/fonts/fredoka-latin-700-normal.woff2") format("woff2"); }
+
+      :root {
+        --ink: #2b1d3a; --cream: #fff6ec; --pink: #ff4f8b; --pink-d: #d92f6c; --pink-l: #ffb3c9;
+        --teal: #4fb8b0; --teal-d: #2f8f8a; --sun: #ffc36b; --yellow: #ffd23f; --orange: #ff8a3d; --green: #47b26b;
+        --head: "Nunito", system-ui, sans-serif; --round: "Fredoka", system-ui, sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100vw; height: 100vh; overflow: hidden; background: #ffe3d3; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: var(--head); color: var(--ink); }
+      .clip { position: absolute; inset: 0; }
+      .abs { position: absolute; }
+      svg { display: block; overflow: visible; }
+
+      /* ---------- Background: a sunny lagoon ---------- */
+      #bg { background: linear-gradient(180deg, #ffd9c7 0%, #ffe8d6 45%, #fff1e2 66%); }
+      .sun { position: absolute; left: 640px; top: 250px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, #ffd27d 0 55%, rgba(255, 210, 125, 0.35) 56% 70%, rgba(255, 210, 125, 0) 71%); }
+      .cloud { position: absolute; height: 70px; border-radius: 40px; background: #fff; opacity: 0.85; }
+      .cloud::before, .cloud::after { content: ""; position: absolute; background: #fff; border-radius: 50%; }
+      .cloud::before { width: 90px; height: 90px; left: 30px; top: -45px; }
+      .cloud::after { width: 120px; height: 120px; left: 90px; top: -65px; }
+      .water { position: absolute; left: 0; right: 0; top: 1270px; bottom: 0; background: linear-gradient(180deg, #8fd8cf 0%, #5fc1b7 40%, #3ea69e 100%); }
+      .wave { position: absolute; left: -200px; width: 1480px; height: 30px; }
+      .reeds { position: absolute; bottom: 640px; }
+
+      /* ---------- Header ---------- */
+      #brand { position: absolute; left: 50%; top: 92px; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; padding: 16px 34px 16px 22px; border-radius: 60px; background: var(--ink); color: #fff; font: 700 34px/1 var(--round); letter-spacing: 0.06em; white-space: nowrap; box-shadow: 0 10px 0 rgba(43, 29, 58, 0.18); }
+      #brand .dot { width: 46px; height: 46px; border-radius: 50%; background: var(--pink); display: grid; place-items: center; font: 900 30px/1 var(--head); }
+
+      /* ---------- Shared type ---------- */
+      .title { position: absolute; left: 60px; right: 60px; text-align: center; font: 900 84px/1.04 var(--head); letter-spacing: -0.01em; color: var(--ink); }
+      .title .big { display: block; font-size: 150px; line-height: 1; }
+      .pink { color: var(--pink-d); }
+      .pill { position: absolute; padding: 16px 30px; border-radius: 50px; font: 700 44px/1 var(--round); color: #fff; background: var(--ink); white-space: nowrap; box-shadow: 0 8px 0 rgba(43, 29, 58, 0.2); }
+      .pill.o { background: var(--orange); }
+      .pill.g { background: var(--green); }
+      .pill.p { background: var(--pink); }
+      .pill.w { background: #fff; color: var(--ink); }
+      .ln-dash { position: absolute; height: 0; border-top: 6px dashed var(--ink); opacity: 0.6; transform-origin: 0 50%; }
+
+      /* ---------- Captions ---------- */
+      #caps { position: absolute; left: 0; right: 0; top: 1440px; height: 200px; }
+      .cap { position: absolute; left: 540px; top: 0; max-width: 960px; padding: 20px 38px 24px; border-radius: 34px; background: var(--ink); color: #fff; font: 900 62px/1.12 var(--head); text-align: center; white-space: nowrap; box-shadow: 0 10px 0 rgba(0, 0, 0, 0.18); opacity: 0; }
+      .cap b { color: var(--yellow); font-weight: 900; }
+
+      /* ---------- Scene bits ---------- */
+      .chip { position: absolute; top: 1075px; padding: 18px 34px; border-radius: 50px; background: #fff; font: 700 52px/1 var(--round); color: var(--ink); box-shadow: 0 8px 0 rgba(43, 29, 58, 0.15); }
+      .chip .x { position: absolute; left: 14px; right: 14px; top: 50%; height: 9px; margin-top: -4px; border-radius: 6px; background: var(--pink-d); transform-origin: 0 50%; }
+      #stamp { position: absolute; left: 140px; width: 800px; top: 1215px; text-align: center; font: 900 170px/1 var(--head); color: #8f8a95; -webkit-text-stroke: 8px var(--ink); paint-order: stroke fill; letter-spacing: 0.02em; }
+      .qmark { position: absolute; font: 900 260px/1 var(--head); color: var(--pink); -webkit-text-stroke: 10px var(--ink); paint-order: stroke fill; }
+      .lens { position: absolute; left: 210px; top: 540px; width: 660px; height: 660px; border-radius: 50%; border: 22px solid #fff; background: radial-gradient(circle at 40% 35%, #d8f5f1 0%, #9fe0d7 60%, #79cfc4 100%); overflow: hidden; box-shadow: 0 0 0 10px var(--ink), 0 24px 0 rgba(43, 29, 58, 0.15); }
+      .handle { position: absolute; left: 760px; top: 1080px; width: 70px; height: 260px; border-radius: 36px; background: var(--ink); transform: rotate(-42deg); transform-origin: 50% 0; }
+      .gauge { position: absolute; left: 800px; top: 470px; width: 130px; height: 740px; border-radius: 70px; background: #fff; border: 10px solid var(--ink); overflow: hidden; }
+      .gauge .fill { position: absolute; left: 0; right: 0; bottom: 0; height: 100%; background: linear-gradient(0deg, #ffd5e2, #ff4f8b); transform-origin: 50% 100%; }
+      .glabel { position: absolute; width: 240px; left: 745px; text-align: center; font: 700 34px/1.05 var(--round); }
+      .sign { position: absolute; left: 290px; top: 230px; width: 500px; height: 190px; border-radius: 26px; background: #b97a45; border: 10px solid var(--ink); display: grid; place-items: center; font: 900 120px/1 var(--head); color: #fff6dc; letter-spacing: 0.08em; }
+      .sign::before, .sign::after { content: ""; position: absolute; top: 170px; width: 26px; height: 140px; background: #8a5530; border: 8px solid var(--ink); z-index: -1; }
+      .sign::before { left: 90px; }
+      .sign::after { right: 90px; }
+      .ers { position: absolute; left: 0; right: 0; text-align: center; font: 900 190px/1 var(--head); -webkit-text-stroke: 10px var(--ink); paint-order: stroke fill; color: #fff; }
+      .ers.pk { color: var(--pink); }
+      .btn { position: absolute; left: 50%; top: 1130px; padding: 30px 70px; border-radius: 80px; background: var(--pink); color: #fff; font: 900 70px/1 var(--head); box-shadow: 0 14px 0 var(--pink-d); white-space: nowrap; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="53" data-width="1080" data-height="1920">
+      <!-- ================= Shared drawings ================= -->
+      <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+        <defs>
+          <!-- Flamingo standing on one leg, facing right. Colours come from CSS variables. -->
+          <symbol id="flamingo" viewBox="0 0 420 620">
+            <g fill="none" stroke="var(--leg, #f27aa0)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M198 318 L208 462 L200 600" />
+              <path d="M198 602 L236 606" />
+              <path d="M216 318 L264 420 L206 434" />
+            </g>
+            <path d="M122 236 L56 212 L84 250 L58 274 L120 278 Z" fill="var(--fl2, #f0658f)" />
+            <path d="M104 252 C104 196 180 168 258 184 C322 198 336 256 304 298 C272 336 182 344 140 320 C116 306 104 282 104 252 Z" fill="var(--fl, #ff8fb1)" />
+            <path d="M146 228 C190 200 262 206 290 244 C254 278 186 288 146 258 C134 248 136 236 146 228 Z" fill="var(--fl2, #f0658f)" />
+            <path d="M172 252 C202 264 242 262 272 248" fill="none" stroke="var(--fl, #ff8fb1)" stroke-width="5" stroke-linecap="round" />
+            <path d="M268 204 C318 150 248 124 258 72 C266 30 310 18 334 44" fill="none" stroke="var(--fl, #ff8fb1)" stroke-width="32" stroke-linecap="round" />
+            <circle cx="334" cy="52" r="28" fill="var(--fl, #ff8fb1)" />
+            <path d="M352 34 C388 36 402 60 396 94 C386 86 376 70 354 68 Z" fill="var(--beak, #fff1e6)" />
+            <path d="M388 62 C400 70 400 86 396 94 C388 88 381 79 377 70 Z" fill="#2b1d3a" />
+            <circle cx="340" cy="44" r="6" fill="#2b1d3a" />
+            <circle cx="342.5" cy="41.5" r="2" fill="#fff" />
+          </symbol>
+
+          <!-- Fluffy grey chick -->
+          <symbol id="chick" viewBox="0 0 400 400">
+            <g stroke="#7d7884" stroke-width="11" stroke-linecap="round" fill="none">
+              <path d="M170 300 L164 372 M140 376 L188 376" />
+              <path d="M232 300 L238 372 M214 376 L262 376" />
+            </g>
+            <g fill="#bab6bf">
+              <circle cx="200" cy="235" r="110" />
+              <circle cx="100" cy="220" r="26" /><circle cx="108" cy="275" r="24" /><circle cx="140" cy="320" r="24" />
+              <circle cx="200" cy="342" r="24" /><circle cx="258" cy="322" r="24" /><circle cx="296" cy="276" r="24" />
+              <circle cx="120" cy="165" r="24" /><circle cx="168" cy="132" r="22" />
+            </g>
+            <ellipse cx="178" cy="240" rx="62" ry="42" fill="#a29ea8" />
+            <g fill="#c7c3cb">
+              <circle cx="270" cy="122" r="64" />
+              <circle cx="232" cy="72" r="18" /><circle cx="262" cy="58" r="16" /><circle cx="292" cy="66" r="14" />
+            </g>
+            <path d="M328 112 L374 126 L330 142 Z" fill="#4c4753" />
+            <circle cx="292" cy="108" r="9" fill="#2b1d3a" />
+            <circle cx="295" cy="104" r="3" fill="#fff" />
+          </symbol>
+
+          <!-- Brine shrimp -->
+          <symbol id="shrimp" viewBox="0 0 220 150">
+            <g stroke="#e0623a" stroke-width="4" stroke-linecap="round" fill="none">
+              <path d="M170 46 C192 22 204 12 214 4" /><path d="M166 42 C178 18 184 8 186 0" />
+              <path d="M150 80 L158 102 M128 88 L132 112 M106 92 L106 116 M84 92 L80 114" />
+            </g>
+            <path d="M168 54 C128 18 54 28 48 78 C44 108 72 124 98 116" fill="none" stroke="#ff8a5c" stroke-width="36" stroke-linecap="round" />
+            <g stroke="#e8673a" stroke-width="4" stroke-linecap="round">
+              <path d="M140 30 L132 64" /><path d="M110 26 L108 62" /><path d="M80 34 L88 66" /><path d="M58 56 L80 78" /><path d="M52 90 L80 92" />
+            </g>
+            <path d="M96 116 L132 100 L126 138 Z" fill="#ff6f43" />
+            <circle cx="170" cy="48" r="6" fill="#2b1d3a" />
+          </symbol>
+
+          <!-- Microalga -->
+          <symbol id="alga" viewBox="0 0 80 80">
+            <path d="M40 18 C36 8 30 4 22 2 M40 18 C44 8 50 4 58 2" stroke="#2f7d4f" stroke-width="3" fill="none" stroke-linecap="round" />
+            <ellipse cx="40" cy="46" rx="24" ry="28" fill="var(--c, #ff9a3c)" />
+            <circle cx="36" cy="40" r="9" fill="rgba(255,255,255,0.55)" />
+            <circle cx="47" cy="56" r="4" fill="rgba(0,0,0,0.15)" />
+          </symbol>
+
+          <!-- Carrot -->
+          <symbol id="carrot" viewBox="0 0 170 320">
+            <g fill="#47b26b">
+              <path d="M82 70 C60 40 52 18 58 0 C76 16 86 40 88 70 Z" />
+              <path d="M88 72 C92 36 110 12 132 6 C126 32 110 56 92 74 Z" />
+              <path d="M84 74 C62 60 34 54 16 60 C36 76 60 82 84 80 Z" />
+            </g>
+            <path d="M44 78 C80 64 126 66 136 86 L92 306 C88 316 78 316 76 306 Z" fill="#ff8c1a" />
+            <g stroke="#e06d05" stroke-width="5" stroke-linecap="round">
+              <path d="M66 120 L94 120" /><path d="M96 168 L118 168" /><path d="M72 210 L94 210" /><path d="M92 252 L106 252" />
+            </g>
+          </symbol>
+
+          <!-- Heart -->
+          <symbol id="heart" viewBox="0 0 100 92">
+            <path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" fill="var(--hc, #ff4f8b)" stroke="#2b1d3a" stroke-width="6" />
+          </symbol>
+
+          <!-- Feather -->
+          <symbol id="feather" viewBox="0 0 60 120">
+            <path d="M30 4 C54 30 54 80 30 110 C6 80 6 30 30 4 Z" fill="var(--fc, #ffc9d8)" />
+            <path d="M30 14 L30 118" stroke="#d98aa1" stroke-width="3" stroke-linecap="round" />
+          </symbol>
+        </defs>
+      </svg>
+
+      <!-- Narration and music -->
+      <audio id="voz" data-start="0" data-duration="49.9" data-volume="1" src="assets/audio/voz.m4a"></audio>
+      <audio id="musica" data-start="0" data-duration="53" data-volume="1" data-fade-out="1.5" src="assets/audio/musica.m4a"></audio>
+
+      <!-- ================= Background ================= -->
+      <div id="bg" class="clip" data-start="0" data-duration="53" data-track-index="0">
+        <div class="sun" id="sun"></div>
+        <div class="cloud" id="cl1" style="left: 90px; top: 470px; width: 260px" data-layout-allow-overflow></div>
+        <div class="cloud" id="cl2" style="left: 760px; top: 760px; width: 230px; opacity: 0.6" data-layout-allow-overflow></div>
+        <svg class="reeds" style="left: -10px" width="160" height="360" viewBox="0 0 160 360" aria-hidden="true">
+          <g stroke="#6aa86d" stroke-width="8" stroke-linecap="round" fill="none"><path d="M30 360 C30 250 40 150 26 40" /><path d="M70 360 C72 260 66 180 84 90" /><path d="M110 360 C108 280 118 210 104 150" /></g>
+          <g fill="#8a5a3c"><rect x="16" y="30" width="22" height="70" rx="11" /><rect x="74" y="80" width="22" height="64" rx="11" /></g>
+        </svg>
+        <svg class="reeds" style="left: 930px" width="160" height="360" viewBox="0 0 160 360" aria-hidden="true">
+          <g stroke="#6aa86d" stroke-width="8" stroke-linecap="round" fill="none"><path d="M40 360 C40 260 52 170 40 80" /><path d="M90 360 C92 280 84 200 100 120" /></g>
+          <g fill="#8a5a3c"><rect x="29" y="70" width="22" height="66" rx="11" /></g>
+        </svg>
+        <div class="water">
+          <svg class="wave" id="w1" style="top: 40px" viewBox="0 0 1480 30" preserveAspectRatio="none" data-layout-allow-overflow aria-hidden="true"><path d="M0 15 Q 37 0 74 15 T 148 15 T 222 15 T 296 15 T 370 15 T 444 15 T 518 15 T 592 15 T 666 15 T 740 15 T 814 15 T 888 15 T 962 15 T 1036 15 T 1110 15 T 1184 15 T 1258 15 T 1332 15 T 1406 15 T 1480 15" fill="none" stroke="#c9f0ea" stroke-width="6" /></svg>
+          <svg class="wave" id="w2" style="top: 150px; opacity: 0.6" viewBox="0 0 1480 30" preserveAspectRatio="none" data-layout-allow-overflow aria-hidden="true"><path d="M0 15 Q 37 0 74 15 T 148 15 T 222 15 T 296 15 T 370 15 T 444 15 T 518 15 T 592 15 T 666 15 T 740 15 T 814 15 T 888 15 T 962 15 T 1036 15 T 1110 15 T 1184 15 T 1258 15 T 1332 15 T 1406 15 T 1480 15" fill="none" stroke="#c9f0ea" stroke-width="6" /></svg>
+        </div>
+        <div id="brand"><span class="dot">?</span>CURIOSIDADES DE LA VIDA</div>
+      </div>
+
+      <!-- ================= 1 · Hook: born grey ================= -->
+      <section id="s1" class="clip" data-start="0" data-duration="5" data-track-index="1">
+        <div class="title" id="s1-t" style="top: 230px">¿Sabías que los flamencos <span class="pink">nacen…</span></div>
+        <svg class="abs" id="s1-chick" style="left: 250px; top: 470px" width="580" height="580" viewBox="0 0 400 400" aria-hidden="true"><use href="#chick" /></svg>
+        <div class="chip" id="chip1" style="left: 120px">Ni blancos<i class="x"></i></div>
+        <div class="chip" id="chip2" style="left: 600px">ni rosas<i class="x"></i></div>
+        <div id="stamp">¡GRISES!</div>
+      </section>
+
+      <!-- ================= 2 · Where does the pink come from? ================= -->
+      <section id="s2" class="clip" data-start="5" data-duration="3.6" data-track-index="1">
+        <div class="title" id="s2-t" style="top: 230px">¿De dónde sale<br />tanto <span class="pink">ROSA</span>?</div>
+        <svg class="abs" id="s2-chick" style="left: 40px; top: 900px" width="330" height="330" viewBox="0 0 400 400" aria-hidden="true"><use href="#chick" /></svg>
+        <svg class="abs" id="s2-arrow" style="left: 330px; top: 960px" width="240" height="120" viewBox="0 0 240 120" aria-hidden="true">
+          <path d="M10 70 C80 20 150 20 210 60" fill="none" stroke="#2b1d3a" stroke-width="12" stroke-linecap="round" stroke-dasharray="1 26" />
+          <path d="M186 36 L222 66 L178 84" fill="none" stroke="#2b1d3a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <div class="qmark" id="s2-q" style="left: 380px; top: 690px">?</div>
+        <svg class="abs" id="s2-fl" style="left: 560px; top: 560px; --fl: #ff6f9f; --fl2: #e24c7f; --leg: #f0648f" width="460" height="680" viewBox="0 0 420 620" aria-hidden="true"><use href="#flamingo" /></svg>
+      </section>
+
+      <!-- ================= 3 · What they eat ================= -->
+      <section id="s3" class="clip" data-start="8.6" data-duration="5.4" data-track-index="1">
+        <div class="title" id="s3-t" style="top: 230px">De lo que <span class="pink">COMEN</span></div>
+        <div class="handle" id="s3-handle"></div>
+        <div class="lens" id="s3-lens">
+          <svg class="abs sh" style="left: 70px; top: 120px" width="240" height="164" viewBox="0 0 220 150" aria-hidden="true"><use href="#shrimp" /></svg>
+          <svg class="abs sh" style="left: 330px; top: 300px; transform: scaleX(-1)" width="200" height="136" viewBox="0 0 220 150" aria-hidden="true"><use href="#shrimp" /></svg>
+          <svg class="abs sh" style="left: 120px; top: 420px" width="170" height="116" viewBox="0 0 220 150" aria-hidden="true"><use href="#shrimp" /></svg>
+          <svg class="abs al" style="left: 400px; top: 90px; --c: #ff9a3c" width="80" height="80" viewBox="0 0 80 80" aria-hidden="true"><use href="#alga" /></svg>
+          <svg class="abs al" style="left: 480px; top: 170px; --c: #ff7a3c" width="62" height="62" viewBox="0 0 80 80" aria-hidden="true"><use href="#alga" /></svg>
+          <svg class="abs al" style="left: 300px; top: 210px; --c: #ffb03c" width="56" height="56" viewBox="0 0 80 80" aria-hidden="true"><use href="#alga" /></svg>
+          <svg class="abs al" style="left: 60px; top: 320px; --c: #ff8a3c" width="70" height="70" viewBox="0 0 80 80" aria-hidden="true"><use href="#alga" /></svg>
+          <svg class="abs al" style="left: 360px; top: 470px; --c: #ffa53c" width="64" height="64" viewBox="0 0 80 80" aria-hidden="true"><use href="#alga" /></svg>
+          <svg class="abs al" style="left: 250px; top: 50px; --c: #ff8a3c" width="50" height="50" viewBox="0 0 80 80" aria-hidden="true"><use href="#alga" /></svg>
+          <svg class="abs al" style="left: 470px; top: 400px; --c: #ff7a3c" width="54" height="54" viewBox="0 0 80 80" aria-hidden="true"><use href="#alga" /></svg>
+        </div>
+        <div class="pill o" id="s3-p1" style="left: 40px; top: 1250px">Camarones diminutos</div>
+        <div class="pill g" id="s3-p2" style="left: 560px; top: 1330px">Microalgas</div>
+      </section>
+
+      <!-- ================= 4 · Carotenoids ================= -->
+      <section id="s4" class="clip" data-start="14" data-duration="7" data-track-index="1">
+        <div class="title" id="s4-t" style="top: 220px">Tienen unos pigmentos:<span class="big pink" id="s4-big" style="font-size: 124px; margin-top: 10px">CAROTENOIDES</span></div>
+        <svg class="abs" id="s4-mol" style="left: 70px; top: 590px" width="940" height="200" viewBox="0 0 940 200" aria-hidden="true">
+          <g fill="none" stroke="#ff7a1a" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+            <path class="mol" d="M40 100 L80 60 L140 60 L170 100 L140 140 L80 140 Z" />
+            <path class="mol" d="M170 100 L210 70 L250 100 L290 70 L330 100 L370 70 L410 100 L450 70 L490 100 L530 70 L570 100 L610 70 L650 100 L690 70 L730 100 L770 70" />
+            <path class="mol" d="M770 70 L800 100 L860 100 L900 60 L870 20 L810 20 Z" />
+          </g>
+          <g fill="#ff7a1a"><circle cx="210" cy="70" r="9" /><circle cx="370" cy="70" r="9" /><circle cx="530" cy="70" r="9" /><circle cx="690" cy="70" r="9" /></g>
+        </svg>
+        <svg class="abs" id="s4-shrimp" style="left: 70px; top: 920px" width="330" height="225" viewBox="0 0 220 150" aria-hidden="true"><use href="#shrimp" /></svg>
+        <div class="qmark" id="s4-eq" style="left: 455px; top: 880px; font-size: 220px; color: #fff">=</div>
+        <svg class="abs" id="s4-carrot" style="left: 720px; top: 840px; transform: rotate(18deg)" width="200" height="376" viewBox="0 0 170 320" aria-hidden="true"><use href="#carrot" /></svg>
+        <div class="pill o" id="s4-pill" style="left: 260px; top: 1250px">¡El mismo color!</div>
+      </section>
+
+      <!-- ================= 5 · Liver → feathers, skin, beak ================= -->
+      <section id="s5" class="clip" data-start="21" data-duration="7.4" data-track-index="1">
+        <div class="title" id="s5-t" style="top: 220px; font-size: 76px">Del plato… <span class="pink">al color</span></div>
+        <svg class="abs" id="s5-fl" style="left: 150px; top: 380px; --fl: #f6eeea; --fl2: #e8dcd8; --leg: #d9cdc9; --beak: #f7f0ea" width="640" height="945" viewBox="0 0 420 620" aria-hidden="true"><use href="#flamingo" /></svg>
+        <svg class="abs" id="s5-liver" style="left: 400px; top: 735px" width="150" height="100" viewBox="0 0 150 100" aria-hidden="true">
+          <path d="M10 46 C10 14 60 4 104 10 C140 16 146 40 128 58 C108 80 60 94 30 84 C14 78 10 62 10 46 Z" fill="#a8364c" stroke="#2b1d3a" stroke-width="6" />
+          <path d="M34 34 C54 24 80 22 96 26" stroke="#d76a80" stroke-width="7" fill="none" stroke-linecap="round" />
+        </svg>
+        <div class="pill" id="s5-lv" style="left: 40px; top: 900px">Hígado</div>
+        <div class="pill p" id="s5-a" style="left: 40px; top: 620px">Plumas</div>
+        <div class="pill p" id="s5-b" style="left: 610px; top: 1080px">Piel</div>
+        <div class="pill p" id="s5-c" style="left: 790px; top: 560px">Pico</div>
+        <div id="s5-dots"></div>
+      </section>
+
+      <!-- ================= 6 · More food = more pink ================= -->
+      <section id="s6" class="clip" data-start="28.4" data-duration="7.6" data-track-index="1">
+        <div class="title" id="s6-t1" style="top: 220px">+ comida = <span class="pink">+ rosa</span></div>
+        <div class="title" id="s6-t2" style="top: 220px">Sin comida = <span style="color: #b8a9ad">pálido</span></div>
+        <svg class="abs" id="s6-fl" style="left: 40px; top: 520px; --fl: #ffa3bf; --fl2: #f28aab; --leg: #f08aa8" width="560" height="827" viewBox="0 0 420 620" aria-hidden="true"><use href="#flamingo" /></svg>
+        <svg class="abs fs" style="left: 420px; top: 300px" width="110" height="75" viewBox="0 0 220 150" aria-hidden="true"><use href="#shrimp" /></svg>
+        <svg class="abs fs" style="left: 500px; top: 280px" width="90" height="61" viewBox="0 0 220 150" aria-hidden="true"><use href="#shrimp" /></svg>
+        <svg class="abs fs" style="left: 380px; top: 260px" width="100" height="68" viewBox="0 0 220 150" aria-hidden="true"><use href="#shrimp" /></svg>
+        <svg class="abs" id="s6-no" style="left: 390px; top: 420px" width="190" height="190" viewBox="0 0 190 190" aria-hidden="true">
+          <circle cx="95" cy="95" r="82" fill="#fff" stroke="#d92f6c" stroke-width="14" />
+          <svg x="35" y="50" width="120" height="82" viewBox="0 0 220 150"><use href="#shrimp" /></svg>
+          <path d="M37 37 L153 153" stroke="#d92f6c" stroke-width="14" stroke-linecap="round" />
+        </svg>
+        <svg class="abs ft" style="left: 140px; top: 760px; --fc: #ffc2d4" width="50" height="100" viewBox="0 0 60 120" aria-hidden="true"><use href="#feather" /></svg>
+        <svg class="abs ft" style="left: 260px; top: 780px; --fc: #ffb3c9" width="44" height="88" viewBox="0 0 60 120" aria-hidden="true"><use href="#feather" /></svg>
+        <svg class="abs ft" style="left: 340px; top: 740px; --fc: #ffd0dd" width="46" height="92" viewBox="0 0 60 120" aria-hidden="true"><use href="#feather" /></svg>
+        <svg class="abs ft" style="left: 200px; top: 720px; --fc: #ffbccf" width="40" height="80" viewBox="0 0 60 120" aria-hidden="true"><use href="#feather" /></svg>
+        <div class="glabel" id="g-top" style="top: 400px">MUY ROSA</div>
+        <div class="gauge" id="s6-gauge"><div class="fill" id="s6-fill"></div></div>
+        <div class="glabel" id="g-bot" style="top: 1225px">CASI<br />BLANCO</div>
+      </section>
+
+      <!-- ================= 7 · Zoos ================= -->
+      <section id="s7" class="clip" data-start="36" data-duration="4.3" data-track-index="1">
+        <div class="sign" id="s7-sign">ZOO</div>
+        <svg class="abs" id="s7-fl" style="left: -30px; top: 610px; --fl: #ff6f9f; --fl2: #e24c7f; --leg: #f0648f" width="420" height="620" viewBox="0 0 420 620" aria-hidden="true"><use href="#flamingo" /></svg>
+        <svg class="abs" id="s7-shaker" style="left: 600px; top: 560px" width="260" height="330" viewBox="0 0 260 330" aria-hidden="true">
+          <rect x="60" y="80" width="140" height="230" rx="30" fill="#fff" stroke="#2b1d3a" stroke-width="10" />
+          <rect x="70" y="30" width="120" height="60" rx="16" fill="#ff8a3d" stroke="#2b1d3a" stroke-width="10" />
+          <g fill="#2b1d3a"><circle cx="100" cy="52" r="6" /><circle cx="130" cy="52" r="6" /><circle cx="160" cy="52" r="6" /></g>
+          <rect x="60" y="150" width="140" height="90" fill="#ff8a3d" />
+          <text x="130" y="210" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="40" fill="#2b1d3a">+ ROSA</text>
+        </svg>
+        <div id="s7-spark"></div>
+        <svg class="abs" id="s7-bowl" style="left: 400px; top: 1060px" width="440" height="220" viewBox="0 0 440 220" aria-hidden="true">
+          <g id="pellets">
+            <circle cx="120" cy="70" r="26" fill="#c9a77a" /><circle cx="170" cy="56" r="26" fill="#c9a77a" /><circle cx="220" cy="66" r="26" fill="#c9a77a" />
+            <circle cx="270" cy="54" r="26" fill="#c9a77a" /><circle cx="320" cy="70" r="26" fill="#c9a77a" /><circle cx="195" cy="36" r="24" fill="#c9a77a" /><circle cx="250" cy="30" r="24" fill="#c9a77a" />
+          </g>
+          <path d="M20 80 L420 80 C410 170 340 210 220 210 C100 210 30 170 20 80 Z" fill="#4fb8b0" stroke="#2b1d3a" stroke-width="10" stroke-linejoin="round" />
+          <path d="M70 120 C120 150 300 150 370 120" stroke="#8fd8cf" stroke-width="10" fill="none" stroke-linecap="round" />
+        </svg>
+        <div class="pill o" id="s7-pill" style="left: 470px; top: 930px">+ carotenoides</div>
+      </section>
+
+      <!-- ================= 8 · Pink = attractive ================= -->
+      <section id="s8" class="clip" data-start="40.3" data-duration="6.7" data-track-index="1">
+        <div class="title" id="s8-t" style="top: 210px">El rosa sirve para<span class="big pink" id="s8-big">LIGAR</span></div>
+        <svg class="abs" id="s8-f1" style="left: 60px; top: 560px; --fl: #ff5c93; --fl2: #db3f78; --leg: #f0648f" width="470" height="694" viewBox="0 0 420 620" aria-hidden="true"><use href="#flamingo" /></svg>
+        <svg class="abs" id="s8-f2" style="left: 550px; top: 560px; --fl: #ff6f9f; --fl2: #e24c7f; --leg: #f0648f" width="470" height="694" viewBox="0 0 420 620" aria-hidden="true"><use href="#flamingo" /></svg>
+        <svg class="abs" id="s8-heart" style="left: 470px; top: 470px" width="140" height="129" viewBox="0 0 100 92" aria-hidden="true"><use href="#heart" /></svg>
+        <svg class="abs h" style="left: 300px; top: 760px; --hc: #ff8fb1" width="60" height="55" viewBox="0 0 100 92" aria-hidden="true"><use href="#heart" /></svg>
+        <svg class="abs h" style="left: 720px; top: 800px; --hc: #ff4f8b" width="70" height="64" viewBox="0 0 100 92" aria-hidden="true"><use href="#heart" /></svg>
+        <svg class="abs h" style="left: 520px; top: 900px; --hc: #ffb3c9" width="50" height="46" viewBox="0 0 100 92" aria-hidden="true"><use href="#heart" /></svg>
+        <svg class="abs h" style="left: 160px; top: 900px; --hc: #ff4f8b" width="44" height="40" viewBox="0 0 100 92" aria-hidden="true"><use href="#heart" /></svg>
+        <svg class="abs h" style="left: 860px; top: 660px; --hc: #ff8fb1" width="54" height="50" viewBox="0 0 100 92" aria-hidden="true"><use href="#heart" /></svg>
+        <div class="pill g" id="s8-pill" style="left: 230px; top: 1290px">Más rosa = más sano</div>
+      </section>
+
+      <!-- ================= 9 · You are what you eat ================= -->
+      <section id="s9" class="clip" data-start="47" data-duration="3" data-track-index="1">
+        <div class="title" id="s9-t" style="top: 250px; font-size: 64px">Así que, literalmente…</div>
+        <div class="ers" id="e1" style="top: 420px">ERES</div>
+        <div class="ers" id="e2" style="top: 620px">LO QUE</div>
+        <div class="ers pk" id="e3" style="top: 820px">COMES</div>
+        <svg class="abs" id="s9-fl" style="left: 360px; top: 1010px; --fl: #ff4f8b; --fl2: #d92f6c; --leg: #f0648f" width="360" height="531" viewBox="0 0 420 620" aria-hidden="true"><use href="#flamingo" /></svg>
+      </section>
+
+      <!-- ================= Outro ================= -->
+      <section id="s10" class="clip" data-start="50" data-duration="3" data-track-index="1">
+        <div class="title" id="o-t1" style="top: 380px; font-size: 120px">¿Lo<br /><span class="pink">sabías?</span></div>
+        <div class="title" id="o-t2" style="top: 780px; font-size: 64px; line-height: 1.15">Síguenos para más<br />curiosidades de la vida</div>
+        <div class="btn" id="o-btn">SEGUIR +</div>
+      </section>
+
+      <!-- ================= Captions ================= -->
+      <div id="caps" class="clip" data-start="0" data-duration="50" data-track-index="3" style="inset: auto; left: 0; right: 0; top: 1440px; height: 200px"></div>
+    </div>
+
+    <script>
+      // ---------- Captions: one chunk on screen at a time, timed inside each spoken line ----------
+      const LINES = [
+        [0.6, 4.74, "¿Sabías que los flamencos|nacen *grises*?|Ni blancos, ni rosas.|*Grises.*"],
+        [5.24, 8.18, "Entonces, ¿de dónde sale|ese *rosa* tan intenso?"],
+        [8.78, 13.73, "De lo que *comen*.|Su dieta está llena|de diminutos *camarones*|y de *algas* microscópicas."],
+        [14.23, 20.69, "Y estos alimentos tienen|unos pigmentos llamados|*carotenoides*.|Los mismos que hacen|naranja a la *zanahoria*."],
+        [21.25, 28.12, "Cuando el flamenco|digiere su comida,|el *hígado* transforma|esos pigmentos y los envía|a las *plumas*, a la *piel*|y al *pico*."],
+        [28.67, 35.77, "Cuanto más come,|más *rosa* se vuelve.|Y si deja de comerlos,|sus plumas nuevas salen|cada vez más *pálidas*,|casi *blancas*."],
+        [36.32, 40.07, "Por eso en los *zoológicos*|les añaden *carotenoides*|a la comida."],
+        [40.62, 46.72, "Y hay más:|el rosa sirve para *ligar*.|Un flamenco muy rosa|demuestra que está *sano*|y bien alimentado."],
+        [47.33, 49.8, "Así que, literalmente,|*eres lo que comes*."],
+      ];
+      const capsEl = document.getElementById("caps");
+      const CHUNKS = [];
+      LINES.forEach(([a, b, text], li) => {
+        const parts = text.split("|");
+        const w = parts.map((p) => p.replace(/\*/g, "").length + 6);
+        const tot = w.reduce((s, x) => s + x, 0);
+        let t = a;
+        parts.forEach((p, pi) => {
+          const d = ((b - a) * w[pi]) / tot;
+          const el = document.createElement("div");
+          el.className = "cap";
+          el.id = `cap-${li}-${pi}`;
+          el.innerHTML = p.replace(/\*(.+?)\*/g, "<b>$1</b>");
+          capsEl.appendChild(el);
+          const end = pi === parts.length - 1 ? Math.min(b + 0.35, (LINES[li + 1] || [99])[0]) : t + d;
+          CHUNKS.push({ el, t0: t, t1: end });
+          t += d;
+        });
+      });
+
+      const tl = gsap.timeline({ paused: true });
+      const back = "back.out(1.8)";
+      const pop = (sel, t, extra = {}) => tl.fromTo(sel, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: back, ...extra }, t);
+      const up = (sel, t, extra = {}) => tl.fromTo(sel, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", ...extra }, t);
+      const out = (sel, t) => tl.to(sel, { opacity: 0, scale: 0.92, duration: 0.25, ease: "power2.in" }, t);
+
+      // ---------- Background life ----------
+      tl.to("#w1", { x: 148, duration: 53, ease: "none" }, 0);
+      tl.to("#w2", { x: -148, duration: 53, ease: "none" }, 0);
+      tl.to("#cl1", { x: 120, duration: 53, ease: "none" }, 0);
+      tl.to("#cl2", { x: -100, duration: 53, ease: "none" }, 0);
+      tl.fromTo("#sun", { scale: 0.96 }, { scale: 1.04, duration: 2.5, ease: "sine.inOut", yoyo: true, repeat: 20 }, 0);
+      tl.fromTo("#brand", { y: -160 }, { y: 0, duration: 0.6, ease: back }, 0.05);
+
+      // ---------- 1 ----------
+      up("#s1-t", 0.2);
+      pop("#s1-chick", 0.5, { transformOrigin: "50% 100%" });
+      tl.to("#s1-chick", { rotation: 4, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 7, transformOrigin: "50% 100%" }, 1.0);
+      pop("#chip1", 2.55);
+      tl.fromTo("#chip1 .x", { scaleX: 0 }, { scaleX: 1, duration: 0.25, ease: "power2.out" }, 2.95);
+      pop("#chip2", 3.15);
+      tl.fromTo("#chip2 .x", { scaleX: 0 }, { scaleX: 1, duration: 0.25, ease: "power2.out" }, 3.55);
+      tl.fromTo("#stamp", { scale: 2.6, opacity: 0, rotation: -14 }, { scale: 1, opacity: 1, rotation: -6, duration: 0.35, ease: "power4.in" }, 3.9);
+      tl.fromTo("#s1-chick", { y: 0 }, { y: 14, duration: 0.08, yoyo: true, repeat: 3, ease: "none" }, 4.25);
+      out("#s1 > *", 4.75);
+
+      // ---------- 2 ----------
+      up("#s2-t", 5.1);
+      pop("#s2-chick", 5.25, { transformOrigin: "50% 100%" });
+      tl.fromTo("#s2-arrow", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 5.6);
+      tl.fromTo("#s2-fl", { x: 500 }, { x: 0, duration: 0.7, ease: "power3.out" }, 5.5);
+      tl.fromTo("#s2-q", { scale: 0, rotation: -40 }, { scale: 1, rotation: 10, duration: 0.5, ease: back }, 6.5);
+      tl.to("#s2-q", { rotation: -8, duration: 0.45, ease: "sine.inOut", yoyo: true, repeat: 3 }, 7.0);
+      tl.to("#s2-fl", { scale: 1.06, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut", transformOrigin: "50% 100%" }, 7.2);
+      out("#s2 > *", 8.35);
+
+      // ---------- 3 ----------
+      up("#s3-t", 8.7);
+      tl.fromTo("#s3-lens", { scale: 0, rotation: -30 }, { scale: 1, rotation: 0, duration: 0.6, ease: back }, 9.2);
+      tl.fromTo("#s3-handle", { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, duration: 0.35, ease: "power2.out" }, 9.6);
+      document.querySelectorAll("#s3 .sh").forEach((el, i) => {
+        tl.fromTo(el, { x: -24 + 12 * i, y: 0 }, { x: 22 - 10 * i, y: (i % 2 ? -18 : 18), duration: 1.2 + 0.2 * i, ease: "sine.inOut", yoyo: true, repeat: 3 }, 9.4);
+      });
+      document.querySelectorAll("#s3 .al").forEach((el, i) => {
+        tl.fromTo(el, { y: 0, rotation: 0 }, { y: (i % 2 ? 22 : -22), rotation: (i % 2 ? 20 : -20), duration: 0.9 + 0.13 * i, ease: "sine.inOut", yoyo: true, repeat: 4 }, 9.4);
+      });
+      tl.fromTo("#s3 .sh", { opacity: 0.25 }, { opacity: 1, duration: 0.3 }, 11.4);
+      tl.fromTo("#s3 .al", { opacity: 0.25 }, { opacity: 1, duration: 0.3 }, 12.4);
+      pop("#s3-p1", 11.4);
+      pop("#s3-p2", 12.4);
+      out("#s3 > *", 13.75);
+
+      // ---------- 4 ----------
+      up("#s4-t", 14.1);
+      tl.set("#s4-big", { opacity: 0 }, 0);
+      tl.fromTo("#s4-big", { scale: 0.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: back }, 16.9);
+      document.querySelectorAll("#s4 .mol").forEach((p, i) => {
+        const L = p.getTotalLength();
+        tl.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 0.7, ease: "power1.inOut" }, 15.4 + i * 0.55);
+      });
+      tl.to("#s4-mol", { y: -12, duration: 0.8, ease: "sine.inOut", yoyo: true, repeat: 5 }, 16.8);
+      pop("#s4-shrimp", 15.0);
+      pop("#s4-eq", 18.6);
+      tl.fromTo("#s4-carrot", { y: 500, opacity: 0, rotation: 60 }, { y: 0, opacity: 1, rotation: 18, duration: 0.6, ease: back }, 19.1);
+      pop("#s4-pill", 19.8);
+      out("#s4 > *", 20.75);
+
+      // ---------- 5 ----------
+      up("#s5-t", 21.1);
+      tl.fromTo("#s5-fl", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 21.2);
+      pop("#s5-liver", 23.6);
+      tl.to("#s5-liver", { scale: 1.15, duration: 0.25, yoyo: true, repeat: 5, ease: "sine.inOut" }, 24.1);
+      pop("#s5-lv", 23.8);
+      // Pink pigment dots travelling from the liver to each part
+      const dotsHost = document.getElementById("s5-dots");
+      const LIV = [470, 780];
+      const TARGETS = [
+        { to: [340, 720], t: 25.9, id: "#s5-a" },
+        { to: [470, 1150], t: 26.7, id: "#s5-b" },
+        { to: [730, 470], t: 27.4, id: "#s5-c" },
+      ];
+      TARGETS.forEach((g, gi) => {
+        for (let k = 0; k < 6; k++) {
+          const d = document.createElement("div");
+          d.className = "abs";
+          d.style.cssText = `left:${LIV[0] - 14}px;top:${LIV[1] - 14}px;width:28px;height:28px;border-radius:50%;background:#ff4f8b;border:4px solid #2b1d3a;opacity:0`;
+          dotsHost.appendChild(d);
+          const t0 = g.t - 0.7 + k * 0.08;
+          tl.fromTo(d, { x: 0, y: 0, opacity: 1, scale: 0.6 }, { x: g.to[0] - LIV[0] + (k - 2.5) * 10, y: g.to[1] - LIV[1] + (k % 3 - 1) * 12, scale: 1, duration: 0.55, ease: "power2.inOut" }, t0);
+          tl.to(d, { opacity: 0, scale: 0, duration: 0.2 }, t0 + 0.55);
+        }
+        pop(g.id, g.t);
+      });
+      tl.to("#s5-fl", { "--fl": "#ff7aa6", "--fl2": "#e8578a", duration: 0.7, ease: "power1.inOut" }, 25.9);
+      tl.to("#s5-fl", { "--leg": "#f0648f", duration: 0.6 }, 26.7);
+      tl.to("#s5-fl", { "--beak": "#ffc2d3", duration: 0.5 }, 27.4);
+      out("#s5 > *", 28.15);
+
+      // ---------- 6 ----------
+      tl.set("#s6-t2", { opacity: 0 }, 0);
+      up("#s6-t1", 28.5);
+      tl.fromTo("#s6-fl", { x: -400 }, { x: 0, duration: 0.6, ease: "power3.out" }, 28.45);
+      pop("#s6-gauge", 28.6);
+      pop("#g-top", 28.8);
+      pop("#g-bot", 28.9);
+      tl.fromTo("#s6-fill", { scaleY: 0.5 }, { scaleY: 0.95, duration: 1.8, ease: "power2.out" }, 29.0);
+      document.querySelectorAll("#s6 .fs").forEach((el, i) => {
+        tl.fromTo(el, { opacity: 0, y: -60, rotation: 0 }, { opacity: 1, y: 140, rotation: 140, duration: 0.6, ease: "power2.in" }, 29.0 + i * 0.4);
+        tl.to(el, { opacity: 0, scale: 0.3, duration: 0.15 }, 29.6 + i * 0.4);
+      });
+      tl.to("#s6-fl", { "--fl": "#ff4f8b", "--fl2": "#d92f6c", "--leg": "#e8487f", duration: 1.8, ease: "power2.out" }, 29.1);
+      tl.to("#s6-t1", { opacity: 0, y: -40, duration: 0.25 }, 31.1);
+      up("#s6-t2", 31.3);
+      pop("#s6-no", 31.4);
+      tl.to("#s6-no", { opacity: 0, scale: 0.6, duration: 0.25 }, 32.6);
+      tl.to("#s6-fill", { scaleY: 0.06, duration: 3.2, ease: "power1.inOut" }, 32.3);
+      tl.to("#s6-fl", { "--fl": "#fbf1f2", "--fl2": "#efe0e3", "--leg": "#e7d3d8", duration: 3.2, ease: "power1.inOut" }, 32.3);
+      document.querySelectorAll("#s6 .ft").forEach((el, i) => {
+        tl.fromTo(el, { opacity: 0, y: 0, x: 0, rotation: -30 }, { opacity: 1, y: 520, x: (i % 2 ? 60 : -60), rotation: 60, duration: 2.0, ease: "sine.in" }, 32.5 + i * 0.35);
+        tl.to(el, { opacity: 0, duration: 0.25 }, 34.3 + i * 0.35);
+      });
+      out("#s6 > *", 35.75);
+
+      // ---------- 7 ----------
+      tl.fromTo("#s7-sign", { y: -500, rotation: -10 }, { y: 0, rotation: 0, duration: 0.6, ease: "bounce.out" }, 36.1);
+      tl.fromTo("#s7-fl", { x: -400 }, { x: 0, duration: 0.6, ease: "power3.out" }, 36.4);
+      pop("#s7-bowl", 36.7);
+      tl.fromTo("#s7-shaker", { opacity: 0, y: -200, rotation: 0 }, { opacity: 1, y: 0, rotation: 0, duration: 0.5, ease: "power3.out" }, 37.6);
+      tl.to("#s7-shaker", { rotation: -125, duration: 0.4, ease: "power2.inOut", transformOrigin: "50% 50%" }, 38.1);
+      tl.to("#s7-shaker", { y: -20, duration: 0.12, yoyo: true, repeat: 9, ease: "sine.inOut" }, 38.5);
+      const spHost = document.getElementById("s7-spark");
+      for (let k = 0; k < 14; k++) {
+        const d = document.createElement("div");
+        d.className = "abs";
+        const x = 560 + (k * 37) % 120;
+        d.style.cssText = `left:${x}px;top:760px;width:22px;height:22px;border-radius:50%;background:${k % 2 ? "#ff8a3d" : "#ff4f8b"};opacity:0`;
+        spHost.appendChild(d);
+        const t0 = 38.5 + (k % 7) * 0.13 + Math.floor(k / 7) * 0.5;
+        tl.fromTo(d, { y: 0, opacity: 1 }, { y: 330, duration: 0.5, ease: "power2.in" }, t0);
+        tl.to(d, { opacity: 0, duration: 0.1 }, t0 + 0.5);
+      }
+      tl.to("#pellets circle", { fill: "#ff7a45", duration: 0.8, stagger: 0.06 }, 38.8);
+      pop("#s7-pill", 38.6);
+      tl.to("#s7-fl", { y: -20, duration: 0.25, yoyo: true, repeat: 3, ease: "sine.inOut" }, 39.4);
+      out("#s7 > *", 40.05);
+
+      // ---------- 8 ----------
+      up("#s8-t", 40.4);
+      tl.set("#s8-big", { opacity: 0 }, 0);
+      tl.fromTo("#s8-big", { scale: 0.2, opacity: 0, rotation: -12 }, { scale: 1, opacity: 1, rotation: -3, duration: 0.5, ease: back }, 42.4);
+      tl.fromTo("#s8-f1", { x: -520 }, { x: 0, duration: 0.8, ease: "power3.out" }, 40.5);
+      tl.fromTo("#s8-f2", { x: 520, scaleX: -1 }, { x: 0, scaleX: -1, duration: 0.8, ease: "power3.out" }, 40.5);
+      tl.fromTo("#s8-heart", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: back }, 42.7);
+      tl.to("#s8-heart", { scale: 1.2, duration: 0.3, yoyo: true, repeat: 11, ease: "sine.inOut" }, 43.2);
+      document.querySelectorAll("#s8 .h").forEach((el, i) => {
+        tl.fromTo(el, { opacity: 0, y: 0 }, { opacity: 1, y: -260, duration: 2.2, ease: "sine.out" }, 42.9 + i * 0.35);
+        tl.to(el, { opacity: 0, duration: 0.4 }, 44.8 + i * 0.35);
+      });
+      pop("#s8-pill", 45.1);
+      out("#s8 > *", 46.75);
+
+      // ---------- 9 ----------
+      up("#s9-t", 47.1);
+      tl.fromTo("#s9-fl", { y: 600 }, { y: 0, duration: 0.6, ease: back }, 47.2);
+      pop("#e1", 48.35);
+      pop("#e2", 48.75);
+      tl.fromTo("#e3", { scale: 3, opacity: 0, rotation: -10 }, { scale: 1, opacity: 1, rotation: -3, duration: 0.35, ease: "power4.in" }, 49.1);
+      tl.to("#s9-fl", { y: -30, duration: 0.15, yoyo: true, repeat: 3, ease: "sine.inOut" }, 49.45);
+      out("#s9 > *", 49.8);
+
+      // ---------- Outro ----------
+      pop("#o-t1", 50.05);
+      up("#o-t2", 50.4);
+      tl.fromTo("#o-btn", { xPercent: -50, scale: 0, opacity: 0 }, { xPercent: -50, scale: 1, opacity: 1, duration: 0.5, ease: back }, 50.7);
+      tl.to("#o-btn", { scale: 1.08, duration: 0.35, yoyo: true, repeat: 5, ease: "sine.inOut" }, 51.2);
+
+      // ---------- Captions ----------
+      CHUNKS.forEach(({ el, t0, t1 }) => {
+        tl.fromTo(el, { xPercent: -50, opacity: 0, scale: 0.8, y: 20 }, { xPercent: -50, opacity: 1, scale: 1, y: 0, duration: 0.16, ease: "back.out(2)" }, t0);
+        tl.to(el, { opacity: 0, duration: 0.06 }, Math.max(t0 + 0.2, t1 - 0.06));
+      });
+
+      tl.set({}, {}, 53);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
