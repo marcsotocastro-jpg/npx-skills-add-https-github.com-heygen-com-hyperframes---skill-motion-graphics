@@ -1,11 +1,11 @@
 {
- "total": 24.28,
+ "total": 53.67,
  "lines": [
   {
    "i": 1,
    "text": "¿Sabías que las nutrias marinas se dan la mano para dormir?",
    "start": 0.35,
-   "end": 3.86,
+   "end": 3.84,
    "heard": "sabías que las nutrias marinas se dan la mano para dormir.",
    "words": [
     [
@@ -15,52 +15,52 @@
     ],
     [
      0.77,
-     0.95,
+     0.97,
      "que"
     ],
     [
-     0.95,
+     0.97,
      1.11,
      "las"
     ],
     [
      1.11,
-     1.65,
+     1.61,
      "nutrias"
     ],
     [
-     1.65,
-     2.15,
+     1.61,
+     2.11,
      "marinas"
     ],
     [
-     2.15,
-     2.55,
+     2.11,
+     2.49,
      "se"
     ],
     [
-     2.55,
+     2.49,
      2.71,
      "dan"
     ],
     [
      2.71,
-     2.87,
+     2.85,
      "la"
     ],
     [
-     2.87,
-     3.11,
+     2.85,
+     3.09,
      "mano"
     ],
     [
-     3.11,
-     3.35,
+     3.09,
+     3.33,
      "para"
     ],
     [
-     3.35,
-     3.63,
+     3.33,
+     3.59,
      "dormir."
     ]
    ]
@@ -68,42 +68,42 @@
   {
    "i": 2,
    "text": "Lo hacen para que la corriente no las separe mientras descansan.",
-   "start": 4.18,
-   "end": 7.47,
+   "start": 4.16,
+   "end": 7.5,
    "heard": "lo hacen para que la corriente no la separe mientras descansan.",
    "words": [
     [
-     4.18,
-     4.4,
+     4.16,
+     4.36,
      "lo"
     ],
     [
-     4.4,
-     4.62,
+     4.36,
+     4.6,
      "hacen"
     ],
     [
-     4.62,
-     4.82,
+     4.6,
+     4.8,
      "para"
     ],
     [
-     4.82,
-     4.98,
+     4.8,
+     4.96,
      "que"
     ],
     [
-     4.98,
-     5.12,
+     4.96,
+     5.08,
      "la"
     ],
     [
-     5.12,
-     5.6,
+     5.08,
+     5.58,
      "corriente"
     ],
     [
-     5.6,
+     5.58,
      5.76,
      "no"
     ],
@@ -114,283 +114,798 @@
     ],
     [
      5.88,
-     6.28,
+     6.34,
      "separe"
     ],
     [
-     6.28,
-     6.54,
+     6.34,
+     6.6,
      "mientras"
     ],
     [
-     6.54,
-     7.3,
+     6.6,
+     7.34,
      "descansan."
     ]
    ]
   },
   {
    "i": 3,
-   "text": "A veces, incluso se enrollan en algas, como si fueran una manta.",
-   "start": 7.79,
-   "end": 11.82,
-   "heard": "A veces, incluso se enrollan en algas como si fueran una manta.",
+   "text": "A veces se juntan decenas de ellas flotando a la vez. A ese grupo se le llama balsa.",
+   "start": 7.82,
+   "end": 12.52,
+   "heard": "A veces se juntan decenas de ellas flotando a la vez, a ese grupo se le llama balsa.",
    "words": [
     [
-     7.79,
-     7.89,
+     7.82,
+     7.94,
      "A"
     ],
     [
-     7.89,
-     8.13,
-     "veces,"
+     7.94,
+     8.16,
+     "veces"
     ],
     [
-     8.53,
-     8.85,
-     "incluso"
-    ],
-    [
-     8.85,
-     9.17,
+     8.16,
+     8.6,
      "se"
     ],
     [
-     9.17,
-     9.63,
-     "enrollan"
+     8.6,
+     9.04,
+     "juntan"
     ],
     [
-     9.63,
-     9.75,
-     "en"
+     9.04,
+     9.44,
+     "decenas"
     ],
     [
-     9.75,
-     10.19,
-     "algas"
+     9.44,
+     9.64,
+     "de"
     ],
     [
-     10.19,
-     10.57,
-     "como"
+     9.64,
+     9.82,
+     "ellas"
     ],
     [
-     10.57,
-     10.77,
-     "si"
+     9.82,
+     10.36,
+     "flotando"
     ],
     [
-     10.77,
-     11.15,
-     "fueran"
+     10.36,
+     10.46,
+     "a"
     ],
     [
-     11.15,
-     11.27,
-     "una"
+     10.46,
+     10.5,
+     "la"
     ],
     [
-     11.27,
-     11.63,
-     "manta."
+     10.5,
+     10.74,
+     "vez,"
+    ],
+    [
+     10.86,
+     10.94,
+     "a"
+    ],
+    [
+     10.94,
+     11.12,
+     "ese"
+    ],
+    [
+     11.12,
+     11.44,
+     "grupo"
+    ],
+    [
+     11.44,
+     11.66,
+     "se"
+    ],
+    [
+     11.66,
+     11.78,
+     "le"
+    ],
+    [
+     11.78,
+     12.04,
+     "llama"
+    ],
+    [
+     12.04,
+     12.36,
+     "balsa."
     ]
    ]
   },
   {
    "i": 4,
-   "text": "Y hay algo todavía más sorprendente.",
-   "start": 12.14,
-   "end": 14.26,
-   "heard": "y hay algo todavía más sorprendente.",
+   "text": "Y para no irse a la deriva, se enrollan en algas como si fueran una manta.",
+   "start": 12.84,
+   "end": 16.8,
+   "heard": "y para no irse a la deriva, se enrollan en algas como si fueran una manta.",
    "words": [
     [
-     12.14,
-     12.26,
+     12.84,
+     12.94,
      "y"
     ],
     [
-     12.26,
-     12.38,
-     "hay"
+     12.94,
+     13.12,
+     "para"
     ],
     [
-     12.38,
-     12.62,
-     "algo"
+     13.12,
+     13.3,
+     "no"
     ],
     [
-     12.62,
-     13.02,
-     "todavía"
+     13.3,
+     13.58,
+     "irse"
     ],
     [
-     13.02,
-     13.34,
-     "más"
+     13.58,
+     13.68,
+     "a"
     ],
     [
-     13.34,
+     13.68,
+     13.76,
+     "la"
+    ],
+    [
+     13.76,
      14.14,
-     "sorprendente."
+     "deriva,"
+    ],
+    [
+     14.32,
+     14.46,
+     "se"
+    ],
+    [
+     14.46,
+     14.92,
+     "enrollan"
+    ],
+    [
+     14.92,
+     15.04,
+     "en"
+    ],
+    [
+     15.04,
+     15.4,
+     "algas"
+    ],
+    [
+     15.4,
+     15.62,
+     "como"
+    ],
+    [
+     15.62,
+     15.78,
+     "si"
+    ],
+    [
+     15.78,
+     16.14,
+     "fueran"
+    ],
+    [
+     16.14,
+     16.24,
+     "una"
+    ],
+    [
+     16.24,
+     16.6,
+     "manta."
     ]
    ]
   },
   {
    "i": 5,
-   "text": "Bajo el brazo tienen un bolsillo de piel donde guardan su piedra favorita.",
-   "start": 14.81,
-   "end": 18.95,
-   "heard": "Bajo el brazo tienen un bolsillo de piel donde guardan su piedra favorita.",
+   "text": "Pero no lo tienen nada fácil: viven en aguas muy frías y, a diferencia de las focas, no tienen grasa.",
+   "start": 17.12,
+   "end": 23.38,
+   "heard": "Pero no lo tienen nada fácil, viven en aguas muy frías y, a diferencia de las focas, no tienen grasa.",
    "words": [
     [
-     14.81,
-     15.15,
-     "Bajo"
+     17.12,
+     17.26,
+     "Pero"
     ],
     [
-     15.15,
-     15.31,
-     "el"
+     17.26,
+     17.44,
+     "no"
     ],
     [
-     15.31,
-     15.67,
-     "brazo"
+     17.44,
+     17.56,
+     "lo"
     ],
     [
-     15.67,
-     15.95,
+     17.56,
+     17.82,
      "tienen"
     ],
     [
-     15.95,
-     16.13,
-     "un"
+     17.82,
+     18.1,
+     "nada"
     ],
     [
-     16.13,
-     16.57,
-     "bolsillo"
+     18.1,
+     18.5,
+     "fácil,"
     ],
     [
-     16.57,
-     16.73,
+     18.82,
+     19.16,
+     "viven"
+    ],
+    [
+     19.16,
+     19.26,
+     "en"
+    ],
+    [
+     19.26,
+     19.64,
+     "aguas"
+    ],
+    [
+     19.64,
+     19.84,
+     "muy"
+    ],
+    [
+     19.84,
+     20.36,
+     "frías"
+    ],
+    [
+     20.36,
+     20.64,
+     "y,"
+    ],
+    [
+     20.76,
+     20.84,
+     "a"
+    ],
+    [
+     20.84,
+     21.14,
+     "diferencia"
+    ],
+    [
+     21.14,
+     21.58,
      "de"
     ],
     [
-     16.73,
-     16.95,
-     "piel"
+     21.58,
+     21.72,
+     "las"
     ],
     [
-     16.95,
-     17.19,
-     "donde"
+     21.72,
+     22.16,
+     "focas,"
     ],
     [
-     17.19,
-     17.75,
-     "guardan"
+     22.44,
+     22.58,
+     "no"
     ],
     [
-     17.75,
-     17.91,
-     "su"
+     22.58,
+     22.84,
+     "tienen"
     ],
     [
-     17.91,
-     18.29,
-     "piedra"
-    ],
-    [
-     18.29,
-     18.83,
-     "favorita."
+     22.84,
+     23.22,
+     "grasa."
     ]
    ]
   },
   {
    "i": 6,
-   "text": "La usan para romper conchas y abrir su comida.",
-   "start": 19.27,
-   "end": 21.87,
-   "heard": "la usan para romper conchas y abrir su comida.",
+   "text": "Su secreto es el pelaje más denso del reino animal: casi un millón de pelos en un trozo de piel del tamaño de un sello.",
+   "start": 23.7,
+   "end": 30.37,
+   "heard": "Su secreto es el pelaje más denso del reino animal, casi un millón de pelos en un trozo de piel del tamaño de un sello.",
    "words": [
     [
-     19.27,
-     19.45,
-     "la"
+     23.7,
+     23.88,
+     "Su"
     ],
     [
-     19.45,
-     19.73,
-     "usan"
+     23.88,
+     24.46,
+     "secreto"
     ],
     [
-     19.73,
-     19.87,
-     "para"
+     24.46,
+     24.76,
+     "es"
     ],
     [
-     19.87,
-     20.33,
-     "romper"
+     24.76,
+     24.92,
+     "el"
     ],
     [
-     20.33,
-     20.77,
-     "conchas"
+     24.92,
+     25.3,
+     "pelaje"
     ],
     [
-     20.77,
-     20.95,
-     "y"
+     25.3,
+     25.48,
+     "más"
     ],
     [
-     20.95,
-     21.15,
-     "abrir"
+     25.48,
+     25.88,
+     "denso"
     ],
     [
-     21.15,
-     21.37,
-     "su"
+     25.88,
+     26.04,
+     "del"
     ],
     [
-     21.37,
-     21.63,
-     "comida."
+     26.04,
+     26.34,
+     "reino"
+    ],
+    [
+     26.34,
+     26.74,
+     "animal,"
+    ],
+    [
+     26.98,
+     27.14,
+     "casi"
+    ],
+    [
+     27.14,
+     27.38,
+     "un"
+    ],
+    [
+     27.38,
+     27.7,
+     "millón"
+    ],
+    [
+     27.7,
+     27.78,
+     "de"
+    ],
+    [
+     27.78,
+     28.02,
+     "pelos"
+    ],
+    [
+     28.02,
+     28.26,
+     "en"
+    ],
+    [
+     28.26,
+     28.38,
+     "un"
+    ],
+    [
+     28.38,
+     28.72,
+     "trozo"
+    ],
+    [
+     28.72,
+     28.84,
+     "de"
+    ],
+    [
+     28.84,
+     29.06,
+     "piel"
+    ],
+    [
+     29.06,
+     29.24,
+     "del"
+    ],
+    [
+     29.24,
+     29.72,
+     "tamaño"
+    ],
+    [
+     29.72,
+     29.8,
+     "de"
+    ],
+    [
+     29.8,
+     29.92,
+     "un"
+    ],
+    [
+     29.92,
+     30.28,
+     "sello."
     ]
    ]
   },
   {
    "i": 7,
-   "text": "¿Conocías este secreto?",
-   "start": 22.19,
-   "end": 23.76,
-   "heard": "¿Lo conocías este secreto?",
+   "text": "Por eso pasan horas acicalándose. Así atrapan aire entre el pelo y se mantienen calientes.",
+   "start": 30.69,
+   "end": 36.04,
+   "heard": "Por eso pasan horas acicalándose, así atrapan aire entre el pelo y se mantienen calientes.",
    "words": [
     [
-     22.19,
-     22.19,
-     "¿Lo"
+     30.69,
+     30.81,
+     "Por"
     ],
     [
-     22.19,
-     22.71,
+     30.81,
+     31.01,
+     "eso"
+    ],
+    [
+     31.01,
+     31.41,
+     "pasan"
+    ],
+    [
+     31.41,
+     31.55,
+     "horas"
+    ],
+    [
+     31.55,
+     32.47,
+     "acicalándose,"
+    ],
+    [
+     32.61,
+     32.79,
+     "así"
+    ],
+    [
+     32.79,
+     33.35,
+     "atrapan"
+    ],
+    [
+     33.35,
+     33.47,
+     "aire"
+    ],
+    [
+     33.47,
+     33.75,
+     "entre"
+    ],
+    [
+     33.75,
+     33.95,
+     "el"
+    ],
+    [
+     33.95,
+     34.17,
+     "pelo"
+    ],
+    [
+     34.17,
+     34.53,
+     "y"
+    ],
+    [
+     34.53,
+     34.65,
+     "se"
+    ],
+    [
+     34.65,
+     35.17,
+     "mantienen"
+    ],
+    [
+     35.17,
+     35.73,
+     "calientes."
+    ]
+   ]
+  },
+  {
+   "i": 8,
+   "text": "Y hay algo todavía más sorprendente.",
+   "start": 36.36,
+   "end": 38.44,
+   "heard": "y hay algo todavía más sorprendente.",
+   "words": [
+    [
+     36.36,
+     36.48,
+     "y"
+    ],
+    [
+     36.48,
+     36.62,
+     "hay"
+    ],
+    [
+     36.62,
+     36.86,
+     "algo"
+    ],
+    [
+     36.86,
+     37.2,
+     "todavía"
+    ],
+    [
+     37.2,
+     37.52,
+     "más"
+    ],
+    [
+     37.52,
+     38.32,
+     "sorprendente."
+    ]
+   ]
+  },
+  {
+   "i": 9,
+   "text": "Bajo el brazo tienen un bolsillo de piel donde guardan su piedra favorita.",
+   "start": 38.99,
+   "end": 43.18,
+   "heard": "Bajo el brazo tienen un bolsillo de piel donde guardan su piedra favorita.",
+   "words": [
+    [
+     38.99,
+     39.33,
+     "Bajo"
+    ],
+    [
+     39.33,
+     39.49,
+     "el"
+    ],
+    [
+     39.49,
+     39.83,
+     "brazo"
+    ],
+    [
+     39.83,
+     40.13,
+     "tienen"
+    ],
+    [
+     40.13,
+     40.33,
+     "un"
+    ],
+    [
+     40.33,
+     40.77,
+     "bolsillo"
+    ],
+    [
+     40.77,
+     40.93,
+     "de"
+    ],
+    [
+     40.93,
+     41.17,
+     "piel"
+    ],
+    [
+     41.17,
+     41.43,
+     "donde"
+    ],
+    [
+     41.43,
+     41.99,
+     "guardan"
+    ],
+    [
+     41.99,
+     42.17,
+     "su"
+    ],
+    [
+     42.17,
+     42.55,
+     "piedra"
+    ],
+    [
+     42.55,
+     43.05,
+     "favorita."
+    ]
+   ]
+  },
+  {
+   "i": 10,
+   "text": "La usan como martillo para romper conchas y abrir su comida.",
+   "start": 43.5,
+   "end": 46.99,
+   "heard": "la usan como martillo para romper conchas y abrir su comida.",
+   "words": [
+    [
+     43.5,
+     43.68,
+     "la"
+    ],
+    [
+     43.68,
+     44.0,
+     "usan"
+    ],
+    [
+     44.0,
+     44.22,
+     "como"
+    ],
+    [
+     44.22,
+     44.72,
+     "martillo"
+    ],
+    [
+     44.72,
+     44.94,
+     "para"
+    ],
+    [
+     44.94,
+     45.42,
+     "romper"
+    ],
+    [
+     45.42,
+     45.88,
+     "conchas"
+    ],
+    [
+     45.88,
+     46.06,
+     "y"
+    ],
+    [
+     46.06,
+     46.26,
+     "abrir"
+    ],
+    [
+     46.26,
+     46.48,
+     "su"
+    ],
+    [
+     46.48,
+     46.78,
+     "comida."
+    ]
+   ]
+  },
+  {
+   "i": 11,
+   "text": "Son de los pocos mamíferos, además de nosotros, que usan herramientas.",
+   "start": 47.31,
+   "end": 51.18,
+   "heard": "son de los pocos mamíceros, además de nosotros, que usan herramientas.",
+   "words": [
+    [
+     47.31,
+     47.55,
+     "son"
+    ],
+    [
+     47.55,
+     47.71,
+     "de"
+    ],
+    [
+     47.71,
+     47.81,
+     "los"
+    ],
+    [
+     47.81,
+     48.21,
+     "pocos"
+    ],
+    [
+     48.21,
+     48.81,
+     "mamíceros,"
+    ],
+    [
+     48.93,
+     49.17,
+     "además"
+    ],
+    [
+     49.17,
+     49.39,
+     "de"
+    ],
+    [
+     49.39,
+     49.69,
+     "nosotros,"
+    ],
+    [
+     50.05,
+     50.09,
+     "que"
+    ],
+    [
+     50.09,
+     50.37,
+     "usan"
+    ],
+    [
+     50.37,
+     51.05,
+     "herramientas."
+    ]
+   ]
+  },
+  {
+   "i": 12,
+   "text": "¿Conocías este secreto?",
+   "start": 51.5,
+   "end": 53.15,
+   "heard": "conocías este secreto.",
+   "words": [
+    [
+     51.5,
+     52.06,
      "conocías"
     ],
     [
-     22.71,
-     23.17,
+     52.06,
+     52.5,
      "este"
     ],
     [
-     23.17,
-     23.69,
-     "secreto?"
+     52.5,
+     53.08,
+     "secreto."
     ]
    ]
   }

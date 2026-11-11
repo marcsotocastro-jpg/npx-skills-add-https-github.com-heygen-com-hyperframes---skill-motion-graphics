@@ -1,20 +1,20 @@
 {
- "total": 22.73,
+ "total": 49.41,
  "lines": [
   {
    "i": 1,
    "text": "¿Sabías que las abejas bailan para decirse dónde hay comida?",
    "start": 0.35,
-   "end": 3.43,
+   "end": 3.33,
    "heard": "¿Sabías que las abejas bailan para decirse dónde hay comida?",
    "words": [
     [
      0.35,
-     0.77,
+     0.79,
      "¿Sabías"
     ],
     [
-     0.77,
+     0.79,
      0.97,
      "que"
     ],
@@ -25,37 +25,37 @@
     ],
     [
      1.09,
-     1.51,
+     1.47,
      "abejas"
     ],
     [
-     1.51,
-     1.89,
+     1.47,
+     1.85,
      "bailan"
     ],
     [
-     1.89,
-     2.05,
+     1.85,
+     2.01,
      "para"
     ],
     [
-     2.05,
-     2.57,
+     2.01,
+     2.51,
      "decirse"
     ],
     [
-     2.57,
-     2.77,
+     2.51,
+     2.71,
      "dónde"
     ],
     [
-     2.77,
-     2.97,
+     2.71,
+     2.89,
      "hay"
     ],
     [
-     2.97,
-     3.19,
+     2.89,
+     3.09,
      "comida?"
     ]
    ]
@@ -63,98 +63,103 @@
   {
    "i": 2,
    "text": "Cuando una abeja encuentra flores, vuelve a la colmena y baila dibujando un ocho.",
-   "start": 3.75,
-   "end": 8.24,
+   "start": 3.65,
+   "end": 8.1,
    "heard": "cuando una abeja encuentra flores, vuelve a la colmena y baila dibujando un ocho.",
    "words": [
     [
-     3.75,
-     3.93,
+     3.65,
+     3.83,
      "cuando"
     ],
     [
-     3.93,
-     4.13,
+     3.83,
+     4.05,
      "una"
     ],
     [
-     4.13,
-     4.51,
+     4.05,
+     4.39,
      "abeja"
     ],
     [
-     4.51,
-     4.85,
+     4.39,
+     4.71,
      "encuentra"
     ],
     [
-     4.85,
-     5.47,
+     4.71,
+     5.31,
      "flores,"
     ],
     [
-     5.65,
-     5.95,
+     5.51,
+     5.81,
      "vuelve"
     ],
     [
-     5.95,
-     6.03,
+     5.81,
+     5.87,
      "a"
     ],
     [
-     6.03,
-     6.11,
+     5.87,
+     5.95,
      "la"
     ],
     [
-     6.11,
-     6.67,
+     5.95,
+     6.49,
      "colmena"
     ],
     [
-     6.67,
-     6.91,
+     6.49,
+     6.73,
      "y"
     ],
     [
-     6.91,
-     7.23,
+     6.73,
+     7.07,
      "baila"
     ],
     [
-     7.23,
-     7.77,
+     7.07,
+     7.61,
      "dibujando"
     ],
     [
-     7.77,
-     7.89,
+     7.61,
+     7.73,
      "un"
     ],
     [
-     7.89,
-     8.21,
+     7.73,
+     8.07,
      "ocho."
     ]
    ]
   },
   {
    "i": 3,
-   "text": "El ángulo del baile indica la dirección respecto al sol.",
-   "start": 8.56,
-   "end": 11.49,
-   "heard": "El ángulo del baile indica la dirección respecto al sol.",
+   "text": "En el centro del ocho camina en línea recta mientras mueve el abdomen a toda velocidad.",
+   "start": 8.42,
+   "end": 13.02,
+   "heard": "En el centro del 8 camina en línea recta mientras mueve el abdomen a toda velocidad.",
    "words": [
+    [
+     8.42,
+     8.56,
+     "En"
+    ],
     [
      8.56,
      8.68,
-     "El"
+     "el"
     ],
     [
      8.68,
      9.0,
-     "ángulo"
+     "centro"
     ],
     [
      9.0,
@@ -163,213 +168,658 @@
     ],
     [
      9.2,
-     9.48,
-     "baile"
+     9.4,
+     "8"
     ],
     [
-     9.48,
-     9.92,
-     "indica"
+     9.4,
+     9.86,
+     "camina"
     ],
     [
-     9.92,
-     10.0,
-     "la"
+     9.86,
+     9.98,
+     "en"
     ],
     [
-     10.0,
-     10.54,
-     "dirección"
+     9.98,
+     10.18,
+     "línea"
     ],
     [
-     10.54,
-     10.86,
-     "respecto"
+     10.18,
+     10.68,
+     "recta"
     ],
     [
-     10.86,
-     11.16,
-     "al"
+     10.68,
+     10.84,
+     "mientras"
     ],
     [
-     11.16,
-     11.34,
-     "sol."
+     10.84,
+     11.54,
+     "mueve"
+    ],
+    [
+     11.54,
+     11.64,
+     "el"
+    ],
+    [
+     11.64,
+     11.92,
+     "abdomen"
+    ],
+    [
+     11.92,
+     12.16,
+     "a"
+    ],
+    [
+     12.16,
+     12.32,
+     "toda"
+    ],
+    [
+     12.32,
+     12.66,
+     "velocidad."
     ]
    ]
   },
   {
    "i": 4,
-   "text": "Y hay algo todavía más sorprendente.",
-   "start": 11.81,
-   "end": 13.8,
-   "heard": "y hay algo todavía más sorprendente.",
+   "text": "El ángulo de esa línea indica la dirección respecto al sol.",
+   "start": 13.34,
+   "end": 16.47,
+   "heard": "El ángulo de esa línea indica la dirección respecto al sol.",
    "words": [
     [
-     11.81,
-     11.91,
-     "y"
+     13.34,
+     13.46,
+     "El"
     ],
     [
-     11.91,
-     12.05,
-     "hay"
+     13.46,
+     13.76,
+     "ángulo"
     ],
     [
-     12.05,
-     12.25,
-     "algo"
+     13.76,
+     13.94,
+     "de"
     ],
     [
-     12.25,
-     12.57,
-     "todavía"
+     13.94,
+     14.1,
+     "esa"
     ],
     [
-     12.57,
-     12.87,
-     "más"
+     14.1,
+     14.36,
+     "línea"
     ],
     [
-     12.87,
-     13.69,
-     "sorprendente."
+     14.36,
+     14.86,
+     "indica"
+    ],
+    [
+     14.86,
+     14.96,
+     "la"
+    ],
+    [
+     14.96,
+     15.52,
+     "dirección"
+    ],
+    [
+     15.52,
+     15.82,
+     "respecto"
+    ],
+    [
+     15.82,
+     16.16,
+     "al"
+    ],
+    [
+     16.16,
+     16.3,
+     "sol."
     ]
    ]
   },
   {
    "i": 5,
-   "text": "Cuanto más tiempo mueve el abdomen, más lejos están las flores.",
-   "start": 14.35,
-   "end": 18.01,
-   "heard": "Cuanto más tiempo mueve el abdomen, más lejos están las flores.",
+   "text": "Si baila hacia arriba, las flores están en la dirección del sol. Si baila hacia abajo, en la contraria.",
+   "start": 16.79,
+   "end": 22.63,
+   "heard": "Si baila hacia arriba, las flores están en la dirección del sol. Si baila hacia abajo, en la contraria.",
    "words": [
     [
-     14.35,
-     14.65,
-     "Cuanto"
+     16.79,
+     16.99,
+     "Si"
     ],
     [
-     14.65,
-     14.87,
-     "más"
+     16.99,
+     17.33,
+     "baila"
     ],
     [
-     14.87,
-     15.17,
-     "tiempo"
+     17.33,
+     17.53,
+     "hacia"
     ],
     [
-     15.17,
-     15.63,
-     "mueve"
+     17.53,
+     17.83,
+     "arriba,"
     ],
     [
-     15.63,
-     15.75,
-     "el"
-    ],
-    [
-     15.75,
-     15.97,
-     "abdomen,"
-    ],
-    [
-     16.37,
-     16.49,
-     "más"
-    ],
-    [
-     16.49,
-     16.87,
-     "lejos"
-    ],
-    [
-     16.87,
-     17.17,
-     "están"
-    ],
-    [
-     17.17,
-     17.37,
+     18.19,
+     18.33,
      "las"
     ],
     [
-     17.37,
-     17.77,
-     "flores."
+     18.33,
+     18.77,
+     "flores"
+    ],
+    [
+     18.77,
+     19.07,
+     "están"
+    ],
+    [
+     19.07,
+     19.25,
+     "en"
+    ],
+    [
+     19.25,
+     19.33,
+     "la"
+    ],
+    [
+     19.33,
+     19.87,
+     "dirección"
+    ],
+    [
+     19.87,
+     20.05,
+     "del"
+    ],
+    [
+     20.05,
+     20.33,
+     "sol."
+    ],
+    [
+     20.47,
+     20.65,
+     "Si"
+    ],
+    [
+     20.65,
+     20.99,
+     "baila"
+    ],
+    [
+     20.99,
+     21.17,
+     "hacia"
+    ],
+    [
+     21.17,
+     21.47,
+     "abajo,"
+    ],
+    [
+     21.77,
+     21.85,
+     "en"
+    ],
+    [
+     21.85,
+     21.95,
+     "la"
+    ],
+    [
+     21.95,
+     22.51,
+     "contraria."
     ]
    ]
   },
   {
    "i": 6,
-   "text": "Es como un mapa hecho con el cuerpo.",
-   "start": 18.33,
-   "end": 20.29,
-   "heard": "es como un mapa hecho con el cuerpo.",
+   "text": "Y lo hacen a oscuras: las demás abejas siguen el baile tocándola con las antenas.",
+   "start": 22.95,
+   "end": 27.6,
+   "heard": "y lo hacen a oscuras, las demás abejas siguen el baile tocándola con las antenas.",
    "words": [
     [
-     18.33,
-     18.47,
-     "es"
+     22.95,
+     23.07,
+     "y"
     ],
     [
-     18.47,
-     18.69,
-     "como"
+     23.07,
+     23.21,
+     "lo"
     ],
     [
-     18.69,
-     18.83,
-     "un"
+     23.21,
+     23.47,
+     "hacen"
     ],
     [
-     18.83,
-     19.07,
-     "mapa"
+     23.47,
+     23.61,
+     "a"
     ],
     [
-     19.07,
-     19.39,
-     "hecho"
+     23.61,
+     24.03,
+     "oscuras,"
     ],
     [
-     19.39,
-     19.61,
-     "con"
+     24.43,
+     24.59,
+     "las"
     ],
     [
-     19.61,
-     19.73,
+     24.59,
+     24.85,
+     "demás"
+    ],
+    [
+     24.85,
+     25.33,
+     "abejas"
+    ],
+    [
+     25.33,
+     25.67,
+     "siguen"
+    ],
+    [
+     25.67,
+     25.77,
      "el"
     ],
     [
-     19.73,
-     19.95,
-     "cuerpo."
+     25.77,
+     26.03,
+     "baile"
+    ],
+    [
+     26.03,
+     26.63,
+     "tocándola"
+    ],
+    [
+     26.63,
+     26.81,
+     "con"
+    ],
+    [
+     26.81,
+     26.97,
+     "las"
+    ],
+    [
+     26.97,
+     27.49,
+     "antenas."
     ]
    ]
   },
   {
    "i": 7,
-   "text": "¿Conocías este secreto?",
-   "start": 20.61,
-   "end": 22.21,
-   "heard": "conocías este secreto.",
+   "text": "Y hay algo todavía más sorprendente.",
+   "start": 27.92,
+   "end": 30.02,
+   "heard": "y hay algo todavía más sorprendente.",
    "words": [
     [
-     20.61,
-     21.19,
-     "conocías"
+     27.92,
+     28.02,
+     "y"
     ],
     [
-     21.19,
-     21.59,
+     28.02,
+     28.16,
+     "hay"
+    ],
+    [
+     28.16,
+     28.4,
+     "algo"
+    ],
+    [
+     28.4,
+     28.78,
+     "todavía"
+    ],
+    [
+     28.78,
+     29.1,
+     "más"
+    ],
+    [
+     29.1,
+     29.9,
+     "sorprendente."
+    ]
+   ]
+  },
+  {
+   "i": 8,
+   "text": "Cuanto más tiempo mueve el abdomen, más lejos están las flores.",
+   "start": 30.57,
+   "end": 34.27,
+   "heard": "Cuanto más tiempo mueve el abdomen, más lejos está las flores.",
+   "words": [
+    [
+     30.57,
+     30.87,
+     "Cuanto"
+    ],
+    [
+     30.87,
+     31.09,
+     "más"
+    ],
+    [
+     31.09,
+     31.43,
+     "tiempo"
+    ],
+    [
+     31.43,
+     31.91,
+     "mueve"
+    ],
+    [
+     31.91,
+     32.03,
+     "el"
+    ],
+    [
+     32.03,
+     32.29,
+     "abdomen,"
+    ],
+    [
+     32.65,
+     32.81,
+     "más"
+    ],
+    [
+     32.81,
+     33.21,
+     "lejos"
+    ],
+    [
+     33.21,
+     33.49,
+     "está"
+    ],
+    [
+     33.49,
+     33.71,
+     "las"
+    ],
+    [
+     33.71,
+     34.07,
+     "flores."
+    ]
+   ]
+  },
+  {
+   "i": 9,
+   "text": "Es como un mapa hecho con el cuerpo.",
+   "start": 34.59,
+   "end": 36.46,
+   "heard": "es como un mapa hecho con el cuerpo.",
+   "words": [
+    [
+     34.59,
+     34.73,
+     "es"
+    ],
+    [
+     34.73,
+     34.95,
+     "como"
+    ],
+    [
+     34.95,
+     35.11,
+     "un"
+    ],
+    [
+     35.11,
+     35.33,
+     "mapa"
+    ],
+    [
+     35.33,
+     35.61,
+     "hecho"
+    ],
+    [
+     35.61,
+     35.83,
+     "con"
+    ],
+    [
+     35.83,
+     35.95,
+     "el"
+    ],
+    [
+     35.95,
+     36.17,
+     "cuerpo."
+    ]
+   ]
+  },
+  {
+   "i": 10,
+   "text": "Este lenguaje lo descubrió el científico Karl von Frisch, y ganó el Premio Nobel por ello.",
+   "start": 36.78,
+   "end": 41.67,
+   "heard": "Este lenguaje lo descubrió el científico Carl von Fristz y ganó el premio Nobel por ello.",
+   "words": [
+    [
+     36.78,
+     37.0,
+     "Este"
+    ],
+    [
+     37.0,
+     37.44,
+     "lenguaje"
+    ],
+    [
+     37.44,
+     37.58,
+     "lo"
+    ],
+    [
+     37.58,
+     38.06,
+     "descubrió"
+    ],
+    [
+     38.06,
+     38.16,
+     "el"
+    ],
+    [
+     38.16,
+     38.86,
+     "científico"
+    ],
+    [
+     38.86,
+     39.06,
+     "Carl"
+    ],
+    [
+     39.06,
+     39.3,
+     "von"
+    ],
+    [
+     39.3,
+     39.88,
+     "Fristz"
+    ],
+    [
+     39.88,
+     40.12,
+     "y"
+    ],
+    [
+     40.12,
+     40.46,
+     "ganó"
+    ],
+    [
+     40.46,
+     40.58,
+     "el"
+    ],
+    [
+     40.58,
+     40.92,
+     "premio"
+    ],
+    [
+     40.92,
+     41.12,
+     "Nobel"
+    ],
+    [
+     41.12,
+     41.36,
+     "por"
+    ],
+    [
+     41.36,
+     41.54,
+     "ello."
+    ]
+   ]
+  },
+  {
+   "i": 11,
+   "text": "Gracias a este baile, una colmena puede encontrar flores a varios kilómetros de distancia.",
+   "start": 41.99,
+   "end": 46.99,
+   "heard": "Gracias a este baile, una colmena puede encontrar flores a varios kilómetros de distancia.",
+   "words": [
+    [
+     41.99,
+     42.35,
+     "Gracias"
+    ],
+    [
+     42.35,
+     42.63,
+     "a"
+    ],
+    [
+     42.63,
+     42.79,
      "este"
     ],
     [
-     21.59,
-     22.15,
+     42.79,
+     43.13,
+     "baile,"
+    ],
+    [
+     43.33,
+     43.51,
+     "una"
+    ],
+    [
+     43.51,
+     43.99,
+     "colmena"
+    ],
+    [
+     43.99,
+     44.19,
+     "puede"
+    ],
+    [
+     44.19,
+     44.55,
+     "encontrar"
+    ],
+    [
+     44.55,
+     45.07,
+     "flores"
+    ],
+    [
+     45.07,
+     45.21,
+     "a"
+    ],
+    [
+     45.21,
+     45.43,
+     "varios"
+    ],
+    [
+     45.43,
+     46.11,
+     "kilómetros"
+    ],
+    [
+     46.11,
+     46.25,
+     "de"
+    ],
+    [
+     46.25,
+     46.79,
+     "distancia."
+    ]
+   ]
+  },
+  {
+   "i": 12,
+   "text": "¿Conocías este secreto?",
+   "start": 47.31,
+   "end": 48.89,
+   "heard": "conocías este secreto.",
+   "words": [
+    [
+     47.31,
+     47.85,
+     "conocías"
+    ],
+    [
+     47.85,
+     48.25,
+     "este"
+    ],
+    [
+     48.25,
+     48.85,
      "secreto."
     ]
    ]

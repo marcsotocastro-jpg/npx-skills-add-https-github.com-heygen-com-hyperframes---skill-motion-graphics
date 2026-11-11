@@ -19,8 +19,8 @@
           linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 16%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.62) 86%, rgba(0,0,0,0.75) 100%),
           radial-gradient(ellipse 85% 70% at 50% 48%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%); }
       #flash { z-index: 55; background: #fff; opacity: 0; }
-      #brand { position: absolute; z-index: 60; left: 0; right: 0; top: 118px; text-align: center; font: 800 30px/1 "Montserrat", sans-serif; letter-spacing: 0.12em; color: #ffd400; -webkit-text-stroke: 6px #000; paint-order: stroke fill; text-shadow: 0 2px 6px rgba(0,0,0,0.85); }
-      #brand i { font-style: normal; color: #fff; margin: 0 14px; }
+      #brand { position: absolute; z-index: 60; left: 0; right: 0; top: 118px; margin: 0 auto; width: max-content; padding: 12px 24px; border-radius: 40px; background: rgba(0,0,0,0.55); text-align: center; font: 800 30px/1 "Montserrat", sans-serif; letter-spacing: 0.12em; color: #ffd400; -webkit-text-stroke: 6px #000; paint-order: stroke fill; text-shadow: 0 2px 6px rgba(0,0,0,0.85); }
+      #brand i { font-style: normal; color: #ffd400; margin: 0 14px; }
       #caps { z-index: 70; }
       .cap { position: absolute; left: 60px; right: 60px; top: 1380px; text-align: center; opacity: 0; }
       .cap span { display: block; white-space: nowrap; font: 900 58px/1.14 "Montserrat", sans-serif; letter-spacing: 0.01em; -webkit-text-stroke: 9px #000; paint-order: stroke fill; text-shadow: 0 6px 14px rgba(0,0,0,0.7); }
@@ -29,92 +29,180 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="24.68" data-width="1080" data-height="1920">
-      <audio id="voz" data-start="0" data-duration="24.28" data-volume="1" src="assets/audio/voz.m4a"></audio>
-      <audio id="musica" data-start="0" data-duration="24.68" data-volume="1" data-fade-out="1.2" src="assets/audio/musica.m4a"></audio>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="54.07" data-width="1080" data-height="1920">
+      <audio id="voz" data-start="0" data-duration="53.67" data-volume="1" src="assets/audio/voz.m4a"></audio>
+      <audio id="musica" data-start="0" data-duration="54.07" data-volume="1" data-fade-out="1.2" src="assets/audio/musica.m4a"></audio>
 
-      <div id="sh1" class="clip shot" data-start="0.00" data-duration="4.00" data-track-index="1" style="z-index:1">
-        <img id="im1" src="assets/img/shot1.jpg" alt="" style="object-position:50% 50%" data-layout-allow-overflow />
+      <div id="sh1" class="clip shot" data-start="0.00" data-duration="4.16" data-track-index="1" style="z-index:1">
+        <img id="im1" src="assets/img/o_hands.jpg" alt="" style="object-position:50% 50%" data-layout-allow-overflow />
       </div>
-      <div id="sh2" class="clip shot" data-start="3.65" data-duration="4.10" data-track-index="1" style="z-index:2">
-        <img id="im2" src="assets/img/shot2.jpg" alt="" style="object-position:48% 50%" data-layout-allow-overflow />
+      <div id="sh2" class="clip shot" data-start="3.81" data-duration="4.01" data-track-index="1" style="z-index:2">
+        <img id="im2" src="assets/img/o_four.jpg" alt="" style="object-position:48% 50%" data-layout-allow-overflow />
       </div>
-      <div id="sh3" class="clip shot" data-start="7.40" data-duration="4.70" data-track-index="1" style="z-index:3">
-        <img id="im3" src="assets/img/shot3.jpg" alt="" style="object-position:50% 45%" data-layout-allow-overflow />
+      <div id="sh3" class="clip shot" data-start="7.47" data-duration="5.37" data-track-index="1" style="z-index:3">
+        <img id="im3" src="assets/img/o_kelp.jpg" alt="" style="object-position:38% 40%" data-layout-allow-overflow />
       </div>
-      <div id="sh4" class="clip shot" data-start="11.75" data-duration="2.95" data-track-index="1" style="z-index:4">
-        <img id="im4" src="assets/img/shot4.jpg" alt="" style="object-position:45% 40%" data-layout-allow-overflow />
+      <div id="sh4" class="clip shot" data-start="12.49" data-duration="4.63" data-track-index="1" style="z-index:4">
+        <img id="im4" src="assets/img/o_snooze.jpg" alt="" style="object-position:50% 45%" data-layout-allow-overflow />
       </div>
-      <div id="sh5" class="clip shot" data-start="14.35" data-duration="4.85" data-track-index="1" style="z-index:5">
-        <img id="im5" src="assets/img/shot5.jpg" alt="" style="object-position:40% 50%" data-layout-allow-overflow />
+      <div id="sh5" class="clip shot" data-start="16.77" data-duration="3.53" data-track-index="1" style="z-index:5">
+        <img id="im5" src="assets/img/o_close.jpg" alt="" style="object-position:55% 40%" data-layout-allow-overflow />
       </div>
-      <div id="sh6" class="clip shot" data-start="18.85" data-duration="3.25" data-track-index="1" style="z-index:6">
-        <img id="im6" src="assets/img/shot6.jpg" alt="" style="object-position:82% 55%" data-layout-allow-overflow />
+      <div id="sh6" class="clip shot" data-start="19.95" data-duration="3.75" data-track-index="1" style="z-index:6">
+        <img id="im6" src="assets/img/o_kelp.jpg" alt="" style="object-position:80% 45%" data-layout-allow-overflow />
       </div>
-      <div id="sh7" class="clip shot" data-start="21.75" data-duration="2.93" data-track-index="1" style="z-index:7">
-        <img id="im7" src="assets/img/shot7.jpg" alt="" style="object-position:42% 50%" data-layout-allow-overflow />
+      <div id="sh7" class="clip shot" data-start="23.35" data-duration="3.75" data-track-index="1" style="z-index:7">
+        <img id="im7" src="assets/img/o_hedin.jpg" alt="" style="object-position:40% 30%" data-layout-allow-overflow />
+      </div>
+      <div id="sh8" class="clip shot" data-start="26.75" data-duration="3.94" data-track-index="1" style="z-index:8">
+        <img id="im8" src="assets/img/o_four.jpg" alt="" style="object-position:15% 50%" data-layout-allow-overflow />
+      </div>
+      <div id="sh9" class="clip shot" data-start="30.34" data-duration="3.16" data-track-index="1" style="z-index:9">
+        <img id="im9" src="assets/img/o_groom.jpg" alt="" style="object-position:40% 50%" data-layout-allow-overflow />
+      </div>
+      <div id="sh10" class="clip shot" data-start="33.15" data-duration="3.21" data-track-index="1" style="z-index:10">
+        <img id="im10" src="assets/img/o_snooze.jpg" alt="" style="object-position:50% 80%" data-layout-allow-overflow />
+      </div>
+      <div id="sh11" class="clip shot" data-start="36.01" data-duration="2.98" data-track-index="1" style="z-index:11">
+        <img id="im11" src="assets/img/o_face.jpg" alt="" style="object-position:45% 40%" data-layout-allow-overflow />
+      </div>
+      <div id="sh12" class="clip shot" data-start="38.64" data-duration="4.86" data-track-index="1" style="z-index:12">
+        <img id="im12" src="assets/img/o_hedin.jpg" alt="" style="object-position:45% 70%" data-layout-allow-overflow />
+      </div>
+      <div id="sh13" class="clip shot" data-start="43.15" data-duration="4.16" data-track-index="1" style="z-index:13">
+        <img id="im13" src="assets/img/o_octo.jpg" alt="" style="object-position:82% 55%" data-layout-allow-overflow />
+      </div>
+      <div id="sh14" class="clip shot" data-start="46.96" data-duration="4.54" data-track-index="1" style="z-index:14">
+        <img id="im14" src="assets/img/o_raft.jpg" alt="" style="object-position:42% 50%" data-layout-allow-overflow />
+      </div>
+      <div id="sh15" class="clip shot" data-start="51.15" data-duration="2.92" data-track-index="1" style="z-index:15">
+        <img id="im15" src="assets/img/o_hands.jpg" alt="" style="object-position:40% 40%" data-layout-allow-overflow />
       </div>
 
-      <div id="grade" class="clip" data-start="0" data-duration="24.68" data-track-index="2"></div>
-      <div id="flash" class="clip" data-start="0" data-duration="24.68" data-track-index="3"></div>
-      <div id="brand" class="clip" data-start="0" data-duration="24.68" data-track-index="4" style="inset: auto; left: 0; right: 0; top: 118px">CURIOSIDADES DE LA VIDA<i>•</i>EP. 01</div>
-      <div id="caps" class="clip" data-start="0" data-duration="24.68" data-track-index="5">
+      <div id="grade" class="clip" data-start="0" data-duration="54.07" data-track-index="2"></div>
+      <div id="flash" class="clip" data-start="0" data-duration="54.07" data-track-index="3"></div>
+      <div id="brand" class="clip" data-start="0" data-duration="54.07" data-track-index="4" style="inset: auto; left: 0; right: 0; top: 118px">CURIOSIDADES DE LA VIDA<i>•</i>EP. 01</div>
+      <div id="caps" class="clip" data-start="0" data-duration="54.07" data-track-index="5">
         <div class="cap" id="cap0"><span class="w">¿SABÍAS QUE</span><span class="y">LAS NUTRIAS MARINAS</span></div>
         <div class="cap" id="cap1"><span class="w">SE DAN LA MANO</span><span class="y">PARA DORMIR?</span></div>
         <div class="cap" id="cap2"><span class="w">LO HACEN PARA QUE</span><span class="y">LA CORRIENTE</span></div>
         <div class="cap" id="cap3"><span class="w">NO LAS SEPARE</span><span class="y">MIENTRAS DESCANSAN.</span></div>
-        <div class="cap" id="cap4"><span class="w">A VECES, INCLUSO</span><span class="y">SE ENROLLAN EN ALGAS,</span></div>
-        <div class="cap" id="cap5"><span class="w">COMO SI FUERAN</span><span class="y">UNA MANTA.</span></div>
-        <div class="cap" id="cap6"><span class="w">Y HAY ALGO TODAVÍA</span><span class="y">MÁS SORPRENDENTE.</span></div>
-        <div class="cap" id="cap7"><span class="w">BAJO EL BRAZO TIENEN</span><span class="y">UN BOLSILLO DE PIEL</span></div>
-        <div class="cap" id="cap8"><span class="w">DONDE GUARDAN</span><span class="y">SU PIEDRA FAVORITA.</span></div>
-        <div class="cap" id="cap9"><span class="w">LA USAN PARA</span><span class="y">ROMPER CONCHAS</span></div>
-        <div class="cap" id="cap10"><span class="w">Y ABRIR</span><span class="y">SU COMIDA.</span></div>
-        <div class="cap" id="cap11"><span class="w">¿CONOCÍAS</span><span class="y">ESTE SECRETO?</span></div>
+        <div class="cap" id="cap4"><span class="w">A VECES SE JUNTAN</span><span class="y">DECENAS DE ELLAS</span></div>
+        <div class="cap" id="cap5"><span class="w">FLOTANDO</span><span class="y">A LA VEZ.</span></div>
+        <div class="cap" id="cap6"><span class="w">A ESE GRUPO</span><span class="y">SE LE LLAMA BALSA.</span></div>
+        <div class="cap" id="cap7"><span class="w">Y PARA NO IRSE</span><span class="y">A LA DERIVA,</span></div>
+        <div class="cap" id="cap8"><span class="w">SE ENROLLAN EN ALGAS</span><span class="y">COMO SI FUERAN UNA MANTA.</span></div>
+        <div class="cap" id="cap9"><span class="w">PERO NO LO TIENEN</span><span class="y">NADA FÁCIL:</span></div>
+        <div class="cap" id="cap10"><span class="w">VIVEN EN AGUAS</span><span class="y">MUY FRÍAS</span></div>
+        <div class="cap" id="cap11"><span class="w">Y, A DIFERENCIA</span><span class="y">DE LAS FOCAS,</span></div>
+        <div class="cap" id="cap12"><span class="w">NO TIENEN</span><span class="y">GRASA.</span></div>
+        <div class="cap" id="cap13"><span class="w">SU SECRETO ES</span><span class="y">EL PELAJE MÁS DENSO</span></div>
+        <div class="cap" id="cap14"><span class="w">DEL REINO</span><span class="y">ANIMAL:</span></div>
+        <div class="cap" id="cap15"><span class="w">CASI UN MILLÓN</span><span class="y">DE PELOS</span></div>
+        <div class="cap" id="cap16"><span class="w">EN UN TROZO DE PIEL</span><span class="y">DEL TAMAÑO DE UN SELLO.</span></div>
+        <div class="cap" id="cap17"><span class="w">POR ESO PASAN HORAS</span><span class="y">ACICALÁNDOSE.</span></div>
+        <div class="cap" id="cap18"><span class="w">ASÍ ATRAPAN AIRE</span><span class="y">ENTRE EL PELO</span></div>
+        <div class="cap" id="cap19"><span class="w">Y SE MANTIENEN</span><span class="y">CALIENTES.</span></div>
+        <div class="cap" id="cap20"><span class="w">Y HAY ALGO TODAVÍA</span><span class="y">MÁS SORPRENDENTE.</span></div>
+        <div class="cap" id="cap21"><span class="w">BAJO EL BRAZO TIENEN</span><span class="y">UN BOLSILLO DE PIEL</span></div>
+        <div class="cap" id="cap22"><span class="w">DONDE GUARDAN</span><span class="y">SU PIEDRA FAVORITA.</span></div>
+        <div class="cap" id="cap23"><span class="w">LA USAN</span><span class="y">COMO MARTILLO</span></div>
+        <div class="cap" id="cap24"><span class="w">PARA ROMPER CONCHAS</span><span class="y">Y ABRIR SU COMIDA.</span></div>
+        <div class="cap" id="cap25"><span class="w">SON DE LOS POCOS</span><span class="y">MAMÍFEROS,</span></div>
+        <div class="cap" id="cap26"><span class="w">ADEMÁS DE NOSOTROS,</span><span class="y">QUE USAN HERRAMIENTAS.</span></div>
+        <div class="cap" id="cap27"><span class="w">¿CONOCÍAS</span><span class="y">ESTE SECRETO?</span></div>
       </div>
     </div>
     <script>
       const tl = gsap.timeline({ paused: true });
-      tl.fromTo("#im1", { scale: 1.02, x: 0 }, { scale: 1.16, x: 0, duration: 4.00, ease: "none" }, 0.00);
-      tl.fromTo("#im2", { scale: 1.16, x: 30 }, { scale: 1.02, x: -30, duration: 4.10, ease: "none" }, 3.65);
-      tl.fromTo("#sh2", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 3.65);
-      tl.fromTo("#im3", { scale: 1.02, x: 0 }, { scale: 1.16, x: 0, duration: 4.70, ease: "none" }, 7.40);
-      tl.fromTo("#sh3", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 7.40);
-      tl.fromTo("#im4", { scale: 1.02, x: 0 }, { scale: 1.16, x: 0, duration: 2.95, ease: "none" }, 11.75);
-      tl.fromTo("#sh4", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 11.75);
-      tl.fromTo("#im5", { scale: 1.16, x: -20 }, { scale: 1.02, x: 20, duration: 4.85, ease: "none" }, 14.35);
-      tl.fromTo("#sh5", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 14.35);
-      tl.fromTo("#im6", { scale: 1.02, x: 20 }, { scale: 1.16, x: -20, duration: 3.25, ease: "none" }, 18.85);
-      tl.fromTo("#sh6", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 18.85);
-      tl.fromTo("#im7", { scale: 1.02, x: 0 }, { scale: 1.16, x: 0, duration: 2.93, ease: "none" }, 21.75);
-      tl.fromTo("#sh7", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 21.75);
+      tl.fromTo("#im1", { scale: 1.02, x: 0 }, { scale: 1.16, x: 0, duration: 4.16, ease: "none" }, 0.00);
+      tl.fromTo("#im2", { scale: 1.16, x: 30 }, { scale: 1.02, x: -30, duration: 4.01, ease: "none" }, 3.81);
+      tl.fromTo("#sh2", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 3.81);
+      tl.fromTo("#im3", { scale: 1.02, x: -30 }, { scale: 1.16, x: 30, duration: 5.37, ease: "none" }, 7.47);
+      tl.fromTo("#sh3", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 7.47);
+      tl.fromTo("#im4", { scale: 1.02, x: 0 }, { scale: 1.16, x: 0, duration: 4.63, ease: "none" }, 12.49);
+      tl.fromTo("#sh4", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 12.49);
+      tl.fromTo("#im5", { scale: 1.02, x: 0 }, { scale: 1.16, x: 0, duration: 3.53, ease: "none" }, 16.77);
+      tl.fromTo("#sh5", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 16.77);
+      tl.fromTo("#im6", { scale: 1.16, x: 20 }, { scale: 1.02, x: -20, duration: 3.75, ease: "none" }, 19.95);
+      tl.fromTo("#sh6", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 19.95);
+      tl.fromTo("#im7", { scale: 1.02, x: 0 }, { scale: 1.16, x: 0, duration: 3.75, ease: "none" }, 23.35);
+      tl.fromTo("#sh7", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 23.35);
+      tl.fromTo("#im8", { scale: 1.02, x: -20 }, { scale: 1.16, x: 20, duration: 3.94, ease: "none" }, 26.75);
+      tl.fromTo("#sh8", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 26.75);
+      tl.fromTo("#im9", { scale: 1.02, x: 20 }, { scale: 1.16, x: -20, duration: 3.16, ease: "none" }, 30.34);
+      tl.fromTo("#sh9", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 30.34);
+      tl.fromTo("#im10", { scale: 1.16, x: 0 }, { scale: 1.02, x: 0, duration: 3.21, ease: "none" }, 33.15);
+      tl.fromTo("#sh10", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 33.15);
+      tl.fromTo("#im11", { scale: 1.02, x: 0 }, { scale: 1.16, x: 0, duration: 2.98, ease: "none" }, 36.01);
+      tl.fromTo("#sh11", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 36.01);
+      tl.fromTo("#im12", { scale: 1.16, x: -20 }, { scale: 1.02, x: 20, duration: 4.86, ease: "none" }, 38.64);
+      tl.fromTo("#sh12", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 38.64);
+      tl.fromTo("#im13", { scale: 1.02, x: 20 }, { scale: 1.16, x: -20, duration: 4.16, ease: "none" }, 43.15);
+      tl.fromTo("#sh13", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 43.15);
+      tl.fromTo("#im14", { scale: 1.02, x: 0 }, { scale: 1.16, x: 0, duration: 4.54, ease: "none" }, 46.96);
+      tl.fromTo("#sh14", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 46.96);
+      tl.fromTo("#im15", { scale: 1.16, x: 0 }, { scale: 1.02, x: 0, duration: 2.92, ease: "none" }, 51.15);
+      tl.fromTo("#sh15", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 51.15);
       tl.fromTo("#cap0", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 0.30);
-      tl.to("#cap0", { opacity: 0, duration: 0.08 }, 2.02);
-      tl.fromTo("#cap1", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 2.10);
-      tl.to("#cap1", { opacity: 0, duration: 0.08 }, 4.03);
-      tl.fromTo("#cap2", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 4.13);
-      tl.to("#cap2", { opacity: 0, duration: 0.08 }, 5.47);
-      tl.fromTo("#cap3", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 5.55);
-      tl.to("#cap3", { opacity: 0, duration: 0.08 }, 7.64);
-      tl.fromTo("#cap4", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 7.74);
-      tl.to("#cap4", { opacity: 0, duration: 0.08 }, 10.06);
-      tl.fromTo("#cap5", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 10.14);
-      tl.to("#cap5", { opacity: 0, duration: 0.08 }, 11.99);
-      tl.fromTo("#cap6", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 12.09);
-      tl.to("#cap6", { opacity: 0, duration: 0.08 }, 14.43);
-      tl.fromTo("#cap7", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 14.76);
-      tl.to("#cap7", { opacity: 0, duration: 0.08 }, 16.82);
-      tl.fromTo("#cap8", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 16.90);
-      tl.to("#cap8", { opacity: 0, duration: 0.08 }, 19.12);
-      tl.fromTo("#cap9", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 19.22);
-      tl.to("#cap9", { opacity: 0, duration: 0.08 }, 20.64);
-      tl.fromTo("#cap10", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 20.72);
-      tl.to("#cap10", { opacity: 0, duration: 0.08 }, 22.04);
-      tl.fromTo("#cap11", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 22.14);
-      tl.to("#cap11", { opacity: 0, duration: 0.08 }, 24.28);
-      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.55, duration: 0.08, ease: "none" }, 12.14);
-      tl.to("#flash", { opacity: 0, duration: 0.5, ease: "power2.out" }, 12.22);
-      tl.set({}, {}, 24.68);
+      tl.to("#cap0", { opacity: 0, duration: 0.08 }, 1.98);
+      tl.fromTo("#cap1", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 2.06);
+      tl.to("#cap1", { opacity: 0, duration: 0.08 }, 4.01);
+      tl.fromTo("#cap2", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 4.11);
+      tl.to("#cap2", { opacity: 0, duration: 0.08 }, 5.45);
+      tl.fromTo("#cap3", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 5.53);
+      tl.to("#cap3", { opacity: 0, duration: 0.08 }, 7.67);
+      tl.fromTo("#cap4", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 7.77);
+      tl.to("#cap4", { opacity: 0, duration: 0.08 }, 9.69);
+      tl.fromTo("#cap5", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 9.77);
+      tl.to("#cap5", { opacity: 0, duration: 0.08 }, 10.73);
+      tl.fromTo("#cap6", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 10.81);
+      tl.to("#cap6", { opacity: 0, duration: 0.08 }, 12.69);
+      tl.fromTo("#cap7", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 12.79);
+      tl.to("#cap7", { opacity: 0, duration: 0.08 }, 14.19);
+      tl.fromTo("#cap8", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 14.27);
+      tl.to("#cap8", { opacity: 0, duration: 0.08 }, 16.97);
+      tl.fromTo("#cap9", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 17.07);
+      tl.to("#cap9", { opacity: 0, duration: 0.08 }, 18.69);
+      tl.fromTo("#cap10", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 18.77);
+      tl.to("#cap10", { opacity: 0, duration: 0.08 }, 20.23);
+      tl.fromTo("#cap11", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 20.31);
+      tl.to("#cap11", { opacity: 0, duration: 0.08 }, 22.31);
+      tl.fromTo("#cap12", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 22.39);
+      tl.to("#cap12", { opacity: 0, duration: 0.08 }, 23.55);
+      tl.fromTo("#cap13", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 23.65);
+      tl.to("#cap13", { opacity: 0, duration: 0.08 }, 25.75);
+      tl.fromTo("#cap14", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 25.83);
+      tl.to("#cap14", { opacity: 0, duration: 0.08 }, 26.85);
+      tl.fromTo("#cap15", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 26.93);
+      tl.to("#cap15", { opacity: 0, duration: 0.08 }, 27.89);
+      tl.fromTo("#cap16", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 27.97);
+      tl.to("#cap16", { opacity: 0, duration: 0.08 }, 30.54);
+      tl.fromTo("#cap17", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 30.64);
+      tl.to("#cap17", { opacity: 0, duration: 0.08 }, 32.48);
+      tl.fromTo("#cap18", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 32.56);
+      tl.to("#cap18", { opacity: 0, duration: 0.08 }, 34.04);
+      tl.fromTo("#cap19", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 34.12);
+      tl.to("#cap19", { opacity: 0, duration: 0.08 }, 36.21);
+      tl.fromTo("#cap20", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 36.31);
+      tl.to("#cap20", { opacity: 0, duration: 0.08 }, 38.61);
+      tl.fromTo("#cap21", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 38.94);
+      tl.to("#cap21", { opacity: 0, duration: 0.08 }, 41.04);
+      tl.fromTo("#cap22", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 41.12);
+      tl.to("#cap22", { opacity: 0, duration: 0.08 }, 43.35);
+      tl.fromTo("#cap23", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 43.45);
+      tl.to("#cap23", { opacity: 0, duration: 0.08 }, 44.59);
+      tl.fromTo("#cap24", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 44.67);
+      tl.to("#cap24", { opacity: 0, duration: 0.08 }, 47.16);
+      tl.fromTo("#cap25", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 47.26);
+      tl.to("#cap25", { opacity: 0, duration: 0.08 }, 48.80);
+      tl.fromTo("#cap26", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 48.88);
+      tl.to("#cap26", { opacity: 0, duration: 0.08 }, 51.35);
+      tl.fromTo("#cap27", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.18, ease: "back.out(2.2)" }, 51.45);
+      tl.to("#cap27", { opacity: 0, duration: 0.08 }, 53.67);
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.55, duration: 0.08, ease: "none" }, 36.36);
+      tl.to("#flash", { opacity: 0, duration: 0.5, ease: "power2.out" }, 36.44);
+      tl.set({}, {}, 54.07);
       window.__timelines = window.__timelines || {};
       window.__timelines["main"] = tl;
     </script>

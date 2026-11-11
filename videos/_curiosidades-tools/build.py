@@ -25,106 +25,152 @@ TEMPLATE_PROJECT = os.path.join(VIDEOS, "flamencos-vertical")
 
 # shots: (photo, start, object-position, zoom "in"/"out", pan px)
 # captions: one entry per voice line; "|" splits on-screen chunks, "/" splits white / yellow line.
+CREDITS = {
+    "o_hands.jpg": ("Sea otters holding hands.jpg", "Joe Robertson", "CC BY 2.0"),
+    "o_four.jpg": ("Four sea otters.JPG", "Mike Baird", "CC BY 2.0"),
+    "o_snooze.jpg": ("Snoozing otter.jpg", "Doug Knuth", "CC BY-SA 2.0"),
+    "o_kelp.jpg": ("Otter in kelp field.jpg", "Doug Knuth", "CC BY-SA 2.0"),
+    "o_face.jpg": ("Enhydra lutris face.jpg", "Mike Baird", "CC BY 2.0"),
+    "o_close.jpg": ("Enhydra lutris sea otter close photo.jpg", "Sowl, U.S. Fish and Wildlife Service", "Public domain"),
+    "o_groom.jpg": ("Sea-otter-grooming.jpg", "Mike Baird", "CC BY 2.0"),
+    "o_hedin.jpg": ("Sea Otter (Enhydra lutris) (25169790524).jpg", "Marshal Hedin", "CC BY-SA 2.0"),
+    "o_octo.jpg": ("Sea otter with a dinner of octopus on its chest.jpg", "National Park Service", "Public domain"),
+    "o_raft.jpg": ("Sea Otters (Enhydra lutris), from a raft of about 15, (8625968237).jpg", "Mike Baird", "CC BY 2.0"),
+    "c_amer2.jpg": ("AMERICAN CROW (7143675301).jpg", "cuatrok77", "CC BY 2.0"),
+    "c_smile.jpg": ("Smiling crow - Flickr - marneejill.jpg", "marneejill", "CC BY-SA 2.0"),
+    "c_carr.jpg": ("Carrion crows Corvus corone, Tottenham, London, England 1.jpg", "Acabashi", "CC BY-SA 4.0"),
+    "c_amer.jpg": ("American Crow, Crystal Springs Rhododendron Garden, 201803 DSC0100 (cropped).jpg", "CEKeech", "CC0"),
+    "c_murder.jpg": ("A Murder of Crows Perched in a in Tree, Spies Road, Freedom Township, Michigan - panoramio.jpg", "Dwight Burdette", "CC BY 3.0"),
+    "c_flock.jpg": ("Crows - Flickr - ms.bailey.jpg", "Mary Bailey", "CC BY 2.0"),
+    "c_cong.jpg": ("Crows congregating.jpg", "Controller666", "CC0"),
+    "c_ravfly.jpg": ("Common raven (Corvus corax) in flight Babadag.jpg", "Charles J. Sharp", "CC BY-SA 4.0"),
+    "c_ravfly2.jpg": ("Common raven (Corvus corax) in flight Uckermark.jpg", "Charles J. Sharp", "CC BY-SA 4.0"),
+    "c_snow.jpg": ("Moscow, grey crow in snow, Dec 2025 04.jpg", "Retired electrician", "CC0"),
+    "c_snow2.jpg": ("Moscow, grey crow in snow, Dec 2025 06.jpg", "Retired electrician", "CC0"),
+    "b_flight.jpg": ("Honey bee in flight.jpg", "Plaksin Alexander", "CC BY 4.0"),
+    "b_oreg.jpg": ("Honey bee on oregano flower.jpg", "Conall", "CC BY 4.0"),
+    "b_krol.jpg": ("Krolewo Bienen Bees 1.jpg", "Schlaier", "CC BY 3.0"),
+    "b_dance.png": ("Waggle dance photo.png", "J. Tautz and M. Kleinhenz", "CC BY 2.5"),
+    "b_frame.jpg": ("Frame from hive of honey bee (apis mellifera).jpg", "John Pons", "CC BY-SA 4.0"),
+    "b_busy.jpg": ("Considering-busy-honey bee-macro - Virginia - ForestWander.jpg", "ForestWander", "CC BY-SA 3.0 US"),
+    "b_flower.jpg": ("Honey Bee (Ápis melliféra) on a flower.jpg", "Plaksin Alexander", "CC BY 4.0"),
+    "b_macro.jpg": ("Macro shot of a honey bee on a flower (32068102187).jpg", "Ivan Radic", "CC BY 2.0"),
+    "b_csiro.jpg": ("CSIRO ScienceImage 6586 A frame from a beehive at a cherry farm near Young New South Wales.jpg", "Nick Pitsas, CSIRO", "CC BY 3.0"),
+    "b_pollen.jpg": ("Bee pollen cells.jpg", "John Pons", "CC BY-SA 4.0"),
+    "b_frisch.jpg": ("Karl von Frisch - Atelier Veritas, c. 1926.jpg", "Atelier Veritas (Stefanie Ludwig)", "Public domain"),
+    "b_entr.jpg": ("A beehive entrance.jpg", "Spectrographstudio", "CC BY-SA 4.0"),
+}
+
 EPISODES = [
     {
-        "slug": "curiosidades-nutrias",
-        "ep": "01",
+        "slug": "curiosidades-nutrias", "ep": "01", "vo": "nutrias",
         "title": "Las nutrias marinas se dan la mano para dormir",
-        "vo": "nutrias",
         "shots": [
             ("o_hands.jpg", 0.0, "50% 50%", "in", 0),
-            ("o_four.jpg", 4.0, "48% 50%", "out", -60),
-            ("o_snooze.jpg", 7.75, "50% 45%", "in", 0),
-            ("o_face.jpg", 12.1, "45% 40%", "in", 0),
-            ("o_hedin.jpg", 14.7, "40% 50%", "out", 40),
-            ("o_octo.jpg", 19.2, "82% 55%", "in", -40),
-            ("o_raft.jpg", 22.1, "42% 50%", "in", 0),
+            ("o_four.jpg", 4.16, "48% 50%", "out", -60),
+            ("o_kelp.jpg", 7.82, "38% 40%", "in", 60),
+            ("o_snooze.jpg", 12.84, "50% 45%", "in", 0),
+            ("o_close.jpg", 17.12, "55% 40%", "in", 0),
+            ("o_kelp.jpg", 20.3, "80% 45%", "out", -40),
+            ("o_hedin.jpg", 23.7, "40% 30%", "in", 0),
+            ("o_four.jpg", 27.1, "15% 50%", "in", 40),
+            ("o_groom.jpg", 30.69, "40% 50%", "in", -40),
+            ("o_snooze.jpg", 33.5, "50% 80%", "out", 0),
+            ("o_face.jpg", 36.36, "45% 40%", "in", 0),
+            ("o_hedin.jpg", 38.99, "45% 70%", "out", 40),
+            ("o_octo.jpg", 43.5, "82% 55%", "in", -40),
+            ("o_raft.jpg", 47.31, "42% 50%", "in", 0),
+            ("o_hands.jpg", 51.5, "40% 40%", "out", 0),
         ],
         "captions": [
             "¿Sabías que/las nutrias marinas|se dan la mano/para dormir?",
             "Lo hacen para que/la corriente|no las separe/mientras descansan.",
-            "A veces, incluso/se enrollan en algas,|como si fueran/una manta.",
+            "A veces se juntan/decenas de ellas|flotando/a la vez.|A ese grupo/se le llama balsa.",
+            "Y para no irse/a la deriva,|se enrollan en algas/como si fueran una manta.",
+            "Pero no lo tienen/nada fácil:|viven en aguas/muy frías|y, a diferencia/de las focas,|no tienen/grasa.",
+            "Su secreto es/el pelaje más denso|del reino/animal:|casi un millón/de pelos|en un trozo de piel/del tamaño de un sello.",
+            "Por eso pasan horas/acicalándose.|Así atrapan aire/entre el pelo|y se mantienen/calientes.",
             "Y hay algo todavía/más sorprendente.",
             "Bajo el brazo tienen/un bolsillo de piel|donde guardan/su piedra favorita.",
-            "La usan para/romper conchas|y abrir/su comida.",
+            "La usan/como martillo|para romper conchas/y abrir su comida.",
+            "Son de los pocos/mamíferos,|además de nosotros,/que usan herramientas.",
             "¿Conocías/este secreto?",
-        ],
-        "credits": [
-            ("Sea otters holding hands.jpg", "Joe Robertson", "CC BY 2.0"),
-            ("Four sea otters.JPG", "Mike Baird", "CC BY 2.0"),
-            ("Snoozing otter.jpg", "Doug Knuth", "CC BY-SA 2.0"),
-            ("Enhydra lutris face.jpg", "Mike Baird", "CC BY 2.0"),
-            ("Sea Otter (Enhydra lutris) (25169790524).jpg", "Marshal Hedin", "CC BY-SA 2.0"),
-            ("Sea otter with a dinner of octopus on its chest.jpg", "National Park Service", "Public domain"),
-            ("Sea Otters (Enhydra lutris), from a raft of about 15, (8625968237).jpg", "Mike Baird", "CC BY 2.0"),
         ],
     },
     {
-        "slug": "curiosidades-cuervos",
-        "ep": "02",
+        "slug": "curiosidades-cuervos", "ep": "02", "vo": "cuervos",
         "title": "Los cuervos recuerdan tu cara durante años",
-        "vo": "cuervos",
         "shots": [
             ("c_amer2.jpg", 0.0, "55% 45%", "in", 0),
-            ("c_smile.jpg", 3.95, "70% 50%", "out", -40),
-            ("c_carr.jpg", 8.8, "45% 40%", "in", 50),
-            ("c_amer.jpg", 14.0, "40% 45%", "in", 0),
-            ("c_murder.jpg", 16.65, "50% 35%", "out", 0),
-            ("c_flock.jpg", 21.7, "50% 45%", "in", -60),
-            ("c_cong.jpg", 24.05, "50% 50%", "in", -50),
+            ("c_smile.jpg", 4.09, "70% 50%", "out", -40),
+            ("c_carr.jpg", 7.2, "45% 40%", "in", 50),
+            ("c_ravfly2.jpg", 10.34, "40% 50%", "in", 60),
+            ("c_murder.jpg", 13.33, "50% 35%", "out", 0),
+            ("c_amer2.jpg", 15.9, "28% 45%", "in", 0),
+            ("c_cong.jpg", 18.62, "50% 50%", "in", -50),
+            ("c_snow2.jpg", 21.0, "35% 45%", "in", 0),
+            ("c_amer.jpg", 23.34, "40% 45%", "in", 0),
+            ("c_flock.jpg", 25.98, "50% 45%", "in", -60),
+            ("c_carr.jpg", 28.4, "78% 30%", "out", 0),
+            ("c_murder.jpg", 30.96, "50% 70%", "in", 0),
+            ("c_ravfly.jpg", 33.3, "50% 50%", "in", 60),
+            ("c_snow.jpg", 35.98, "40% 50%", "in", 0),
+            ("c_smile.jpg", 39.0, "35% 40%", "in", 30),
+            ("c_amer.jpg", 41.99, "45% 25%", "out", 0),
+            ("c_ravfly2.jpg", 44.5, "30% 45%", "in", -40),
+            ("c_cong.jpg", 46.92, "70% 40%", "in", 0),
+            ("c_amer2.jpg", 49.36, "50% 45%", "out", 0),
         ],
         "captions": [
             "¿Sabías que/los cuervos|pueden recordar/tu cara|/durante años?",
-            "En un experimento,/unos científicos|con una máscara/atraparon|a varios/cuervos.",
-            "Años después,/los cuervos|seguían graznando/a cualquiera|que llevara/esa máscara.",
+            "En un experimento/en Estados Unidos,|unos científicos/se pusieron una máscara|y atraparon/a varios cuervos.",
+            "Después/los soltaron,|sin hacerles/ningún daño.",
+            "Años más tarde,/los cuervos|seguían graznando/a cualquiera|que llevara/esa máscara.",
+            "En cambio,/a las personas|con una máscara/distinta|las ignoraban/por completo.",
             "Y hay algo todavía/más sorprendente.",
             "Enseñaron a otros/cuervos a reconocerla,|incluso a los que/nunca la habían visto.",
+            "Con el tiempo,/cada vez más cuervos|de la zona graznaban/al ver|la máscara/peligrosa.",
+            "Además,/los cuervos|usan herramientas,/resuelven rompecabezas|e incluso/planifican el futuro.",
+            "Por eso/muchos científicos|los consideran/de los animales|más inteligentes/del planeta.",
             "Así que mejor/llévate bien con ellos.",
             "¿Conocías/este secreto?",
         ],
-        "credits": [
-            ("AMERICAN CROW (7143675301).jpg", "cuatrok77", "CC BY 2.0"),
-            ("Smiling crow - Flickr - marneejill.jpg", "marneejill", "CC BY-SA 2.0"),
-            ("Carrion crows Corvus corone, Tottenham, London, England 1.jpg", "Acabashi", "CC BY-SA 4.0"),
-            ("American Crow, Crystal Springs Rhododendron Garden, 201803 DSC0100 (cropped).jpg", "CEKeech", "CC0"),
-            ("A Murder of Crows Perched in a in Tree, Spies Road, Freedom Township, Michigan - panoramio.jpg", "Dwight Burdette", "CC BY 3.0"),
-            ("Crows - Flickr - ms.bailey.jpg", "Mary Bailey", "CC BY 2.0"),
-            ("Crows congregating.jpg", "Controller666", "CC0"),
-        ],
     },
     {
-        "slug": "curiosidades-abejas",
-        "ep": "03",
+        "slug": "curiosidades-abejas", "ep": "03", "vo": "abejas",
         "title": "Las abejas bailan para decirse dónde hay comida",
-        "vo": "abejas",
         "shots": [
             ("b_flight.jpg", 0.0, "50% 40%", "in", 0),
             ("b_oreg.jpg", 3.65, "40% 45%", "out", 40),
-            ("b_csiro.jpg", 6.1, "50% 45%", "in", -40),
-            ("b_dance.png", 8.45, "50% 50%", "in", 0),
-            ("b_macro.jpg", 11.7, "55% 50%", "in", 0),
-            ("b_flower.jpg", 14.25, "50% 40%", "out", 0),
-            ("b_busy.jpg", 18.2, "42% 40%", "in", 0),
-            ("b_pollen.jpg", 20.5, "50% 50%", "in", -40),
+            ("b_krol.jpg", 6.0, "40% 60%", "in", -40),
+            ("b_dance.png", 8.42, "50% 50%", "in", 0),
+            ("b_frame.jpg", 11.0, "40% 50%", "in", 50),
+            ("b_busy.jpg", 13.34, "42% 40%", "in", 0),
+            ("b_flower.jpg", 16.79, "50% 40%", "out", 0),
+            ("b_macro.jpg", 19.7, "55% 50%", "in", 0),
+            ("b_csiro.jpg", 22.95, "50% 45%", "in", -40),
+            ("b_pollen.jpg", 25.3, "50% 50%", "in", -40),
+            ("b_flight.jpg", 27.92, "45% 60%", "in", 0),
+            ("b_dance.png", 30.57, "45% 55%", "out", 0),
+            ("b_oreg.jpg", 34.59, "70% 60%", "in", -30),
+            ("b_frisch.jpg", 36.78, "50% 35%", "in", 0),
+            ("b_entr.jpg", 41.99, "50% 55%", "in", 40),
+            ("b_macro.jpg", 44.5, "40% 45%", "out", 0),
+            ("b_pollen.jpg", 47.31, "60% 40%", "in", 0),
         ],
         "captions": [
             "¿Sabías que las abejas/bailan|para decirse/dónde hay comida?",
             "Cuando una abeja/encuentra flores,|vuelve a la colmena/y baila|dibujando/un ocho.",
-            "El ángulo del baile/indica la dirección|respecto/al sol.",
+            "En el centro del ocho/camina en línea recta|mientras mueve/el abdomen|a toda/velocidad.",
+            "El ángulo/de esa línea|indica la dirección/respecto al sol.",
+            "Si baila/hacia arriba,|las flores están/en la dirección del sol.|Si baila hacia abajo,/en la contraria.",
+            "Y lo hacen/a oscuras:|las demás abejas/siguen el baile|tocándola/con las antenas.",
             "Y hay algo todavía/más sorprendente.",
             "Cuanto más tiempo/mueve el abdomen,|más lejos/están las flores.",
             "Es como un mapa/hecho con el cuerpo.",
+            "Este lenguaje/lo descubrió|el científico/Karl von Frisch,|y ganó/el Premio Nobel por ello.",
+            "Gracias a este baile,/una colmena|puede encontrar flores/a varios kilómetros|/de distancia.",
             "¿Conocías/este secreto?",
-        ],
-        "credits": [
-            ("Honey bee in flight.jpg", "Plaksin Alexander", "CC BY 4.0"),
-            ("Honey bee on oregano flower.jpg", "Conall", "CC BY 4.0"),
-            ("CSIRO ScienceImage 6586 A frame from a beehive at a cherry farm near Young New South Wales.jpg", "Nick Pitsas, CSIRO", "CC BY 3.0"),
-            ("Waggle dance photo.png", "J. Tautz and M. Kleinhenz", "CC BY 2.5"),
-            ("Macro shot of a honey bee on a flower (32068102187).jpg", "Ivan Radic", "CC BY 2.0"),
-            ("Honey Bee (Ápis melliféra) on a flower.jpg", "Plaksin Alexander", "CC BY 4.0"),
-            ("Considering-busy-honey bee-macro - Virginia - ForestWander.jpg", "ForestWander", "CC BY-SA 3.0 US"),
-            ("Bee pollen cells.jpg", "John Pons", "CC BY-SA 4.0"),
         ],
     },
 ]
@@ -211,8 +257,9 @@ def build(ep):
     shots_html = []
     shots_js = []
     for i, (photo, t0, pos, zoom, pan) in enumerate(ep["shots"]):
-        name = f"shot{i + 1}.jpg"
-        prep_photo(os.path.join(PHOTOS, photo), os.path.join(proj, "assets/img", name))
+        name = photo.rsplit(".", 1)[0] + ".jpg"
+        if not os.path.exists(os.path.join(proj, "assets/img", name)):
+            prep_photo(os.path.join(PHOTOS, photo), os.path.join(proj, "assets/img", name))
         t1 = ep["shots"][i + 1][1] if i + 1 < len(ep["shots"]) else dur
         start = max(0.0, t0 - (0.35 if i else 0.0))
         d = round(t1 - start + (0.0 if i + 1 == len(ep["shots"]) else 0.0), 2)
@@ -245,8 +292,9 @@ def build(ep):
 
     cr = [f"# Créditos de las fotos — {ep['title']}", "",
           "Todas las fotos son de Wikimedia Commons (https://commons.wikimedia.org).", ""]
-    for i, (f, a, lic) in enumerate(ep["credits"], 1):
-        cr.append(f"- shot{i}.jpg — «{f}» — {a} — {lic}")
+    for photo in dict.fromkeys(sh[0] for sh in ep["shots"]):
+        f, a, lic = CREDITS[photo]
+        cr.append(f"- {photo.rsplit('.', 1)[0]}.jpg — «{f}» — {a} — {lic}")
     cr += ["", "Voz: Piper TTS, voz es_ES-sharvard-medium (hablante M).", "Música: generada con scripts/make-music.py."]
     open(os.path.join(proj, "CREDITS.md"), "w").write("\n".join(cr) + "\n")
     print("built", ep["slug"], dur, len(chunks), "captions")
@@ -273,8 +321,8 @@ PAGE = """<!doctype html>
           linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 16%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.62) 86%, rgba(0,0,0,0.75) 100%),
           radial-gradient(ellipse 85% 70% at 50% 48%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%); }}
       #flash {{ z-index: 55; background: #fff; opacity: 0; }}
-      #brand {{ position: absolute; z-index: 60; left: 0; right: 0; top: 118px; text-align: center; font: 800 30px/1 "Montserrat", sans-serif; letter-spacing: 0.12em; color: #ffd400; -webkit-text-stroke: 6px #000; paint-order: stroke fill; text-shadow: 0 2px 6px rgba(0,0,0,0.85); }}
-      #brand i {{ font-style: normal; color: #fff; margin: 0 14px; }}
+      #brand {{ position: absolute; z-index: 60; left: 0; right: 0; top: 118px; margin: 0 auto; width: max-content; padding: 12px 24px; border-radius: 40px; background: rgba(0,0,0,0.55); text-align: center; font: 800 30px/1 "Montserrat", sans-serif; letter-spacing: 0.12em; color: #ffd400; -webkit-text-stroke: 6px #000; paint-order: stroke fill; text-shadow: 0 2px 6px rgba(0,0,0,0.85); }}
+      #brand i {{ font-style: normal; color: #ffd400; margin: 0 14px; }}
       #caps {{ z-index: 70; }}
       .cap {{ position: absolute; left: 60px; right: 60px; top: 1380px; text-align: center; opacity: 0; }}
       .cap span {{ display: block; white-space: nowrap; font: 900 58px/1.14 "Montserrat", sans-serif; letter-spacing: 0.01em; -webkit-text-stroke: 9px #000; paint-order: stroke fill; text-shadow: 0 6px 14px rgba(0,0,0,0.7); }}
