@@ -2,49 +2,49 @@
  {
   "i": 0,
   "start": 0.25,
-  "dur": 1.544,
+  "dur": 1.498,
   "text": "¿Cuánto se tarda en llegar a Marte?"
  },
  {
   "i": 1,
-  "start": 2.014,
+  "start": 1.968,
   "dur": 1.533,
   "text": "Pues unos siete meses."
  },
  {
   "i": 2,
-  "start": 3.767,
-  "dur": 2.601,
+  "start": 3.72,
+  "dur": 2.612,
   "text": "El rover Perseverance tardó doscientos tres días."
  },
  {
   "i": 3,
-  "start": 6.587,
-  "dur": 3.251,
+  "start": 6.552,
+  "dur": 3.332,
   "text": "Y no va en línea recta: da media vuelta alrededor del Sol."
  },
  {
   "i": 4,
-  "start": 10.058,
-  "dur": 5.886,
+  "start": 10.105,
+  "dur": 5.863,
   "text": "La distancia cambia entre cincuenta y cinco y cuatrocientos millones de km. Por eso se lanza cada veintiséis meses."
  },
  {
   "i": 5,
-  "start": 16.164,
-  "dur": 2.972,
+  "start": 16.188,
+  "dur": 2.961,
   "text": "Error típico: creer que Marte es rojo porque está caliente."
  },
  {
   "i": 6,
-  "start": 19.356,
-  "dur": 5.329,
+  "start": 19.368,
+  "dur": 5.317,
   "text": "Es rojo por el óxido de hierro de su suelo. y su temperatura media ronda los sesenta grados bajo cero."
  },
  {
   "i": 7,
   "start": 24.905,
-  "dur": 2.856,
+  "dur": 2.868,
   "text": "¿Irías tú a Marte? te leo en comentarios."
  }
 ]

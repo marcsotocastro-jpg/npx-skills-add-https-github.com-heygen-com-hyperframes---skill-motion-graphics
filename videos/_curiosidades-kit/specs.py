@@ -143,7 +143,7 @@ dict(id="marte-vertical", title="Viaje a Marte", mood=2, lines=[
   dict(type="bars", from_=4, bars=[
     dict(label="MÁS CERCA", h=0.14, val="55 M km", at=[4, 1]),
     dict(label="MÁS LEJOS", h=1, val="400 M km", at=[4, 1, 0.6], color="orange")],
-    chips=[dict(text="VENTANA DE LANZAMIENTO: CADA 26 MESES", at=[4, 4], cls="or", y=1560, x=420)]),
+    chips=[dict(text="🚀 CADA 26 MESES", at=[4, 4], cls="or", y=1600, x=310)]),
   dict(type="myth", from_=5, no="Es rojo porque está <b>CALIENTE</b>", yes="Es rojo por el <b>ÓXIDO DE HIERRO</b>", yesAt=[6, 0], illus="mars",
        cmp=dict(at=[6, 2], items=[dict(v="≈ −60 °C", label="TEMPERATURA MEDIA")])),
   dict(type="close", from_=7, icon="rocket"),
