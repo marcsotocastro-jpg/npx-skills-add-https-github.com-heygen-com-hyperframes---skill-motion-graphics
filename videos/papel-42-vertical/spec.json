@@ -1,0 +1,255 @@
+{
+ "id": "papel-42-vertical",
+ "lines": [
+  [
+   [
+    "¿Qué pasa si",
+    "¿Qué pasa si"
+   ],
+   [
+    "doblas un <b>PAPEL</b>",
+    "doblas un papel"
+   ],
+   [
+    "<b>42 veces</b>?",
+    "cuarenta y dos veces?"
+   ]
+  ],
+  [
+   [
+    "Pues que, en teoría,",
+    "pues que, en teoría,"
+   ],
+   [
+    "llegarías a la <b>LUNA</b>",
+    "llegarías a la Luna."
+   ]
+  ],
+  [
+   [
+    "Un folio mide",
+    "Un folio mide"
+   ],
+   [
+    "unos <b>0,1 mm</b>",
+    "una décima de milímetro."
+   ],
+   [
+    "Y cada doblez",
+    "Y cada doblez"
+   ],
+   [
+    "<b>DUPLICA</b> el grosor",
+    "duplica el grosor."
+   ]
+  ],
+  [
+   [
+    "<b>7</b> dobleces:",
+    "siete dobleces:"
+   ],
+   [
+    "más de <b>1 cm</b>",
+    "algo más de un centímetro."
+   ]
+  ],
+  [
+   [
+    "<b>23</b> dobleces:",
+    "veintitrés dobleces:"
+   ],
+   [
+    "unos <b>840 metros</b>",
+    "unos ochocientos cuarenta metros."
+   ],
+   [
+    "más que el edificio",
+    "más que el edificio"
+   ],
+   [
+    "más <b>ALTO</b> del mundo",
+    "más alto del mundo."
+   ]
+  ],
+  [
+   [
+    "<b>42</b> dobleces:",
+    "cuarenta y dos dobleces:"
+   ],
+   [
+    "unos <b>440.000 km</b>",
+    "unos cuatrocientos cuarenta mil kilómetros."
+   ],
+   [
+    "La Luna está a",
+    "La Luna está a"
+   ],
+   [
+    "<b>384.000</b>",
+    "trescientos ochenta y cuatro mil."
+   ]
+  ],
+  [
+   [
+    "Error típico:",
+    "Error típico:"
+   ],
+   [
+    "dicen que no se puede",
+    "dicen que no se puede"
+   ],
+   [
+    "doblar más de <b>7 VECES</b>",
+    "doblar más de siete veces."
+   ]
+  ],
+  [
+   [
+    "En 2002, Britney Gallivan",
+    "en dos mil dos, Britney Gallivan"
+   ],
+   [
+    "lo dobló <b>12 VECES</b>",
+    "lo dobló doce veces,"
+   ],
+   [
+    "con un papel de",
+    "con un papel de"
+   ],
+   [
+    "más de <b>1 km</b>",
+    "más de un kilómetro de largo."
+   ]
+  ],
+  [
+   [
+    "¿Cuántas veces",
+    "¿Cuántas veces"
+   ],
+   [
+    "has llegado tú?",
+    "has llegado tú?"
+   ],
+   [
+    "<b>PRUÉBALO</b> y comenta",
+    "pruébalo y comenta."
+   ]
+  ]
+ ],
+ "scenes": [
+  {
+   "type": "hook",
+   "icon": "paper",
+   "chip": "0,1 mm",
+   "cal": [
+    "VECES",
+    "42"
+   ],
+   "from": 0
+  },
+  {
+   "type": "duo",
+   "items": [
+    {
+     "icon": "paper",
+     "label": "0,1 mm",
+     "at": [
+      1,
+      0
+     ]
+    },
+    {
+     "icon": "moon",
+     "label": "LA LUNA",
+     "at": [
+      1,
+      1
+     ]
+    }
+   ],
+   "sym": "→",
+   "chips": [
+    {
+     "text": "×2 EN CADA DOBLEZ",
+     "at": [
+      2,
+      3
+     ],
+     "cls": "or",
+     "y": 960
+    }
+   ],
+   "from": 1
+  },
+  {
+   "type": "steps",
+   "rows": [
+    {
+     "badge": "×7",
+     "icon": "paper",
+     "text": "algo más de un centímetro",
+     "val": "1,28 cm",
+     "at": [
+      3,
+      0
+     ]
+    },
+    {
+     "badge": "×23",
+     "icon": "tower",
+     "text": "más que el Burj Khalifa (828 m)",
+     "val": "≈ 840 m",
+     "at": [
+      4,
+      0
+     ]
+    },
+    {
+     "badge": "×42",
+     "icon": "moon",
+     "text": "la Luna está a 384.400 km",
+     "val": "≈ 440.000 km",
+     "at": [
+      5,
+      0
+     ]
+    }
+   ],
+   "from": 3
+  },
+  {
+   "type": "myth",
+   "no": "No se puede doblar más de <b>7 VECES</b>",
+   "yes": "Britney Gallivan: <b>12 VECES</b> (2002)",
+   "yesAt": [
+    7,
+    0
+   ],
+   "illus": "paper",
+   "cmp": {
+    "at": [
+     7,
+     2
+    ],
+    "sym": "·",
+    "items": [
+     {
+      "v": "12",
+      "label": "DOBLECES"
+     },
+     {
+      "v": "≈ 1,2 km",
+      "label": "DE PAPEL"
+     }
+    ]
+   },
+   "note": "Los 42 dobleces son solo un cálculo: en la práctica es imposible.",
+   "from": 6
+  },
+  {
+   "type": "close",
+   "icon": "moon",
+   "from": 8
+  }
+ ]
+}

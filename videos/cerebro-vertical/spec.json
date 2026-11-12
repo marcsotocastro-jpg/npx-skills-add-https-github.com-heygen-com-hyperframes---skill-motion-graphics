@@ -1,0 +1,204 @@
+{
+ "id": "cerebro-vertical",
+ "lines": [
+  [
+   [
+    "¿Cuántas",
+    "¿Cuántas"
+   ],
+   [
+    "<b>NEURONAS</b> tienes",
+    "neuronas tienes"
+   ],
+   [
+    "en el <b>CEREBRO</b>?",
+    "en el cerebro?"
+   ]
+  ],
+  [
+   [
+    "Pues unas",
+    "Pues unas"
+   ],
+   [
+    "<b>86.000 millones</b>",
+    "ochenta y seis mil millones."
+   ]
+  ],
+  [
+   [
+    "Y cada una",
+    "Y cada una"
+   ],
+   [
+    "puede conectarse",
+    "puede conectarse"
+   ],
+   [
+    "con <b>MILES</b> de otras",
+    "con miles de otras."
+   ]
+  ],
+  [
+   [
+    "Tu cerebro pesa",
+    "Tu cerebro pesa"
+   ],
+   [
+    "unos <b>1,3 kilos</b>:",
+    "alrededor de un kilo y trescientos gramos:"
+   ],
+   [
+    "solo un <b>2 %</b>",
+    "solo un dos por ciento"
+   ],
+   [
+    "de tu cuerpo.",
+    "de tu cuerpo."
+   ]
+  ],
+  [
+   [
+    "Pero gasta",
+    "Pero gasta"
+   ],
+   [
+    "cerca del <b>20 %</b>",
+    "cerca del veinte por ciento"
+   ],
+   [
+    "de tu <b>ENERGÍA</b>",
+    "de tu energía en reposo."
+   ]
+  ],
+  [
+   [
+    "Error típico:",
+    "Error típico:"
+   ],
+   [
+    "creer que solo usamos",
+    "creer que solo usamos"
+   ],
+   [
+    "el <b>10 %</b> del cerebro",
+    "el diez por ciento del cerebro."
+   ]
+  ],
+  [
+   [
+    "Las resonancias muestran",
+    "Las resonancias muestran"
+   ],
+   [
+    "actividad en <b>TODAS</b>",
+    "actividad en todas"
+   ],
+   [
+    "sus zonas",
+    "sus zonas"
+   ],
+   [
+    "a lo largo del <b>DÍA</b>",
+    "a lo largo del día."
+   ]
+  ],
+  [
+   [
+    "¿Qué otro mito",
+    "¿Qué otro mito"
+   ],
+   [
+    "te sabes?",
+    "te sabes?"
+   ],
+   [
+    "Te leo en <b>COMENTARIOS</b>",
+    "te leo en comentarios."
+   ]
+  ]
+ ],
+ "scenes": [
+  {
+   "type": "hook",
+   "icon": "brain",
+   "chip": "NEURONAS",
+   "from": 0
+  },
+  {
+   "type": "duo",
+   "items": [
+    {
+     "icon": "neuron",
+     "label": "86.000 MILLONES",
+     "at": [
+      1,
+      1
+     ]
+    },
+    {
+     "icon": "neuron",
+     "label": "MILES DE CONEXIONES",
+     "at": [
+      2,
+      2
+     ]
+    }
+   ],
+   "sym": "↔",
+   "from": 1
+  },
+  {
+   "type": "pct",
+   "rows": [
+    {
+     "label": "PESO DEL CUERPO",
+     "pct": 2,
+     "val": "2 %",
+     "at": [
+      3,
+      2
+     ]
+    },
+    {
+     "label": "ENERGÍA EN REPOSO",
+     "pct": 20,
+     "val": "20 %",
+     "at": [
+      4,
+      1
+     ]
+    }
+   ],
+   "chips": [
+    {
+     "text": "≈ 1,3 kg",
+     "at": [
+      3,
+      1
+     ],
+     "cls": "cy",
+     "x": 380,
+     "y": 1180
+    }
+   ],
+   "from": 3
+  },
+  {
+   "type": "myth",
+   "no": "Solo usamos el <b>10 %</b> del cerebro",
+   "yes": "Lo usamos <b>TODO</b>, por zonas y momentos",
+   "yesAt": [
+    6,
+    0
+   ],
+   "illus": "brain",
+   "from": 5
+  },
+  {
+   "type": "close",
+   "icon": "brain",
+   "from": 7
+  }
+ ]
+}

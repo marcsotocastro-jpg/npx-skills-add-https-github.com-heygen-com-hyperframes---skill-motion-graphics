@@ -1,0 +1,56 @@
+[
+ {
+  "i": 0,
+  "start": 0.25,
+  "dur": 1.312,
+  "text": "¿Cuánto pesa una nube?"
+ },
+ {
+  "i": 1,
+  "start": 1.782,
+  "dur": 2.798,
+  "text": "Pues una nube normal puede pesar unas quinientas toneladas."
+ },
+ {
+  "i": 2,
+  "start": 4.8,
+  "dur": 2.902,
+  "text": "Un cúmulo típico ocupa más o menos un kilómetro cúbico."
+ },
+ {
+  "i": 3,
+  "start": 7.922,
+  "dur": 2.763,
+  "text": "Cada metro cúbico tiene unos cero coma cinco gramos de agua."
+ },
+ {
+  "i": 4,
+  "start": 10.906,
+  "dur": 3.913,
+  "text": "Multiplica por mil millones de metros cúbicos y te sale: quinientos mil kilos."
+ },
+ {
+  "i": 5,
+  "start": 15.038,
+  "dur": 2.543,
+  "text": "Como cien elefantes flotando sobre tu cabeza."
+ },
+ {
+  "i": 6,
+  "start": 17.801,
+  "dur": 2.461,
+  "text": "Error típico: creer que flotan porque no pesan."
+ },
+ {
+  "i": 7,
+  "start": 20.482,
+  "dur": 4.505,
+  "text": "Sus gotitas son diminutas y caen muy despacio, y el aire caliente que sube las mantiene arriba."
+ },
+ {
+  "i": 8,
+  "start": 25.207,
+  "dur": 2.763,
+  "text": "¿Lo sabías? compártelo con alguien curioso."
+ }
+]

@@ -1,0 +1,238 @@
+{
+ "id": "peso-nube-vertical",
+ "lines": [
+  [
+   [
+    "¿Cuánto",
+    "¿Cuánto"
+   ],
+   [
+    "<b>PESA</b> una nube?",
+    "pesa una nube?"
+   ]
+  ],
+  [
+   [
+    "Pues una nube normal",
+    "Pues una nube normal"
+   ],
+   [
+    "puede pesar unas",
+    "puede pesar unas"
+   ],
+   [
+    "<b>500 toneladas</b>",
+    "quinientas toneladas."
+   ]
+  ],
+  [
+   [
+    "Un cúmulo típico",
+    "Un cúmulo típico"
+   ],
+   [
+    "ocupa más o menos",
+    "ocupa más o menos"
+   ],
+   [
+    "<b>1 km³</b>",
+    "un kilómetro cúbico."
+   ]
+  ],
+  [
+   [
+    "Cada metro cúbico",
+    "Cada metro cúbico"
+   ],
+   [
+    "tiene unos",
+    "tiene unos"
+   ],
+   [
+    "<b>0,5 gramos</b> de agua",
+    "cero coma cinco gramos de agua."
+   ]
+  ],
+  [
+   [
+    "Multiplica",
+    "Multiplica"
+   ],
+   [
+    "por <b>1.000 millones</b>",
+    "por mil millones de metros cúbicos"
+   ],
+   [
+    "y te sale:",
+    "y te sale:"
+   ],
+   [
+    "<b>500.000 kilos</b>",
+    "quinientos mil kilos."
+   ]
+  ],
+  [
+   [
+    "Como <b>100 elefantes</b>",
+    "como cien elefantes"
+   ],
+   [
+    "flotando sobre",
+    "flotando sobre"
+   ],
+   [
+    "tu <b>CABEZA</b>",
+    "tu cabeza."
+   ]
+  ],
+  [
+   [
+    "Error típico:",
+    "Error típico:"
+   ],
+   [
+    "creer que flotan",
+    "creer que flotan"
+   ],
+   [
+    "porque <b>NO PESAN</b>",
+    "porque no pesan."
+   ]
+  ],
+  [
+   [
+    "Sus gotitas son",
+    "Sus gotitas son"
+   ],
+   [
+    "<b>DIMINUTAS</b>",
+    "diminutas"
+   ],
+   [
+    "y caen muy despacio,",
+    "y caen muy despacio,"
+   ],
+   [
+    "y el aire caliente",
+    "y el aire caliente"
+   ],
+   [
+    "las mantiene <b>ARRIBA</b>",
+    "que sube las mantiene arriba."
+   ]
+  ],
+  [
+   [
+    "¿Lo sabías?",
+    "¿Lo sabías?"
+   ],
+   [
+    "<b>COMPÁRTELO</b>",
+    "compártelo"
+   ],
+   [
+    "con alguien curioso.",
+    "con alguien curioso."
+   ]
+  ]
+ ],
+ "scenes": [
+  {
+   "type": "hook",
+   "icon": "cloud",
+   "chip": "¿KILOS?",
+   "from": 0
+  },
+  {
+   "type": "duo",
+   "items": [
+    {
+     "icon": "cloud",
+     "label": "≈ 500 TONELADAS",
+     "at": [
+      1,
+      2
+     ]
+    }
+   ],
+   "from": 1
+  },
+  {
+   "type": "steps",
+   "rows": [
+    {
+     "badge": "1 km³",
+     "icon": "cloud",
+     "text": "volumen de un cúmulo",
+     "val": "1.000 M m³",
+     "at": [
+      2,
+      2
+     ]
+    },
+    {
+     "badge": "×",
+     "icon": "drop",
+     "text": "agua en cada m³",
+     "val": "0,5 g",
+     "at": [
+      3,
+      2
+     ]
+    },
+    {
+     "badge": "=",
+     "icon": "scale",
+     "text": "peso del agua de la nube",
+     "val": "500.000 kg",
+     "at": [
+      4,
+      3
+     ]
+    }
+   ],
+   "from": 2
+  },
+  {
+   "type": "duo",
+   "items": [
+    {
+     "icon": "cloud",
+     "label": "500 t",
+     "at": [
+      5,
+      0
+     ]
+    },
+    {
+     "icon": "elephant",
+     "label": "× 100",
+     "at": [
+      5,
+      0,
+      0.5
+     ]
+    }
+   ],
+   "sym": "=",
+   "from": 5
+  },
+  {
+   "type": "myth",
+   "no": "Flotan porque <b>NO PESAN</b>",
+   "yes": "Gotas <b>DIMINUTAS</b> y aire que sube",
+   "yesAt": [
+    7,
+    0
+   ],
+   "illus": "cloud",
+   "note": "Estimación del USGS para un cúmulo de 1 km³ con 0,5 g de agua por m³.",
+   "from": 6
+  },
+  {
+   "type": "close",
+   "icon": "cloud",
+   "from": 8
+  }
+ ]
+}

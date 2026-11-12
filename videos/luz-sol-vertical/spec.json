@@ -1,0 +1,263 @@
+{
+ "id": "luz-sol-vertical",
+ "lines": [
+  [
+   [
+    "¿Cuánto tarda",
+    "¿Cuánto tarda"
+   ],
+   [
+    "la luz del <b>SOL</b>",
+    "la luz del Sol"
+   ],
+   [
+    "en llegar a la <b>TIERRA</b>?",
+    "en llegar a la Tierra?"
+   ]
+  ],
+  [
+   [
+    "Pues unos",
+    "Pues unos"
+   ],
+   [
+    "<b>8 minutos</b>",
+    "ocho minutos"
+   ],
+   [
+    "y <b>20 segundos</b>",
+    "y veinte segundos."
+   ]
+  ],
+  [
+   [
+    "La luz viaja a casi",
+    "La luz viaja a casi"
+   ],
+   [
+    "<b>300.000 km</b>",
+    "trescientos mil kilómetros"
+   ],
+   [
+    "por <b>SEGUNDO</b>",
+    "por segundo."
+   ]
+  ],
+  [
+   [
+    "Y el Sol está",
+    "Y el Sol está"
+   ],
+   [
+    "a unos <b>150 millones</b>",
+    "a unos ciento cincuenta millones"
+   ],
+   [
+    "de kilómetros.",
+    "de kilómetros."
+   ]
+  ],
+  [
+   [
+    "Desde la <b>LUNA</b>,",
+    "desde la Luna,"
+   ],
+   [
+    "la luz tarda",
+    "la luz tarda"
+   ],
+   [
+    "poco más de <b>1 segundo</b>",
+    "poco más de un segundo."
+   ],
+   [
+    "Desde <b>MARTE</b>,",
+    "desde Marte,"
+   ],
+   [
+    "entre <b>3 y 22 minutos</b>",
+    "entre tres y veintidós minutos,"
+   ],
+   [
+    "según dónde esté.",
+    "según dónde esté."
+   ]
+  ],
+  [
+   [
+    "Error típico:",
+    "Error típico:"
+   ],
+   [
+    "creer que ves el Sol",
+    "creer que ves el Sol"
+   ],
+   [
+    "como está <b>AHORA</b>",
+    "como está ahora."
+   ]
+  ],
+  [
+   [
+    "Lo ves como era",
+    "Lo ves como era"
+   ],
+   [
+    "hace <b>8 minutos</b>",
+    "hace ocho minutos."
+   ],
+   [
+    "Si se apagara,",
+    "Si se apagara,"
+   ],
+   [
+    "tardarías eso",
+    "tardarías ese tiempo"
+   ],
+   [
+    "en <b>ENTERARTE</b>",
+    "en enterarte."
+   ]
+  ],
+  [
+   [
+    "¿Lo sabías?",
+    "¿Lo sabías?"
+   ],
+   [
+    "<b>GUÁRDALO</b> y compártelo",
+    "guárdalo y compártelo"
+   ],
+   [
+    "con quien no se lo crea.",
+    "con quien no se lo crea."
+   ]
+  ]
+ ],
+ "scenes": [
+  {
+   "type": "hook",
+   "icon": "sun",
+   "chip": "LUZ SOLAR",
+   "cal": [
+    "MIN",
+    "?"
+   ],
+   "from": 0
+  },
+  {
+   "type": "travel",
+   "a": {
+    "icon": "sun",
+    "label": "SOL"
+   },
+   "b": {
+    "icon": "earth",
+    "label": "TIERRA"
+   },
+   "mover": "beam",
+   "at": [
+    1,
+    0
+   ],
+   "until": [
+    1,
+    2,
+    0.8
+   ],
+   "counter": {
+    "from": 0,
+    "to": 500,
+    "mode": "mmss",
+    "unit": "min"
+   },
+   "chips": [
+    {
+     "text": "≈ 300.000 km/s",
+     "at": [
+      2,
+      1
+     ],
+     "cls": "cy"
+    },
+    {
+     "text": "150 MILLONES DE KM",
+     "at": [
+      3,
+      1
+     ],
+     "cls": "or"
+    }
+   ],
+   "from": 1
+  },
+  {
+   "type": "bars",
+   "note": "Escala comprimida. Marte: según su posición respecto a la Tierra.",
+   "bars": [
+    {
+     "label": "LUNA",
+     "h": 0.03,
+     "val": "1,3 s",
+     "at": [
+      4,
+      2
+     ]
+    },
+    {
+     "label": "SOL",
+     "h": 0.6,
+     "val": "8 min 20 s",
+     "at": [
+      4,
+      0
+     ]
+    },
+    {
+     "label": "MARTE",
+     "h": 1,
+     "val": "3–22 min",
+     "at": [
+      4,
+      4
+     ],
+     "color": "orange"
+    }
+   ],
+   "from": 4
+  },
+  {
+   "type": "myth",
+   "no": "Ves el Sol como está <b>AHORA</b>",
+   "yes": "Lo ves como era hace <b>8 MIN</b>",
+   "yesAt": [
+    6,
+    0
+   ],
+   "illus": "sun",
+   "cmp": {
+    "at": [
+     6,
+     2
+    ],
+    "sym": "→",
+    "items": [
+     {
+      "v": "☀ se apaga",
+      "label": "EN EL SOL"
+     },
+     {
+      "v": "+8:20",
+      "label": "LO NOTARÍAS AQUÍ"
+     }
+    ]
+   },
+   "from": 5
+  },
+  {
+   "type": "close",
+   "icon": "earth",
+   "from": 7
+  }
+ ]
+}

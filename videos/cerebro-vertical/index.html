@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Las neuronas del cerebro</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Montserrat"; font-weight: 600; src: url("assets/fonts/montserrat-latin-600-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Montserrat"; font-weight: 700; src: url("assets/fonts/montserrat-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Montserrat"; font-weight: 800; src: url("assets/fonts/montserrat-latin-800-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Montserrat"; font-weight: 900; src: url("assets/fonts/montserrat-latin-900-normal.woff2") format("woff2"); }
+      :root {
+        --navy2: #0b0f20; --line: #26315a; --cyan: #36d1ff; --blue: #2f6bff; --orange: #ff9b25;
+        --muted: #8d98c4; --red: #ff4d5e; --green: #2fd67b; --f: "Montserrat", system-ui, sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--navy2); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: var(--f); color: #fff; }
+      .clip { position: absolute; inset: 0; }
+      .abs { position: absolute; }
+      svg { display: block; overflow: visible; }
+
+      #bg { background: linear-gradient(180deg, #151b36 0%, #10152b 55%, #0b0f20 100%); overflow: hidden; }
+      .pnl { position: absolute; border: 3px solid var(--line); border-radius: 26px; background: rgba(24, 32, 61, 0.55); }
+      .rim { position: absolute; border-radius: 50%; }
+      #rim-a { left: 380px; top: 420px; width: 1200px; height: 1200px; background: radial-gradient(closest-side, rgba(54, 209, 255, 0.16), transparent); }
+      #rim-b { left: -500px; top: 1100px; width: 1100px; height: 1100px; background: radial-gradient(closest-side, rgba(47, 107, 255, 0.18), transparent); }
+      #floor { position: absolute; left: 0; top: 1500px; width: 1080px; height: 420px; background: linear-gradient(180deg, #0e1328, #090c1a); border-top: 3px solid rgba(54, 209, 255, 0.25); }
+      #accent { position: absolute; left: 0; top: 1460px; width: 1080px; height: 4px; background: var(--orange); opacity: 0.45; }
+
+      .cap { position: absolute; left: 50px; top: 200px; width: 980px; text-align: center; font: 800 80px/1.12 var(--f); letter-spacing: -0.01em; text-shadow: 0 6px 0 rgba(0, 0, 0, 0.35), 0 0 30px rgba(0, 0, 0, 0.5); opacity: 0; }
+      .cap b { color: var(--orange); font-weight: 900; }
+
+      .counter { display: inline-flex; align-items: baseline; gap: 10px; padding: 18px 34px; border: 5px solid var(--cyan); border-radius: 30px; background: rgba(9, 16, 36, 0.88); box-shadow: 0 0 34px rgba(54, 209, 255, 0.35), inset 0 0 20px rgba(54, 209, 255, 0.12); font-weight: 900; white-space: nowrap; }
+      .counter.or { border-color: var(--orange); box-shadow: 0 0 34px rgba(255, 155, 37, 0.35); }
+      .counter .v { font-size: 76px; line-height: 1; }
+      .counter .u { font-size: 38px; color: var(--muted); font-weight: 800; }
+      .chipwrap { width: 960px; text-align: center; }
+      .cal { position: absolute; width: 170px; height: 190px; border-radius: 26px; background: #fff; overflow: hidden; box-shadow: 0 14px 0 rgba(0, 0, 0, 0.3); }
+      .cal .top { height: 50px; background: var(--red); color: #fff; font: 800 24px/50px var(--f); letter-spacing: 0.1em; text-align: center; }
+      .cal .num { position: absolute; left: 0; right: 0; top: 54px; text-align: center; color: #141a33; font: 900 100px/130px var(--f); }
+      .chip { display: inline-block; padding: 14px 28px; border-radius: 22px; font: 800 36px/1 var(--f); letter-spacing: 0.03em; white-space: nowrap; }
+      .chip.cy { border: 4px solid var(--cyan); background: rgba(47, 107, 255, 0.35); }
+      .chip.or { border: 4px solid var(--orange); background: rgba(255, 155, 37, 0.18); color: var(--orange); }
+      .glow { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 196, 70, 0.6), rgba(255, 155, 37, 0.2) 55%, transparent); }
+      .sym { width: 200px; text-align: center; font: 900 120px/1 var(--f); color: var(--orange); }
+      .note { font: 600 28px/1.3 var(--f); color: var(--muted); }
+
+      .bcol { border-radius: 22px 22px 6px 6px; }
+      .bval { width: 320px; text-align: center; font: 900 44px/1 var(--f); white-space: nowrap; }
+      .blab { width: 320px; text-align: center; font: 800 30px/1 var(--f); color: var(--muted); letter-spacing: 0.05em; }
+
+      .srow { left: 60px; width: 960px; height: 210px; display: flex; align-items: center; gap: 26px; padding: 0 34px; border-radius: 34px; border: 4px solid var(--line); background: rgba(9, 16, 36, 0.85); }
+      .srow .badge { flex: none; min-width: 140px; padding: 16px 18px; border-radius: 22px; border: 4px solid var(--cyan); background: rgba(47, 107, 255, 0.35); font: 900 40px/1 var(--f); text-align: center; }
+      .srow .sic { flex: none; width: 110px; }
+      .srow .stx { flex: 1; font: 700 34px/1.2 var(--f); color: #d5dcf5; }
+      .srow .sval { flex: none; font: 900 50px/1 var(--f); color: var(--orange); white-space: nowrap; }
+
+      .prow { left: 70px; width: 940px; height: 200px; }
+      .plab { font: 800 44px/1 var(--f); margin-bottom: 26px; }
+      .ptrack { width: 940px; height: 90px; border-radius: 45px; background: rgba(9, 16, 36, 0.85); border: 4px solid var(--line); overflow: hidden; }
+      .pfill { height: 100%; border-radius: 45px; }
+      .pval { position: absolute; top: 76px; font: 900 56px/90px var(--f); padding-left: 18px; white-space: nowrap; }
+
+      .card { position: absolute; left: 60px; width: 960px; display: flex; align-items: center; gap: 34px; padding: 30px 40px; border-radius: 34px; background: rgba(9, 16, 36, 0.9); font: 800 52px/1.15 var(--f); }
+      .card .ic { flex: none; width: 110px; height: 110px; border-radius: 50%; display: grid; place-items: center; font: 900 72px/1 var(--f); color: #fff; }
+      .card.no { top: 480px; border: 5px solid var(--red); box-shadow: 0 0 34px rgba(255, 77, 94, 0.3); }
+      .card.no .ic { background: var(--red); }
+      .card.no b { color: var(--red); }
+      .card.yes { top: 1250px; border: 5px solid var(--green); box-shadow: 0 0 34px rgba(47, 214, 123, 0.3); }
+      .card.yes .ic { background: var(--green); }
+      .card.yes b { color: var(--orange); }
+      .cmp { left: 60px; top: 1540px; width: 960px; display: flex; align-items: center; justify-content: center; gap: 30px; }
+      .cmp .arrow { font: 900 72px/1 var(--f); color: var(--orange); }
+      .cmp small { display: block; margin-top: 10px; font: 700 26px/1 var(--f); color: var(--muted); text-align: center; }
+      .cmp .counter .v { font-size: 64px; }
+
+      .btns { left: 0; top: 1560px; width: 1080px; display: flex; justify-content: center; gap: 60px; }
+      .btn { display: flex; flex-direction: column; align-items: center; gap: 16px; font: 800 32px/1 var(--f); letter-spacing: 0.08em; }
+      .btn .ring { width: 150px; height: 150px; border-radius: 50%; border: 5px solid var(--cyan); background: rgba(9, 16, 36, 0.85); display: grid; place-items: center; box-shadow: 0 0 34px rgba(54, 209, 255, 0.35); }
+      .btn svg { width: 74px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="27.0" data-width="1080" data-height="1920">
+      <audio id="mix" data-start="0" data-duration="27.0" data-volume="1" src="assets/audio/mix.m4a"></audio>
+      <div id="bg" class="clip" data-start="0" data-duration="27.0" data-track-index="0">
+        <div class="rim" id="rim-a"></div>
+        <div class="rim" id="rim-b"></div>
+        <div id="panels" data-layout-allow-overflow>
+          <div class="pnl" style="left:-60px;top:120px;width:420px;height:520px"></div>
+          <div class="pnl" style="left:420px;top:60px;width:300px;height:300px"></div>
+          <div class="pnl" style="left:780px;top:160px;width:380px;height:640px"></div>
+          <div class="pnl" style="left:-40px;top:760px;width:300px;height:560px"></div>
+          <div class="pnl" style="left:330px;top:440px;width:400px;height:860px;opacity:.6"></div>
+          <div class="pnl" style="left:800px;top:900px;width:340px;height:420px"></div>
+        </div>
+        <div id="accent"></div>
+        <div id="floor"></div>
+      </div>
+      <section id="s0" class="clip" data-start="0.0" data-duration="2.599" data-track-index="1"></section>
+      <section id="s1" class="clip" data-start="2.479" data-duration="4.925" data-track-index="2"></section>
+      <section id="s2" class="clip" data-start="7.284" data-duration="8.315" data-track-index="1"></section>
+      <section id="s3" class="clip" data-start="15.479" data-duration="7.747" data-track-index="2"></section>
+      <section id="s4" class="clip" data-start="23.106" data-duration="3.894" data-track-index="1"></section>
+      <div id="caps" class="clip" data-start="0" data-duration="27.0" data-track-index="3"></div>
+    </div>
+    <script>
+      window.SPEC = {"id": "cerebro-vertical", "lines": [[["¿Cuántas", "¿Cuántas"], ["<b>NEURONAS</b> tienes", "neuronas tienes"], ["en el <b>CEREBRO</b>?", "en el cerebro?"]], [["Pues unas", "Pues unas"], ["<b>86.000 millones</b>", "ochenta y seis mil millones."]], [["Y cada una", "Y cada una"], ["puede conectarse", "puede conectarse"], ["con <b>MILES</b> de otras", "con miles de otras."]], [["Tu cerebro pesa", "Tu cerebro pesa"], ["unos <b>1,3 kilos</b>:", "alrededor de un kilo y trescientos gramos:"], ["solo un <b>2 %</b>", "solo un dos por ciento"], ["de tu cuerpo.", "de tu cuerpo."]], [["Pero gasta", "Pero gasta"], ["cerca del <b>20 %</b>", "cerca del veinte por ciento"], ["de tu <b>ENERGÍA</b>", "de tu energía en reposo."]], [["Error típico:", "Error típico:"], ["creer que solo usamos", "creer que solo usamos"], ["el <b>10 %</b> del cerebro", "el diez por ciento del cerebro."]], [["Las resonancias muestran", "Las resonancias muestran"], ["actividad en <b>TODAS</b>", "actividad en todas"], ["sus zonas", "sus zonas"], ["a lo largo del <b>DÍA</b>", "a lo largo del día."]], [["¿Qué otro mito", "¿Qué otro mito"], ["te sabes?", "te sabes?"], ["Te leo en <b>COMENTARIOS</b>", "te leo en comentarios."]]], "scenes": [{"type": "hook", "icon": "brain", "chip": "NEURONAS", "from": 0}, {"type": "duo", "items": [{"icon": "neuron", "label": "86.000 MILLONES", "at": [1, 1]}, {"icon": "neuron", "label": "MILES DE CONEXIONES", "at": [2, 2]}], "sym": "↔", "from": 1}, {"type": "pct", "rows": [{"label": "PESO DEL CUERPO", "pct": 2, "val": "2 %", "at": [3, 2]}, {"label": "ENERGÍA EN REPOSO", "pct": 20, "val": "20 %", "at": [4, 1]}], "chips": [{"text": "≈ 1,3 kg", "at": [3, 1], "cls": "cy", "x": 380, "y": 1180}], "from": 3}, {"type": "myth", "no": "Solo usamos el <b>10 %</b> del cerebro", "yes": "Lo usamos <b>TODO</b>, por zonas y momentos", "yesAt": [6, 0], "illus": "brain", "from": 5}, {"type": "close", "icon": "brain", "from": 7}]};
+      window.VO = [[0.25, 2.009], [2.479, 2.032], [4.73, 2.334], [7.284, 4.714], [12.218, 3.042], [15.479, 3.437], [19.136, 3.75], [23.106, 2.891]];
+      window.SCN = [[0.0, 2.479], [2.479, 7.284], [7.284, 15.479], [15.479, 23.106], [23.106, 27.0]];
+      window.END = 27.0;
+    </script>
+    <script>
+// Curiosidades engine: builds every scene of a 9:16 curiosity video from
+// window.SPEC (script + scene list), window.VO (voice-over line timing),
+// window.SCN (scene start/end) and window.END. Deterministic: no random,
+// no clock, no network. Registers the root timeline as window.__timelines.main.
+(function () {
+  const S = window.SPEC, VO = window.VO, SCN = window.SCN, END = window.END;
+  const tl = gsap.timeline({ paused: true });
+  const out = "power3.out", inn = "power2.in", pop = "back.out(1.8)";
+  const $ = (s) => document.querySelector(s);
+  const fmt = (v, dec = 0) => {
+    const s = Math.abs(v).toFixed(dec);
+    let [i, d] = s.split(".");
+    i = i.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return (v < 0 ? "−" : "") + i + (d ? "," + d : "");
+  };
+  const mmss = (v) => Math.floor(v / 60) + ":" + String(Math.floor(v % 60)).padStart(2, "0");
+  const add = (parent, html) => { parent.insertAdjacentHTML("beforeend", html); return parent.lastElementChild; };
+
+  // ---------------- Icons (viewBox 0 0 200 200, flat colours) ----------------
+  const I = {
+    coin: `<circle cx="100" cy="100" r="96" fill="#e9b437"/><circle cx="100" cy="100" r="62" fill="#d9dee8"/><circle cx="100" cy="100" r="62" fill="none" stroke="#b9c1d1" stroke-width="5"/><text x="100" y="128" text-anchor="middle" font-family="Montserrat" font-weight="900" font-size="80" fill="#6b5a2c">2</text>`,
+    sun: (() => { let r = ""; for (let k = 0; k < 12; k++) r += `<rect x="94" y="2" width="12" height="34" rx="6" fill="#ffb21f" transform="rotate(${k * 30} 100 100)"/>`; return r + `<circle cx="100" cy="100" r="58" fill="#ffc83d"/><circle cx="100" cy="100" r="58" fill="none" stroke="#fff3b0" stroke-width="5" opacity=".7"/><path d="M70 80 q10 -16 28 -18" stroke="#fff6cf" stroke-width="8" fill="none" stroke-linecap="round"/>`; })(),
+    earth: `<circle cx="100" cy="100" r="84" fill="#2f7dff"/><path d="M48 66 q22 -26 46 -10 q16 12 0 28 q-18 10 -26 26 q-12 16 -28 4 q-14 -16 8 -48z" fill="#3fcf6e"/><path d="M118 108 q24 -6 32 14 q6 22 -16 32 q-22 6 -24 -16 q-2 -18 8 -30z" fill="#3fcf6e"/><path d="M122 36 q22 0 30 16 q-14 8 -30 -16z" fill="#3fcf6e"/><path d="M40 70 a70 70 0 0 1 60 -54" stroke="#9fe8ff" stroke-width="7" fill="none" stroke-linecap="round" opacity=".8"/>`,
+    moon: `<circle cx="100" cy="100" r="84" fill="#d7dce8"/><circle cx="70" cy="80" r="18" fill="#b8bfd0"/><circle cx="126" cy="122" r="24" fill="#b8bfd0"/><circle cx="122" cy="58" r="10" fill="#b8bfd0"/><circle cx="78" cy="140" r="12" fill="#b8bfd0"/>`,
+    mars: `<circle cx="100" cy="100" r="84" fill="#e2653a"/><ellipse cx="72" cy="96" rx="30" ry="14" fill="#b8442a"/><ellipse cx="132" cy="134" rx="24" ry="10" fill="#b8442a"/><ellipse cx="128" cy="70" rx="14" ry="8" fill="#c9502f"/><ellipse cx="100" cy="26" rx="32" ry="10" fill="#fff" opacity=".9"/>`,
+    heart: `<path d="M100 176 C40 130 14 100 14 66 C14 36 38 18 62 18 C80 18 94 28 100 42 C106 28 120 18 138 18 C162 18 186 36 186 66 C186 100 160 130 100 176Z" fill="#ff4d6d"/><path d="M44 58 q8 -20 30 -20" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round" opacity=".6"/>`,
+    shoe: `<path d="M20 150 C20 110 40 70 70 66 L96 64 C104 90 130 104 160 112 C182 118 190 134 186 150 Z" fill="#2f6bff"/><path d="M14 150 h172 a10 10 0 0 1 0 20 H24 a10 10 0 0 1 -10 -10z" fill="#fff"/><path d="M76 84 l14 -4 M82 98 l16 -4 M90 112 l16 -4" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M60 136 q50 -4 100 -16" stroke="#ff9b25" stroke-width="8" fill="none" stroke-linecap="round"/>`,
+    foot: `<g fill="#e8ecf8"><ellipse cx="66" cy="130" rx="26" ry="44"/><circle cx="50" cy="76" r="9"/><circle cx="66" cy="70" r="9"/><circle cx="82" cy="74" r="8"/><circle cx="92" cy="84" r="7"/></g><g fill="#e8ecf8" transform="translate(70 -40)"><ellipse cx="66" cy="130" rx="26" ry="44"/><circle cx="50" cy="76" r="9"/><circle cx="66" cy="70" r="9"/><circle cx="82" cy="74" r="8"/><circle cx="92" cy="84" r="7"/></g>`,
+    flame: `<path d="M100 188 C50 188 30 150 40 110 C48 80 74 70 70 28 C100 50 120 80 116 104 C126 96 130 84 128 70 C156 96 170 126 160 152 C150 176 128 188 100 188Z" fill="#ff7a1f"/><path d="M100 188 C76 188 66 168 72 148 C78 130 96 124 96 104 C116 120 126 140 124 158 C122 176 112 188 100 188Z" fill="#ffd166"/>`,
+    pin: `<path d="M100 190 C70 150 40 120 40 82 a60 60 0 0 1 120 0 C160 120 130 150 100 190Z" fill="#ff4d5e"/><circle cx="100" cy="82" r="24" fill="#fff"/>`,
+    clock: `<circle cx="100" cy="100" r="84" fill="#fff"/><circle cx="100" cy="100" r="84" fill="none" stroke="#36d1ff" stroke-width="10"/>` + [0, 1, 2, 3].map((k) => `<rect x="96" y="24" width="8" height="18" rx="4" fill="#1b1730" transform="rotate(${k * 90} 100 100)"/>`).join("") + `<path d="M100 100 V52 M100 100 L136 120" stroke="#1b1730" stroke-width="10" stroke-linecap="round"/><circle cx="100" cy="100" r="9" fill="#ff9b25"/>`,
+    paper: `<path d="M44 14 h86 l36 36 v136 h-122z" fill="#fff"/><path d="M130 14 v36 h36z" fill="#cfd6e6"/><path d="M64 80 h80 M64 104 h80 M64 128 h80 M64 152 h52" stroke="#cfd6e6" stroke-width="7" stroke-linecap="round"/>`,
+    tower: `<path d="M96 6 h8 v40 h6 v40 h10 v40 h12 v66 h-84 v-66 h12 v-40 h10 v-40 h6 v-40z" fill="#9fb3d9"/><path d="M100 30 V186" stroke="#5fe1ff" stroke-width="4" opacity=".8"/><rect x="30" y="186" width="140" height="8" rx="4" fill="#5d6a95"/>`,
+    rocket: `<path d="M80 142 h40 l-20 50z" fill="#ff9b25"/><path d="M68 110 L40 150 L70 142z" fill="#ff4d5e"/><path d="M132 110 L160 150 L130 142z" fill="#ff4d5e"/><path d="M100 10 C132 40 142 90 132 142 H68 C58 90 68 40 100 10Z" fill="#f2f6ff"/><circle cx="100" cy="72" r="18" fill="#2f6bff" stroke="#9fb3d9" stroke-width="6"/>`,
+    brain: `<path d="M100 30 C60 20 24 46 26 84 C10 100 18 140 50 148 C60 172 92 176 100 160 C108 176 140 172 150 148 C182 140 190 100 174 84 C176 46 140 20 100 30Z" fill="#ff9ec4"/><path d="M100 32 V160" stroke="#e2659a" stroke-width="6"/><path d="M50 70 q20 -10 30 6 q10 16 -6 26 M44 116 q20 -8 30 8 M150 70 q-20 -10 -30 6 q-10 16 6 26 M156 116 q-20 -8 -30 8 M70 138 q14 -10 26 0 M130 138 q-14 -10 -26 0" stroke="#e2659a" stroke-width="6" fill="none" stroke-linecap="round"/>`,
+    neuron: `<g stroke="#ffd166" stroke-width="8" stroke-linecap="round" fill="none"><path d="M100 100 L40 50 M60 66 L40 74 M100 100 L150 34 M134 56 L156 62 M100 100 L30 120 M100 100 L170 176 M150 154 L168 146 M100 100 L74 176"/></g><circle cx="100" cy="100" r="30" fill="#ffd166"/><circle cx="100" cy="100" r="13" fill="#ff9b25"/>`,
+    drop: `<path d="M100 12 C130 60 162 92 162 124 a62 62 0 0 1 -124 0 C38 92 70 60 100 12Z" fill="#36a8ff"/><path d="M70 120 q0 26 24 36" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round" opacity=".7"/>`,
+    cloud: `<g fill="#f2f6ff"><circle cx="70" cy="112" r="40"/><circle cx="112" cy="90" r="54"/><circle cx="152" cy="116" r="36"/><rect x="34" y="110" width="152" height="46" rx="23"/></g><path d="M60 80 a40 40 0 0 1 30 -20" stroke="#5fe1ff" stroke-width="6" fill="none" stroke-linecap="round" opacity=".6"/>`,
+    elephant: `<path d="M38 112 q-16 6 -14 24" stroke="#9aa6c4" stroke-width="8" fill="none" stroke-linecap="round"/><g fill="#9aa6c4"><rect x="52" y="130" width="22" height="44" rx="8"/><rect x="82" y="134" width="22" height="40" rx="8"/><rect x="110" y="134" width="22" height="40" rx="8"/><ellipse cx="94" cy="112" rx="62" ry="44"/><circle cx="152" cy="92" r="36"/></g><path d="M178 104 q16 34 2 64" stroke="#9aa6c4" stroke-width="16" fill="none" stroke-linecap="round"/><ellipse cx="136" cy="94" rx="24" ry="32" fill="#8391b3"/><circle cx="162" cy="84" r="5" fill="#1b1730"/>`,
+    bacteria: `<g stroke="#3fd17a" stroke-width="6" fill="none" stroke-linecap="round"><path d="M164 100 q10 -14 20 0 q10 14 14 0"/><path d="M158 82 q12 -12 20 -2"/><path d="M158 118 q12 12 20 2"/><path d="M36 100 q-10 -14 -20 0"/></g><rect x="34" y="66" width="132" height="68" rx="34" fill="#3fd17a"/><circle cx="74" cy="92" r="9" fill="#22a85a"/><circle cx="108" cy="110" r="7" fill="#22a85a"/><circle cx="132" cy="88" r="8" fill="#22a85a"/><path d="M56 80 q12 -8 30 -6" stroke="#b9ffd6" stroke-width="6" fill="none" stroke-linecap="round"/>`,
+    rainbow: `<path d="M0 112 L84 104" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M100 36 L160 150 H40Z" fill="rgba(255,255,255,.18)" stroke="#fff" stroke-width="6" stroke-linejoin="round"/>` + ["#ff4d5e", "#ff9b25", "#ffd166", "#3fd17a", "#36a8ff", "#8f6bff"].map((c, k) => `<path d="M126 104 L200 ${66 + k * 16}" stroke="${c}" stroke-width="9" stroke-linecap="round"/>`).join(""),
+    sky: `<circle cx="100" cy="100" r="84" fill="#3f8cff"/><circle cx="100" cy="100" r="84" fill="none" stroke="#9fe8ff" stroke-width="6" opacity=".7"/>` + [[60, 70], [130, 60], [80, 130], [140, 120], [104, 98], [56, 104], [120, 150]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="6" fill="#fff"/><path d="M${x} ${y} l-14 -10 M${x} ${y} l14 -10 M${x} ${y} l0 16" stroke="#cfe6ff" stroke-width="3" stroke-linecap="round"/>`).join(""),
+    sunset: `<circle cx="100" cy="100" r="84" fill="#ff6b3d"/><circle cx="100" cy="130" r="44" fill="#ffd166"/><path d="M16 130 H184 A84 84 0 0 1 16 130Z" fill="#2a2350"/><path d="M50 150 h40 M110 150 h40 M70 166 h60" stroke="#ff9b25" stroke-width="6" stroke-linecap="round" opacity=".7"/>`,
+    glass: `<path d="M56 80 h88 l-7 96 h-74z" fill="#36a8ff"/><path d="M48 28 h104 l-12 152 h-80z" fill="rgba(200,230,255,.18)" stroke="#cfe6ff" stroke-width="7" stroke-linejoin="round"/><path d="M70 100 v50" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".6"/>`,
+    scale: `<rect x="20" y="40" width="160" height="140" rx="34" fill="#e8ecf8"/><rect x="58" y="62" width="84" height="40" rx="10" fill="#1b1730"/><text x="100" y="92" text-anchor="middle" font-family="Montserrat" font-weight="900" font-size="28" fill="#3fd17a">kg</text><ellipse cx="70" cy="146" rx="20" ry="12" fill="#cfd6e6"/><ellipse cx="130" cy="146" rx="20" ry="12" fill="#cfd6e6"/>`,
+    gut: `<path d="M48 176 V64 q0 -30 30 -30 h44 q30 0 30 30 v112" stroke="#ff8fa3" stroke-width="20" fill="none" stroke-linecap="round"/><path d="M76 74 q24 -14 48 0 q-24 14 -48 28 q24 14 48 0 q-24 14 -48 28 q24 14 48 0" stroke="#ffb3c1" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
+    torso: `<path d="M30 190 V60 q0 -40 40 -46 h60 q40 6 40 46 V190z" fill="#3a4670"/><ellipse cx="68" cy="100" rx="30" ry="54" fill="#ff9ec4" opacity=".85"/><ellipse cx="132" cy="100" rx="30" ry="54" fill="#ff9ec4" opacity=".85"/><path d="M100 20 V190" stroke="#fff" stroke-width="4" stroke-dasharray="8 8" opacity=".7"/><path transform="translate(80 92) scale(.27)" d="M100 176 C40 130 14 100 14 66 C14 36 38 18 62 18 C80 18 94 28 100 42 C106 28 120 18 138 18 C162 18 186 36 186 66 C186 100 160 130 100 176Z" fill="#ff4d6d" stroke="#fff" stroke-width="10"/>`,
+  };
+  const ICON = (n) => `<svg viewBox="0 0 200 200" width="100%">${I[n]}</svg>`;
+
+  // ---------------- Character ----------------
+  const SKIN = "#f4b98c", HAIR = "#2a2340", SHIRT = "#2f6bff", SHORTS = "#1d2340";
+  const charSVG = (id) => `<svg viewBox="0 0 300 440" width="100%">
+    <ellipse cx="150" cy="430" rx="110" ry="14" fill="rgba(0,0,0,.35)"/>
+    <rect x="104" y="318" width="38" height="108" rx="18" fill="${SKIN}"/><rect x="158" y="318" width="38" height="108" rx="18" fill="${SKIN}"/>
+    <rect x="96" y="406" width="54" height="24" rx="12" fill="#fff"/><rect x="152" y="406" width="54" height="24" rx="12" fill="#fff"/>
+    <rect x="92" y="300" width="116" height="66" rx="22" fill="${SHORTS}"/>
+    <g id="${id}-armL"><rect x="50" y="208" width="40" height="122" rx="20" fill="${SKIN}"/><rect x="50" y="204" width="44" height="46" rx="20" fill="${SHIRT}"/></g>
+    <g id="${id}-armR"><rect x="210" y="208" width="40" height="122" rx="20" fill="${SKIN}"/><rect x="206" y="204" width="44" height="46" rx="20" fill="${SHIRT}"/></g>
+    <rect x="80" y="196" width="140" height="132" rx="48" fill="${SHIRT}"/>
+    <path d="M214 214 a48 48 0 0 1 6 30 v40" stroke="#5fe1ff" stroke-width="5" fill="none" opacity=".7" stroke-linecap="round"/>
+    <g id="${id}-head">
+      <circle cx="58" cy="124" r="18" fill="${SKIN}"/><circle cx="242" cy="124" r="18" fill="${SKIN}"/>
+      <circle cx="150" cy="112" r="96" fill="${SKIN}"/>
+      <path d="M54 104 C54 36 108 10 156 12 C214 14 252 52 246 108 C230 76 196 62 160 66 C150 82 120 92 92 88 C78 92 64 98 54 104 Z" fill="${HAIR}"/>
+      <path d="M240 70 C250 88 252 100 246 112" stroke="#5fe1ff" stroke-width="6" fill="none" stroke-linecap="round" opacity=".8"/>
+      <g id="${id}-brows"><rect x="92" y="94" width="38" height="9" rx="4.5" fill="${HAIR}"/><rect x="172" y="94" width="38" height="9" rx="4.5" fill="${HAIR}"/></g>
+      <g id="${id}-eyes"><ellipse cx="114" cy="124" rx="11" ry="14" fill="#1b1730"/><ellipse cx="190" cy="124" rx="11" ry="14" fill="#1b1730"/><circle cx="118" cy="119" r="4" fill="#fff"/><circle cx="194" cy="119" r="4" fill="#fff"/></g>
+      <circle cx="92" cy="152" r="14" fill="#ff8a8a" opacity=".55"/><circle cx="212" cy="152" r="14" fill="#ff8a8a" opacity=".55"/>
+      <path id="${id}-smile" d="M128 160 Q152 184 176 160" stroke="#1b1730" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <ellipse id="${id}-oh" cx="152" cy="168" rx="16" ry="20" fill="#1b1730" opacity="0"/>
+    </g></svg>`;
+  const charEl = (sec, id, x, y, w) => add(sec, `<div class="abs char" id="${id}" style="left:${x}px;top:${y}px;width:${w}px">${charSVG(id)}</div>`);
+  const ARM = { L: "70 222", R: "230 222" };
+  const arm = (id, side, rot, t, d = 0.35) => tl.to(`#${id}-arm${side}`, { rotation: rot, svgOrigin: ARM[side], duration: d, ease: out }, t);
+  const blink = (id, t) => tl.to(`#${id}-eyes`, { scaleY: 0.1, svgOrigin: "152 124", duration: 0.07, yoyo: true, repeat: 1 }, t);
+  const ohFace = (id, t) => { tl.set(`#${id}-smile`, { opacity: 0 }, t); tl.set(`#${id}-oh`, { opacity: 1 }, t); tl.fromTo(`#${id}-brows`, { y: 0 }, { y: -12, duration: 0.25, ease: out }, t); };
+  const life = (id, t0, t1) => {
+    tl.fromTo(`#${id}-head`, { y: 0 }, { y: -6, duration: 0.55, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.floor((t1 - t0 - 0.4) / 0.55)) }, t0 + 0.4);
+    for (let t = t0 + 1.6; t < t1 - 0.4; t += 2.9) blink(id, t);
+  };
+
+  // ---------------- UI pieces ----------------
+  const chip = (sec, id, text, cx, y, cls = "cy") =>
+    add(sec, `<div class="abs chipwrap" id="${id}" style="left:${cx - 480}px;top:${y}px"><span class="chip ${cls}">${text}</span></div>`);
+  const counter = (sec, id, y, cls = "") =>
+    add(sec, `<div class="abs chipwrap" style="left:60px;top:${y}px"><div class="counter ${cls}" id="${id}"><span class="v" id="${id}-v"></span><span class="u" id="${id}-u"></span></div></div>`);
+  const popIn = (sel, t, extra = {}) => tl.fromTo(sel, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: pop, immediateRender: true, ...extra }, t);
+  const countTo = (id, from, to, t, d, dec, unit, final, mode) => {
+    const o = { v: from }, vEl = document.getElementById(id + "-v"), uEl = document.getElementById(id + "-u");
+    const show = (v) => (mode === "mmss" ? mmss(v) : fmt(v, dec));
+    tl.fromTo(o, { v: from }, {
+      v: to, duration: d, ease: "power2.out", immediateRender: false,
+      onUpdate() { vEl.textContent = this.progress() >= 1 && final ? final : show(o.v); uEl.textContent = unit || ""; },
+    }, t);
+  };
+  const extraChips = (sec, sc, p) => (sc.chips || []).forEach((c, k) => {
+    chip(sec, `${p}-x${k}`, c.text, c.x ?? 540, c.y ?? 1560, c.cls || "or");
+    popIn(`#${p}-x${k} .chip`, A(c.at));
+  });
+
+  // ---------------- Captions ----------------
+  const capT = [];
+  const capsEl = $("#caps");
+  S.lines.forEach((chunks, li) => {
+    const [s, d] = VO[li];
+    const w = chunks.map(([, sp]) => sp.length + (/[,.:?]$/.test(sp) ? 5 : 1));
+    const tot = w.reduce((a, b) => a + b, 0);
+    let acc = 0;
+    capT[li] = [];
+    chunks.forEach(([html], ci) => {
+      const t0 = s + (d * acc) / tot;
+      acc += w[ci];
+      capT[li].push(t0);
+      const el = add(capsEl, `<div class="cap">${html}</div>`);
+      const last = ci === chunks.length - 1;
+      const next = last ? (li + 1 < VO.length ? VO[li + 1][0] : END) : s + (d * acc) / tot;
+      tl.fromTo(el, { opacity: 0, scale: 0.86, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.16, ease: pop, immediateRender: false }, t0);
+      tl.set(el, { opacity: 0 }, last ? Math.min(next, s + d + 0.18) : next);
+    });
+  });
+  const A = (a) => capT[a[0]][Math.min(a[1], capT[a[0]].length - 1)] + (a[2] || 0);
+  const lastChunk = (li) => [li, capT[li].length - 1];
+
+  // ---------------- Scene builders ----------------
+  const B = {};
+
+  B.hook = (sec, sc, t0, t1, p, cid) => {
+    add(sec, `<div class="glow abs" id="${p}-glow" style="left:470px;top:560px;width:500px;height:500px"></div>`);
+    add(sec, `<div class="abs" id="${p}-ic" style="left:550px;top:640px;width:340px">${ICON(sc.icon)}</div>`);
+    charEl(sec, cid, 110, 960, 420);
+    tl.fromTo("#" + cid, { y: 520 }, { y: 0, duration: 0.6, ease: "back.out(1.3)" }, t0);
+    arm(cid, "R", -150, t0 + 0.35, 0.45);
+    tl.fromTo(`#${p}-ic`, { opacity: 0, scale: 0.2, rotation: -40 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.6, ease: pop }, t0 + 0.55);
+    tl.to(`#${p}-ic`, { scale: 1.07, rotation: 4, duration: 0.4, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.floor((t1 - t0 - 1.3) / 0.4)) }, t0 + 1.15);
+    tl.fromTo(`#${p}-glow`, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.8, ease: out }, t0 + 0.6);
+    if (sc.chip) {
+      add(sec, `<div class="abs" id="${p}-chip" style="left:60px;top:480px"><div class="counter"><span class="v" style="font-size:52px">${sc.chip}</span></div></div>`);
+      popIn(`#${p}-chip`, A([sc.from, 1]));
+    }
+    if (sc.cal) {
+      add(sec, `<div class="cal" id="${p}-cal" style="left:850px;top:440px"><div class="top">${sc.cal[0]}</div><div class="num">${sc.cal[1]}</div></div>`);
+      popIn(`#${p}-cal`, A(lastChunk(sc.from)));
+      tl.fromTo(`#${p}-cal`, { rotation: -12 }, { rotation: 6, duration: 0.5, ease: pop, immediateRender: false }, A(lastChunk(sc.from)));
+    }
+    life(cid, t0, t1);
+  };
+
+  B.duo = (sec, sc, t0, t1, p, cid) => {
+    const n = sc.items.length, xs = n === 1 ? [540] : [290, 790];
+    sc.items.forEach((it, k) => {
+      add(sec, `<div class="glow abs" id="${p}-g${k}" style="left:${xs[k] - 200}px;top:460px;width:400px;height:400px"></div>`);
+      add(sec, `<div class="abs" id="${p}-i${k}" style="left:${xs[k] - 140}px;top:520px;width:280px">${ICON(it.icon)}</div>`);
+      chip(sec, `${p}-l${k}`, it.label, xs[k], 840, k === n - 1 ? "or" : "cy");
+      tl.fromTo(`#${p}-i${k}`, { opacity: 0, y: 60, scale: 0.6 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: pop }, A(it.at));
+      tl.fromTo(`#${p}-g${k}`, { opacity: 0 }, { opacity: 0.8, duration: 0.5 }, A(it.at));
+      popIn(`#${p}-l${k} .chip`, A(it.at) + 0.2);
+      tl.to(`#${p}-i${k}`, { y: -14, duration: 0.7, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.floor((t1 - A(it.at) - 0.8) / 0.7)) }, A(it.at) + 0.6);
+    });
+    if (sc.sym && n === 2) {
+      add(sec, `<div class="abs sym" id="${p}-sym" style="left:440px;top:590px">${sc.sym}</div>`);
+      popIn(`#${p}-sym`, A(sc.symAt || sc.items[1].at) - 0.1);
+    }
+    charEl(sec, cid, 370, 1030, 340);
+    tl.fromTo("#" + cid, { y: 520 }, { y: 0, duration: 0.55, ease: "back.out(1.2)" }, t0 + 0.05);
+    ohFace(cid, A(sc.oh || sc.items[n - 1].at) + 0.1);
+    arm(cid, "L", 140, A(sc.items[0].at));
+    if (n === 2) arm(cid, "R", -140, A(sc.items[1].at));
+    extraChips(sec, sc, p);
+    life(cid, t0, t1);
+  };
+
+  const BARCOL = { blue: ["#5fe1ff", "#2f6bff"], red: ["#ff8a8a", "#d63a4a"], green: ["#7af0ad", "#22a85a"], orange: ["#ffd166", "#ff8a1f"] };
+  B.bars = (sec, sc, t0, t1, p, cid) => {
+    const n = sc.bars.length, slot = 940 / n, bw = Math.min(190, slot * 0.62), hasCnt = sc.bars.some((b) => b.cv != null);
+    if (hasCnt) { counter(sec, `${p}-cnt`, 440); popIn(`#${p}-cnt`, t0 + 0.15); }
+    const BASE = 1330, MAXH = 520;
+    add(sec, `<div class="abs" style="left:70px;top:${BASE}px;width:940px;height:4px;background:#26315a"></div>`);
+    sc.bars.forEach((b, k) => {
+      const x = 70 + slot * k + (slot - bw) / 2, h = Math.max(10, b.h * MAXH), [c1, c2] = BARCOL[b.color || "blue"];
+      add(sec, `<div class="abs bcol" id="${p}-b${k}" style="left:${x}px;top:${BASE - h}px;width:${bw}px;height:${h}px;background:linear-gradient(180deg,${c1},${c2});box-shadow:0 0 30px ${c2}66"></div>`);
+      add(sec, `<div class="abs bval" id="${p}-v${k}" style="left:${x + bw / 2 - 160}px;top:${BASE - h - 62}px">${b.val}</div>`);
+      add(sec, `<div class="abs blab" id="${p}-l${k}" style="left:${x + bw / 2 - 160}px;top:${BASE + 22}px">${b.label}</div>`);
+      tl.fromTo(`#${p}-l${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: out }, t0 + 0.3 + k * 0.08);
+      const t = A(b.at), d = b.d || 1.0;
+      tl.fromTo(`#${p}-b${k}`, { scaleY: 0 }, { scaleY: 1, transformOrigin: "50% 100%", duration: d, ease: out, immediateRender: true }, t);
+      tl.fromTo(`#${p}-v${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: out, immediateRender: true }, t + d * 0.7);
+      tl.to(`#${p}-l${k}`, { color: "#ffffff", duration: 0.2 }, t);
+      tl.fromTo(`#${p}-b${k}`, { filter: "brightness(1)" }, { filter: "brightness(1.5)", duration: 0.25, yoyo: true, repeat: 1, immediateRender: false }, t + d);
+      if (b.cv != null) countTo(`${p}-cnt`, b.cfrom || 0, b.cv, t, d, b.dec || 0, b.unit, b.final);
+    });
+    if (sc.note) { const ne = add(sec, `<div class="abs note" style="left:70px;top:${BASE + 80}px">${sc.note}</div>`); tl.fromTo(ne, { opacity: 0 }, { opacity: 1, duration: 0.4 }, t0 + 0.6); }
+    charEl(sec, cid, 640, 1440, 300);
+    tl.fromTo("#" + cid, { y: 520 }, { y: 0, duration: 0.55, ease: "back.out(1.2)" }, t0 + 0.08);
+    const lastAt = A(sc.bars.reduce((m, b) => (A(b.at) > A(m.at) ? b : m), sc.bars[0]).at);
+    arm(cid, "L", 150, lastAt);
+    ohFace(cid, lastAt + 0.5);
+    extraChips(sec, sc, p);
+    life(cid, t0, t1);
+  };
+
+  B.steps = (sec, sc, t0, t1, p, cid) => {
+    sc.rows.forEach((r, k) => {
+      const y = 470 + k * 250;
+      add(sec, `<div class="abs srow" id="${p}-r${k}" style="top:${y}px">
+        <div class="badge">${r.badge}</div>
+        <div class="sic">${ICON(r.icon)}</div>
+        <div class="stx">${r.text}</div>
+        <div class="sval">${r.val}</div></div>`);
+      tl.fromTo(`#${p}-r${k}`, { opacity: 0, x: -160 }, { opacity: 1, x: 0, duration: 0.45, ease: out }, A(r.at));
+      tl.fromTo(`#${p}-r${k} .sval`, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.45, ease: pop, immediateRender: true }, A(r.at) + 0.3);
+      tl.fromTo(`#${p}-r${k} .sic`, { rotation: -20, scale: 0.6 }, { rotation: 0, scale: 1, duration: 0.5, ease: pop, immediateRender: true }, A(r.at) + 0.1);
+    });
+    charEl(sec, cid, 760, 1330, 270);
+    tl.fromTo("#" + cid, { y: 520 }, { y: 0, duration: 0.55, ease: "back.out(1.2)" }, t0 + 0.08);
+    const last = A(sc.rows[sc.rows.length - 1].at);
+    arm(cid, "L", 150, last);
+    ohFace(cid, last + 0.4);
+    extraChips(sec, sc, p);
+    life(cid, t0, t1);
+  };
+
+  B.travel = (sec, sc, t0, t1, p, cid) => {
+    const svg = add(sec, `<svg class="abs" style="left:0;top:0;width:1080px;height:1920px" viewBox="0 0 1080 1920">
+      <path id="${p}-track" d="M210 800 Q540 ${sc.arc ?? 540} 870 800" stroke="#26315a" stroke-width="8" fill="none" stroke-dasharray="4 18" stroke-linecap="round"/>
+      <path id="${p}-path" d="M210 800 Q540 ${sc.arc ?? 540} 870 800" stroke="${sc.mover === "beam" ? "#ffd166" : "#36d1ff"}" stroke-width="${sc.mover === "beam" ? 16 : 8}" fill="none" stroke-linecap="round" style="filter:drop-shadow(0 0 14px ${sc.mover === "beam" ? "#ffd166" : "#36d1ff"})"/>
+    </svg>`);
+    const path = svg.lastElementChild, len = path.getTotalLength();
+    path.setAttribute("stroke-dasharray", len); path.setAttribute("stroke-dashoffset", len);
+    [["a", 80], ["b", 740]].forEach(([k, x], j) => {
+      const it = sc[k];
+      add(sec, `<div class="abs" id="${p}-${k}" style="left:${x}px;top:${670}px;width:260px">${ICON(it.icon)}</div>`);
+      chip(sec, `${p}-${k}l`, it.label, x + 130, 960, j ? "or" : "cy");
+      popIn(`#${p}-${k}`, t0 + 0.15 + j * 0.15);
+      popIn(`#${p}-${k}l .chip`, t0 + 0.3 + j * 0.15);
+    });
+    let mover = null;
+    if (sc.mover === "rocket") mover = add(sec, `<div class="abs" id="${p}-m" style="left:0;top:0;width:120px">${ICON("rocket")}</div>`);
+    if (sc.mover === "dot") mover = add(sec, `<div class="abs" id="${p}-m" style="left:0;top:0;width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:0 0 30px #36d1ff,0 0 60px #36d1ff"></div>`);
+    const ta = A(sc.at), d = sc.until ? A(sc.until) - ta : sc.dur;
+    if (sc.counter) { counter(sec, `${p}-cnt`, 440); popIn(`#${p}-cnt`, t0 + 0.2); const c = sc.counter; countTo(`${p}-cnt`, c.from, c.to, ta, d, c.dec || 0, c.unit, c.final, c.mode); }
+    const pr = { p: 0 };
+    const place = () => {
+      if (!mover) return;
+      const L = Math.max(0.001, pr.p * len), pt = path.getPointAtLength(L), pt2 = path.getPointAtLength(Math.min(len, L + 2));
+      const ang = (Math.atan2(pt2.y - pt.y, pt2.x - pt.x) * 180) / Math.PI;
+      const w = mover.offsetWidth || 44;
+      gsap.set(mover, { x: pt.x - w / 2, y: pt.y - w / 2, rotation: sc.mover === "rocket" ? ang + 90 : 0 });
+    };
+    if (mover) { tl.set(mover, { opacity: 0 }, t0); tl.set(mover, { opacity: 1 }, ta); }
+    tl.fromTo(pr, { p: 0 }, { p: 1, duration: d, ease: "power1.inOut", onUpdate: () => { path.setAttribute("stroke-dashoffset", len * (1 - pr.p)); place(); } }, ta);
+    tl.fromTo(`#${p}-b`, { scale: 1 }, { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1, immediateRender: false }, ta + d);
+    if (mover) tl.to(mover, { opacity: 0, duration: 0.2 }, ta + d);
+    charEl(sec, cid, 60, 1230, 290);
+    tl.fromTo("#" + cid, { y: 520 }, { y: 0, duration: 0.55, ease: "back.out(1.2)" }, t0 + 0.08);
+    ohFace(cid, ta + d);
+    arm(cid, "R", -150, ta + d);
+    (sc.chips || []).forEach((c, k) => { c.x = c.x ?? 680; c.y = c.y ?? 1110 + k * 110; });
+    extraChips(sec, sc, p);
+    life(cid, t0, t1);
+  };
+
+  B.pct = (sec, sc, t0, t1, p, cid) => {
+    sc.rows.forEach((r, k) => {
+      const y = 520 + k * 240, [c1, c2] = BARCOL[r.color || (k ? "orange" : "blue")];
+      add(sec, `<div class="abs prow" id="${p}-r${k}" style="top:${y}px"><div class="plab">${r.label}</div>
+        <div class="ptrack"><div class="pfill" id="${p}-f${k}" style="width:${Math.max(3, r.pct)}%;background:linear-gradient(90deg,${c2},${c1});box-shadow:0 0 26px ${c2}88"></div></div>
+        <div class="pval" id="${p}-v${k}" style="left:${Math.min(70, Math.max(3, r.pct)) + 2}%">${r.val}</div></div>`);
+      tl.fromTo(`#${p}-r${k}`, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: out }, A(r.at) - 0.15);
+      tl.fromTo(`#${p}-f${k}`, { scaleX: 0 }, { scaleX: 1, transformOrigin: "0% 50%", duration: 0.9, ease: out, immediateRender: true }, A(r.at));
+      tl.fromTo(`#${p}-v${k}`, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: pop, immediateRender: true }, A(r.at) + 0.7);
+    });
+    charEl(sec, cid, 700, 1180, 320);
+    tl.fromTo("#" + cid, { y: 520 }, { y: 0, duration: 0.55, ease: "back.out(1.2)" }, t0 + 0.08);
+    const last = A(sc.rows[sc.rows.length - 1].at);
+    arm(cid, "L", 150, last);
+    ohFace(cid, last + 0.6);
+    extraChips(sec, sc, p);
+    life(cid, t0, t1);
+  };
+
+  B.myth = (sec, sc, t0, t1, p, cid) => {
+    add(sec, `<div class="card no" id="${p}-no"><div class="ic">✗</div><div>${sc.no}</div></div>`);
+    add(sec, `<div class="abs" id="${p}-il" style="left:170px;top:760px;width:400px">${ICON(sc.illus)}</div>`);
+    charEl(sec, cid, 660, 790, 300);
+    add(sec, `<div class="card yes" id="${p}-yes"><div class="ic">✓</div><div>${sc.yes}</div></div>`);
+    const ty = A(sc.yesAt);
+    tl.fromTo(`#${p}-no`, { opacity: 0, x: -200 }, { opacity: 1, x: 0, duration: 0.45, ease: out }, t0 + 0.08);
+    tl.fromTo(`#${p}-no .ic`, { scale: 0, rotation: -90 }, { scale: 1, rotation: 0, duration: 0.45, ease: pop }, t0 + 0.3);
+    tl.fromTo(`#${p}-il`, { opacity: 0, y: 80, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: pop }, A([sc.from, 1]));
+    tl.fromTo("#" + cid, { opacity: 0, x: 220 }, { opacity: 1, x: 0, duration: 0.45, ease: out }, A([sc.from, 1]) + 0.1);
+    arm(cid, "L", 40, A(lastChunk(sc.from)));
+    tl.fromTo(`#${p}-no`, { x: 0 }, { x: 10, duration: 0.05, yoyo: true, repeat: 5, immediateRender: false }, A(lastChunk(sc.from)) + 0.3);
+    tl.fromTo(`#${p}-yes`, { opacity: 0, x: 200 }, { opacity: 1, x: 0, duration: 0.45, ease: out }, ty);
+    tl.fromTo(`#${p}-yes .ic`, { scale: 0 }, { scale: 1, duration: 0.45, ease: pop }, ty + 0.18);
+    tl.to(`#${p}-no`, { opacity: 0.45, duration: 0.4 }, ty + 0.08);
+    arm(cid, "L", 0, ty + 0.08);
+    tl.to(`#${p}-il`, { scale: 1.06, duration: 0.25, yoyo: true, repeat: 1 }, ty + 0.3);
+    if (sc.cmp) {
+      const items = sc.cmp.items;
+      const row = add(sec, `<div class="abs cmp" id="${p}-cmp"></div>`);
+      items.forEach((it, k) => {
+        if (k) add(row, `<div class="arrow">${sc.cmp.sym || "→"}</div>`);
+        add(row, `<div><div class="counter ${k === items.length - 1 ? "or" : ""}"><span class="v">${it.v}</span></div><small>${it.label}</small></div>`);
+      });
+      tl.fromTo(`#${p}-cmp`, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: out }, A(sc.cmp.at));
+      ohFace(cid, A(sc.cmp.at) + 0.3);
+    } else ohFace(cid, ty + 0.4);
+    if (sc.note) { const ne = add(sec, `<div class="abs note" style="left:60px;top:1790px;width:960px;text-align:center">${sc.note}</div>`); tl.fromTo(ne, { opacity: 0 }, { opacity: 1, duration: 0.4 }, ty + 0.5); }
+    life(cid, t0, t1);
+  };
+
+  B.close = (sec, sc, t0, t1, p, cid) => {
+    add(sec, `<div class="glow abs" id="${p}-glow" style="left:290px;top:470px;width:500px;height:500px"></div>`);
+    add(sec, `<div class="abs" id="${p}-ic" style="left:440px;top:610px;width:200px">${ICON(sc.icon)}</div>`);
+    charEl(sec, cid, 290, 860, 500);
+    add(sec, `<div class="abs btns" id="${p}-btns">
+      <div class="btn"><div class="ring" id="${p}-bc"><svg viewBox="0 0 64 64"><path d="M10 14h44a6 6 0 0 1 6 6v22a6 6 0 0 1-6 6H28l-12 10v-10h-6a6 6 0 0 1-6-6V20a6 6 0 0 1 6-6z" fill="none" stroke="#fff" stroke-width="5" stroke-linejoin="round"/><circle cx="22" cy="31" r="3.5" fill="#ff9b25"/><circle cx="32" cy="31" r="3.5" fill="#ff9b25"/><circle cx="42" cy="31" r="3.5" fill="#ff9b25"/></svg></div>COMENTA</div>
+      <div class="btn"><div class="ring" id="${p}-bs"><svg viewBox="0 0 64 64"><path d="M16 8h32a4 4 0 0 1 4 4v46L32 46 12 58V12a4 4 0 0 1 4-4z" fill="#ff9b25" stroke="#fff" stroke-width="5" stroke-linejoin="round"/></svg></div>GUARDA</div></div>`);
+    tl.fromTo("#" + cid, { y: 640 }, { y: 0, duration: 0.55, ease: "back.out(1.3)" }, t0);
+    tl.fromTo(`#${p}-ic`, { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.5, ease: pop }, t0 + 0.35);
+    tl.fromTo(`#${p}-ic`, { y: 0 }, { y: -24, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.floor((t1 - t0 - 0.8) / 0.6)) }, t0 + 0.8);
+    tl.fromTo(`#${p}-glow`, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.6, ease: out }, t0 + 0.35);
+    arm(cid, "R", -150, t0 + 0.45);
+    tl.to(`#${cid}-armR`, { rotation: -120, svgOrigin: ARM.R, duration: 0.22, yoyo: true, repeat: 7, ease: "sine.inOut" }, t0 + 0.8);
+    const tb = A(lastChunk(sc.from)) - 0.3;
+    tl.fromTo(`#${p}-btns .btn`, { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.5, ease: pop, stagger: 0.18 }, tb);
+    tl.to(`#${p}-bc`, { scale: 1.12, duration: 0.22, yoyo: true, repeat: 3, ease: "sine.inOut" }, tb + 0.7);
+    tl.to(`#${p}-bs`, { scale: 1.12, duration: 0.22, yoyo: true, repeat: 3, ease: "sine.inOut" }, tb + 1.5);
+    life(cid, t0, t1);
+  };
+
+  // ---------------- Assemble ----------------
+  tl.fromTo("#rim-a", { x: 0, y: 0 }, { x: -260, y: 200, duration: END, ease: "none" }, 0);
+  tl.fromTo("#rim-b", { x: 0, y: 0 }, { x: 240, y: -160, duration: END, ease: "none" }, 0);
+  tl.fromTo("#panels", { y: 0 }, { y: -60, duration: END, ease: "none" }, 0);
+  S.scenes.forEach((sc, i) => {
+    const sec = document.getElementById("s" + i), [t0, t1] = SCN[i];
+    B[sc.type](sec, sc, t0, t1, "s" + i, "c" + i);
+    if (i > 0) tl.fromTo(sec, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "none", immediateRender: false }, t0);
+    if (i < S.scenes.length - 1) tl.to(sec, { opacity: 0, duration: 0.22, ease: inn }, t1 - 0.12);
+  });
+  tl.set({}, {}, END);
+  window.__timelines = window.__timelines || {};
+  window.__timelines["main"] = tl;
+  tl.seek(0);
+})();
+    </script>
+  </body>
+</html>

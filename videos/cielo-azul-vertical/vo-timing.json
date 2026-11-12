@@ -1,0 +1,56 @@
+[
+ {
+  "i": 0,
+  "start": 0.25,
+  "dur": 2.566,
+  "text": "¿Por qué el cielo es azul, si la luz del Sol es blanca?"
+ },
+ {
+  "i": 1,
+  "start": 3.036,
+  "dur": 2.09,
+  "text": "Pues porque el aire dispersa más la luz azul."
+ },
+ {
+  "i": 2,
+  "start": 5.346,
+  "dur": 2.682,
+  "text": "La luz blanca lleva todos los colores mezclados."
+ },
+ {
+  "i": 3,
+  "start": 8.248,
+  "dur": 4.807,
+  "text": "Al chocar con las moléculas del aire, el azul se dispersa unas cinco o seis veces más que el rojo."
+ },
+ {
+  "i": 4,
+  "start": 13.274,
+  "dur": 2.067,
+  "text": "Y nos llega desde todas partes del cielo."
+ },
+ {
+  "i": 5,
+  "start": 15.561,
+  "dur": 5.004,
+  "text": "Al atardecer, la luz cruza mucho más aire. El azul se pierde y vemos naranjas y rojos."
+ },
+ {
+  "i": 6,
+  "start": 20.785,
+  "dur": 2.647,
+  "text": "Error típico: creer que el cielo refleja el mar."
+ },
+ {
+  "i": 7,
+  "start": 23.652,
+  "dur": 3.692,
+  "text": "Es la dispersión de Rayleigh. Por eso es azul también en pleno desierto."
+ },
+ {
+  "i": 8,
+  "start": 27.564,
+  "dur": 2.705,
+  "text": "¿Sabías por qué es azul? guárdalo para luego."
+ }
+]

@@ -1,0 +1,211 @@
+{
+ "id": "bacterias-vertical",
+ "lines": [
+  [
+   [
+    "¿Cuántas",
+    "¿Cuántas"
+   ],
+   [
+    "<b>BACTERIAS</b> viven",
+    "bacterias viven"
+   ],
+   [
+    "en tu <b>CUERPO</b>?",
+    "en tu cuerpo?"
+   ]
+  ],
+  [
+   [
+    "Pues unos",
+    "Pues unos"
+   ],
+   [
+    "<b>38 billones</b>",
+    "treinta y ocho billones."
+   ]
+  ],
+  [
+   [
+    "Y tus propias células",
+    "Y tus propias células"
+   ],
+   [
+    "son unos <b>30 billones</b>",
+    "son unos treinta billones."
+   ]
+  ],
+  [
+   [
+    "Casi todas viven",
+    "Casi todas viven"
+   ],
+   [
+    "en tu <b>INTESTINO</b>,",
+    "en tu intestino,"
+   ],
+   [
+    "sobre todo",
+    "sobre todo"
+   ],
+   [
+    "en el <b>COLON</b>",
+    "en el colon."
+   ]
+  ],
+  [
+   [
+    "Y todas juntas",
+    "Y todas juntas"
+   ],
+   [
+    "pesan unos",
+    "pesan unos"
+   ],
+   [
+    "<b>200 gramos</b>",
+    "doscientos gramos."
+   ]
+  ],
+  [
+   [
+    "Error típico:",
+    "Error típico:"
+   ],
+   [
+    "creer que hay",
+    "creer que hay"
+   ],
+   [
+    "<b>10 bacterias</b>",
+    "diez bacterias"
+   ],
+   [
+    "por cada célula.",
+    "por cada célula."
+   ]
+  ],
+  [
+   [
+    "La proporción real",
+    "La proporción real"
+   ],
+   [
+    "es casi <b>1 a 1</b>",
+    "es casi de una a una."
+   ],
+   [
+    "Lo dice un estudio",
+    "Lo dice un estudio"
+   ],
+   [
+    "de <b>2016</b>",
+    "de dos mil dieciséis."
+   ]
+  ],
+  [
+   [
+    "¿Lo sabías?",
+    "¿Lo sabías?"
+   ],
+   [
+    "<b>GUÁRDALO</b> y compártelo",
+    "guárdalo y compártelo."
+   ]
+  ]
+ ],
+ "scenes": [
+  {
+   "type": "hook",
+   "icon": "bacteria",
+   "chip": "MICROBIOTA",
+   "from": 0
+  },
+  {
+   "type": "bars",
+   "bars": [
+    {
+     "label": "BACTERIAS",
+     "h": 1,
+     "val": "38 billones",
+     "at": [
+      1,
+      1
+     ],
+     "cv": 38,
+     "unit": "billones",
+     "color": "green"
+    },
+    {
+     "label": "TUS CÉLULAS",
+     "h": 0.79,
+     "val": "30 billones",
+     "at": [
+      2,
+      1
+     ],
+     "cv": 30,
+     "cfrom": 38,
+     "unit": "billones"
+    }
+   ],
+   "from": 1
+  },
+  {
+   "type": "duo",
+   "items": [
+    {
+     "icon": "gut",
+     "label": "COLON",
+     "at": [
+      3,
+      1
+     ]
+    },
+    {
+     "icon": "scale",
+     "label": "≈ 200 g",
+     "at": [
+      4,
+      2
+     ]
+    }
+   ],
+   "sym": "·",
+   "from": 3
+  },
+  {
+   "type": "myth",
+   "no": "Hay <b>10 bacterias</b> por cada célula",
+   "yes": "La proporción es casi <b>1 a 1</b>",
+   "yesAt": [
+    6,
+    0
+   ],
+   "illus": "bacteria",
+   "cmp": {
+    "at": [
+     6,
+     2
+    ],
+    "sym": "→",
+    "items": [
+     {
+      "v": "10 : 1",
+      "label": "MITO (AÑOS 70)"
+     },
+     {
+      "v": "≈ 1 : 1",
+      "label": "SENDER ET AL., 2016"
+     }
+    ]
+   },
+   "from": 5
+  },
+  {
+   "type": "close",
+   "icon": "bacteria",
+   "from": 7
+  }
+ ]
+}

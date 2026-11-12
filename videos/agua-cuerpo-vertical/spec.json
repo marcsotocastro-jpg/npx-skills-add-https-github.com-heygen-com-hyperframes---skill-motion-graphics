@@ -1,0 +1,249 @@
+{
+ "id": "agua-cuerpo-vertical",
+ "lines": [
+  [
+   [
+    "¿Cuánta",
+    "¿Cuánta"
+   ],
+   [
+    "<b>AGUA</b> hay",
+    "agua hay"
+   ],
+   [
+    "en tu <b>CUERPO</b>?",
+    "en tu cuerpo?"
+   ]
+  ],
+  [
+   [
+    "Pues más de",
+    "Pues más de"
+   ],
+   [
+    "la <b>MITAD</b>",
+    "la mitad"
+   ],
+   [
+    "de lo que pesas.",
+    "de lo que pesas."
+   ]
+  ],
+  [
+   [
+    "En un adulto,",
+    "En un adulto,"
+   ],
+   [
+    "alrededor del <b>60 %</b>",
+    "alrededor del sesenta por ciento."
+   ],
+   [
+    "En un recién nacido,",
+    "En un recién nacido,"
+   ],
+   [
+    "cerca del <b>75 %</b>",
+    "cerca del setenta y cinco."
+   ]
+  ],
+  [
+   [
+    "Si pesas <b>70 kilos</b>,",
+    "si pesas setenta kilos,"
+   ],
+   [
+    "llevas unos",
+    "llevas unos"
+   ],
+   [
+    "<b>42 litros</b> de agua",
+    "cuarenta y dos litros de agua."
+   ]
+  ],
+  [
+   [
+    "Y cada día pierdes",
+    "Y cada día pierdes"
+   ],
+   [
+    "unos <b>2,5 litros</b>",
+    "unos dos litros y medio:"
+   ],
+   [
+    "sudor, orina",
+    "sudor, orina"
+   ],
+   [
+    "y <b>RESPIRACIÓN</b>",
+    "y respiración."
+   ]
+  ],
+  [
+   [
+    "Error típico:",
+    "Error típico:"
+   ],
+   [
+    "hay que beber",
+    "hay que beber"
+   ],
+   [
+    "<b>2 litros</b> sí o sí",
+    "dos litros sí o sí."
+   ]
+  ],
+  [
+   [
+    "La EFSA recomienda",
+    "La EFSA recomienda"
+   ],
+   [
+    "unos <b>2 litros</b> en mujeres",
+    "unos dos litros al día en mujeres"
+   ],
+   [
+    "y <b>2,5</b> en hombres,",
+    "y dos y medio en hombres,"
+   ],
+   [
+    "pero contando la <b>COMIDA</b>",
+    "pero contando el agua de la comida,"
+   ],
+   [
+    "que aporta un <b>20 %</b>",
+    "que aporta alrededor de un veinte por ciento."
+   ]
+  ],
+  [
+   [
+    "¿Cuánta agua",
+    "¿Cuánta agua"
+   ],
+   [
+    "bebes tú al <b>DÍA</b>?",
+    "bebes tú al día?"
+   ],
+   [
+    "Te leo en <b>COMENTARIOS</b>",
+    "te leo en comentarios."
+   ]
+  ]
+ ],
+ "scenes": [
+  {
+   "type": "hook",
+   "icon": "drop",
+   "chip": "CUERPO HUMANO",
+   "cal": [
+    "AGUA",
+    "%"
+   ],
+   "from": 0
+  },
+  {
+   "type": "pct",
+   "rows": [
+    {
+     "label": "ADULTO",
+     "pct": 60,
+     "val": "≈ 60 %",
+     "at": [
+      2,
+      1
+     ]
+    },
+    {
+     "label": "RECIÉN NACIDO",
+     "pct": 75,
+     "val": "≈ 75 %",
+     "at": [
+      2,
+      3
+     ]
+    }
+   ],
+   "chips": [
+    {
+     "text": "MÁS DE LA MITAD",
+     "at": [
+      1,
+      1
+     ],
+     "cls": "or",
+     "x": 380,
+     "y": 1180
+    }
+   ],
+   "from": 1
+  },
+  {
+   "type": "duo",
+   "items": [
+    {
+     "icon": "scale",
+     "label": "70 kg",
+     "at": [
+      3,
+      0
+     ]
+    },
+    {
+     "icon": "drop",
+     "label": "≈ 42 L",
+     "at": [
+      3,
+      2
+     ]
+    }
+   ],
+   "sym": "→",
+   "chips": [
+    {
+     "text": "−2,5 L CADA DÍA",
+     "at": [
+      4,
+      1
+     ],
+     "cls": "or",
+     "y": 960
+    }
+   ],
+   "from": 3
+  },
+  {
+   "type": "myth",
+   "no": "Hay que beber <b>2 LITROS</b> sí o sí",
+   "yes": "Depende, y la <b>COMIDA</b> también cuenta",
+   "yesAt": [
+    6,
+    0
+   ],
+   "illus": "glass",
+   "cmp": {
+    "at": [
+     6,
+     1
+    ],
+    "sym": "·",
+    "items": [
+     {
+      "v": "2 L",
+      "label": "MUJERES"
+     },
+     {
+      "v": "2,5 L",
+      "label": "HOMBRES"
+     }
+    ]
+   },
+   "note": "EFSA (2010): agua total al día, incluida la de los alimentos.",
+   "from": 5
+  },
+  {
+   "type": "close",
+   "icon": "drop",
+   "from": 7
+  }
+ ]
+}

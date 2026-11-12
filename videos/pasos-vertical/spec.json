@@ -1,0 +1,285 @@
+{
+ "id": "pasos-vertical",
+ "lines": [
+  [
+   [
+    "¿Qué pasa si",
+    "¿Qué pasa si"
+   ],
+   [
+    "caminas <b>10.000</b>",
+    "caminas diez mil"
+   ],
+   [
+    "pasos al <b>DÍA</b>?",
+    "pasos al día?"
+   ]
+  ],
+  [
+   [
+    "Pues lo primero:",
+    "Pues lo primero:"
+   ],
+   [
+    "recorres entre",
+    "recorres entre"
+   ],
+   [
+    "<b>7 y 8 km</b>",
+    "siete y ocho kilómetros."
+   ]
+  ],
+  [
+   [
+    "Y quemas",
+    "Y quemas"
+   ],
+   [
+    "entre <b>300 y 500</b>",
+    "entre trescientas y quinientas"
+   ],
+   [
+    "calorías,",
+    "calorías,"
+   ],
+   [
+    "según tu <b>PESO</b>",
+    "según tu peso."
+   ]
+  ],
+  [
+   [
+    "En una semana:",
+    "En una semana:"
+   ],
+   [
+    "<b>70.000</b> pasos",
+    "setenta mil pasos."
+   ],
+   [
+    "En un año:",
+    "En un año:"
+   ],
+   [
+    "más de <b>3,5 millones</b>",
+    "más de tres millones y medio."
+   ]
+  ],
+  [
+   [
+    "Unos <b>2.600 km</b>",
+    "unos dos mil seiscientos kilómetros."
+   ],
+   [
+    "Más que de Madrid",
+    "Más que de Madrid"
+   ],
+   [
+    "a <b>BERLÍN</b>",
+    "a Berlín"
+   ],
+   [
+    "en línea recta.",
+    "en línea recta."
+   ]
+  ],
+  [
+   [
+    "Error típico:",
+    "Error típico:"
+   ],
+   [
+    "creer que 10.000",
+    "creer que diez mil"
+   ],
+   [
+    "es una cifra <b>CIENTÍFICA</b>",
+    "es una cifra científica."
+   ]
+  ],
+  [
+   [
+    "Salió de un podómetro",
+    "Salió de un podómetro"
+   ],
+   [
+    "<b>JAPONÉS</b> de 1965",
+    "japonés de mil novecientos sesenta y cinco."
+   ],
+   [
+    "Y en mayores de 60,",
+    "y en mayores de sesenta,"
+   ],
+   [
+    "el beneficio se estabiliza",
+    "el beneficio se estabiliza"
+   ],
+   [
+    "entre <b>6.000 y 8.000</b>",
+    "entre seis mil y ocho mil pasos."
+   ]
+  ],
+  [
+   [
+    "¿Cuántos pasos",
+    "¿Cuántos pasos"
+   ],
+   [
+    "das tú al <b>DÍA</b>?",
+    "das tú al día?"
+   ],
+   [
+    "Te leo en <b>COMENTARIOS</b>",
+    "te leo en comentarios."
+   ]
+  ]
+ ],
+ "scenes": [
+  {
+   "type": "hook",
+   "icon": "shoe",
+   "chip": "10.000 pasos",
+   "cal": [
+    "DÍA",
+    "1"
+   ],
+   "from": 0
+  },
+  {
+   "type": "duo",
+   "items": [
+    {
+     "icon": "foot",
+     "label": "7–8 km",
+     "at": [
+      1,
+      2
+     ]
+    },
+    {
+     "icon": "flame",
+     "label": "300–500 kcal",
+     "at": [
+      2,
+      1
+     ]
+    }
+   ],
+   "sym": "+",
+   "from": 1
+  },
+  {
+   "type": "bars",
+   "note": "Escala comprimida para que se vean todas las barras.",
+   "bars": [
+    {
+     "label": "DÍA",
+     "h": 0.06,
+     "val": "10.000",
+     "at": [
+      3,
+      0
+     ],
+     "cv": 10000,
+     "unit": "pasos"
+    },
+    {
+     "label": "SEMANA",
+     "h": 0.16,
+     "val": "70.000",
+     "at": [
+      3,
+      1
+     ],
+     "cv": 70000,
+     "unit": "pasos"
+    },
+    {
+     "label": "AÑO",
+     "h": 1,
+     "val": "3.650.000",
+     "at": [
+      3,
+      3
+     ],
+     "cfrom": 70000,
+     "cv": 3650000,
+     "unit": "pasos",
+     "d": 1.3
+    }
+   ],
+   "from": 3
+  },
+  {
+   "type": "travel",
+   "a": {
+    "icon": "pin",
+    "label": "MADRID"
+   },
+   "b": {
+    "icon": "pin",
+    "label": "BERLÍN"
+   },
+   "mover": "dot",
+   "at": [
+    4,
+    0
+   ],
+   "until": [
+    4,
+    2
+   ],
+   "counter": {
+    "from": 0,
+    "to": 2600,
+    "unit": "km",
+    "final": "≈ 2.600"
+   },
+   "chips": [
+    {
+     "text": "1.870 km EN LÍNEA RECTA",
+     "at": [
+      4,
+      3
+     ],
+     "cls": "or"
+    }
+   ],
+   "from": 4
+  },
+  {
+   "type": "myth",
+   "no": "10.000 es una cifra <b>CIENTÍFICA</b>",
+   "yes": "Viene de un podómetro <b>JAPONÉS</b> de 1965",
+   "yesAt": [
+    6,
+    0
+   ],
+   "illus": "shoe",
+   "cmp": {
+    "at": [
+     6,
+     2
+    ],
+    "sym": "·",
+    "items": [
+     {
+      "v": "8–10 mil",
+      "label": "MENORES DE 60"
+     },
+     {
+      "v": "6–8 mil",
+      "label": "MAYORES DE 60"
+     }
+    ]
+   },
+   "note": "Paluch et al., The Lancet Public Health (2022): 15 estudios, 47.471 adultos.",
+   "from": 5
+  },
+  {
+   "type": "close",
+   "icon": "shoe",
+   "from": 7
+  }
+ ]
+}

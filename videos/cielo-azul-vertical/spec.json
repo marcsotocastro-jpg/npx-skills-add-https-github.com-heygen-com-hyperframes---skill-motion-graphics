@@ -1,0 +1,255 @@
+{
+ "id": "cielo-azul-vertical",
+ "lines": [
+  [
+   [
+    "¿Por qué el cielo",
+    "¿Por qué el cielo"
+   ],
+   [
+    "es <b>AZUL</b>,",
+    "es azul,"
+   ],
+   [
+    "si la luz del Sol",
+    "si la luz del Sol"
+   ],
+   [
+    "es <b>BLANCA</b>?",
+    "es blanca?"
+   ]
+  ],
+  [
+   [
+    "Pues porque",
+    "Pues porque"
+   ],
+   [
+    "el aire <b>DISPERSA</b>",
+    "el aire dispersa"
+   ],
+   [
+    "más la luz <b>AZUL</b>",
+    "más la luz azul."
+   ]
+  ],
+  [
+   [
+    "La luz blanca lleva",
+    "La luz blanca lleva"
+   ],
+   [
+    "<b>TODOS</b> los colores",
+    "todos los colores"
+   ],
+   [
+    "mezclados.",
+    "mezclados."
+   ]
+  ],
+  [
+   [
+    "Al chocar con el aire,",
+    "al chocar con las moléculas del aire,"
+   ],
+   [
+    "el azul se dispersa",
+    "el azul se dispersa"
+   ],
+   [
+    "unas <b>5 o 6 veces</b> más",
+    "unas cinco o seis veces más"
+   ],
+   [
+    "que el <b>ROJO</b>",
+    "que el rojo."
+   ]
+  ],
+  [
+   [
+    "Y nos llega",
+    "Y nos llega"
+   ],
+   [
+    "desde <b>TODO</b> el cielo",
+    "desde todas partes del cielo."
+   ]
+  ],
+  [
+   [
+    "Al atardecer,",
+    "Al atardecer,"
+   ],
+   [
+    "la luz cruza",
+    "la luz cruza"
+   ],
+   [
+    "mucho más <b>AIRE</b>",
+    "mucho más aire."
+   ],
+   [
+    "El azul se pierde",
+    "El azul se pierde"
+   ],
+   [
+    "y vemos <b>NARANJAS</b>",
+    "y vemos naranjas y rojos."
+   ]
+  ],
+  [
+   [
+    "Error típico:",
+    "Error típico:"
+   ],
+   [
+    "creer que el cielo",
+    "creer que el cielo"
+   ],
+   [
+    "<b>REFLEJA</b> el mar",
+    "refleja el mar."
+   ]
+  ],
+  [
+   [
+    "Es la dispersión",
+    "Es la dispersión"
+   ],
+   [
+    "de <b>RAYLEIGH</b>",
+    "de Rayleigh."
+   ],
+   [
+    "Por eso es azul",
+    "Por eso es azul"
+   ],
+   [
+    "también en el <b>DESIERTO</b>",
+    "también en pleno desierto."
+   ]
+  ],
+  [
+   [
+    "¿Sabías por qué",
+    "¿Sabías por qué"
+   ],
+   [
+    "es <b>AZUL</b>?",
+    "es azul?"
+   ],
+   [
+    "<b>GUÁRDALO</b> para luego",
+    "guárdalo para luego."
+   ]
+  ]
+ ],
+ "scenes": [
+  {
+   "type": "hook",
+   "icon": "sun",
+   "chip": "LUZ BLANCA",
+   "from": 0
+  },
+  {
+   "type": "duo",
+   "items": [
+    {
+     "icon": "rainbow",
+     "label": "TODOS LOS COLORES",
+     "at": [
+      2,
+      0
+     ]
+    },
+    {
+     "icon": "sky",
+     "label": "AZUL DISPERSO",
+     "at": [
+      1,
+      1
+     ]
+    }
+   ],
+   "sym": "→",
+   "from": 1
+  },
+  {
+   "type": "bars",
+   "note": "Dispersión de Rayleigh: azul (≈450 nm) frente a rojo (≈700 nm).",
+   "bars": [
+    {
+     "label": "AZUL",
+     "h": 1,
+     "val": "×5,9",
+     "at": [
+      3,
+      2
+     ]
+    },
+    {
+     "label": "ROJO",
+     "h": 0.17,
+     "val": "×1",
+     "at": [
+      3,
+      3
+     ],
+     "color": "red"
+    }
+   ],
+   "chips": [
+    {
+     "text": "DESDE TODO EL CIELO",
+     "at": [
+      4,
+      1
+     ],
+     "cls": "cy",
+     "x": 380,
+     "y": 1600
+    }
+   ],
+   "from": 3
+  },
+  {
+   "type": "duo",
+   "items": [
+    {
+     "icon": "sun",
+     "label": "MEDIODÍA",
+     "at": [
+      5,
+      0
+     ]
+    },
+    {
+     "icon": "sunset",
+     "label": "ATARDECER",
+     "at": [
+      5,
+      2
+     ]
+    }
+   ],
+   "sym": "→",
+   "from": 5
+  },
+  {
+   "type": "myth",
+   "no": "El cielo <b>REFLEJA</b> el mar",
+   "yes": "Es la dispersión de <b>RAYLEIGH</b>",
+   "yesAt": [
+    7,
+    0
+   ],
+   "illus": "sky",
+   "from": 6
+  },
+  {
+   "type": "close",
+   "icon": "sun",
+   "from": 8
+  }
+ ]
+}
