@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="es" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter Tight"; font-weight: 700; src: url(assets/fonts/inter-tight-700.woff2) format("woff2"); }
+      @font-face { font-family: "Inter Tight"; font-weight: 800; src: url(assets/fonts/inter-tight-800.woff2) format("woff2"); }
+      @font-face { font-family: "Inter Tight"; font-weight: 900; src: url(assets/fonts/inter-tight-900.woff2) format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 400; src: url(assets/fonts/inter-400.woff2) format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 500; src: url(assets/fonts/inter-500.woff2) format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 600; src: url(assets/fonts/inter-600.woff2) format("woff2"); }
+      :root {
+        --ink: #0e0a22; --fg: #f5f3ff; --muted: #b4aed3; --lilac: #d9b8ff;
+        --grad: linear-gradient(135deg, #7b3dff 0%, #d73ceb 55%, #ff8a3d 100%);
+        --grad-text: linear-gradient(90deg, #a274ff 0%, #e05cf2 50%, #ff9a52 100%);
+        --display: "Inter Tight", "Inter", Arial, sans-serif; --body: "Inter", Arial, sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: var(--body); color: var(--fg); }
+      .clip { position: absolute; inset: 0; }
+      .scene { perspective: 1800px; perspective-origin: 50% 45%; }
+      .p3d { transform-style: preserve-3d; }
+
+      /* fondo: anillos concéntricos que respiran + destellos de marca */
+      #bg { background: radial-gradient(110% 70% at 50% 100%, #24104a 0%, var(--ink) 65%); }
+      .glow { position: absolute; border-radius: 50%; filter: blur(40px); }
+      #g1 { width: 1000px; height: 1000px; left: -360px; top: -320px; background: radial-gradient(closest-side, rgba(123,61,255,.5), transparent); }
+      #g2 { width: 1000px; height: 1000px; right: -380px; top: 900px; background: radial-gradient(closest-side, rgba(255,138,61,.28), transparent); }
+      .ring { position: absolute; left: 50%; top: 960px; border-radius: 50%; border: 2px solid rgba(201,164,255,.13); }
+
+      .eyebrow { position: absolute; left: 0; right: 0; text-align: center; font: 600 30px/1 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--lilac); }
+      .title { position: absolute; left: 50px; right: 50px; text-align: center; font-family: var(--display); font-weight: 900; letter-spacing: -.035em; line-height: 1.0; }
+      .title .line { display: block; }
+      .w { display: inline-block; perspective: 700px; padding: 0 .02em; }
+      .wi { display: inline-block; transform-origin: 50% 100%; }
+      .gt { background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .sub { position: absolute; left: 90px; right: 90px; text-align: center; font: 500 38px/1.35 var(--body); color: var(--muted); }
+
+      /* ---------- 1 · antes / después ---------- */
+      #flip { position: absolute; left: 110px; top: 560px; width: 860px; height: 960px; }
+      .face { position: absolute; inset: 0; border-radius: 26px; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 70px 120px -50px rgba(0,0,0,.9); }
+      .bar { height: 62px; display: flex; align-items: center; gap: 12px; padding: 0 24px; background: #e6e4ee; }
+      .bar i { width: 15px; height: 15px; border-radius: 50%; background: #c7c3d9; }
+      .bar span { margin-left: 12px; flex: 1; height: 36px; border-radius: 18px; background: #fff; font: 500 19px/36px var(--body); color: #625d80; padding-left: 18px; }
+      /* web antigua */
+      .old { background: #d9d9d9; font-family: "Times New Roman", "Liberation Serif", "DejaVu Serif", serif; color: #000; }
+      .old .hd { background: #1f4e8c; color: #ffff66; text-align: center; padding: 26px 10px 18px; font-size: 54px; font-weight: 700; text-shadow: 3px 3px 0 #000; }
+      .old .mq { background: #000; color: #00ff66; font-size: 26px; padding: 8px 14px; white-space: nowrap; overflow: hidden; }
+      .old .bd { display: flex; gap: 22px; padding: 26px; }
+      .old .nav { width: 210px; background: #c0c0c0; border: 4px outset #eee; padding: 16px; font-size: 26px; line-height: 1.8; }
+      .old .nav u { color: #0000ee; display: block; }
+      .old .main { flex: 1; font-size: 27px; line-height: 1.35; }
+      .old .main h2 { font-size: 40px; color: #990000; margin-bottom: 14px; }
+      .old .broken { margin: 20px 0; height: 190px; border: 3px solid #888; background: #eee; display: grid; place-items: center; color: #555; font-size: 24px; }
+      .old .count { display: inline-block; background: #000; color: #f00; font-family: "DejaVu Sans Mono", monospace; padding: 4px 10px; font-size: 26px; letter-spacing: 3px; }
+      .old .obra { margin-top: 20px; padding: 14px; background: repeating-linear-gradient(45deg, #ffd400 0 24px, #111 24px 48px); color: #fff; text-align: center; font-size: 30px; font-weight: 700; text-shadow: 2px 2px 0 #000; }
+      /* web nueva */
+      .new { background: #fbfaff; transform: rotateY(180deg); color: #130f2b; }
+      .scroller { position: absolute; left: 0; right: 0; top: 62px; }
+      .n-hero { margin: 26px; height: 420px; border-radius: 26px; background: linear-gradient(125deg, #2a1f5c, #6b2eb8 58%, #e07a4a); padding: 40px; display: flex; flex-direction: column; justify-content: flex-end; gap: 26px; }
+      .n-hero b { font: 900 70px/0.98 var(--display); letter-spacing: -.035em; color: #fff; }
+      .n-hero span { align-self: flex-start; height: 72px; padding: 0 36px; border-radius: 36px; background: #fff; color: #130f2b; font: 800 28px/72px var(--display); }
+      .n-sec { margin: 34px 26px 18px; font: 800 38px var(--display); letter-spacing: -.02em; }
+      .n-cards { margin: 0 26px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+      .n-cards div { height: 210px; border-radius: 22px; background: #efedf7; padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; font: 700 24px/1.1 var(--display); }
+      .n-cards div i { width: 56px; height: 56px; border-radius: 16px; background: var(--grad); margin-bottom: auto; display: block; }
+      .n-rev { margin: 26px; padding: 30px; border-radius: 24px; background: #fff; box-shadow: 0 0 0 2px #ece9f6; }
+      .n-rev .st { color: #a6690e; font-size: 34px; letter-spacing: 4px; }
+      .n-rev p { font: 600 32px/1.3 var(--display); margin-top: 10px; letter-spacing: -.01em; }
+      .n-rev small { display: block; margin-top: 10px; font: 500 22px var(--body); color: #6e6990; }
+      .n-cta { margin: 0 26px; height: 120px; border-radius: 24px; background: var(--grad); color: #fff; display: flex; align-items: center; justify-content: center; font: 800 36px var(--display); }
+      .wa { position: absolute; right: 26px; bottom: 26px; width: 92px; height: 92px; border-radius: 50%; background: #25d366; display: grid; place-items: center; box-shadow: 0 16px 30px -10px rgba(0,0,0,.5); }
+      .wa svg { width: 46px; height: 46px; }
+      .tag { position: absolute; top: 500px; left: 700px; padding: 16px 30px; border-radius: 999px; font: 900 34px var(--display); letter-spacing: .08em; color: #fff; box-shadow: 0 20px 40px -14px rgba(0,0,0,.7); }
+      #tag-a { background: #ff4d4d; }
+      #tag-b { background: var(--grad); }
+
+      /* ---------- 2 · cartas de ventajas ---------- */
+      #deck { position: absolute; left: 50%; top: 600px; width: 0; height: 0; }
+      .fc { position: absolute; left: -380px; top: 0; width: 760px; height: 820px; border-radius: 48px; background: linear-gradient(160deg, #241a58, #140e33); box-shadow: inset 0 0 0 2px rgba(255,255,255,.12), 0 70px 120px -50px rgba(0,0,0,.95); padding: 50px; display: flex; flex-direction: column; }
+      .fc .vis { height: 430px; border-radius: 30px; background: rgba(255,255,255,.05); box-shadow: inset 0 0 0 2px rgba(255,255,255,.08); position: relative; overflow: hidden; display: grid; place-items: center; }
+      .fc h3 { margin-top: auto; font: 900 66px/1 var(--display); letter-spacing: -.035em; }
+      .fc p { margin-top: 16px; font: 500 33px/1.35 var(--body); color: var(--muted); }
+      .fc .num { position: absolute; right: 50px; top: 46px; font: 800 26px var(--display); color: var(--lilac); letter-spacing: .1em; z-index: 2; }
+      .sw { display: flex; gap: 18px; }
+      .sw i { width: 92px; height: 92px; border-radius: 50%; display: block; box-shadow: 0 12px 24px -10px rgba(0,0,0,.6); }
+      .aa { position: absolute; left: 40px; bottom: 26px; font: 900 110px/1 var(--display); letter-spacing: -.04em; color: rgba(255,255,255,.9); }
+      .mini { width: 200px; height: 380px; border-radius: 34px; background: #07051a; padding: 9px; box-shadow: inset 0 0 0 2px rgba(255,255,255,.15); }
+      .mini div { height: 100%; border-radius: 26px; background: #fbfaff; padding: 30px 12px 12px; }
+      .mini b { display: block; height: 130px; border-radius: 14px; background: linear-gradient(140deg, #2a1f5c, #6b2eb8 60%, #e07a4a); }
+      .mini u { display: block; height: 10px; border-radius: 5px; background: #e3e0f0; margin-top: 14px; }
+      .mini s { display: block; height: 40px; border-radius: 20px; background: var(--grad); margin-top: 18px; }
+      .serp { width: 560px; display: grid; gap: 14px; }
+      .serp div { height: 88px; border-radius: 20px; background: rgba(255,255,255,.07); display: flex; align-items: center; gap: 18px; padding: 0 20px; font: 700 28px var(--display); color: rgba(255,255,255,.5); }
+      .serp div i { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,255,255,.12); display: block; }
+      .serp div.me { background: #fff; color: #130f2b; box-shadow: 0 20px 40px -16px rgba(215,60,235,.8); }
+      .serp div.me i { background: var(--grad); }
+      .serp div.me em { margin-left: auto; font: 800 22px var(--display); font-style: normal; color: #fff; background: var(--grad); padding: 6px 14px; border-radius: 12px; }
+      .acts { display: grid; gap: 16px; width: 480px; }
+      .acts span { height: 86px; border-radius: 43px; display: flex; align-items: center; justify-content: center; gap: 14px; font: 800 32px var(--display); color: #fff; background: rgba(255,255,255,.1); }
+      .acts span:nth-child(2) { background: #25d366; color: #06301a; }
+      .acts span:nth-child(3) { background: var(--grad); }
+      .acts svg { width: 36px; height: 36px; }
+
+      /* ---------- 3 · remate en el buscador ---------- */
+      .phone { position: absolute; border-radius: 70px; background: #07051a; padding: 16px; box-shadow: 0 60px 120px -40px rgba(0,0,0,.85), inset 0 0 0 3px rgba(255,255,255,.14); }
+      .screen { width: 100%; height: 100%; border-radius: 56px; background: #fbfaff; overflow: hidden; color: #130f2b; position: relative; }
+      .notch { position: absolute; top: 18px; left: 50%; width: 130px; height: 36px; margin-left: -65px; background: #07051a; border-radius: 20px; }
+      #s3-phone { width: 560px; height: 1100px; left: 260px; top: 600px; }
+      .sbar { margin: 92px 28px 0; height: 84px; border-radius: 42px; background: #eeecf6; display: flex; align-items: center; gap: 16px; padding: 0 28px; font: 500 30px var(--body); }
+      .sbar svg { width: 34px; height: 34px; }
+      .top1 { margin: 34px 22px 20px; padding: 26px; border-radius: 30px; background: #fff; box-shadow: 0 0 0 3px #d73ceb, 0 30px 60px -24px rgba(215,60,235,.7); }
+      .top1 .r { display: flex; gap: 20px; align-items: center; }
+      .top1 .th { width: 104px; height: 104px; border-radius: 24px; background: var(--grad); flex: none; display: grid; place-items: center; }
+      .top1 .th svg { width: 64px; height: 64px; }
+      .top1 b { display: block; font: 900 36px var(--display); letter-spacing: -.02em; }
+      .top1 small { display: block; font: 500 23px var(--body); color: #4f4a6e; margin-top: 4px; }
+      .top1 .st { color: #a6690e; letter-spacing: 2px; }
+      .top1 .ok { color: #13804a; font-weight: 600; }
+      .top1 .bt { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 22px; }
+      .top1 .bt span { height: 64px; border-radius: 32px; background: #efedf7; font: 800 22px/64px var(--display); text-align: center; }
+      .top1 .bt span.g { background: #25d366; color: #06301a; }
+      .dim { margin: 0 22px 14px; padding: 22px; border-radius: 24px; background: #f2f0f8; display: flex; gap: 18px; align-items: center; opacity: .55; }
+      .dim i { width: 76px; height: 76px; border-radius: 18px; background: #dcd8ea; display: block; flex: none; }
+      .dim u { display: block; height: 16px; width: 260px; border-radius: 8px; background: #d4d0e4; }
+      .dim u + u { width: 170px; margin-top: 12px; }
+      #s3-ripple { position: absolute; left: 543px; top: 1030px; width: 140px; height: 140px; margin: -70px 0 0 -70px; border-radius: 50%; border: 5px solid #25d366; opacity: 0; }
+      #s3-msg { position: absolute; left: 120px; top: 1330px; display: flex; align-items: center; gap: 20px; padding: 22px 34px 22px 22px; border-radius: 30px; background: rgba(255,255,255,.98); color: #130f2b; box-shadow: 0 40px 80px -30px rgba(0,0,0,.9); white-space: nowrap; }
+      #s3-msg .ic { width: 76px; height: 76px; border-radius: 22px; background: #25d366; display: grid; place-items: center; }
+      #s3-msg .ic svg { width: 40px; height: 40px; }
+      #s3-msg b { display: block; font: 800 34px var(--display); letter-spacing: -.01em; }
+      #s3-msg small { display: block; font: 500 25px var(--body); color: #4f4a6e; margin-top: 4px; }
+
+      /* ---------- 4 · CTA ---------- */
+      #s4-logo { position: absolute; left: 50%; top: 270px; width: 220px; height: 220px; margin-left: -110px; }
+      #s4-logo svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 30px 50px rgba(160,60,255,.55)); }
+      #s4-title { top: 560px; font-size: 128px; }
+      #s4-sub { top: 840px; }
+      #s4-btn { position: absolute; left: 50%; top: 1010px; width: 880px; margin-left: -440px; height: 150px; border-radius: 75px; background: var(--grad); display: flex; align-items: center; justify-content: center; gap: 26px; font: 800 50px var(--display); letter-spacing: -.02em; color: #fff; box-shadow: 0 30px 70px -20px rgba(215,60,235,.85); }
+      #s4-btn svg { width: 64px; height: 64px; }
+      #s4-halo { position: absolute; left: 50%; top: 1085px; width: 880px; height: 150px; margin: -75px 0 0 -440px; border-radius: 75px; border: 4px solid #e05cf2; opacity: 0; }
+      #s4-num { position: absolute; left: 0; right: 0; top: 1200px; text-align: center; font: 900 96px/1 var(--display); letter-spacing: -.02em; }
+      #s4-link { position: absolute; left: 0; right: 0; top: 1345px; text-align: center; font: 600 36px var(--body); color: var(--lilac); }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <linearGradient id="mg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#6E3BFF" /><stop offset=".55" stop-color="#D73CEB" /><stop offset="1" stop-color="#FF8A3D" /></linearGradient>
+        <symbol id="mark" viewBox="0 0 100 100">
+          <rect width="100" height="100" rx="26" fill="url(#mg)" />
+          <g fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><path d="M27 73V33l23 26 24-28" /><path d="M58 30h17v17" /></g>
+          <circle cx="72" cy="71" r="6.5" fill="#fff" />
+        </symbol>
+        <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="#7b3dff" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.5" /><path d="M20 20l-4-4" /></g></symbol>
+        <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round" /></symbol>
+        <symbol id="i-chat-d" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z" fill="none" stroke="#06301a" stroke-width="2.4" stroke-linejoin="round" /></symbol>
+        <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" /></symbol>
+        <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3" /><path d="M3.5 10h17M8 3v4M16 3v4" /></g></symbol>
+        <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z" /><circle cx="12" cy="10" r="2.4" /></g></symbol>
+      </defs>
+    </svg>
+
+    <div id="root" data-composition-id="main" data-start="0" data-duration="21" data-width="1080" data-height="1920">
+      <div id="bg" class="clip" data-start="0" data-duration="21" data-track-index="0">
+        <div class="glow" id="g1"></div><div class="glow" id="g2"></div>
+        <div class="ring" style="width:700px;height:700px;margin:-350px 0 0 -350px"></div>
+        <div class="ring" style="width:1200px;height:1200px;margin:-600px 0 0 -600px"></div>
+        <div class="ring" style="width:1800px;height:1800px;margin:-900px 0 0 -900px"></div>
+        <div class="ring" style="width:2500px;height:2500px;margin:-1250px 0 0 -1250px"></div>
+      </div>
+
+      <!-- 1 · Antes / después (0–7.5) -->
+      <div id="s1" class="clip scene" data-start="0" data-duration="7.5" data-track-index="1">
+        <div id="h-a" class="title" style="top:190px;font-size:118px"><span class="line">¿Tu web</span><span class="line">sigue así?</span></div>
+        <div id="h-b" class="title" style="top:190px;font-size:110px"><span class="line">Así pierdes</span><span class="line"><span style="color:#ff6b6b">clientes</span>.</span></div>
+        <div id="h-c" class="title" style="top:190px;font-size:110px"><span class="line">Así te</span><span class="line"><span class="gt">eligen.</span></span></div>
+        <div id="h-d" class="title" style="top:190px;font-size:96px"><span class="line">Abierta 24 h,</span><span class="line"><span class="gt">vendiendo por ti.</span></span></div>
+        <div id="flip" class="p3d" data-layout-allow-overlap>
+          <div class="face old">
+            <div class="bar"><i></i><i></i><i></i><span>www.tunegocio-oficial.com/index.htm</span></div>
+            <div class="hd">TU NEGOCIO</div>
+            <div class="mq"><span id="mq" style="display:inline-block">*** BIENVENIDOS A NUESTRA PAGINA WEB !!! *** LLAME PARA MAS INFO ***</span></div>
+            <div class="bd">
+              <div class="nav"><u>Inicio</u><u>Quienes somos</u><u>Servicios</u><u>Fotos</u><u>Contacto</u></div>
+              <div class="main">
+                <h2>Bienvenidos!!</h2>
+                Somos una empresa con muchos años de experiencia. Para cualquier consulta llame por teléfono en horario de oficina.
+                <div class="broken">[ imagen no disponible ]</div>
+                Visitas: <span class="count">000127</span>
+                <div class="obra">PAGINA EN CONSTRUCCION</div>
+              </div>
+            </div>
+          </div>
+          <div class="face new">
+            <div class="bar"><i></i><i></i><i></i><span>www.tunegocio.es</span></div>
+            <div class="scroller" id="scroller">
+              <div class="n-hero"><b>Tu negocio,<br />bien contado.</b><span>Reservar ahora</span></div>
+              <div class="n-sec">Lo que hacemos</div>
+              <div class="n-cards"><div><i></i>Servicio uno</div><div><i></i>Servicio dos</div><div><i></i>Servicio tres</div></div>
+              <div class="n-rev"><div class="st">★★★★★</div><p>“Reservé desde el móvil en un minuto. Así da gusto.”</p><small>Opinión de una clienta</small></div>
+              <div class="n-cta">Escríbenos por WhatsApp</div>
+            </div>
+            <div class="wa"><svg><use href="#i-chat" /></svg></div>
+          </div>
+        </div>
+        <div class="tag" id="tag-a">ANTES</div>
+        <div class="tag" id="tag-b">DESPUÉS</div>
+      </div>
+
+      <!-- 2 · Ventajas (7.5–12.5) -->
+      <div id="s2" class="clip scene" data-start="7.5" data-duration="5" data-track-index="1">
+        <div id="s2-eb" class="eyebrow" style="top:190px">Páginas web · Marvic Digital</div>
+        <div id="s2-t" class="title" style="top:250px;font-size:104px"><span class="line">Lo que lleva</span><span class="line"><span class="gt">tu nueva web.</span></span></div>
+        <div id="deck" class="p3d" data-layout-allow-overlap>
+          <div class="fc" id="fc1"><span class="num">1/4</span>
+            <div class="vis"><div class="sw"><i style="background:#7b3dff"></i><i style="background:#d73ceb"></i><i style="background:#ff8a3d"></i><i style="background:#f5f3ff"></i></div><span class="aa">Aa</span></div>
+            <h3>Diseño a medida</h3><p>Con tu logo, tus colores y tus fotos. Nada de plantillas.</p></div>
+          <div class="fc" id="fc2"><span class="num">2/4</span>
+            <div class="vis"><div class="mini" id="mini"><div><b></b><u></u><u style="width:70%"></u><s></s></div></div></div>
+            <h3>Perfecta en el móvil</h3><p>Desde donde te visita casi todo el mundo.</p></div>
+          <div class="fc" id="fc3"><span class="num">3/4</span>
+            <div class="vis"><div class="serp"><div class="me" id="me"><i></i>Tu negocio<em>Nº 1</em></div><div><i></i>Otro negocio</div><div><i></i>Otro negocio</div></div></div>
+            <h3>Lista para Google</h3><p>Para que aparezcas cuando te buscan en tu zona.</p></div>
+          <div class="fc" id="fc4"><span class="num">4/4</span>
+            <div class="vis"><div class="acts"><span><svg><use href="#i-phone" /></svg>Llamar</span><span><svg><use href="#i-chat-d" /></svg>WhatsApp</span><span><svg><use href="#i-cal" /></svg>Reservar</span></div></div>
+            <h3>Botones que venden</h3><p>Que te llamen, te escriban o reserven en un toque.</p></div>
+        </div>
+      </div>
+
+      <!-- 3 · Remate: ahora sí te encuentran (12.5–16) -->
+      <div id="s3" class="clip scene" data-start="12.5" data-duration="3.5" data-track-index="1">
+        <div id="s3-t" class="title" style="top:200px;font-size:112px"><span class="line">Y ahora sí</span><span class="line"><span class="gt">te encuentran.</span></span></div>
+        <div id="s3-phone" class="phone">
+          <div class="screen">
+            <div class="notch"></div>
+            <div class="sbar"><svg><use href="#i-search" /></svg>peluquería cerca de mí</div>
+            <div class="top1" id="top1">
+              <div class="r"><span class="th"><svg viewBox="0 0 100 100"><g fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><path d="M27 73V33l23 26 24-28" /><path d="M58 30h17v17" /></g></svg></span>
+                <span><b>Tu negocio</b><small><span class="st">★★★★★</span> 4,9 · <span class="ok">Abierto</span></small></span></div>
+              <div class="bt"><span>Llamar</span><span class="g" id="wa-btn">WhatsApp</span><span>Cómo llegar</span></div>
+            </div>
+            <div class="dim"><i></i><span><u></u><u></u></span></div>
+            <div class="dim"><i></i><span><u></u><u></u></span></div>
+            <div class="dim"><i></i><span><u></u><u></u></span></div>
+          </div>
+        </div>
+        <div id="s3-ripple"></div>
+        <div id="s3-msg" data-layout-allow-overlap><span class="ic"><svg><use href="#i-chat" /></svg></span><span><b>Nuevo cliente escribiendo…</b><small>“Hola, ¿tenéis hueco hoy?”</small></span></div>
+      </div>
+
+      <!-- 4 · CTA (16–21) -->
+      <div id="s4" class="clip scene" data-start="16" data-duration="5" data-track-index="1">
+        <div id="s4-logo"><svg><use href="#mark" /></svg></div>
+        <div id="s4-title" class="title"><span class="line">¿Renovamos</span><span class="line"><span class="gt">tu web?</span></span></div>
+        <div id="s4-sub" class="sub">Te decimos con sinceridad si compensa renovarla o empezar de cero.</div>
+        <div id="s4-halo"></div>
+        <div id="s4-btn"><svg><use href="#i-chat" /></svg>Escríbenos por WhatsApp</div>
+        <div id="s4-num">654 113 408</div>
+        <div id="s4-link">Visita nuestra web · enlace en la bio ↗</div>
+      </div>
+
+      <audio id="bgm" src="assets/audio/marvic-web.m4a" data-start="0" data-duration="21" data-volume="1" data-track-index="5"></audio>
+    </div>
+
+    <script>
+      document.querySelectorAll(".title .line").forEach(function (line) {
+        var out = [];
+        line.childNodes.forEach(function (node) {
+          if (node.nodeType === 3) {
+            node.textContent.split(/(\s+)/).forEach(function (part) {
+              if (!part) return;
+              if (/^\s+$/.test(part)) out.push(document.createTextNode(" "));
+              else { var w = document.createElement("span"); w.className = "w"; w.innerHTML = '<span class="wi">' + part + "</span>"; out.push(w); }
+            });
+          } else { var w2 = document.createElement("span"); w2.className = "w"; node.classList.add("wi"); w2.appendChild(node.cloneNode(true)); out.push(w2); }
+        });
+        line.innerHTML = ""; out.forEach(function (n) { line.appendChild(n); });
+      });
+
+      var tl = gsap.timeline({ paused: true });
+      function wordsIn(sel, at, s) {
+        tl.fromTo(sel + " .wi", { yPercent: 105, rotationX: -95, opacity: 0 }, { yPercent: 0, rotationX: 0, opacity: 1, duration: 0.5, ease: "back.out(1.6)", stagger: s || 0.07 }, at);
+      }
+      function wordsOut(sel, at) {
+        tl.to(sel + " .wi", { yPercent: -100, rotationX: 90, opacity: 0, duration: 0.28, ease: "power2.in", stagger: 0.03 }, at);
+      }
+
+      // fondo
+      tl.fromTo(".ring", { scale: 0.85 }, { scale: 1.15, duration: 3, ease: "sine.inOut", yoyo: true, repeat: 6, stagger: 0.25 }, 0);
+      tl.to("#g1", { x: 420, y: 500, duration: 10, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+      tl.to("#g2", { x: -500, y: -600, duration: 10.5, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+
+      // 1 · antes / después
+      tl.fromTo("#h-a .wi", { scale: 1.7, opacity: 0, filter: "blur(10px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power3.out", stagger: 0.1 }, 0);
+      tl.fromTo("#flip", { rotationY: -22, rotationX: 12, z: -200 }, { rotationY: 10, rotationX: 4, z: 0, duration: 2.9, ease: "sine.inOut" }, 0);
+      tl.fromTo("#mq", { x: 400 }, { x: -500, duration: 3, ease: "none" }, 0);
+      tl.fromTo("#tag-a", { scale: 0, rotation: -20 }, { scale: 1, rotation: 6, duration: 0.4, ease: "back.out(2.5)" }, 0.45);
+      tl.to("#flip", { x: -10, duration: 0.05, yoyo: true, repeat: 5, ease: "none" }, 1.5);
+      wordsOut("#h-a", 1.45);
+      wordsIn("#h-b", 1.65, 0.08);
+      // el giro: 3D flip con sobreimpulso
+      tl.to("#tag-a", { scale: 0, rotation: 30, duration: 0.25, ease: "power2.in" }, 2.7);
+      wordsOut("#h-b", 2.75);
+      tl.to("#flip", { rotationY: 180 + 10, rotationX: 0, z: 260, duration: 0.6, ease: "power3.in" }, 2.9);
+      tl.to("#flip", { rotationY: 180 - 8, z: 0, duration: 0.7, ease: "back.out(1.6)" }, 3.5);
+      tl.fromTo("#tag-b", { scale: 0, rotation: 20 }, { scale: 1, rotation: -5, duration: 0.45, ease: "back.out(2.5)" }, 3.45);
+      wordsIn("#h-c", 3.25, 0.1);
+      tl.fromTo("#scroller", { y: 0 }, { y: -430, duration: 2.6, ease: "power2.inOut" }, 4.4);
+      tl.to("#flip", { rotationY: 180 + 12, rotationX: 6, duration: 2.6, ease: "sine.inOut" }, 4.2);
+      wordsOut("#h-c", 4.75);
+      wordsIn("#h-d", 4.95, 0.08);
+      tl.to(["#flip", "#tag-b"], { y: 1300, rotationX: -50, opacity: 0, duration: 0.45, ease: "power3.in" }, 7.05);
+      tl.to("#h-d .wi", { opacity: 0, y: -60, duration: 0.3, stagger: 0.02 }, 7.1);
+
+      // 2 · baraja de ventajas
+      var t2 = 7.5;
+      tl.fromTo("#s2-eb", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5 }, t2 + 0.05);
+      wordsIn("#s2-t", t2 + 0.1);
+      ["#fc1", "#fc2", "#fc3", "#fc4"].forEach(function (c, k) {
+        var at = t2 + 0.3 + k * 1.12;
+        tl.fromTo(c, { z: -1400, rotationY: 70, rotationX: 20, opacity: 0 }, { z: 0, rotationY: 0, rotationX: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, at);
+        tl.to(c, { rotationY: -6, duration: 0.5, ease: "sine.inOut" }, at + 0.55);
+        if (k < 3) tl.to(c, { x: -1000, z: 200, rotationY: -75, opacity: 0, duration: 0.42, ease: "power3.in" }, at + 0.95);
+      });
+      tl.fromTo("#fc1 .sw i", { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(2.5)", stagger: 0.07 }, t2 + 0.6);
+      tl.fromTo("#mini", { rotationY: -60 }, { rotationY: 25, duration: 1, ease: "power2.out" }, t2 + 1.42);
+      tl.fromTo("#me", { y: 200 }, { y: 0, duration: 0.6, ease: "back.out(1.4)" }, t2 + 2.6);
+      tl.fromTo("#fc4 .acts span", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(2)", stagger: 0.1 }, t2 + 3.75);
+      tl.to("#fc4", { z: 700, opacity: 0, duration: 0.4, ease: "power3.in" }, t2 + 4.6);
+      tl.to(["#s2-t", "#s2-eb"], { opacity: 0, y: -40, duration: 0.3, ease: "power2.in" }, t2 + 4.6);
+
+      // 3 · remate
+      var t3 = 12.5;
+      wordsIn("#s3-t", t3 + 0.05, 0.09);
+      tl.fromTo("#s3-phone", { y: 900, rotationX: 50, rotationZ: -8 }, { y: 0, rotationX: 8, rotationZ: 0, duration: 0.8, ease: "power3.out" }, t3);
+      tl.to("#s3-phone", { rotationX: 0, rotationY: -8, duration: 2.6, ease: "sine.inOut" }, t3 + 0.8);
+      tl.fromTo("#top1", { scale: 0.6, opacity: 0, z: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2)" }, t3 + 0.6);
+      tl.fromTo(".dim", { opacity: 0, y: 40 }, { opacity: 0.55, y: 0, duration: 0.35, stagger: 0.08 }, t3 + 0.8);
+      tl.to("#wa-btn", { scale: 0.9, duration: 0.08, yoyo: true, repeat: 1 }, t3 + 1.7);
+      tl.fromTo("#s3-ripple", { scale: 0.2, opacity: 1 }, { scale: 1.8, opacity: 0, duration: 0.6, ease: "power2.out", immediateRender: false }, t3 + 1.7);
+      tl.fromTo("#s3-msg", { opacity: 0, y: 80, rotationX: -60 }, { opacity: 1, y: 0, rotationX: 0, duration: 0.5, ease: "back.out(1.8)" }, t3 + 1.9);
+      tl.to(["#s3-phone", "#s3-msg"], { z: 900, opacity: 0, duration: 0.4, ease: "power3.in" }, t3 + 3.1);
+      tl.to("#s3-t .wi", { opacity: 0, y: -60, duration: 0.3, stagger: 0.02 }, t3 + 3.1);
+
+      // 4 · CTA
+      var t4 = 16;
+      tl.fromTo("#s4-logo", { rotationY: 540, z: -1200, opacity: 0 }, { rotationY: 0, z: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, t4);
+      tl.to("#s4-logo", { rotationY: 20, rotationX: -8, duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: 2 }, t4 + 0.9);
+      wordsIn("#s4-title", t4 + 0.35, 0.1);
+      tl.fromTo("#s4-sub", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45 }, t4 + 0.9);
+      tl.fromTo("#s4-btn", { opacity: 0, scale: 0.6, rotationX: -70 }, { opacity: 1, scale: 1, rotationX: 0, duration: 0.6, ease: "back.out(1.8)" }, t4 + 1.2);
+      tl.fromTo("#s4-num", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, t4 + 1.55);
+      tl.fromTo("#s4-link", { opacity: 0 }, { opacity: 1, duration: 0.5 }, t4 + 1.9);
+      tl.fromTo("#s4-halo", { scale: 1, opacity: 0.9 }, { scale: 1.25, opacity: 0, duration: 1, ease: "power2.out", repeat: 2, immediateRender: false }, t4 + 1.85);
+      tl.to("#s4-btn", { scale: 1.04, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 5 }, t4 + 1.85);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
