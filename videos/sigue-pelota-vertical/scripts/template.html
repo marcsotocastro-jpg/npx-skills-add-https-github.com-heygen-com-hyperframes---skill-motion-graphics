@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Sigue la pelota roja — reto de atención</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Montserrat"; font-weight: 700; src: url("assets/fonts/montserrat-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Montserrat"; font-weight: 800; src: url("assets/fonts/montserrat-latin-800-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Montserrat"; font-weight: 900; src: url("assets/fonts/montserrat-latin-900-normal.woff2") format("woff2"); }
+      :root { --f: "Montserrat", system-ui, sans-serif; --violet: #a58bff; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100vw; height: 100vh; overflow: hidden; background: #0b0918; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: var(--f); color: #fff; }
+      .clip { position: absolute; inset: 0; }
+      .abs { position: absolute; }
+
+      #bg { background: radial-gradient(ellipse 70% 55% at 50% 48%, #2b2066 0%, #17123a 45%, #0b0918 100%); overflow: hidden; }
+      #rings { position: absolute; left: -460px; top: -40px; width: 2000px; height: 2000px; border-radius: 50%;
+        background: repeating-radial-gradient(circle, rgba(140, 110, 255, 0.07) 0 3px, transparent 3px 110px); }
+      #vign { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55)); }
+
+      #body { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+      #body .neon { fill: rgba(60, 44, 140, 0.28); stroke: #b59cff; stroke-width: 7; stroke-linejoin: round; stroke-linecap: round;
+        filter: drop-shadow(0 0 10px #8a6bff) drop-shadow(0 0 28px #5a3cff); }
+      #body .leg { fill: rgba(60, 44, 140, 0.2); stroke: url(#legfade); stroke-width: 7; filter: drop-shadow(0 0 10px #8a6bff); }
+
+      .grp { position: absolute; left: 0; top: 0; width: 0; height: 0; --c: #3DDC97; --d: #0f7a4d; }
+      .ball { position: absolute; left: 0; top: 0; width: 76px; height: 76px; border-radius: 50%;
+        background: radial-gradient(circle at 34% 30%, #ffffff 0 9%, var(--c) 34%, var(--d) 100%);
+        box-shadow: 0 0 26px var(--c), 0 0 60px var(--c); }
+      .ghost { position: absolute; left: 0; top: 0; width: 76px; height: 76px; border-radius: 50%; background: var(--c); filter: blur(6px); opacity: 0; }
+      .num { position: absolute; inset: 0; display: grid; place-items: center; font: 900 44px/1 var(--f); color: #fff; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8); opacity: 0; }
+      .mark { position: absolute; left: 26px; top: -40px; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 18px solid #fff; filter: drop-shadow(0 0 6px #fff); opacity: 0; }
+      .ring { position: absolute; left: -22px; top: -22px; width: 120px; height: 120px; border-radius: 50%; border: 6px solid #ff4d5e; box-shadow: 0 0 30px #ff4d5e; opacity: 0; }
+
+      .cap { position: absolute; left: 40px; top: 170px; width: 1000px; text-align: center; font: 800 74px/1.2 var(--f); text-shadow: 0 4px 0 rgba(0, 0, 0, 0.4); opacity: 0; }
+      .cap b { display: inline-block; padding: 0 16px; border-radius: 14px; color: #140f2b; font-weight: 900; }
+      .cap b.r { background: #ff4d5e; color: #fff; } .cap b.y { background: #ffd23f; } .cap b.g { background: #7cff4f; } .cap b.o { background: #ff9b25; }
+
+      #label { left: 0; top: 330px; width: 1080px; text-align: center; }
+      #label span { display: inline-block; padding: 16px 34px; border-radius: 40px; border: 3px solid rgba(181, 156, 255, 0.5); background: rgba(14, 10, 34, 0.85); font: 900 36px/1 var(--f); letter-spacing: 0.04em; }
+      #label em { font-style: normal; color: #ff4d5e; }
+      #diff { left: 270px; top: 335px; width: 540px; opacity: 0; }
+      #diff .t { text-align: center; font: 800 22px/1 var(--f); letter-spacing: 0.4em; color: #b9adf0; margin-bottom: 14px; }
+      #diff .track { display: flex; gap: 8px; }
+      #diff .seg { flex: 1; height: 16px; border-radius: 8px; background: rgba(181, 156, 255, 0.16); }
+      #dfill { position: absolute; left: 0; top: 36px; height: 16px; width: 540px; border-radius: 8px; background: #7cff4f; box-shadow: 0 0 18px #7cff4f; transform-origin: 0 50%; }
+      #cd { left: 440px; top: 300px; width: 200px; height: 200px; border-radius: 50%; border: 8px solid #ffd23f; background: rgba(14, 10, 34, 0.9); box-shadow: 0 0 40px rgba(255, 210, 63, 0.6); opacity: 0; }
+      #cd div { position: absolute; inset: 0; display: grid; place-items: center; font: 900 120px/1 var(--f); color: #ffd23f; opacity: 0; }
+      #flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+      #cta { left: 0; top: 1700px; width: 1080px; display: flex; justify-content: center; gap: 24px; opacity: 0; }
+      #cta span { padding: 18px 34px; border-radius: 40px; font: 900 40px/1 var(--f); background: rgba(14, 10, 34, 0.9); border: 4px solid #ffd23f; color: #ffd23f; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="__END__" data-width="1080" data-height="1920">
+      <audio id="mix" data-start="0" data-duration="__END__" data-volume="1" src="assets/audio/mix.m4a"></audio>
+      <div id="bg" class="clip" data-start="0" data-duration="__END__" data-track-index="0" data-layout-allow-overflow>
+        <div id="rings"></div>
+        <div id="vign"></div>
+      </div>
+      <div id="stage" class="clip" data-start="0" data-duration="__END__" data-track-index="1">
+        <svg id="body" viewBox="0 0 1080 1920">
+          <defs><linearGradient id="legfade" gradientUnits="userSpaceOnUse" x1="0" y1="1140" x2="0" y2="1720"><stop offset="0" stop-color="#b59cff"/><stop offset="0.75" stop-color="#b59cff" stop-opacity=".5"/><stop offset="1" stop-color="#b59cff" stop-opacity="0"/></linearGradient></defs>
+          <path class="leg" d="M454 1720 V1170 q0 -30 32 -30 q32 0 32 30 V1720"/>
+          <path class="leg" d="M562 1720 V1170 q0 -30 32 -30 q32 0 32 30 V1720"/>
+          <path class="neon" d="M500 652 C500 670 498 680 488 686 C420 692 362 708 342 762 C322 842 302 962 290 1040 C286 1070 302 1086 322 1080 C337 1076 342 1062 344 1046 C354 972 372 892 394 842 C390 932 388 1012 404 1122 L676 1122 C692 1012 690 932 686 842 C708 892 726 972 736 1046 C738 1062 743 1076 758 1080 C778 1086 794 1070 790 1040 C778 962 758 842 738 762 C718 708 660 692 592 686 C582 680 580 670 580 652"/>
+          <circle class="neon" cx="540" cy="560" r="94"/>
+        </svg>
+        <div id="balls"></div>
+        <div class="abs" id="label"><span>SIGUE LA PELOTA <em>ROJA</em></span></div>
+        <div class="abs" id="diff"><div class="t">DIFICULTAD</div><div class="track"><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div></div><div id="dfill"></div></div>
+        <div class="abs" id="cd"><div id="cd3">3</div><div id="cd2">2</div><div id="cd1">1</div></div>
+        <div class="abs" id="cta"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+        <div id="flash"></div>
+      </div>
+      <div id="caps" class="clip" data-start="0" data-duration="__END__" data-track-index="2"></div>
+    </div>
+    <script>
+      const G = __GAME__;
+      const tl = gsap.timeline({ paused: true });
+      const R = 38;
+      const pop = "back.out(1.8)";
+      const ballsEl = document.getElementById("balls");
+      const groups = [], balls = [], ghosts = [];
+      for (let b = 0; b < 4; b++) {
+        const g = document.createElement("div");
+        g.className = "grp";
+        g.id = "g" + b;
+        g.innerHTML = '<div class="ghost"></div><div class="ghost"></div><div class="ghost"></div>' +
+          '<div class="ball" id="ball' + b + '"><div class="ring"></div><div class="mark"></div><div class="num">' + G.number[b] + "</div></div>";
+        ballsEl.appendChild(g);
+        groups.push(g);
+        balls.push(g.querySelector(".ball"));
+        ghosts.push(Array.from(g.querySelectorAll(".ghost")));
+        if (b === 0) { g.style.setProperty("--c", "#ff3b4e"); g.style.setProperty("--d", "#9e0f25"); }
+        gsap.set(balls[b], { x: G.init[b][0] - R, y: G.init[b][1] - R });
+      }
+
+      // ---- entrance
+      tl.fromTo("#body", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, transformOrigin: "50% 50%", duration: 0.6, ease: "power3.out" }, 0);
+      tl.fromTo(balls, { scale: 0 }, { scale: 1, duration: 0.45, ease: pop, stagger: 0.08 }, 0.25);
+      tl.fromTo("#label span", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.4);
+      tl.fromTo("#ball0 .mark", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.6);
+      tl.to("#ball0 .mark", { y: -10, duration: 0.35, yoyo: true, repeat: 15, ease: "sine.inOut" }, 0.9);
+      tl.fromTo("#rings", { scale: 1, rotation: 0 }, { scale: 1.08, rotation: 20, duration: G.end, ease: "none" }, 0);
+
+      // ---- moves (quadratic arcs with a short trail)
+      const bez = (m, p) => { const q = 1 - p; return [q * q * m.x0 + 2 * q * p * m.cx + p * p * m.x1, q * q * m.y0 + 2 * q * p * m.cy + p * p * m.y1]; };
+      const TR = [0.08, 0.16, 0.24], TO = [0.5, 0.3, 0.15];
+      G.moves.forEach((m) => {
+        const o = { p: 0 };
+        tl.fromTo(o, { p: 0 }, {
+          p: 1, duration: m.d, ease: "power1.inOut", immediateRender: false,
+          onUpdate() {
+            const [x, y] = bez(m, o.p);
+            gsap.set(balls[m.b], { x: x - R, y: y - R });
+            const moving = o.p > 0.001 && o.p < 0.999;
+            ghosts[m.b].forEach((gh, k) => {
+              const [gx, gy] = bez(m, Math.max(0, o.p - TR[k]));
+              gsap.set(gh, { x: gx - R, y: gy - R, opacity: moving ? TO[k] : 0, scale: 1 - k * 0.15 });
+            });
+          },
+        }, m.t);
+      });
+
+      // ---- colour change + difficulty
+      tl.to("#ball0 .mark", { opacity: 0, duration: 0.25 }, G.colorT - 0.3);
+      tl.to("#label", { opacity: 0, y: -20, duration: 0.3 }, G.colorT - 0.1);
+      tl.to("#diff", { opacity: 1, duration: 0.3 }, G.colorT + 0.2);
+      G.palette.forEach(([t, c, d], k) => {
+        tl.to(groups, { "--c": c, "--d": d, duration: k ? 0.4 : 0.6, ease: "none" }, t);
+        tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.18, duration: 0.08, yoyo: true, repeat: 1, immediateRender: false }, t);
+      });
+      tl.set("#dfill", { scaleX: 0 }, 0);
+      G.levels.forEach(([t, v, col]) => tl.to("#dfill", { scaleX: v, background: col, boxShadow: "0 0 18px " + col, duration: 0.6, ease: "power2.out" }, t));
+      tl.fromTo("#body .neon", { strokeWidth: 7 }, { strokeWidth: 10, duration: 0.15, yoyo: true, repeat: 1, immediateRender: false }, 13.3);
+      tl.fromTo("#body .neon", { strokeWidth: 7 }, { strokeWidth: 10, duration: 0.15, yoyo: true, repeat: 1, immediateRender: false }, 18.7);
+      tl.fromTo("#stage", { x: 0 }, { x: 6, duration: 0.04, yoyo: true, repeat: 7, immediateRender: false }, 18.7);
+
+      // ---- stop: numbers + countdown
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.45, duration: 0.06, yoyo: true, repeat: 1, immediateRender: false }, G.stop);
+      tl.to(groups, { "--c": "#7d68e8", "--d": "#2e2180", duration: 0.3 }, G.stop);
+      tl.to(".num", { opacity: 1, duration: 0.25 }, G.stop + 0.3);
+      tl.fromTo(balls, { scale: 1 }, { scale: 1.2, duration: 0.25, yoyo: true, repeat: 1, ease: "sine.inOut", stagger: 0.08, immediateRender: false }, G.stop + 0.3);
+      tl.to("#diff", { opacity: 0, duration: 0.3 }, G.cd - 0.4);
+      tl.fromTo("#cd", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.35, ease: pop }, G.cd - 0.2);
+      ["#cd3", "#cd2", "#cd1"].forEach((id, k) => {
+        tl.fromTo(id, { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out", immediateRender: false }, G.cd + k);
+        tl.to(id, { opacity: 0, duration: 0.15 }, G.cd + k + 0.85);
+      });
+      tl.fromTo("#cd", { borderColor: "#ffd23f" }, { borderColor: "#ff4d5e", duration: 3, ease: "none", immediateRender: false }, G.cd);
+      tl.to("#cd", { opacity: 0, scale: 0.6, duration: 0.25 }, G.reveal - 0.05);
+
+      // ---- reveal
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.35, duration: 0.06, yoyo: true, repeat: 1, immediateRender: false }, G.reveal);
+      tl.to("#g0", { "--c": "#ff3b4e", "--d": "#9e0f25", duration: 0.2 }, G.reveal);
+      tl.to(["#g1", "#g2", "#g3"], { opacity: 0.28, duration: 0.3 }, G.reveal);
+      tl.fromTo("#ball0", { scale: 1 }, { scale: 1.45, duration: 0.45, ease: pop, immediateRender: false }, G.reveal);
+      tl.fromTo("#ball0 .ring", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: pop }, G.reveal + 0.1);
+      tl.to("#ball0 .ring", { scale: 1.15, duration: 0.4, yoyo: true, repeat: 5, ease: "sine.inOut" }, G.reveal + 0.5);
+      tl.fromTo("#cta", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, G.reveal + 1.4);
+      tl.fromTo("#cta span", { scale: 0.6 }, { scale: 1, duration: 0.4, ease: pop, stagger: 0.08 }, G.reveal + 1.4);
+      tl.to("#cta span:nth-child(" + G.red + ")", { background: "#ffd23f", color: "#140f2b", scale: 1.15, duration: 0.3 }, G.reveal + 2.0);
+
+      // ---- captions
+      const capsEl = document.getElementById("caps");
+      G.caps.forEach(([t0, t1, html]) => {
+        const el = document.createElement("div");
+        el.className = "cap";
+        el.innerHTML = html;
+        capsEl.appendChild(el);
+        tl.fromTo(el, { opacity: 0, scale: 0.86, y: 12 }, { opacity: 1, scale: 1, y: 0, duration: 0.16, ease: pop, immediateRender: false }, t0);
+        tl.set(el, { opacity: 0 }, t1);
+      });
+
+      tl.set({}, {}, G.end);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
