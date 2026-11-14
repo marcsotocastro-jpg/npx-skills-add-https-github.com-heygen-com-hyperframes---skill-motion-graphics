@@ -1,0 +1,49 @@
+{
+ "seed": 1,
+ "answer": 2,
+ "target_moves": 17,
+ "timing": [
+  {
+   "i": 0,
+   "start": 0.3,
+   "dur": 2.125,
+   "text": "¿Eres capaz de seguir la pelota amarilla?"
+  },
+  {
+   "i": 1,
+   "start": 3.2,
+   "dur": 1.95,
+   "text": "No la pierdas de vista ni un segundo."
+  },
+  {
+   "i": 2,
+   "start": 6.2,
+   "dur": 1.811,
+   "text": "Ahora todas cambian de color."
+  },
+  {
+   "i": 3,
+   "start": 12.9,
+   "dur": 1.184,
+   "text": "Más rápido."
+  },
+  {
+   "i": 4,
+   "start": 18.3,
+   "dur": 1.672,
+   "text": "Y más rápido todavía."
+  },
+  {
+   "i": 5,
+   "start": 23.6,
+   "dur": 3.889,
+   "text": "¡Stop! ¿Dónde está la pelota amarilla? Tienes tres segundos."
+  },
+  {
+   "i": 6,
+   "start": 30.889999999999997,
+   "dur": 4.052,
+   "text": "¡Era la número dos! ¿Acertaste? Dímelo en comentarios."
+  }
+ ]
+}

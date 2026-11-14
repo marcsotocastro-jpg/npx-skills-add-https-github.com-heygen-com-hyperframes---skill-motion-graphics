@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Sigue la pelota rosa — órbitas</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Montserrat"; font-weight: 700; src: url("assets/fonts/montserrat-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Montserrat"; font-weight: 800; src: url("assets/fonts/montserrat-latin-800-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Montserrat"; font-weight: 900; src: url("assets/fonts/montserrat-latin-900-normal.woff2") format("woff2"); }
+      :root { --f: "Montserrat", system-ui, sans-serif; --neon: #8fa8ff; --glow: #4b5cff; --fill: none; --tc: #ff4fc3; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100vw; height: 100vh; overflow: hidden; background: #0b0918; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: var(--f); color: #fff; }
+      .clip { position: absolute; inset: 0; }
+      .abs { position: absolute; }
+
+      #bg { background: radial-gradient(ellipse 70% 55% at 50% 52%, #1c2468 0%, #0e1236 45%, #0a0916 100%); overflow: hidden; }
+      #rings { position: absolute; left: -460px; top: 60px; width: 2000px; height: 2000px; border-radius: 50%;
+        background: repeating-radial-gradient(circle, rgba(255, 255, 255, 0.045) 0 3px, transparent 3px 110px); }
+      #vign { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55)); }
+
+      #stagesvg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+      #stagesvg .neon { fill: var(--fill); stroke: var(--neon); stroke-width: 7; stroke-linejoin: round; stroke-linecap: round;
+        filter: drop-shadow(0 0 10px var(--glow)) drop-shadow(0 0 26px var(--glow)); }
+      #stagesvg .line { fill: none; stroke: var(--neon); stroke-width: 5; stroke-linecap: round; opacity: 0.85; filter: drop-shadow(0 0 8px var(--glow)); }
+      #stagesvg .soft { fill: rgba(255, 255, 255, 0.05); stroke: var(--neon); stroke-width: 3; opacity: 0.45; }
+      #stagesvg .dot { fill: var(--neon); filter: drop-shadow(0 0 8px var(--glow)); }
+
+      .grp { position: absolute; left: 0; top: 0; width: 0; height: 0; --c: #fff; --d: #888; }
+      .ball { position: absolute; left: 0; top: 0; width: 68px; height: 68px; border-radius: 50%;
+        background: radial-gradient(circle at 34% 30%, #ffffff 0 9%, var(--c) 34%, var(--d) 100%);
+        box-shadow: 0 0 24px var(--c), 0 0 56px var(--c); }
+      .ghost { position: absolute; left: 0; top: 0; width: 68px; height: 68px; border-radius: 50%; background: var(--c); filter: blur(6px); opacity: 0; }
+      .num { position: absolute; inset: 0; display: grid; place-items: center; font: 900 39px/1 var(--f); color: #fff; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85); opacity: 0; }
+      .mark { position: absolute; left: calc(50% - 12px); top: -40px; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 18px solid #fff; filter: drop-shadow(0 0 6px #fff); opacity: 0; }
+      .ring { position: absolute; left: -22px; top: -22px; width: calc(100% + 44px); height: calc(100% + 44px); border-radius: 50%; border: 6px solid var(--tc); box-shadow: 0 0 30px var(--tc); opacity: 0; }
+
+      .cap { position: absolute; left: 40px; top: 170px; width: 1000px; text-align: center; font: 800 74px/1.2 var(--f); text-shadow: 0 4px 0 rgba(0, 0, 0, 0.4); opacity: 0; }
+      .cap b { display: inline-block; padding: 0 16px; border-radius: 14px; color: #140f2b; font-weight: 900; }
+      .cap b.t { background: var(--tc); } .cap b.y { background: #ffd23f; } .cap b.g { background: #7cff4f; } .cap b.o { background: #ff9b25; } .cap b.r { background: #ff4d5e; color: #fff; }
+
+      #label { left: 0; top: 330px; width: 1080px; text-align: center; }
+      #label span { display: inline-block; padding: 16px 34px; border-radius: 40px; border: 3px solid rgba(255, 255, 255, 0.3); background: rgba(14, 10, 34, 0.88); font: 900 36px/1 var(--f); letter-spacing: 0.04em; }
+      #label em { font-style: normal; color: var(--tc); }
+      #diff { left: 270px; top: 335px; width: 540px; opacity: 0; }
+      #diff .t { text-align: center; font: 800 22px/1 var(--f); letter-spacing: 0.4em; color: #c9c2ee; margin-bottom: 14px; }
+      #diff .track { display: flex; gap: 8px; }
+      #diff .seg { flex: 1; height: 16px; border-radius: 8px; background: rgba(255, 255, 255, 0.14); }
+      #dfill { position: absolute; left: 0; top: 36px; height: 16px; width: 540px; border-radius: 8px; background: #7cff4f; box-shadow: 0 0 18px #7cff4f; transform-origin: 0 50%; }
+      #cd { left: 440px; top: 290px; width: 200px; height: 200px; border-radius: 50%; border: 8px solid #ffd23f; background: rgba(14, 10, 34, 0.92); box-shadow: 0 0 40px rgba(255, 210, 63, 0.6); opacity: 0; }
+      #cd div { position: absolute; inset: 0; display: grid; place-items: center; font: 900 120px/1 var(--f); color: #ffd23f; opacity: 0; }
+      #flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+      #cta { left: 0; top: 1710px; width: 1080px; display: flex; justify-content: center; gap: 20px; opacity: 0; }
+      #cta span { padding: 16px 30px; border-radius: 40px; font: 900 40px/1 var(--f); background: rgba(14, 10, 34, 0.92); border: 4px solid #ffd23f; color: #ffd23f; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="36.05" data-width="1080" data-height="1920">
+      <audio id="mix" data-start="0" data-duration="36.05" data-volume="1" src="assets/audio/mix.m4a"></audio>
+      <div id="bg" class="clip" data-start="0" data-duration="36.05" data-track-index="0" data-layout-allow-overflow>
+        <div id="rings"></div>
+        <div id="vign"></div>
+      </div>
+      <div id="stage" class="clip" data-start="0" data-duration="36.05" data-track-index="1">
+        <svg id="stagesvg" viewBox="0 0 1080 1920">
+<g id="spin">
+<circle class="line" cx="540" cy="1060" r="220"/><circle class="line" cx="540" cy="1060" r="360"/><circle class="line" cx="540" cy="1060" r="480" style="opacity:.6"/>
+<circle class="dot" cx="760" cy="1060" r="10"/><circle class="dot" cx="285" cy="805" r="12"/><circle class="dot" cx="540" cy="1540" r="9"/>
+</g>
+<circle cx="540" cy="1060" r="74" style="fill:#ffcf5a;filter:drop-shadow(0 0 30px #ffb02e) drop-shadow(0 0 70px #ff8a1f)"/></svg>
+        <div id="balls"></div>
+        <div class="abs" id="label"><span>SIGUE LA PELOTA <em>ROSA</em></span></div>
+        <div class="abs" id="diff"><div class="t">DIFICULTAD</div><div class="track"><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div></div><div id="dfill"></div></div>
+        <div class="abs" id="cd"><div id="cd3">3</div><div id="cd2">2</div><div id="cd1">1</div></div>
+        <div class="abs" id="cta"></div>
+        <div id="flash"></div>
+      </div>
+      <div id="caps" class="clip" data-start="0" data-duration="36.05" data-track-index="2"></div>
+    </div>
+    <script>
+      const G = {"n": 5, "r": 34, "moves": [{"t": 0.9, "d": 0.765, "b": 0, "x0": 540.0, "y0": 1420.0, "cx": 756.0, "cy": 1060.0, "x1": 540.0, "y1": 700.0}, {"t": 2.025, "d": 0.765, "b": 0, "x0": 540.0, "y0": 700.0, "cx": 463.1, "cy": 1004.5, "x1": 695.6, "y1": 1215.6}, {"t": 2.025, "d": 0.765, "b": 1, "x0": 695.6, "y0": 1215.6, "cx": 772.5, "cy": 911.1, "x1": 540.0, "y1": 700.0}, {"t": 3.15, "d": 0.765, "b": 3, "x0": 180.0, "y0": 1060.0, "cx": 639.9, "cy": 947.3, "x1": 955.7, "y1": 1300.0}, {"t": 4.275, "d": 0.765, "b": 0, "x0": 695.6, "y0": 1215.6, "cx": 556.5, "cy": 1271.1, "x1": 540.0, "y1": 1420.0}, {"t": 5.4, "d": 0.765, "b": 0, "x0": 540.0, "y0": 1420.0, "cx": 307.5, "cy": 1208.9, "x1": 384.4, "y1": 904.4}, {"t": 7.9, "d": 0.72, "b": 0, "x0": 384.4, "y0": 904.4, "cx": 235.5, "cy": 920.9, "x1": 180.0, "y1": 1060.0}, {"t": 7.9, "d": 0.72, "b": 2, "x0": 695.6, "y0": 904.4, "cx": 851.0, "cy": 940.2, "x1": 955.7, "y1": 820.0}, {"t": 7.9, "d": 0.72, "b": 4, "x0": 955.7, "y0": 820.0, "cx": 800.3, "cy": 784.2, "x1": 695.6, "y1": 904.4}, {"t": 8.755, "d": 0.72, "b": 0, "x0": 180.0, "y0": 1060.0, "cx": 540.0, "cy": 844.0, "x1": 900.0, "y1": 1060.0}, {"t": 9.61, "d": 0.72, "b": 4, "x0": 695.6, "y0": 904.4, "cx": 633.4, "cy": 1153.4, "x1": 384.4, "y1": 1215.6}, {"t": 10.465, "d": 0.72, "b": 2, "x0": 955.7, "y0": 820.0, "cx": 396.0, "cy": 810.6, "x1": 124.3, "y1": 1300.0}, {"t": 11.32, "d": 0.72, "b": 2, "x0": 124.3, "y0": 1300.0, "cx": 279.7, "cy": 1335.8, "x1": 384.4, "y1": 1215.6}, {"t": 11.32, "d": 0.72, "b": 4, "x0": 384.4, "y0": 1215.6, "cx": 229.0, "cy": 1179.8, "x1": 124.3, "y1": 1300.0}, {"t": 12.175, "d": 0.72, "b": 0, "x0": 900.0, "y0": 1060.0, "cx": 688.9, "cy": 1292.5, "x1": 384.4, "y1": 1215.6}, {"t": 12.175, "d": 0.72, "b": 2, "x0": 384.4, "y0": 1215.6, "cx": 595.5, "cy": 983.1, "x1": 900.0, "y1": 1060.0}, {"t": 13.3, "d": 0.468, "b": 0, "x0": 384.4, "y0": 1215.6, "cx": 477.8, "cy": 1060.0, "x1": 384.4, "y1": 904.4}, {"t": 13.858, "d": 0.468, "b": 0, "x0": 384.4, "y0": 904.4, "cx": 644.7, "cy": 690.8, "x1": 955.7, "y1": 820.0}, {"t": 14.416, "d": 0.468, "b": 2, "x0": 900.0, "y0": 1060.0, "cx": 844.5, "cy": 1199.1, "x1": 695.6, "y1": 1215.6}, {"t": 14.974, "d": 0.468, "b": 0, "x0": 955.7, "y0": 820.0, "cx": 396.0, "cy": 810.6, "x1": 124.3, "y1": 1300.0}, {"t": 14.974, "d": 0.468, "b": 4, "x0": 124.3, "y0": 1300.0, "cx": 684.0, "cy": 1309.4, "x1": 955.7, "y1": 820.0}, {"t": 14.974, "d": 0.468, "b": 3, "x0": 955.7, "y0": 1300.0, "cx": 495.9, "cy": 1412.7, "x1": 180.0, "y1": 1060.0}, {"t": 15.532, "d": 0.468, "b": 3, "x0": 180.0, "y0": 1060.0, "cx": 540.0, "cy": 1276.0, "x1": 900.0, "y1": 1060.0}, {"t": 15.532, "d": 0.468, "b": 0, "x0": 124.3, "y0": 1300.0, "cx": 368.1, "cy": 1235.3, "x1": 540.0, "y1": 1420.0}, {"t": 16.09, "d": 0.468, "b": 0, "x0": 540.0, "y0": 1420.0, "cx": 324.0, "cy": 1060.0, "x1": 540.0, "y1": 700.0}, {"t": 16.09, "d": 0.468, "b": 1, "x0": 540.0, "y0": 700.0, "cx": 756.0, "cy": 1060.0, "x1": 540.0, "y1": 1420.0}, {"t": 16.09, "d": 0.468, "b": 4, "x0": 955.7, "y0": 820.0, "cx": 707.0, "cy": 939.8, "x1": 695.6, "y1": 1215.6}, {"t": 16.09, "d": 0.468, "b": 2, "x0": 695.6, "y0": 1215.6, "cx": 944.3, "cy": 1095.8, "x1": 955.7, "y1": 820.0}, {"t": 16.648, "d": 0.468, "b": 0, "x0": 540.0, "y0": 700.0, "cx": 616.9, "cy": 1004.5, "x1": 384.4, "y1": 1215.6}, {"t": 16.648, "d": 0.468, "b": 1, "x0": 540.0, "y0": 1420.0, "cx": 679.1, "cy": 1364.5, "x1": 695.6, "y1": 1215.6}, {"t": 16.648, "d": 0.468, "b": 4, "x0": 695.6, "y0": 1215.6, "cx": 556.5, "cy": 1271.1, "x1": 540.0, "y1": 1420.0}, {"t": 17.206, "d": 0.468, "b": 0, "x0": 384.4, "y0": 1215.6, "cx": 446.6, "cy": 966.6, "x1": 695.6, "y1": 904.4}, {"t": 17.206, "d": 0.468, "b": 4, "x0": 540.0, "y0": 1420.0, "cx": 400.9, "cy": 1364.5, "x1": 384.4, "y1": 1215.6}, {"t": 17.764, "d": 0.468, "b": 0, "x0": 695.6, "y0": 904.4, "cx": 707.0, "cy": 1180.2, "x1": 955.7, "y1": 1300.0}, {"t": 18.7, "d": 0.342, "b": 0, "x0": 955.7, "y0": 1300.0, "cx": 644.7, "cy": 1429.2, "x1": 384.4, "y1": 1215.6}, {"t": 18.7, "d": 0.342, "b": 4, "x0": 384.4, "y0": 1215.6, "cx": 695.4, "cy": 1086.4, "x1": 955.7, "y1": 1300.0}, {"t": 18.7, "d": 0.342, "b": 3, "x0": 900.0, "y0": 1060.0, "cx": 751.1, "cy": 1076.5, "x1": 695.6, "y1": 1215.6}, {"t": 18.7, "d": 0.342, "b": 1, "x0": 695.6, "y0": 1215.6, "cx": 844.5, "cy": 1199.1, "x1": 900.0, "y1": 1060.0}, {"t": 19.096, "d": 0.342, "b": 3, "x0": 695.6, "y0": 1215.6, "cx": 540.0, "cy": 1122.2, "x1": 384.4, "y1": 1215.6}, {"t": 19.096, "d": 0.342, "b": 0, "x0": 384.4, "y0": 1215.6, "cx": 540.0, "cy": 1309.0, "x1": 695.6, "y1": 1215.6}, {"t": 19.096, "d": 0.342, "b": 4, "x0": 955.7, "y0": 1300.0, "cx": 811.7, "cy": 1060.0, "x1": 955.7, "y1": 820.0}, {"t": 19.096, "d": 0.342, "b": 2, "x0": 955.7, "y0": 820.0, "cx": 1099.7, "cy": 1060.0, "x1": 955.7, "y1": 1300.0}, {"t": 19.492, "d": 0.342, "b": 0, "x0": 695.6, "y0": 1215.6, "cx": 944.3, "cy": 1095.8, "x1": 955.7, "y1": 820.0}, {"t": 19.492, "d": 0.342, "b": 4, "x0": 955.7, "y0": 820.0, "cx": 707.0, "cy": 939.8, "x1": 695.6, "y1": 1215.6}, {"t": 19.492, "d": 0.342, "b": 2, "x0": 955.7, "y0": 1300.0, "cx": 711.9, "cy": 1235.3, "x1": 540.0, "y1": 1420.0}, {"t": 19.888, "d": 0.342, "b": 2, "x0": 540.0, "y0": 1420.0, "cx": 783.9, "cy": 1484.7, "x1": 955.7, "y1": 1300.0}, {"t": 20.284, "d": 0.342, "b": 0, "x0": 955.7, "y0": 820.0, "cx": 707.0, "cy": 939.8, "x1": 695.6, "y1": 1215.6}, {"t": 20.284, "d": 0.342, "b": 4, "x0": 695.6, "y0": 1215.6, "cx": 944.3, "cy": 1095.8, "x1": 955.7, "y1": 820.0}, {"t": 20.284, "d": 0.342, "b": 3, "x0": 384.4, "y0": 1215.6, "cx": 616.9, "cy": 1004.5, "x1": 540.0, "y1": 700.0}, {"t": 20.68, "d": 0.342, "b": 0, "x0": 695.6, "y0": 1215.6, "cx": 844.5, "cy": 1199.1, "x1": 900.0, "y1": 1060.0}, {"t": 20.68, "d": 0.342, "b": 1, "x0": 900.0, "y0": 1060.0, "cx": 751.1, "cy": 1076.5, "x1": 695.6, "y1": 1215.6}, {"t": 20.68, "d": 0.342, "b": 4, "x0": 955.7, "y0": 820.0, "cx": 1099.7, "cy": 1060.0, "x1": 955.7, "y1": 1300.0}, {"t": 20.68, "d": 0.342, "b": 2, "x0": 955.7, "y0": 1300.0, "cx": 811.7, "cy": 1060.0, "x1": 955.7, "y1": 820.0}, {"t": 21.076, "d": 0.342, "b": 3, "x0": 540.0, "y0": 700.0, "cx": 567.9, "cy": 1124.7, "x1": 955.7, "y1": 1300.0}, {"t": 21.076, "d": 0.342, "b": 4, "x0": 955.7, "y0": 1300.0, "cx": 927.9, "cy": 875.3, "x1": 540.0, "y1": 700.0}, {"t": 21.472, "d": 0.342, "b": 4, "x0": 540.0, "y0": 700.0, "cx": 927.9, "cy": 875.3, "x1": 955.7, "y1": 1300.0}, {"t": 21.472, "d": 0.342, "b": 3, "x0": 955.7, "y0": 1300.0, "cx": 567.9, "cy": 1124.7, "x1": 540.0, "y1": 700.0}, {"t": 21.868, "d": 0.342, "b": 2, "x0": 955.7, "y0": 820.0, "cx": 811.7, "cy": 1060.0, "x1": 955.7, "y1": 1300.0}, {"t": 21.868, "d": 0.342, "b": 4, "x0": 955.7, "y0": 1300.0, "cx": 1099.7, "cy": 1060.0, "x1": 955.7, "y1": 820.0}, {"t": 22.264, "d": 0.342, "b": 1, "x0": 695.6, "y0": 1215.6, "cx": 800.3, "cy": 1335.8, "x1": 955.7, "y1": 1300.0}, {"t": 22.264, "d": 0.342, "b": 2, "x0": 955.7, "y0": 1300.0, "cx": 851.0, "cy": 1179.8, "x1": 695.6, "y1": 1215.6}, {"t": 22.264, "d": 0.342, "b": 0, "x0": 900.0, "y0": 1060.0, "cx": 828.0, "cy": 772.0, "x1": 540.0, "y1": 700.0}, {"t": 22.264, "d": 0.342, "b": 3, "x0": 540.0, "y0": 700.0, "cx": 612.0, "cy": 988.0, "x1": 900.0, "y1": 1060.0}, {"t": 22.66, "d": 0.342, "b": 0, "x0": 540.0, "y0": 700.0, "cx": 567.9, "cy": 1124.7, "x1": 955.7, "y1": 1300.0}, {"t": 22.66, "d": 0.342, "b": 1, "x0": 955.7, "y0": 1300.0, "cx": 927.9, "cy": 875.3, "x1": 540.0, "y1": 700.0}], "init": [[540.0, 1420.0], [695.6, 1215.6], [695.6, 904.4], [180.0, 1060.0], [955.7, 820.0]], "number": {"1": 1, "4": 2, "3": 3, "2": 4, "0": 5}, "red": 5, "tc": "#ff4fc3", "td": "#722357", "oc": "#cfe9ff", "od": "#71808c", "fc": "#7d68e8", "fd": "#2e2180", "colorT": 7.3, "stop": 23.45, "cd": 27.61, "reveal": 30.61, "end": 36.05, "caps": [[0.3, 1.011, "\u00bfPuedes seguir"], [1.011, 2.21, "la pelota <b class=t>rosa</b>?"], [3.2, 4.008, "Ojo, que este"], [4.008, 5.412, "es m\u00e1s <b class=r>dif\u00edcil</b>"], [6.2, 6.86, "Ahora todas"], [6.86, 8.319, "cambian de <b class=g>color</b>"], [12.9, 14.265, "M\u00e1s <b class=o>r\u00e1pido</b>..."], [18.3, 19.119, "Y m\u00e1s r\u00e1pido"], [19.119, 20.187, "<b class=o>todav\u00eda</b>"], [23.6, 24.2, "<b class=r>\u00a1STOP!</b>"], [24.2, 24.854, "\u00bfD\u00f3nde est\u00e1"], [24.854, 25.944, "la pelota <b class=t>rosa</b>?"], [25.944, 27.612, "Tienes <b class=y>3 segundos</b>"], [30.76, 32.3, "\u00a1Era la <b class=g>n\u00famero 5</b>!"], [32.3, 33.248, "\u00bfAcertaste?"], [33.248, 35.097, "D\u00edmelo en <b class=y>comentarios</b>"]], "spin": true, "bumps": [13.3, 18.7], "levels": [[7.7, 0.2, "#7CFF4F"], [13.3, 0.5, "#FFD23F"], [18.7, 0.8, "#FF9B25"], [21.5, 1.0, "#FF4D5E"]], "palette": [[7.3, "#4FE3FF", "#236672"], [13.3, "#9BFF4F", "#457223"], [18.7, "#FF9B25", "#724510"], [21.0, "#B48CFF", "#513f72"]]};
+      const tl = gsap.timeline({ paused: true });
+      const R = G.r;
+      const pop = "back.out(1.8)";
+      const ballsEl = document.getElementById("balls");
+      const ctaEl = document.getElementById("cta");
+      const groups = [], balls = [], ghosts = [];
+      for (let b = 0; b < G.n; b++) {
+        const g = document.createElement("div");
+        g.className = "grp";
+        g.id = "g" + b;
+        g.innerHTML = '<div class="ghost"></div><div class="ghost"></div><div class="ghost"></div>' +
+          '<div class="ball" id="ball' + b + '"><div class="ring"></div><div class="mark"></div><div class="num">' + G.number[b] + "</div></div>";
+        ballsEl.appendChild(g);
+        groups.push(g);
+        balls.push(g.querySelector(".ball"));
+        ghosts.push(Array.from(g.querySelectorAll(".ghost")));
+        g.style.setProperty("--c", b === 0 ? G.tc : G.oc);
+        g.style.setProperty("--d", b === 0 ? G.td : G.od);
+        gsap.set(balls[b], { x: G.init[b][0] - R, y: G.init[b][1] - R });
+        const s = document.createElement("span");
+        s.textContent = String(b + 1);
+        ctaEl.appendChild(s);
+      }
+      const others = groups.slice(1);
+
+      // ---- entrance
+      tl.fromTo("#stagesvg", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, transformOrigin: "50% 50%", duration: 0.6, ease: "power3.out" }, 0);
+      tl.fromTo(balls, { scale: 0 }, { scale: 1, duration: 0.45, ease: pop, stagger: 0.07 }, 0.25);
+      tl.fromTo("#label span", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.4);
+      tl.fromTo("#ball0 .mark", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.6);
+      tl.to("#ball0 .mark", { y: -10, duration: 0.35, yoyo: true, repeat: 15, ease: "sine.inOut" }, 0.9);
+      tl.fromTo("#rings", { scale: 1, rotation: 0 }, { scale: 1.08, rotation: 20, duration: G.end, ease: "none" }, 0);
+      if (G.spin) tl.fromTo("#spin", { rotation: 0 }, { rotation: 360, svgOrigin: "540 1060", duration: G.end, ease: "none" }, 0);
+
+      // ---- moves (quadratic arcs with a short trail)
+      const bez = (m, p) => { const q = 1 - p; return [q * q * m.x0 + 2 * q * p * m.cx + p * p * m.x1, q * q * m.y0 + 2 * q * p * m.cy + p * p * m.y1]; };
+      const TR = [0.08, 0.16, 0.24], TO = [0.5, 0.3, 0.15];
+      G.moves.forEach((m) => {
+        const o = { p: 0 };
+        tl.fromTo(o, { p: 0 }, {
+          p: 1, duration: m.d, ease: "power1.inOut", immediateRender: false,
+          onUpdate() {
+            const [x, y] = bez(m, o.p);
+            gsap.set(balls[m.b], { x: x - R, y: y - R });
+            const moving = o.p > 0.001 && o.p < 0.999;
+            ghosts[m.b].forEach((gh, k) => {
+              const [gx, gy] = bez(m, Math.max(0, o.p - TR[k]));
+              gsap.set(gh, { x: gx - R, y: gy - R, opacity: moving ? TO[k] : 0, scale: 1 - k * 0.15 });
+            });
+          },
+        }, m.t);
+      });
+
+      // ---- colour change + difficulty
+      tl.to("#ball0 .mark", { opacity: 0, duration: 0.25 }, G.colorT - 0.3);
+      tl.to("#label", { opacity: 0, y: -20, duration: 0.3 }, G.colorT - 0.1);
+      tl.to("#diff", { opacity: 1, duration: 0.3 }, G.colorT + 0.2);
+      G.palette.forEach(([t, c, d], k) => {
+        tl.to(groups, { "--c": c, "--d": d, duration: k ? 0.4 : 0.6, ease: "none" }, t);
+        tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.18, duration: 0.08, yoyo: true, repeat: 1, immediateRender: false }, t);
+      });
+      tl.set("#dfill", { scaleX: 0 }, 0);
+      G.levels.forEach(([t, v, col]) => tl.to("#dfill", { scaleX: v, background: col, boxShadow: "0 0 18px " + col, duration: 0.6, ease: "power2.out" }, t));
+      G.bumps.forEach((t) => {
+        tl.fromTo("#stagesvg", { scale: 1 }, { scale: 1.02, transformOrigin: "50% 50%", duration: 0.12, yoyo: true, repeat: 1, immediateRender: false }, t);
+      });
+      tl.fromTo("#stage", { x: 0 }, { x: 6, duration: 0.04, yoyo: true, repeat: 7, immediateRender: false }, G.bumps[G.bumps.length - 1]);
+
+      // ---- stop: numbers + countdown
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.45, duration: 0.06, yoyo: true, repeat: 1, immediateRender: false }, G.stop);
+      tl.to(groups, { "--c": G.fc, "--d": G.fd, duration: 0.3 }, G.stop);
+      tl.to(".num", { opacity: 1, duration: 0.25 }, G.stop + 0.3);
+      tl.fromTo(balls, { scale: 1 }, { scale: 1.2, duration: 0.25, yoyo: true, repeat: 1, ease: "sine.inOut", stagger: 0.07, immediateRender: false }, G.stop + 0.3);
+      tl.to("#diff", { opacity: 0, duration: 0.3 }, G.cd - 0.4);
+      tl.fromTo("#cd", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.35, ease: pop }, G.cd - 0.2);
+      ["#cd3", "#cd2", "#cd1"].forEach((id, k) => {
+        tl.fromTo(id, { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out", immediateRender: false }, G.cd + k);
+        tl.to(id, { opacity: 0, duration: 0.15 }, G.cd + k + 0.85);
+      });
+      tl.fromTo("#cd", { borderColor: "#ffd23f" }, { borderColor: "#ff4d5e", duration: 3, ease: "none", immediateRender: false }, G.cd);
+      tl.to("#cd", { opacity: 0, scale: 0.6, duration: 0.25 }, G.reveal - 0.05);
+
+      // ---- reveal
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.35, duration: 0.06, yoyo: true, repeat: 1, immediateRender: false }, G.reveal);
+      tl.to("#g0", { "--c": G.tc, "--d": G.td, duration: 0.2 }, G.reveal);
+      tl.to(others, { opacity: 0.28, duration: 0.3 }, G.reveal);
+      tl.fromTo("#ball0", { scale: 1 }, { scale: 1.45, duration: 0.45, ease: pop, immediateRender: false }, G.reveal);
+      tl.fromTo("#ball0 .ring", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: pop }, G.reveal + 0.1);
+      tl.to("#ball0 .ring", { scale: 1.15, duration: 0.4, yoyo: true, repeat: 5, ease: "sine.inOut" }, G.reveal + 0.5);
+      tl.fromTo("#cta", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, G.reveal + 1.4);
+      tl.fromTo("#cta span", { scale: 0.6 }, { scale: 1, duration: 0.4, ease: pop, stagger: 0.07 }, G.reveal + 1.4);
+      tl.to("#cta span:nth-child(" + G.red + ")", { background: "#ffd23f", color: "#140f2b", scale: 1.15, duration: 0.3 }, G.reveal + 2.0);
+
+      // ---- captions
+      const capsEl = document.getElementById("caps");
+      G.caps.forEach(([t0, t1, html]) => {
+        const el = document.createElement("div");
+        el.className = "cap";
+        el.innerHTML = html;
+        capsEl.appendChild(el);
+        tl.fromTo(el, { opacity: 0, scale: 0.86, y: 12 }, { opacity: 1, scale: 1, y: 0, duration: 0.16, ease: pop, immediateRender: false }, t0);
+        tl.set(el, { opacity: 0 }, t1);
+      });
+
+      tl.set({}, {}, G.end);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
