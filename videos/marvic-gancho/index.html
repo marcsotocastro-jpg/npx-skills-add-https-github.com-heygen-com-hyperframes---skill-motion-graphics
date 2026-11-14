@@ -174,9 +174,8 @@
       #s7-sub { top: 830px; }
       #s7-btn { position: absolute; left: 50%; top: 960px; width: 880px; margin-left: -440px; height: 150px; border-radius: 75px; background: var(--grad); display: flex; align-items: center; justify-content: center; gap: 26px; font: 800 50px var(--display); letter-spacing: -.02em; color: #fff; box-shadow: 0 30px 70px -20px rgba(215,60,235,.85); }
       #s7-btn svg { width: 64px; height: 64px; }
-      #s7-num { position: absolute; left: 0; right: 0; top: 1150px; text-align: center; font: 900 96px/1 var(--display); letter-spacing: -.02em; }
+      #s7-num { position: absolute; left: 0; right: 0; top: 1150px; text-align: center; font: 900 64px/1.1 var(--display); letter-spacing: -.02em; }
       #s7-link { position: absolute; left: 0; right: 0; top: 1300px; text-align: center; font: 600 36px var(--body); color: var(--lilac); }
-      #s7-mail { position: absolute; left: 0; right: 0; top: 1370px; text-align: center; font: 500 30px var(--body); color: var(--muted); }
       #s7-halo { position: absolute; left: 50%; top: 1035px; width: 880px; height: 150px; margin: -75px 0 0 -440px; border-radius: 75px; border: 4px solid #e05cf2; }
     </style>
   </head>
@@ -200,6 +199,7 @@
         <symbol id="i-save" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round" /></symbol>
         <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z" fill="#fff" /></symbol>
         <symbol id="i-cursor" viewBox="0 0 24 24"><path d="M5 3l14 8-6.2 1.6L10 19z" fill="#fff" stroke="#130f2b" stroke-width="1.4" stroke-linejoin="round" /></symbol>
+      <symbol id="i-follow" viewBox="0 0 24 24"><g fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="10" cy="8" r="4" /><path d="M3 20c0-3.6 3.1-6 7-6s7 2.4 7 6M19 8v6M16 11h6" /></g></symbol>
       </defs>
     </svg>
 
@@ -345,12 +345,11 @@
       <div id="s7" class="clip scene" data-start="29" data-duration="5" data-track-index="1">
         <div id="s7-logo"><svg><use href="#mark" /></svg></div>
         <div id="s7-title" class="title"><span class="line">¿Hacemos crecer</span><span class="line"><span class="gt">tu negocio?</span></span></div>
-        <div id="s7-sub" class="sub">Propuesta a medida y sin compromiso.</div>
+        <div id="s7-sub" class="sub">Te enseñamos cómo hacerlo, paso a paso.</div>
         <div id="s7-halo"></div>
-        <div id="s7-btn"><svg><use href="#i-chat" /></svg>Escríbenos por WhatsApp</div>
-        <div id="s7-num">654 113 408</div>
+        <div id="s7-btn"><svg><use href="#i-follow" /></svg>Síguenos para más</div>
+        <div id="s7-num">Ideas útiles <span class="gt">cada semana</span></div>
         <div id="s7-link">Visita nuestra web · enlace en la bio ↗</div>
-        <div id="s7-mail">marvicdigitalstudio@gmail.com</div>
       </div>
 
       <audio id="bgm" src="assets/audio/marvic-gancho.m4a" data-start="0" data-duration="34" data-volume="1" data-track-index="5"></audio>
@@ -510,7 +509,6 @@
       tl.fromTo("#s7-btn", { opacity: 0, scale: 0.6, rotationX: -70 }, { opacity: 1, scale: 1, rotationX: 0, duration: 0.6, ease: "back.out(1.8)" }, t7 + 1.25);
       tl.fromTo("#s7-num", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, t7 + 1.6);
       tl.fromTo("#s7-link", { opacity: 0 }, { opacity: 1, duration: 0.5 }, t7 + 2.0);
-      tl.fromTo("#s7-mail", { opacity: 0 }, { opacity: 1, duration: 0.5 }, t7 + 2.2);
       tl.fromTo("#s7-halo", { scale: 1, opacity: 0.9 }, { scale: 1.25, opacity: 0, duration: 1, ease: "power2.out", repeat: 2 }, t7 + 1.9);
       tl.to("#s7-btn", { scale: 1.04, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 5 }, t7 + 1.9);
 
