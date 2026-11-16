@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ca">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Moments — la nova web</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 400; src: url("assets/fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 400; font-style: italic; src: url("assets/fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2"); }
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 500; src: url("assets/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Manrope"; font-weight: 300; src: url("assets/fonts/manrope-latin-300-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Manrope"; font-weight: 400; src: url("assets/fonts/manrope-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Manrope"; font-weight: 500; src: url("assets/fonts/manrope-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Manrope"; font-weight: 600; src: url("assets/fonts/manrope-latin-600-normal.woff2") format("woff2"); }
+
+      /* Brand tokens, taken from the Moments site */
+      :root {
+        --cream: #f8f3ea;
+        --cream-2: #f1eadf;
+        --line: #ddd3c3;
+        --green: #485239;
+        --green-ink: #3d4a33;
+        --ink: #2f3a2b;
+        --muted: #5f5b52;
+        --terra: #b46f50;
+        --blush: #e7cbbb;
+        --sage: #b9bfae;
+        --on-green: #e9e4d6;
+        --serif: "Cormorant Garamond", serif;
+        --sans: "Manrope", sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--cream); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: var(--sans); color: var(--ink); }
+      .clip, .stage { position: absolute; inset: 0; }
+      .center { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+
+      /* Background: cream ground with the site's soft sage + blush discs */
+      #bg { background: radial-gradient(1500px 900px at 70% 40%, #fbf8f2, var(--cream) 55%, var(--cream-2)); }
+      .disc { position: absolute; border-radius: 50%; }
+      .disc--sage { left: 1480px; top: -220px; width: 640px; height: 640px; background: var(--sage); opacity: 0.35; }
+      .disc--blush { left: -180px; top: 760px; width: 520px; height: 520px; background: var(--blush); opacity: 0.55; }
+
+      /* ---------- 1 · Logo intro ---------- */
+      .logo-1 { width: 420px; height: auto; display: block; }
+      .tagline { margin-top: 46px; display: flex; align-items: center; gap: 24px; font: 500 24px/1 var(--sans); letter-spacing: 0.42em; text-transform: uppercase; color: var(--green-ink); padding-left: 0.42em; }
+      .tagline i { display: block; width: 80px; height: 1.5px; background: var(--terra); }
+
+      /* ---------- 2 · Hook: words + photo cards ---------- */
+      .words { position: absolute; left: 150px; top: 0; height: 1080px; width: 820px; }
+      .word { position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
+      .word .kick { margin-bottom: 30px; }
+      .big { font: 400 200px/0.95 var(--serif); color: var(--ink); }
+      .big em { font-style: italic; color: var(--terra); }
+      .big .ln { display: block; overflow: hidden; padding-bottom: 18px; }
+      .big .ln > span { display: block; }
+      .card { position: absolute; left: 1010px; top: 130px; width: 760px; height: 820px; overflow: hidden; box-shadow: 0 50px 90px -40px rgba(47, 58, 43, 0.45); }
+      .card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .count { position: absolute; left: 150px; bottom: 90px; font: 500 20px/1 var(--sans); letter-spacing: 0.3em; color: var(--muted); }
+
+      /* ---------- 3 · Site tour ---------- */
+      /* The page is rebuilt from the screenshots (scripts/prep-assets.py): fixed header on top,
+         the stitched page scrolled by the timeline, the flower button fixed. Device units = 2048px capture. */
+      .browser { position: absolute; left: 735px; top: 170px; width: 1065px; border-radius: 18px; overflow: hidden; background: #fff;
+        box-shadow: 0 60px 110px -40px rgba(47, 58, 43, 0.5), 0 0 0 1px rgba(47, 58, 43, 0.12); transform-origin: 50% 50%; }
+      .chrome { height: 44px; background: #ece6da; display: flex; align-items: center; padding: 0 20px; gap: 9px; }
+      .chrome .dot { width: 13px; height: 13px; border-radius: 50%; background: #d4cbbb; }
+      .chrome .url { margin-left: 24px; height: 26px; flex: 1; max-width: 520px; border-radius: 13px; background: #f8f4ec; display: flex; align-items: center; padding: 0 16px; gap: 10px; font: 500 14px/1 var(--sans); color: var(--muted); letter-spacing: 0.02em; }
+      .chrome .url svg { width: 13px; height: 13px; color: var(--green); }
+      .vp { position: relative; width: 1065px; height: 696px; overflow: hidden; background: var(--cream); }
+      .device { position: absolute; left: 0; top: 0; width: 2048px; height: 1338px; transform: scale(0.52); transform-origin: 0 0; }
+      .device .view { position: absolute; left: 0; top: 198px; width: 2048px; height: 1140px; overflow: hidden; }
+      .device .page { position: absolute; left: 0; top: 0; width: 2048px; height: 8331px; }
+      .device .hdr { position: absolute; left: 0; top: 0; width: 2048px; height: 198px; }
+      .device .fab { position: absolute; left: 1914px; top: 1220px; width: 88px; height: 88px; }
+
+      .pop { position: absolute; width: 330px; height: 250px; overflow: hidden; border: 10px solid #fffdf8; box-shadow: 0 30px 60px -24px rgba(47, 58, 43, 0.55); }
+      .pop img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .pop--a { left: 1530px; top: 80px; }
+      .pop--b { left: 1530px; top: 750px; }
+
+      .hello { position: absolute; left: 0; right: 0; top: 70px; text-align: center; font: 400 64px/1 var(--serif); color: var(--ink); }
+      .hello em { font-style: italic; color: var(--terra); }
+
+      .cap { position: absolute; left: 130px; top: 0; height: 1080px; width: 560px; display: flex; flex-direction: column; justify-content: center; }
+      .kick { display: flex; align-items: center; gap: 18px; font: 600 19px/1 var(--sans); letter-spacing: 0.34em; text-transform: uppercase; color: var(--green-ink); }
+      .kick i { display: block; width: 56px; height: 1.5px; background: var(--terra); }
+      .h { margin-top: 30px; font: 400 78px/1.02 var(--serif); color: var(--ink); }
+      .h em { font-style: italic; color: var(--terra); }
+      .h .ln { display: block; overflow: hidden; padding-bottom: 8px; }
+      .h .ln > span { display: block; }
+      .p { margin-top: 28px; font: 400 26px/1.5 var(--sans); color: var(--muted); max-width: 22ch; }
+      .tags { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px; max-width: 540px; }
+      .tag { display: block; padding: 15px 24px; border-radius: 40px; border: 1.5px solid var(--green); font: 500 22px/1 var(--sans); color: var(--green-ink); background: rgba(255, 253, 248, 0.6); }
+      .tag.fill { background: var(--green); color: var(--cream); }
+      .info { margin-top: 34px; display: flex; flex-direction: column; gap: 18px; }
+      .info div { display: flex; align-items: center; gap: 18px; font: 500 25px/1.2 var(--sans); color: var(--ink); }
+      .info svg { width: 28px; height: 28px; flex: none; color: var(--green); }
+
+      .prog { position: absolute; left: 130px; bottom: 80px; display: flex; gap: 10px; }
+      .prog span { display: block; width: 52px; height: 3px; border-radius: 2px; background: var(--line); overflow: hidden; }
+      .prog span b { display: block; width: 100%; height: 100%; background: var(--green); transform-origin: left center; transform: scaleX(0); }
+      .mini { position: absolute; left: 130px; top: 72px; display: flex; align-items: center; gap: 20px; }
+      .mini img { width: 92px; height: auto; display: block; }
+      .mini span { font: 600 15px/1 var(--sans); letter-spacing: 0.34em; color: var(--muted); }
+
+      /* ---------- 4 · Outro on the site's green ---------- */
+      #s4 { background: var(--green); }
+      .stack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+      .quote { font: 400 104px/1.08 var(--serif); color: #fbf7ef; }
+      .quote em { font-style: italic; color: var(--blush); }
+      .quote .ln { display: block; overflow: hidden; padding-bottom: 10px; }
+      .quote .ln > span { display: block; }
+      .qrule { width: 90px; height: 2px; background: var(--terra); margin-bottom: 50px; }
+      .logo-2 { width: 330px; height: auto; display: block; }
+      .end-tag { margin-top: 40px; font: 500 22px/1 var(--sans); letter-spacing: 0.42em; text-transform: uppercase; color: var(--on-green); padding-left: 0.42em; }
+      .pill { margin-top: 56px; display: inline-flex; align-items: center; gap: 16px; padding: 24px 46px; border-radius: 60px; background: var(--cream); font: 600 28px/1 var(--sans); color: var(--green-ink); }
+      .pill svg { width: 26px; height: 26px; }
+      .addr { margin-top: 34px; display: flex; align-items: center; gap: 14px; font: 400 24px/1 var(--sans); color: var(--on-green); }
+      .addr svg { width: 24px; height: 24px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="47" data-width="1920" data-height="1080">
+
+      <!-- Soft acoustic bed (generated by scripts/make-music.py) -->
+      <audio id="bgm" data-start="0" data-duration="47" data-volume="1" data-fade-out="2" src="assets/audio/moments-bgm.m4a"></audio>
+
+      <!-- Persistent background -->
+      <div id="bg" class="clip" data-start="0" data-duration="47" data-track-index="0">
+        <div class="disc disc--sage" id="disc-a" data-layout-allow-overflow></div>
+        <div class="disc disc--blush" id="disc-b" data-layout-allow-overflow></div>
+      </div>
+
+      <!-- 1 · Logo intro -->
+      <section id="s1" class="clip center" data-start="0" data-duration="3.4" data-track-index="1">
+        <img class="logo-1" id="logo-1" src="assets/site/logo-green.png" alt="Moments" />
+        <div class="tagline" id="tag-1"><i></i>Cafeteria i floristeria a Valls<i></i></div>
+      </section>
+
+      <!-- 2 · Hook: three words, three photos -->
+      <section id="s2" class="clip" data-start="3.2" data-duration="6.2" data-track-index="2">
+        <div class="words">
+          <div class="word" id="w1"><div class="kick"><i></i>Floristeria</div><div class="big"><span class="ln"><span>Flors,</span></span></div></div>
+          <div class="word" id="w2"><div class="kick"><i></i>Cafeteria</div><div class="big"><span class="ln"><span>cafè</span></span></div></div>
+          <div class="word" id="w3"><div class="kick"><i></i>A Valls</div><div class="big"><span class="ln"><span>i <em>moments</em></span></span><span class="ln"><span>per a tu.</span></span></div></div>
+        </div>
+        <div class="card" id="k1"><img src="assets/img/bouquet.jpg" alt="" /></div>
+        <div class="card" id="k2"><img src="assets/img/croissant.jpg" alt="" /></div>
+        <div class="card" id="k3"><img src="assets/img/storefront.jpg" alt="" /></div>
+        <div class="count" id="count"><span id="n1">01</span><span id="n2">02</span><span id="n3">03</span></div>
+      </section>
+
+      <!-- 3 · Site tour -->
+      <section id="s3" class="clip" data-start="9.2" data-duration="32.4" data-track-index="3">
+        <div class="hello" id="hello">Descobreix la nova <em>web.</em></div>
+        <div class="mini" id="mini"><img src="assets/site/logo-green.png" alt="" /><span>CAFETERIA I FLORISTERIA</span></div>
+
+        <div class="browser" id="browser">
+          <div class="chrome">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <div class="url"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M6 11h12v10H6z M8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>Moments · Cafeteria i floristeria a Valls</div>
+          </div>
+          <div class="vp">
+            <div class="device" data-layout-allow-overflow>
+              <div class="view"><img class="page" id="page" src="assets/site/site-page.jpg" alt="" data-layout-allow-overflow /></div>
+              <img class="hdr" src="assets/site/site-header.jpg" alt="" />
+              <img class="fab" id="fab" src="assets/site/site-fab.png" alt="" />
+            </div>
+          </div>
+        </div>
+
+        <div class="pop pop--a" id="pop1"><img src="assets/img/croissant.jpg" alt="" /></div>
+        <div class="pop pop--b" id="pop2"><img src="assets/img/tulips.jpg" alt="" /></div>
+        <div class="pop pop--a" id="pop3"><img src="assets/img/shopfront-flowers.jpg" alt="" /></div>
+        <div class="pop pop--b" id="pop4"><img src="assets/img/warm-room.jpg" alt="" /></div>
+
+        <div class="cap" id="c1">
+          <div class="kick"><i></i>01 · Inici</div>
+          <h2 class="h"><span class="ln"><span>Flors, cafè</span></span><span class="ln"><span>i <em>moments</em></span></span><span class="ln"><span>per a tu.</span></span></h2>
+          <p class="p">Una portada càlida que convida a entrar.</p>
+        </div>
+        <div class="cap" id="c2">
+          <div class="kick"><i></i>02 · Dos mons</div>
+          <h2 class="h"><span class="ln"><span>Un cafè amb</span></span><span class="ln"><span>calma. Un ram</span></span><span class="ln"><span>amb <em>cura.</em></span></span></h2>
+          <p class="p">Al mateix carrer, a la mateixa porta.</p>
+        </div>
+        <div class="cap" id="c3">
+          <div class="kick"><i></i>03 · Cafeteria</div>
+          <h2 class="h"><span class="ln"><span>Un cafè.</span></span><span class="ln"><span>Una conversa.</span></span><span class="ln"><span>Un bon <em>moment.</em></span></span></h2>
+          <div class="tags"><span class="tag">Esmorzars</span><span class="tag">Cafè</span><span class="tag">Pausa al migdia</span></div>
+        </div>
+        <div class="cap" id="c4">
+          <div class="kick"><i></i>04 · Floristeria</div>
+          <h2 class="h"><span class="ln"><span>Flors i plantes</span></span><span class="ln"><span>que donen <em>vida.</em></span></span></h2>
+          <div class="tags"><span class="tag fill">Rams</span><span class="tag fill">Plantes</span><span class="tag fill">Detalls per regalar</span></div>
+        </div>
+        <div class="cap" id="c5">
+          <div class="kick"><i></i>05 · L’espai</div>
+          <h2 class="h"><span class="ln"><span>Un racó de Valls</span></span><span class="ln"><span>per <em>quedar-t’hi.</em></span></span></h2>
+          <p class="p">Llum, plantes i taules sense presses.</p>
+        </div>
+        <div class="cap" id="c6">
+          <div class="kick"><i></i>06 · Troba’ns</div>
+          <h2 class="h"><span class="ln"><span>Ens veiem</span></span><span class="ln"><span>a <em>Moments.</em></span></span></h2>
+          <div class="info">
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z M12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>Carrer Vapor de Maó, 13 · Valls</div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>+34 666 698 708</div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z M9 4v14 M15 6v14"/></svg>Com arribar-hi, amb un clic</div>
+          </div>
+        </div>
+        <div class="cap" id="c7">
+          <div class="kick"><i></i>07 · Ressenyes</div>
+          <h2 class="h"><span class="ln"><span>La teva opinió</span></span><span class="ln"><span>ens fa <em>créixer.</em></span></span></h2>
+          <p class="p">Un botó directe per deixar la ressenya.</p>
+        </div>
+
+        <div class="prog" id="prog"><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span></div>
+      </section>
+
+      <!-- 4 · Outro on the site's green -->
+      <section id="s4" class="clip" data-start="41.2" data-duration="5.8" data-track-index="4">
+        <div class="stack" id="s4-quote">
+          <div class="qrule" id="qrule"></div>
+          <h2 class="quote"><span class="ln"><span>«Hi ha dies que només</span></span><span class="ln"><span>necessiten un cafè</span></span><span class="ln"><span>i unes <em>flors.</em>»</span></span></h2>
+        </div>
+        <div class="stack" id="s4-end">
+          <img class="logo-2" id="logo-2" src="assets/site/logo-cream.png" alt="Moments" />
+          <div class="end-tag" id="end-tag">Cafeteria i floristeria a Valls</div>
+          <div class="pill" id="pill">Descobreix la nova web<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14 M13 6l6 6-6 6"/></svg></div>
+          <div class="addr" id="addr"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z M12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>Carrer Vapor de Maó, 13 · Valls</div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const out = "power3.out";
+      const inn = "power2.in";
+      const soft = "expo.out";
+      const END = 47;
+      const has = (sel) => document.querySelector(sel) !== null;
+
+      // Background drift
+      tl.fromTo("#disc-a", { x: 0, y: 0 }, { x: -140, y: 80, duration: END, ease: "none" }, 0);
+      tl.fromTo("#disc-b", { x: 0, y: 0 }, { x: 120, y: -60, duration: END, ease: "none" }, 0);
+
+      // 1 · Logo intro
+      tl.fromTo("#logo-1", { scale: 0.7, opacity: 0, filter: "blur(14px)", rotation: -6 }, { scale: 1, opacity: 1, filter: "blur(0px)", rotation: 0, duration: 1.3, ease: soft }, 0.15);
+      tl.fromTo("#tag-1", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 1.0, ease: out }, 0.9);
+      tl.fromTo("#tag-1 i", { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: out }, 1.2);
+      tl.to("#logo-1", { scale: 1.06, duration: 1.4, ease: "sine.inOut" }, 1.5);
+      tl.to("#s1 > *", { y: -60, autoAlpha: 0, duration: 0.5, ease: inn, stagger: 0.05 }, 2.9);
+
+      // 2 · Hook: word + card triplets
+      const beats = [["#w1", "#k1", "#n1", 3.3], ["#w2", "#k2", "#n2", 5.2], ["#w3", "#k3", "#n3", 7.1]];
+      tl.set(["#n2", "#n3"], { display: "none" }, 0);
+      beats.forEach(([w, k, n, t], i) => {
+        tl.set(w, { autoAlpha: 1 }, t);
+        tl.fromTo(`${w} .kick`, { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.5, ease: out }, t + 0.05);
+        tl.fromTo(`${w} .big .ln > span`, { yPercent: 110 }, { yPercent: 0, duration: 0.8, ease: soft, stagger: 0.1 }, t + 0.05);
+        tl.fromTo(k, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.75, ease: "power3.inOut" }, t);
+        tl.fromTo(`${k} img`, { scale: 1.25 }, { scale: 1.04, duration: 2.6, ease: "power2.out" }, t);
+        if (i > 0) { tl.set(beats[i - 1][2], { display: "none" }, t); tl.set(n, { display: "inline" }, t); }
+        if (i < 2) tl.to(`${w} .big .ln > span, ${w} .kick`, { yPercent: -110, opacity: 0, duration: 0.4, ease: inn }, t + 1.55);
+      });
+      tl.fromTo("#count", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 3.4);
+      tl.set(["#w2", "#w3"], { autoAlpha: 0 }, 0);
+      // Exit: storefront card shrinks toward where the browser lands, words leave
+      tl.to("#w3", { autoAlpha: 0, x: -60, duration: 0.5, ease: inn }, 8.8);
+      tl.to("#count", { opacity: 0, duration: 0.3 }, 8.8);
+      tl.to("#k3", { scale: 0.6, y: 140, opacity: 0, duration: 0.6, ease: inn }, 8.8);
+
+      // 3 · Browser arrives centred and big, then settles to the right
+      const s = 9.2;
+      tl.fromTo("#browser", { x: -375, y: 420, scale: 1.18, rotationX: 18, opacity: 0, transformPerspective: 1800 },
+        { y: 70, rotationX: 0, opacity: 1, duration: 1.1, ease: soft }, s);
+      tl.fromTo("#hello", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: out }, s + 0.3);
+      tl.to("#hello", { opacity: 0, y: -30, duration: 0.45, ease: inn }, s + 1.9);
+      tl.to("#browser", { x: 0, y: 0, scale: 1, duration: 1.1, ease: "power3.inOut" }, s + 1.9);
+      tl.fromTo("#mini", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.7, ease: out }, s + 2.5);
+      tl.fromTo("#prog", { opacity: 0 }, { opacity: 1, duration: 0.6 }, s + 2.6);
+      tl.fromTo("#fab", { scale: 0 }, { scale: 1, duration: 0.6, ease: "back.out(2)" }, s + 1.2);
+
+      // Scroll of the real page: [time, page Y at top of viewport, ease]
+      const glide = "power2.inOut";
+      const drift = "sine.inOut";
+      const scroll = [
+        [11.0, 0],
+        [14.2, 140, drift],
+        [15.6, 1130, glide],   // dos mons (cafè + floristeria cards)
+        [19.2, 1230, drift],
+        [20.4, 2303, glide],   // cafeteria
+        [23.8, 2360, drift],
+        [25.0, 3506, glide],   // floristeria
+        [28.4, 3560, drift],
+        [29.6, 4712, glide],   // l'espai
+        [32.6, 4850, drift],
+        [33.8, 6020, glide],   // contacte + mapa
+        [37.0, 6080, drift],
+        [38.2, 7191, glide],   // ressenyes + footer
+      ];
+      tl.set("#page", { y: 0 }, 0);
+      for (let i = 1; i < scroll.length; i++) {
+        const [t0, y0] = scroll[i - 1];
+        const [t1, y1, ease] = scroll[i];
+        tl.fromTo("#page", { y: -y0 }, { y: -y1, duration: t1 - t0, ease: ease || "none", immediateRender: false }, t0);
+      }
+      // A gentle camera breath on the browser through the tour
+      tl.to("#browser", { scale: 1.025, duration: 14, ease: "sine.inOut" }, 12.2);
+      tl.to("#browser", { scale: 1, duration: 14, ease: "sine.inOut" }, 26.2);
+
+      // Captions follow the sections
+      const caps = [
+        ["#c1", 11.2, 15.3],
+        ["#c2", 15.3, 20.1],
+        ["#c3", 20.1, 24.7],
+        ["#c4", 24.7, 29.3],
+        ["#c5", 29.3, 33.5],
+        ["#c6", 33.5, 37.9],
+        ["#c7", 37.9, 40.8],
+      ];
+      caps.forEach(([id, start, end], i) => {
+        tl.fromTo(id, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, start);
+        tl.fromTo(`${id} .kick`, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.6, ease: out }, start);
+        tl.fromTo(`${id} .h .ln > span`, { yPercent: 108 }, { yPercent: 0, duration: 0.8, ease: soft, stagger: 0.09 }, start + 0.1);
+        if (has(`${id} .p`)) tl.fromTo(`${id} .p`, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.7, ease: out }, start + 0.5);
+        if (has(`${id} .tag`)) tl.fromTo(`${id} .tag`, { opacity: 0, y: 18, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.6)", stagger: 0.1 }, start + 0.5);
+        if (has(`${id} .info`)) tl.fromTo(`${id} .info div`, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.45, ease: out, stagger: 0.12 }, start + 0.5);
+        tl.fromTo(`#prog span:nth-child(${i + 1}) b`, { scaleX: 0 }, { scaleX: 1, duration: end - start, ease: "none" }, start);
+        if (i < caps.length - 1) tl.to(id, { autoAlpha: 0, y: -30, duration: 0.35, ease: inn }, end - 0.35);
+      });
+
+      // Pop-out photo cards that lift off the page
+      const pops = [["#pop1", 16.0, 19.6, 5], ["#pop2", 20.8, 24.3, -4], ["#pop3", 25.4, 28.9, 4], ["#pop4", 30.0, 33.2, -5]];
+      pops.forEach(([id, a, b, r]) => {
+        tl.fromTo(id, { autoAlpha: 0, y: 60, scale: 0.7, rotation: 0 }, { autoAlpha: 1, y: 0, scale: 1, rotation: r, duration: 0.8, ease: "back.out(1.5)" }, a);
+        tl.to(`${id} img`, { scale: 1.12, duration: b - a, ease: "none" }, a);
+        tl.to(id, { autoAlpha: 0, y: -40, scale: 0.9, duration: 0.4, ease: inn }, b);
+      });
+      tl.set(["#pop1", "#pop2", "#pop3", "#pop4"], { autoAlpha: 0 }, 0);
+
+      // Hand-off to the outro
+      tl.to(["#c7", "#mini", "#prog"], { autoAlpha: 0, y: -30, duration: 0.4, ease: inn }, 40.8);
+      tl.to("#browser", { scale: 0.9, opacity: 0, y: 40, duration: 0.5, ease: inn }, 40.8);
+
+      // 4 · Outro
+      const o = 41.2;
+      tl.fromTo("#s4", { clipPath: "circle(0% at 50% 50%)" }, { clipPath: "circle(75% at 50% 50%)", duration: 0.8, ease: "power3.inOut" }, o);
+      tl.fromTo("#qrule", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: out }, o + 0.5);
+      tl.fromTo("#s4-quote .ln > span", { yPercent: 108 }, { yPercent: 0, duration: 0.9, ease: soft, stagger: 0.12 }, o + 0.55);
+      tl.to("#s4-quote", { autoAlpha: 0, y: -40, duration: 0.5, ease: inn }, o + 2.7);
+      tl.set("#s4-end", { autoAlpha: 0 }, 0);
+      tl.set("#s4-end", { autoAlpha: 1 }, o + 3.0);
+      tl.fromTo("#logo-2", { scale: 0.75, opacity: 0, filter: "blur(10px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1.0, ease: soft }, o + 3.05);
+      tl.fromTo("#end-tag", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: out }, o + 3.45);
+      tl.fromTo("#pill", { opacity: 0, y: 24, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "back.out(1.6)" }, o + 3.7);
+      tl.fromTo("#addr", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: out }, o + 4.0);
+      tl.to("#pill", { scale: 1.04, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1 }, o + 4.6);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
