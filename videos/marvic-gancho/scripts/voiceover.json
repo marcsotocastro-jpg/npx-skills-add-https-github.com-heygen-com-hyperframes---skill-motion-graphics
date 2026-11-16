@@ -1,0 +1,107 @@
+{
+ "marvic-gancho": {
+  "dur": 34,
+  "lines": [
+   [
+    0.15,
+    3.7,
+    "¿Te buscan en el móvil… y acaban en tu competencia?"
+   ],
+   [
+    4.2,
+    7.3,
+    "Eso tiene arreglo. Somos Marvic Digital."
+   ],
+   [
+    7.7,
+    13.4,
+    "Creamos webs a medida, perfectas en el móvil y listas para Google."
+   ],
+   [
+    13.7,
+    19.4,
+    "Y damos vida a tus redes, con contenido constante y con tu estilo."
+   ],
+   [
+    19.7,
+    24.9,
+    "Contigo en cada paso: te escuchamos, lo creamos juntos y seguimos a tu lado."
+   ],
+   [
+    25.2,
+    28.9,
+    "Para que te encuentren, te elijan… y vuelvan."
+   ],
+   [
+    29.4,
+    33.6,
+    "¿Hacemos crecer tu negocio? Síguenos para más ideas cada semana."
+   ]
+  ]
+ },
+ "marvic-web": {
+  "dur": 21,
+  "lines": [
+   [
+    0.15,
+    2.9,
+    "¿Tu web sigue así? Así pierdes clientes."
+   ],
+   [
+    3.3,
+    7.3,
+    "Así te eligen. Una web abierta veinticuatro horas, vendiendo por ti."
+   ],
+   [
+    7.7,
+    12.4,
+    "Diseño a medida, perfecta en el móvil, lista para Google y con botones que venden."
+   ],
+   [
+    12.7,
+    15.9,
+    "Y ahora sí, te encuentran."
+   ],
+   [
+    16.3,
+    20.6,
+    "¿Renovamos tu web? Síguenos para más consejos."
+   ]
+  ]
+ },
+ "marvic-redes": {
+  "dur": 22,
+  "lines": [
+   [
+    0.15,
+    3.3,
+    "¿Tus redes llevan meses paradas? Así nadie te sigue."
+   ],
+   [
+    3.4,
+    5.05,
+    "Nosotros las despertamos."
+   ],
+   [
+    5.2,
+    9.4,
+    "Con un plan claro cada semana: qué publicar, cuándo y dónde."
+   ],
+   [
+    9.7,
+    13.4,
+    "Diseños con tu estilo. Y nada se publica sin tu visto bueno."
+   ],
+   [
+    13.7,
+    16.9,
+    "Respondemos a tus clientes y medimos qué funciona."
+   ],
+   [
+    17.3,
+    21.6,
+    "¿Despertamos tus redes? Síguenos para más ideas."
+   ]
+  ]
+ }
+}
