@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="es" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter Tight"; font-weight: 700; src: url(assets/fonts/inter-tight-700.woff2) format("woff2"); }
+      @font-face { font-family: "Inter Tight"; font-weight: 800; src: url(assets/fonts/inter-tight-800.woff2) format("woff2"); }
+      @font-face { font-family: "Inter Tight"; font-weight: 900; src: url(assets/fonts/inter-tight-900.woff2) format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 500; src: url(assets/fonts/inter-500.woff2) format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 600; src: url(assets/fonts/inter-600.woff2) format("woff2"); }
+      :root {
+        --ink: #0e0a22; --fg: #f5f3ff; --muted: #b4aed3; --lilac: #d9b8ff;
+        --grad: linear-gradient(135deg, #7b3dff 0%, #d73ceb 55%, #ff8a3d 100%);
+        --grad-text: linear-gradient(90deg, #a274ff 0%, #e05cf2 50%, #ff9a52 100%);
+        --display: "Inter Tight", "Inter", Arial, sans-serif; --body: "Inter", Arial, sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: var(--body); color: var(--fg); }
+      .clip { position: absolute; inset: 0; }
+      .scene { perspective: 1800px; perspective-origin: 50% 45%; }
+      .p3d { transform-style: preserve-3d; }
+      #bg { background: radial-gradient(90% 60% at 50% 40%, #1d1345 0%, var(--ink) 70%); }
+      .glow { position: absolute; border-radius: 50%; filter: blur(40px); }
+      #g1 { width: 1000px; height: 1000px; left: -380px; top: -300px; background: radial-gradient(closest-side, rgba(123,61,255,.5), transparent); }
+      #g2 { width: 1000px; height: 1000px; right: -420px; bottom: -300px; background: radial-gradient(closest-side, rgba(255,138,61,.28), transparent); }
+      #flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+
+      .eyebrow { position: absolute; left: 0; right: 0; text-align: center; font: 600 30px/1 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--lilac); }
+      .title { position: absolute; left: 50px; right: 50px; text-align: center; font-family: var(--display); font-weight: 900; letter-spacing: -.035em; line-height: 1.0; }
+      .title .line { display: block; }
+      .w { display: inline-block; perspective: 700px; padding: 0 .02em; }
+      .wi { display: inline-block; transform-origin: 50% 100%; }
+      .gt { background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .sub { position: absolute; left: 90px; right: 90px; text-align: center; font: 500 38px/1.35 var(--body); color: var(--muted); }
+      .chips { position: absolute; left: 50px; right: 50px; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+      .chip { display: inline-flex; align-items: center; gap: 14px; padding: 18px 28px 18px 18px; border-radius: 999px; background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 2px rgba(255,255,255,.16); font: 600 32px/1 var(--body); color: #fff; white-space: nowrap; }
+      .chip svg { width: 40px; height: 40px; flex: none; }
+
+      /* tarjeta de publicación genérica */
+      .post { width: 640px; border-radius: 34px; background: #fbfaff; color: #130f2b; overflow: hidden; box-shadow: 0 40px 80px -40px rgba(0,0,0,.9); }
+      .post .ph { display: flex; align-items: center; gap: 14px; padding: 20px 22px; }
+      .post .ph i { width: 54px; height: 54px; border-radius: 50%; display: block; background: #d9d4ec; }
+      .post .ph u { display: block; height: 16px; width: 200px; border-radius: 8px; background: #e3e0f0; }
+      .post .im { height: 440px; display: flex; align-items: flex-end; padding: 28px; font: 900 54px/1 var(--display); letter-spacing: -.03em; color: #fff; }
+      .post .ac { display: flex; gap: 22px; padding: 18px 24px 22px; }
+      .post .ac i { width: 40px; height: 40px; border-radius: 12px; background: #e3e0f0; display: block; }
+
+      /* 1 · gancho */
+      #feedwrap { position: absolute; left: 220px; top: 0; width: 640px; height: 1920px; }
+      #feed { position: absolute; left: 0; top: 0; display: flex; flex-direction: column; gap: 34px; }
+      #touch { position: absolute; left: 780px; top: 1250px; width: 110px; height: 110px; margin: -55px 0 0 -55px; border-radius: 50%; background: rgba(255,255,255,.35); box-shadow: 0 0 0 10px rgba(255,255,255,.15); }
+      #dim { position: absolute; inset: 0; background: radial-gradient(70% 50% at 50% 55%, rgba(14,10,34,.55), rgba(14,10,34,.92)); opacity: 0; }
+      #para { position: absolute; left: 0; right: 0; top: 560px; text-align: center; font: 900 330px/1 var(--display); letter-spacing: -.06em; color: #fff; text-shadow: 0 30px 80px rgba(215,60,235,.7); }
+      #para span { display: inline-block; }
+      #ring { position: absolute; left: 540px; top: 730px; width: 700px; height: 700px; margin: -350px 0 0 -350px; border-radius: 50%; border: 10px solid #ff8a3d; opacity: 0; }
+      #h1 { top: 1050px; font-size: 76px; }
+      #h2 { top: 1150px; font-size: 76px; }
+
+      /* 2 · se paran o pasan */
+      #s2-a, #s2-b { z-index: 5; }
+      #lane { z-index: 1; }
+      #lane { position: absolute; left: 220px; top: 620px; width: 640px; height: 700px; }
+      #lane .post { position: absolute; left: 0; top: 0; }
+      #c-grey .im { background: #cfccda; color: #8d89a3; }
+      #c-grey .ph i { background: #cfccda; }
+      #c-good .im { background: linear-gradient(140deg, #7b3dff, #d73ceb 60%, #ff8a3d); }
+      #c-good .ph i { background: var(--grad); }
+      #c-good { box-shadow: 0 0 0 6px rgba(224,92,242,.9), 0 40px 120px -20px rgba(215,60,235,.9); }
+      .tagc { position: absolute; padding: 14px 26px; border-radius: 999px; font: 800 34px var(--display); white-space: nowrap; color: #fff; box-shadow: 0 20px 40px -14px rgba(0,0,0,.7); }
+      #tg1 { left: 90px; top: 1000px; background: #4a4560; }
+      #tg2 { left: 640px; top: 560px; background: var(--grad); }
+      .ht { position: absolute; left: 540px; top: 900px; width: 70px; height: 70px; margin: -35px; }
+      .ht svg { width: 100%; height: 100%; }
+
+      /* 3 · carrusel de contenido */
+      #car { position: absolute; left: 540px; top: 980px; width: 0; height: 0; }
+      .cc { position: absolute; left: -180px; top: -240px; width: 360px; height: 480px; border-radius: 30px; overflow: hidden; display: flex; align-items: flex-end; padding: 26px; font: 900 44px/1 var(--display); letter-spacing: -.03em; color: #fff; box-shadow: 0 30px 60px -24px rgba(0,0,0,.85); backface-visibility: hidden; }
+      .cc em { position: absolute; left: 22px; top: 22px; font: 800 20px var(--body); font-style: normal; letter-spacing: .14em; text-transform: uppercase; padding: 8px 14px; border-radius: 12px; background: rgba(14,10,34,.35); }
+      #s3-chips { top: 1440px; }
+
+      /* 4 · del perfil a la web */
+      .phone { position: absolute; border-radius: 64px; background: #07051a; padding: 14px; box-shadow: 0 60px 120px -40px rgba(0,0,0,.9), inset 0 0 0 3px rgba(255,255,255,.14); }
+      .screen { width: 100%; height: 100%; border-radius: 52px; background: #fbfaff; overflow: hidden; color: #130f2b; position: relative; }
+      .notch { position: absolute; top: 16px; left: 50%; width: 120px; height: 34px; margin-left: -60px; background: #07051a; border-radius: 18px; z-index: 2; }
+      #ph4 { left: 300px; top: 560px; width: 480px; height: 960px; }
+      .pf { display: flex; align-items: center; gap: 22px; padding: 80px 28px 0; }
+      .pf i { width: 110px; height: 110px; border-radius: 50%; background: var(--grad); display: block; flex: none; }
+      .pf b { font: 800 30px var(--display); display: block; }
+      .pf small { font: 500 21px var(--body); color: #625d80; display: block; margin-top: 4px; }
+      #biolink { margin: 24px 28px 0; height: 66px; border-radius: 18px; background: #efe9ff; color: #5a28c8; font: 800 25px/66px var(--display); text-align: center; position: relative; }
+      #tap { position: absolute; left: 540px; top: 790px; width: 120px; height: 120px; margin: -60px; border-radius: 50%; border: 6px solid #e05cf2; opacity: 0; }
+      .gridm { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; padding: 26px 5px 0; }
+      .gridm i { aspect-ratio: 1; display: block; }
+      #web4 { position: absolute; left: 90px; top: 560px; width: 900px; height: 960px; border-radius: 30px; background: #fbfaff; overflow: hidden; color: #130f2b; box-shadow: 0 70px 120px -50px rgba(0,0,0,.95); }
+      .bar { height: 62px; display: flex; align-items: center; gap: 12px; padding: 0 24px; background: #e6e4ee; }
+      .bar i { width: 15px; height: 15px; border-radius: 50%; background: #c7c3d9; }
+      .bar span { margin-left: 12px; flex: 1; height: 36px; border-radius: 18px; background: #fff; font: 500 19px/36px var(--body); color: #625d80; padding-left: 18px; }
+      .hero { margin: 26px; height: 440px; border-radius: 26px; background: linear-gradient(125deg, #2a1f5c, #6b2eb8 58%, #e07a4a); padding: 44px; display: flex; flex-direction: column; justify-content: flex-end; gap: 28px; }
+      .hero b { font: 900 76px/0.98 var(--display); letter-spacing: -.035em; color: #fff; }
+      .hero span { align-self: flex-start; height: 78px; padding: 0 40px; border-radius: 39px; background: #fff; color: #130f2b; font: 800 30px/78px var(--display); }
+      .cards { margin: 0 26px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .cards i { height: 190px; border-radius: 20px; background: #efedf7; display: block; }
+      #toast { position: absolute; left: 160px; top: 1330px; display: flex; align-items: center; gap: 22px; padding: 22px 34px 22px 22px; border-radius: 30px; background: #fff; color: #130f2b; box-shadow: 0 40px 80px -30px rgba(0,0,0,.9); white-space: nowrap; }
+      #toast .ic { width: 76px; height: 76px; border-radius: 22px; background: var(--grad); display: grid; place-items: center; }
+      #toast .ic svg { width: 40px; height: 40px; }
+      #toast b { display: block; font: 800 36px var(--display); }
+      #toast small { display: block; font: 500 25px var(--body); color: #4f4a6e; margin-top: 4px; }
+
+      /* 5 · CTA */
+      #s5-logo { position: absolute; left: 50%; top: 250px; width: 200px; height: 200px; margin-left: -100px; }
+      #s5-logo svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 30px 50px rgba(160,60,255,.55)); }
+      #s5-title { top: 520px; font-size: 112px; }
+      #s5-sub { top: 780px; }
+      #s5-btn { position: absolute; left: 50%; top: 930px; width: 880px; margin-left: -440px; height: 150px; border-radius: 75px; background: var(--grad); display: flex; align-items: center; justify-content: center; gap: 26px; font: 800 52px var(--display); letter-spacing: -.02em; color: #fff; box-shadow: 0 30px 70px -20px rgba(215,60,235,.85); }
+      #s5-btn svg { width: 64px; height: 64px; }
+      #s5-halo { position: absolute; left: 50%; top: 1005px; width: 880px; height: 150px; margin: -75px 0 0 -440px; border-radius: 75px; border: 4px solid #e05cf2; opacity: 0; }
+      #s5-tag { position: absolute; left: 0; right: 0; top: 1130px; text-align: center; font: 900 64px/1.1 var(--display); letter-spacing: -.02em; }
+      #s5-link { position: absolute; left: 0; right: 0; top: 1260px; text-align: center; font: 600 36px var(--body); color: var(--lilac); }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <linearGradient id="mg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#6E3BFF" /><stop offset=".55" stop-color="#D73CEB" /><stop offset="1" stop-color="#FF8A3D" /></linearGradient>
+        <symbol id="mark" viewBox="0 0 100 100">
+          <rect width="100" height="100" rx="26" fill="url(#mg)" />
+          <g fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><path d="M27 73V33l23 26 24-28" /><path d="M58 30h17v17" /></g>
+          <circle cx="72" cy="71" r="6.5" fill="#fff" />
+        </symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="url(#mg)" /><path d="M7.5 12.3l3 3 6-6.3" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></symbol>
+        <symbol id="i-follow" viewBox="0 0 24 24"><g fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="10" cy="8" r="4" /><path d="M3 20c0-3.6 3.1-6 7-6s7 2.4 7 6M19 8v6M16 11h6" /></g></symbol>
+        <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="#ff4d6d" /></symbol>
+        <symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z" /><path d="M10 20.5a2 2 0 0 0 4 0" /></g></symbol>
+      </defs>
+    </svg>
+
+    <div id="root" data-composition-id="main" data-start="0" data-duration="22" data-width="1080" data-height="1920">
+      <div id="bg" class="clip" data-start="0" data-duration="22" data-track-index="0">
+        <div class="glow" id="g1"></div><div class="glow" id="g2"></div>
+      </div>
+
+      <!-- 1 · Gancho: scroll infinito que frena en seco (0–4) -->
+      <div id="s1" class="clip scene" data-start="0" data-duration="4" data-track-index="1">
+        <div id="feedwrap" class="p3d" data-layout-allow-overlap>
+          <div id="feed"></div>
+        </div>
+        <div id="touch"></div>
+        <div id="dim"></div>
+        <div id="ring"></div>
+        <div id="para"><span>P</span><span>A</span><span>R</span><span>A</span><span class="gt">.</span></div>
+        <div id="h1" class="title"><span class="line">Acabas de parar</span></div>
+        <div id="h2" class="title"><span class="line"><span class="gt">el scroll.</span></span></div>
+      </div>
+
+      <!-- 2 · ¿Se paran o pasan de largo? (4–8) -->
+      <div id="s2" class="clip scene" data-start="4" data-duration="4" data-track-index="1">
+        <div id="s2-a" class="title" style="top:220px;font-size:100px"><span class="line">Eso es lo que</span><span class="line"><span class="gt">hacemos.</span></span></div>
+        <div id="s2-b" class="title" style="top:220px;font-size:96px"><span class="line">Que se paren</span><span class="line"><span class="gt">en tu negocio.</span></span></div>
+        <div id="lane" class="p3d" data-layout-allow-overlap>
+          <div class="post" id="c-grey"><div class="ph"><i></i><u></u></div><div class="im">Post de siempre</div><div class="ac"><i></i><i></i><i></i></div></div>
+          <div class="post" id="c-good"><div class="ph"><i></i><u></u></div><div class="im">Esto sí<br />engancha.</div><div class="ac"><i></i><i></i><i></i></div></div>
+        </div>
+        <div class="tagc" id="tg1">Pasan de largo</div>
+        <div class="tagc" id="tg2">Se paran</div>
+        <div class="ht" id="ht0"><svg><use href="#i-heart" /></svg></div>
+        <div class="ht" id="ht1"><svg><use href="#i-heart" /></svg></div>
+        <div class="ht" id="ht2"><svg><use href="#i-heart" /></svg></div>
+        <div class="ht" id="ht3"><svg><use href="#i-heart" /></svg></div>
+        <div class="ht" id="ht4"><svg><use href="#i-heart" /></svg></div>
+        <div class="ht" id="ht5"><svg><use href="#i-heart" /></svg></div>
+      </div>
+
+      <!-- 3 · Contenido que frena el scroll (8–13) -->
+      <div id="s3" class="clip scene" data-start="8" data-duration="5" data-track-index="1">
+        <div id="s3-eb" class="eyebrow" style="top:190px">Contenido para tus redes</div>
+        <div id="s3-t" class="title" style="top:250px;font-size:104px"><span class="line">Que frena</span><span class="line"><span class="gt">el scroll.</span></span></div>
+        <div id="car" class="p3d" data-layout-allow-overlap>
+          <div id="carring" class="p3d">
+            <div class="cc" style="transform:rotateY(0deg) translateZ(430px);background:linear-gradient(140deg,#7b3dff,#d73ceb)"><em>Reel</em>Detrás de cámaras</div>
+            <div class="cc" style="transform:rotateY(72deg) translateZ(430px);background:linear-gradient(140deg,#ff8a3d,#d73ceb)"><em>Carrusel</em>3 ideas para tu negocio</div>
+            <div class="cc" style="transform:rotateY(144deg) translateZ(430px);background:linear-gradient(140deg,#3a2a85,#7b3dff)"><em>Story</em>¿Qué prefieres?</div>
+            <div class="cc" style="transform:rotateY(216deg) translateZ(430px);background:linear-gradient(140deg,#d73ceb,#ff8a3d)"><em>Post</em>Antes y después</div>
+            <div class="cc" style="transform:rotateY(288deg) translateZ(430px);background:linear-gradient(140deg,#6b2eb8,#e07a4a)"><em>Reel</em>Novedad de la semana</div>
+          </div>
+        </div>
+        <div id="s3-chips" class="chips">
+          <span class="chip"><svg><use href="#i-check" /></svg>Diseño que destaca</span>
+          <span class="chip"><svg><use href="#i-check" /></svg>Reels con ritmo</span>
+          <span class="chip"><svg><use href="#i-check" /></svg>Textos que conectan</span>
+        </div>
+      </div>
+
+      <!-- 4 · Del perfil a la web (13–17) -->
+      <div id="s4" class="clip scene" data-start="13" data-duration="4" data-track-index="1">
+        <div id="s4-t" class="title" style="top:220px;font-size:100px"><span class="line">Y una web que</span><span class="line"><span class="gt">cierra la venta.</span></span></div>
+        <div id="ph4" class="phone" data-layout-allow-overlap>
+          <div class="screen">
+            <div class="notch"></div>
+            <div class="pf"><i></i><span><b>@tunegocio</b><small>Lo que hacemos, bien contado</small></span></div>
+            <div id="biolink">tunegocio.es ↗</div>
+            <div class="gridm">
+              <i style="background:linear-gradient(135deg,#7b3dff,#d73ceb)"></i><i style="background:linear-gradient(135deg,#ff8a3d,#ffd08a)"></i><i style="background:linear-gradient(135deg,#3a2a85,#7b3dff)"></i>
+              <i style="background:linear-gradient(135deg,#d73ceb,#ff8a3d)"></i><i style="background:linear-gradient(135deg,#6b2eb8,#e07a4a)"></i><i style="background:linear-gradient(135deg,#c9a4ff,#7b3dff)"></i>
+            </div>
+          </div>
+        </div>
+        <div id="tap"></div>
+        <div id="web4" data-layout-allow-overlap>
+          <div class="bar"><i></i><i></i><i></i><span>www.tunegocio.es</span></div>
+          <div class="hero"><b>Tu negocio,<br />bien contado.</b><span>Reservar ahora</span></div>
+          <div class="cards"><i></i><i></i><i></i></div>
+        </div>
+        <div id="toast" data-layout-allow-overlap><span class="ic"><svg><use href="#i-bell" /></svg></span><span><b>¡Nueva reserva!</b><small>Viene de tu Instagram</small></span></div>
+      </div>
+
+      <!-- 5 · CTA (17–22) -->
+      <div id="s5" class="clip scene" data-start="17" data-duration="5" data-track-index="1">
+        <div id="s5-logo"><svg><use href="#mark" /></svg></div>
+        <div id="s5-title" class="title"><span class="line">¿Te has parado?</span><span class="line"><span class="gt">Funciona.</span></span></div>
+        <div id="s5-sub" class="sub">Imagina lo que puede hacer por tu negocio.</div>
+        <div id="s5-halo"></div>
+        <div id="s5-btn"><svg><use href="#i-follow" /></svg>Síguenos para más</div>
+        <div id="s5-tag">Ideas útiles <span class="gt">cada semana</span></div>
+        <div id="s5-link">Visita nuestra web · enlace en la bio ↗</div>
+      </div>
+
+      <div id="fx" class="clip" data-start="0" data-duration="22" data-track-index="2"><div id="flash"></div></div>
+      <audio id="bgm" src="assets/audio/marvic-para.m4a" data-start="0" data-duration="22" data-volume="1" data-track-index="5"></audio>
+    </div>
+
+    <script>
+      // feed de publicaciones (determinista)
+      (function () {
+        var cols = [["#7b3dff","#d73ceb"],["#ffb38a","#ff6f61"],["#3a2a85","#9a6bff"],["#ff8a3d","#ffd08a"],["#2a1f5c","#7b3dff"],["#d73ceb","#ff8a3d"],["#9ad0ff","#4f7dff"],["#6b2eb8","#e07a4a"],["#a8f0c6","#2fbf71"],["#c9a4ff","#7b3dff"]];
+        var txt = ["", "Oferta", "", "Nuevo", "", "", "Hoy", "", "", ""];
+        var html = "";
+        for (var i = 0; i < 10; i++) html += '<div class="post"><div class="ph"><i></i><u></u></div><div class="im" style="background:linear-gradient(140deg,' + cols[i][0] + "," + cols[i][1] + ')">' + txt[i] + '</div><div class="ac"><i></i><i></i><i></i></div></div>';
+        document.getElementById("feed").innerHTML = html;
+      })();
+      document.querySelectorAll(".title .line").forEach(function (line) {
+        var out = [];
+        line.childNodes.forEach(function (node) {
+          if (node.nodeType === 3) {
+            node.textContent.split(/(\s+)/).forEach(function (part) {
+              if (!part) return;
+              if (/^\s+$/.test(part)) out.push(document.createTextNode(" "));
+              else { var w = document.createElement("span"); w.className = "w"; w.innerHTML = '<span class="wi">' + part + "</span>"; out.push(w); }
+            });
+          } else { var w2 = document.createElement("span"); w2.className = "w"; node.classList.add("wi"); w2.appendChild(node.cloneNode(true)); out.push(w2); }
+        });
+        line.innerHTML = ""; out.forEach(function (n) { line.appendChild(n); });
+      });
+
+      var tl = gsap.timeline({ paused: true });
+      function wordsIn(sel, at, s) {
+        tl.fromTo(sel + " .wi", { yPercent: 105, rotationX: -95, opacity: 0 }, { yPercent: 0, rotationX: 0, opacity: 1, duration: 0.5, ease: "back.out(1.6)", stagger: s || 0.07 }, at);
+      }
+      function wordsOut(sel, at) { tl.to(sel + " .wi", { yPercent: -100, rotationX: 90, opacity: 0, duration: 0.28, ease: "power2.in", stagger: 0.03 }, at); }
+      function out(sels, at) { tl.to(sels, { opacity: 0, y: -40, duration: 0.3, ease: "power2.in" }, at); }
+
+      tl.to("#g1", { x: 400, y: 600, duration: 11, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+      tl.to("#g2", { x: -400, y: -700, duration: 11, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+
+      // 1 · scroll a toda velocidad → frenazo
+      tl.fromTo("#feedwrap", { rotationX: 22, rotationZ: -5 }, { rotationX: 16, rotationZ: -3, duration: 1.05, ease: "none" }, 0);
+      tl.fromTo("#feed", { y: -200, skewY: 0 }, { y: -4100, skewY: -3, duration: 1.0, ease: "power2.in" }, 0);
+      tl.to("#feed", { y: -4020, skewY: 0, duration: 0.35, ease: "back.out(3)" }, 1.0);
+      tl.fromTo("#touch", { y: 0, opacity: 0.9 }, { y: -420, opacity: 0, duration: 0.3, ease: "power2.in", repeat: 2 }, 0.0);
+      tl.set("#touch", { opacity: 0 }, 0.95);
+      tl.fromTo("#flash", { opacity: 0.9 }, { opacity: 0, duration: 0.3, immediateRender: false }, 1.0);
+      tl.fromTo("#para span", { scale: 3.2, opacity: 0, z: 400 }, { scale: 1, opacity: 1, z: 0, duration: 0.22, ease: "power4.in", stagger: 0.03 }, 0.92);
+      tl.fromTo("#ring", { scale: 0.4, opacity: 1 }, { scale: 2, opacity: 0, duration: 0.7, ease: "power2.out", immediateRender: false }, 1.1);
+      tl.to("#s1", { x: 18, duration: 0.04, yoyo: true, repeat: 7, ease: "none" }, 1.1);
+      tl.to("#dim", { opacity: 1, duration: 0.4 }, 1.15);
+      tl.to("#feedwrap", { z: -300, duration: 2.6, ease: "power2.out" }, 1.15);
+      wordsIn("#h1", 1.55, 0.08);
+      wordsIn("#h2", 2.1, 0.1);
+      tl.to("#para", { scale: 1.06, duration: 1.6, ease: "sine.inOut" }, 1.4);
+      tl.to(["#para", "#h1", "#h2"], { z: 600, opacity: 0, duration: 0.35, ease: "power3.in" }, 3.65);
+
+      // 2 · se paran o pasan de largo
+      var t2 = 4;
+      wordsIn("#s2-a", t2 + 0.05, 0.08);
+      tl.fromTo("#lane", { rotationX: 14, rotationY: -12 }, { rotationX: 6, rotationY: 10, duration: 4, ease: "sine.inOut" }, t2);
+      tl.fromTo("#c-grey", { y: 1300, opacity: 1 }, { y: -180, duration: 1.3, ease: "none" }, t2 + 0.2);
+      tl.to("#c-grey", { opacity: 0, duration: 0.5, ease: "none" }, t2 + 1.0);
+      tl.fromTo("#tg1", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.25 }, t2 + 0.5);
+      tl.to("#tg1", { opacity: 0, y: -60, duration: 0.3 }, t2 + 1.3);
+      wordsOut("#s2-a", t2 + 1.5);
+      wordsIn("#s2-b", t2 + 1.7, 0.08);
+      tl.fromTo("#c-good", { y: 1300, rotationX: -30 }, { y: 0, rotationX: 0, duration: 0.6, ease: "back.out(1.3)" }, t2 + 1.6);
+      tl.fromTo("#tg2", { opacity: 0, scale: 0.4, rotation: -12 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.4, ease: "back.out(2.5)" }, t2 + 2.2);
+      [[-330, -260], [300, -330], [-380, 60], [360, 20], [-200, -480], [220, -520]].forEach(function (p, k) {
+        tl.fromTo("#ht" + k, { x: 0, y: 0, scale: 0, opacity: 1 }, { x: p[0], y: p[1], scale: 1.4, opacity: 0, duration: 1.1, ease: "power2.out" }, t2 + 2.3 + k * 0.06);
+      });
+      tl.to(["#lane", "#tg2"], { z: 800, opacity: 0, duration: 0.35, ease: "power3.in" }, t2 + 3.62);
+      out("#s2-b", t2 + 3.65);
+
+      // 3 · carrusel de contenido
+      var t3 = 8;
+      tl.fromTo("#s3-eb", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5 }, t3 + 0.05);
+      wordsIn("#s3-t", t3 + 0.1, 0.08);
+      tl.fromTo("#car", { rotationX: 12, z: -700, opacity: 0 }, { rotationX: 6, z: -200, opacity: 1, duration: 0.7, ease: "power3.out" }, t3);
+      tl.fromTo("#carring", { rotationY: 60 }, { rotationY: -300, duration: 5, ease: "power1.inOut" }, t3);
+      tl.fromTo("#s3-chips .chip", { opacity: 0, y: 40, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2)", stagger: 0.18 }, t3 + 1.6);
+      tl.to("#car", { z: 700, opacity: 0, duration: 0.4, ease: "power3.in" }, t3 + 4.6);
+      out(["#s3-eb", "#s3-t", "#s3-chips"], t3 + 4.65);
+
+      // 4 · perfil → enlace → web
+      var t4 = 13;
+      wordsIn("#s4-t", t4 + 0.05, 0.08);
+      tl.fromTo("#ph4", { y: 900, rotationX: 40 }, { y: 0, rotationX: 4, duration: 0.6, ease: "power3.out" }, t4);
+      tl.to("#biolink", { scale: 0.93, duration: 0.08, yoyo: true, repeat: 1 }, t4 + 0.9);
+      tl.fromTo("#tap", { scale: 0.3, opacity: 1 }, { scale: 1.8, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, t4 + 0.9);
+      tl.to("#ph4", { scale: 3.2, z: 300, y: 380, opacity: 0, duration: 0.55, ease: "power3.in" }, t4 + 1.15);
+      tl.fromTo("#web4", { scale: 0.4, z: -400, opacity: 0, rotationY: -30 }, { scale: 1, z: 0, opacity: 1, rotationY: 6, duration: 0.6, ease: "power3.out" }, t4 + 1.5);
+      tl.to("#web4", { rotationY: -6, duration: 1.8, ease: "sine.inOut" }, t4 + 2.1);
+      tl.fromTo("#toast", { opacity: 0, y: 80, rotationX: -60 }, { opacity: 1, y: 0, rotationX: 0, duration: 0.5, ease: "back.out(1.8)" }, t4 + 2.3);
+      tl.to(["#web4", "#toast"], { z: 800, opacity: 0, duration: 0.35, ease: "power3.in" }, t4 + 3.62);
+      out("#s4-t", t4 + 3.65);
+
+      // 5 · CTA
+      var t5 = 17;
+      tl.fromTo("#s5-logo", { rotationY: 540, z: -1200, opacity: 0 }, { rotationY: 0, z: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, t5);
+      tl.to("#s5-logo", { rotationY: 20, rotationX: -8, duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: 2 }, t5 + 0.9);
+      wordsIn("#s5-title", t5 + 0.3, 0.1);
+      tl.fromTo("#s5-sub", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45 }, t5 + 1.0);
+      tl.fromTo("#s5-btn", { opacity: 0, scale: 0.6, rotationX: -70 }, { opacity: 1, scale: 1, rotationX: 0, duration: 0.6, ease: "back.out(1.8)" }, t5 + 1.3);
+      tl.fromTo("#s5-tag", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, t5 + 1.65);
+      tl.fromTo("#s5-link", { opacity: 0 }, { opacity: 1, duration: 0.5 }, t5 + 2.0);
+      tl.fromTo("#s5-halo", { scale: 1, opacity: 0.9 }, { scale: 1.25, opacity: 0, duration: 1, ease: "power2.out", repeat: 2, immediateRender: false }, t5 + 2.0);
+      tl.to("#s5-btn", { scale: 1.04, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 5 }, t5 + 2.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

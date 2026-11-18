@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="es" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter Tight"; font-weight: 700; src: url(assets/fonts/inter-tight-700.woff2) format("woff2"); }
+      @font-face { font-family: "Inter Tight"; font-weight: 800; src: url(assets/fonts/inter-tight-800.woff2) format("woff2"); }
+      @font-face { font-family: "Inter Tight"; font-weight: 900; src: url(assets/fonts/inter-tight-900.woff2) format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 500; src: url(assets/fonts/inter-500.woff2) format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 600; src: url(assets/fonts/inter-600.woff2) format("woff2"); }
+      :root {
+        --ink: #0e0a22; --fg: #f5f3ff; --muted: #b4aed3; --lilac: #d9b8ff;
+        --grad: linear-gradient(135deg, #7b3dff 0%, #d73ceb 55%, #ff8a3d 100%);
+        --grad-text: linear-gradient(90deg, #a274ff 0%, #e05cf2 50%, #ff9a52 100%);
+        --display: "Inter Tight", "Inter", Arial, sans-serif; --body: "Inter", Arial, sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: var(--body); color: var(--fg); }
+      .clip { position: absolute; inset: 0; }
+      .scene { perspective: 1800px; perspective-origin: 50% 45%; }
+      .p3d { transform-style: preserve-3d; }
+      #bg { background: radial-gradient(90% 60% at 50% 40%, #1d1345 0%, var(--ink) 70%); }
+      .glow { position: absolute; border-radius: 50%; filter: blur(40px); }
+      #g1 { width: 1000px; height: 1000px; left: -380px; top: -300px; background: radial-gradient(closest-side, rgba(123,61,255,.5), transparent); }
+      #g2 { width: 1000px; height: 1000px; right: -420px; bottom: -300px; background: radial-gradient(closest-side, rgba(255,138,61,.28), transparent); }
+      #vs { position: absolute; left: 540px; top: 0; width: 4px; height: 1920px; margin-left: -2px; background: linear-gradient(transparent, rgba(255,255,255,.18) 30%, rgba(255,255,255,.18) 70%, transparent); }
+
+      .eyebrow { position: absolute; left: 0; right: 0; text-align: center; font: 600 30px/1 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--lilac); }
+      .title { position: absolute; left: 40px; right: 40px; text-align: center; font-family: var(--display); font-weight: 900; letter-spacing: -.035em; line-height: 1.0; z-index: 5; }
+      .title .line { display: block; }
+      .w { display: inline-block; perspective: 700px; padding: 0 .02em; }
+      .wi { display: inline-block; transform-origin: 50% 100%; }
+      .gt { background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .sub { position: absolute; left: 90px; right: 90px; text-align: center; font: 500 38px/1.35 var(--body); color: var(--muted); }
+
+      /* paneles A / B */
+      .pan { position: absolute; top: 520px; width: 470px; height: 860px; border-radius: 26px; overflow: hidden; box-shadow: 0 60px 100px -40px rgba(0,0,0,.95); }
+      #pa { left: 45px; background: #e4e4e4; color: #111; font-family: "Times New Roman", "Liberation Serif", "DejaVu Serif", serif; }
+      #pb { left: 565px; background: #fbfaff; color: #130f2b; }
+      .badge { position: absolute; top: 455px; width: 120px; height: 120px; margin-left: -60px; border-radius: 50%; display: grid; place-items: center; font: 900 72px/1 var(--display); color: #fff; box-shadow: 0 20px 40px -12px rgba(0,0,0,.8); z-index: 4; }
+      #ba { left: 280px; background: #5b5670; }
+      #bb { left: 800px; background: var(--grad); }
+      /* web A: desordenada */
+      #pa .hd { background: #2b5fa8; color: #ffef5c; text-align: center; padding: 22px 6px; font-size: 40px; font-weight: 700; text-shadow: 2px 2px 0 #000; }
+      #pa .mq { background: #ffef5c; color: #c00; font-size: 22px; font-weight: 700; padding: 6px 10px; white-space: nowrap; overflow: hidden; }
+      #pa .tx { padding: 16px 18px 0; font-size: 21px; line-height: 1.3; }
+      #pa .tx u { color: #00e; }
+      #pa .x { margin: 14px 18px; height: 170px; border: 3px solid #999; background: linear-gradient(45deg, transparent 49%, #999 49% 51%, transparent 51%), linear-gradient(-45deg, transparent 49%, #999 49% 51%, transparent 51%), #f2f2f2; }
+      #pa .ln { margin: 10px 18px 0; height: 12px; background: #bdbdbd; }
+      #pa .bt { margin: 16px 18px 0; display: inline-block; padding: 6px 12px; background: #ddd; border: 2px outset #fff; font-size: 18px; }
+      #pa .ofe { margin: 16px 18px 0; padding: 10px; background: #ff0; color: #f00; font-weight: 700; font-size: 26px; text-align: center; border: 3px dashed #f00; }
+      /* web B: limpia */
+      #pb .bar, .bigb .bar { height: 50px; display: flex; align-items: center; gap: 10px; padding: 0 20px; background: #e6e4ee; }
+      #pb .bar i, .bigb .bar i { width: 13px; height: 13px; border-radius: 50%; background: #c7c3d9; }
+      #pb .hero { margin: 20px; height: 380px; border-radius: 22px; background: linear-gradient(125deg, #2a1f5c, #6b2eb8 58%, #e07a4a); padding: 28px; display: flex; flex-direction: column; justify-content: flex-end; gap: 20px; }
+      #pb .hero b { font: 900 46px/0.98 var(--display); letter-spacing: -.035em; color: #fff; }
+      #pb .hero span { align-self: flex-start; height: 56px; padding: 0 26px; border-radius: 28px; background: #fff; color: #130f2b; font: 800 22px/56px var(--display); }
+      #pb .cards { margin: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      #pb .cards i { height: 150px; border-radius: 18px; display: block; }
+      #pb .rev { margin: 18px 20px; padding: 18px; border-radius: 18px; background: #fff; box-shadow: 0 0 0 2px #ece9f6; font: 700 22px/1.3 var(--display); }
+      #pb .rev span { color: #a6690e; letter-spacing: 3px; display: block; }
+      #tapb { position: absolute; left: 800px; top: 950px; width: 160px; height: 160px; margin: -80px; border-radius: 50%; border: 7px solid #e05cf2; opacity: 0; z-index: 6; }
+      #glowb { position: absolute; left: 565px; top: 520px; width: 470px; height: 860px; border-radius: 26px; box-shadow: 0 0 0 7px #e05cf2, 0 0 90px 10px rgba(215,60,235,.7); opacity: 0; }
+      #count { position: absolute; left: 0; right: 0; top: 1420px; text-align: center; font: 900 120px/1 var(--display); }
+      #count span { position: absolute; left: 0; right: 0; opacity: 0; }
+      #timer { position: absolute; left: 90px; right: 90px; top: 1570px; height: 22px; border-radius: 11px; background: rgba(255,255,255,.1); overflow: hidden; }
+      #timer i { display: block; height: 100%; background: var(--grad); transform-origin: 0 50%; }
+      #d1 { top: 1430px; font-size: 80px; }
+      #d2 { top: 1520px; font-size: 80px; }
+
+      /* 2 · qué tiene la B */
+      .bigb { position: absolute; left: 230px; top: 520px; width: 620px; height: 1000px; border-radius: 30px; background: #fbfaff; color: #130f2b; overflow: hidden; box-shadow: 0 70px 120px -50px rgba(0,0,0,.95); }
+      .bigb .hero { margin: 24px; height: 440px; border-radius: 24px; background: linear-gradient(125deg, #2a1f5c, #6b2eb8 58%, #e07a4a); padding: 36px; display: flex; flex-direction: column; justify-content: flex-end; gap: 26px; }
+      .bigb .hero b { font: 900 62px/0.98 var(--display); letter-spacing: -.035em; color: #fff; }
+      .bigb .hero span { align-self: flex-start; height: 70px; padding: 0 34px; border-radius: 35px; background: #fff; color: #130f2b; font: 800 27px/70px var(--display); }
+      .bigb .cards { margin: 0 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .bigb .cards i { height: 190px; border-radius: 20px; display: block; }
+      .bigb .rev { margin: 22px 24px; padding: 22px; border-radius: 20px; background: #fff; box-shadow: 0 0 0 2px #ece9f6; font: 700 27px/1.3 var(--display); }
+      .bigb .rev span { color: #a6690e; letter-spacing: 3px; display: block; font-size: 30px; }
+      .call { position: absolute; padding: 16px 26px; border-radius: 999px; background: #fff; color: #130f2b; font: 800 32px var(--display); white-space: nowrap; box-shadow: 0 24px 50px -18px rgba(0,0,0,.9); z-index: 4; }
+      #k1 { left: 30px; top: 600px; } #k2 { left: 690px; top: 890px; } #k3 { left: 30px; top: 1150px; } #k4 { left: 640px; top: 1450px; }
+      #lines { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; z-index: 3; }
+
+      /* 3 · redes A / B */
+      .feed { position: absolute; top: 540px; width: 460px; height: 840px; border-radius: 40px; background: #fbfaff; padding: 20px 14px; box-shadow: 0 60px 100px -40px rgba(0,0,0,.95); color: #130f2b; }
+      #fa { left: 50px; } #fb { left: 570px; }
+      .feed .hdr { display: flex; align-items: center; gap: 14px; padding: 10px 8px 18px; font: 800 26px var(--display); }
+      .feed .hdr i { width: 70px; height: 70px; border-radius: 50%; display: block; }
+      .feed .g { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+      .feed .g i { aspect-ratio: 1; display: block; }
+      .bdg2 { position: absolute; top: 470px; width: 110px; height: 110px; margin-left: -55px; border-radius: 50%; display: grid; place-items: center; font: 900 66px/1 var(--display); color: #fff; z-index: 4; box-shadow: 0 20px 40px -12px rgba(0,0,0,.8); }
+      #b2a { left: 280px; background: #5b5670; } #b2b { left: 800px; background: var(--grad); }
+      #win { position: absolute; left: 640px; top: 1420px; display: flex; align-items: center; gap: 14px; padding: 16px 28px 16px 16px; border-radius: 999px; background: #fff; color: #130f2b; font: 800 34px var(--display); white-space: nowrap; box-shadow: 0 24px 50px -18px rgba(0,0,0,.9); }
+      #win svg { width: 48px; height: 48px; }
+
+      /* 4 · CTA */
+      #s5-logo { position: absolute; left: 50%; top: 250px; width: 200px; height: 200px; margin-left: -100px; }
+      #s5-logo svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 30px 50px rgba(160,60,255,.55)); }
+      #s5-title { top: 520px; font-size: 104px; }
+      #s5-sub { top: 780px; }
+      #s5-btn { position: absolute; left: 50%; top: 960px; width: 880px; margin-left: -440px; height: 150px; border-radius: 75px; background: var(--grad); display: flex; align-items: center; justify-content: center; gap: 26px; font: 800 52px var(--display); letter-spacing: -.02em; color: #fff; box-shadow: 0 30px 70px -20px rgba(215,60,235,.85); }
+      #s5-btn svg { width: 64px; height: 64px; }
+      #s5-halo { position: absolute; left: 50%; top: 1035px; width: 880px; height: 150px; margin: -75px 0 0 -440px; border-radius: 75px; border: 4px solid #e05cf2; opacity: 0; }
+      #s5-tag { position: absolute; left: 0; right: 0; top: 1160px; text-align: center; font: 900 64px/1.1 var(--display); letter-spacing: -.02em; }
+      #s5-link { position: absolute; left: 0; right: 0; top: 1290px; text-align: center; font: 600 36px var(--body); color: var(--lilac); }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <linearGradient id="mg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#6E3BFF" /><stop offset=".55" stop-color="#D73CEB" /><stop offset="1" stop-color="#FF8A3D" /></linearGradient>
+        <symbol id="mark" viewBox="0 0 100 100">
+          <rect width="100" height="100" rx="26" fill="url(#mg)" />
+          <g fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><path d="M27 73V33l23 26 24-28" /><path d="M58 30h17v17" /></g>
+          <circle cx="72" cy="71" r="6.5" fill="#fff" />
+        </symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="url(#mg)" /><path d="M7.5 12.3l3 3 6-6.3" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></symbol>
+        <symbol id="i-follow" viewBox="0 0 24 24"><g fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="10" cy="8" r="4" /><path d="M3 20c0-3.6 3.1-6 7-6s7 2.4 7 6M19 8v6M16 11h6" /></g></symbol>
+      </defs>
+    </svg>
+
+    <div id="root" data-composition-id="main" data-start="0" data-duration="22" data-width="1080" data-height="1920">
+      <div id="bg" class="clip" data-start="0" data-duration="22" data-track-index="0">
+        <div class="glow" id="g1"></div><div class="glow" id="g2"></div>
+      </div>
+
+      <!-- 1 · Gancho: ¿A o B? (0–8.5) -->
+      <div id="s1" class="clip scene" data-start="0" data-duration="8.5" data-track-index="1">
+        <div id="vs"></div>
+        <div id="q" class="title" style="top:190px;font-size:104px"><span class="line">¿En cuál</span><span class="line"><span class="gt">confías más?</span></span></div>
+        <div id="q2" class="title" style="top:190px;font-size:104px"><span class="line">Tus clientes</span><span class="line"><span class="gt">también.</span></span></div>
+        <div id="q3" class="title" style="top:190px;font-size:100px"><span class="line">Si eres la A,</span><span class="line"><span class="gt">eligen a otro.</span></span></div>
+        <div id="pa" class="pan" data-layout-allow-overlap>
+          <div class="hd">TU NEGOCIO</div>
+          <div class="mq">¡¡BIENVENIDOS!! LLAME YA!!!</div>
+          <div class="tx">Somos una empresa con años de experiencia en el sector. <u>Pinche aquí</u> para más información sobre nuestros servicios.</div>
+          <div class="x"></div>
+          <div class="ln"></div><div class="ln" style="width:70%"></div><div class="ln" style="width:85%"></div><div class="ln" style="width:55%"></div>
+          <div class="bt">Contacto</div> <div class="bt">Fotos</div>
+          <div class="ofe">¡¡OFERTAS!!</div>
+        </div>
+        <div id="pb" class="pan" data-layout-allow-overlap>
+          <div class="bar"><i></i><i></i><i></i></div>
+          <div class="hero"><b>Tu negocio,<br />bien contado.</b><span>Reservar ahora</span></div>
+          <div class="cards"><i style="background:linear-gradient(135deg,#7b3dff,#d73ceb)"></i><i style="background:linear-gradient(135deg,#ff8a3d,#ffd08a)"></i></div>
+          <div class="rev"><span>★★★★★</span>“Un trato de diez.”</div>
+        </div>
+        <div id="glowb"></div>
+        <div class="badge" id="ba">A</div>
+        <div class="badge" id="bb">B</div>
+        <div id="tapb"></div>
+        <div id="count" data-layout-allow-overlap><span>3</span><span>2</span><span>1</span></div>
+        <div id="timer"><i></i></div>
+        <div id="d1" class="title"><span class="line">Lo has decidido</span></div>
+        <div id="d2" class="title"><span class="line"><span class="gt">en un segundo.</span></span></div>
+      </div>
+
+      <!-- 2 · ¿Qué tiene la B? (8.5–13) -->
+      <div id="s2" class="clip scene" data-start="8.5" data-duration="4.5" data-track-index="1">
+        <div id="s2-t" class="title" style="top:220px;font-size:104px"><span class="line">¿Qué tiene</span><span class="line"><span class="gt">la B?</span></span></div>
+        <div class="bigb" id="big" data-layout-allow-overlap>
+          <div class="bar"><i></i><i></i><i></i></div>
+          <div class="hero"><b>Tu negocio,<br />bien contado.</b><span>Reservar ahora</span></div>
+          <div class="cards"><i style="background:linear-gradient(135deg,#7b3dff,#d73ceb)"></i><i style="background:linear-gradient(135deg,#ff8a3d,#ffd08a)"></i></div>
+          <div class="rev"><span>★★★★★</span>“Un trato de diez.”</div>
+        </div>
+        <svg id="lines" viewBox="0 0 1080 1920" fill="none">
+          <path id="ln1" d="M330 660 L300 860" stroke="#e05cf2" stroke-width="5" stroke-linecap="round" /><circle id="pt1" cx="300" cy="860" r="12" fill="#e05cf2" />
+          <path id="ln2" d="M760 950 L470 1040" stroke="#e05cf2" stroke-width="5" stroke-linecap="round" /><circle id="pt2" cx="470" cy="1040" r="12" fill="#e05cf2" />
+          <path id="ln3" d="M300 1210 L380 1220" stroke="#e05cf2" stroke-width="5" stroke-linecap="round" /><circle id="pt3" cx="380" cy="1220" r="12" fill="#e05cf2" />
+          <path id="ln4" d="M760 1450 L560 1360" stroke="#e05cf2" stroke-width="5" stroke-linecap="round" /><circle id="pt4" cx="560" cy="1360" r="12" fill="#e05cf2" />
+        </svg>
+        <div class="call" id="k1">Mensaje claro</div>
+        <div class="call" id="k2">Botón visible</div>
+        <div class="call" id="k3">Fotos cuidadas</div>
+        <div class="call" id="k4">Reseñas a la vista</div>
+      </div>
+
+      <!-- 3 · Redes: A o B (13–17.5) -->
+      <div id="s3" class="clip scene" data-start="13" data-duration="4.5" data-track-index="1">
+        <div id="s3-t" class="title" style="top:220px;font-size:104px"><span class="line">En tus redes,</span><span class="line"><span class="gt">lo mismo.</span></span></div>
+        <div class="feed" id="fa" data-layout-allow-overlap>
+          <div class="hdr"><i style="background:#c9c9c9"></i>tunegocio</div>
+          <div class="g">
+            <i style="background:#9e9e9e"></i><i style="background:#c8e64c"></i><i style="background:#8a5a3c"></i>
+            <i style="background:#f2e6c9"></i><i style="background:#3a7bd5"></i><i style="background:#b0b0b0"></i>
+            <i style="background:#ff4f9a"></i><i style="background:#6b6b6b"></i><i style="background:#e8d36a"></i>
+            <i style="background:#d9d9d9"></i><i style="background:#57a773"></i><i style="background:#a26a3e"></i>
+          </div>
+        </div>
+        <div class="feed" id="fb" data-layout-allow-overlap>
+          <div class="hdr"><i style="background:var(--grad)"></i>tunegocio</div>
+          <div class="g">
+            <i style="background:linear-gradient(135deg,#7b3dff,#d73ceb)"></i><i style="background:linear-gradient(135deg,#ff8a3d,#ffd08a)"></i><i style="background:linear-gradient(135deg,#2a1f5c,#7b3dff)"></i>
+            <i style="background:linear-gradient(135deg,#d73ceb,#ff8a3d)"></i><i style="background:linear-gradient(135deg,#3a2a85,#9a6bff)"></i><i style="background:linear-gradient(135deg,#ffb38a,#ff6f61)"></i>
+            <i style="background:linear-gradient(135deg,#6b2eb8,#e07a4a)"></i><i style="background:linear-gradient(135deg,#c9a4ff,#7b3dff)"></i><i style="background:linear-gradient(135deg,#130f2b,#6b2eb8)"></i>
+            <i style="background:linear-gradient(135deg,#ff8a3d,#d73ceb)"></i><i style="background:linear-gradient(135deg,#7b3dff,#c9a4ff)"></i><i style="background:linear-gradient(135deg,#d73ceb,#7b3dff)"></i>
+          </div>
+        </div>
+        <div class="bdg2" id="b2a">A</div>
+        <div class="bdg2" id="b2b">B</div>
+        <div id="win"><svg><use href="#i-check" /></svg>Esta engancha</div>
+      </div>
+
+      <!-- 4 · CTA (17.5–22) -->
+      <div id="s4" class="clip scene" data-start="17.5" data-duration="4.5" data-track-index="1">
+        <div id="s5-logo"><svg><use href="#mark" /></svg></div>
+        <div id="s5-title" class="title"><span class="line">Haz que siempre</span><span class="line"><span class="gt">te elijan a ti.</span></span></div>
+        <div id="s5-sub" class="sub">¿Tu negocio es A o B? Cuéntanoslo en comentarios.</div>
+        <div id="s5-halo"></div>
+        <div id="s5-btn"><svg><use href="#i-follow" /></svg>Síguenos para más</div>
+        <div id="s5-tag">Ideas útiles <span class="gt">cada semana</span></div>
+        <div id="s5-link">Visita nuestra web · enlace en la bio ↗</div>
+      </div>
+
+      <audio id="bgm" src="assets/audio/marvic-ab.m4a" data-start="0" data-duration="22" data-volume="1" data-track-index="5"></audio>
+    </div>
+
+    <script>
+      document.querySelectorAll(".title .line").forEach(function (line) {
+        var out = [];
+        line.childNodes.forEach(function (node) {
+          if (node.nodeType === 3) {
+            node.textContent.split(/(\s+)/).forEach(function (part) {
+              if (!part) return;
+              if (/^\s+$/.test(part)) out.push(document.createTextNode(" "));
+              else { var w = document.createElement("span"); w.className = "w"; w.innerHTML = '<span class="wi">' + part + "</span>"; out.push(w); }
+            });
+          } else { var w2 = document.createElement("span"); w2.className = "w"; node.classList.add("wi"); w2.appendChild(node.cloneNode(true)); out.push(w2); }
+        });
+        line.innerHTML = ""; out.forEach(function (n) { line.appendChild(n); });
+      });
+
+      var tl = gsap.timeline({ paused: true });
+      function wordsIn(sel, at, s) {
+        tl.fromTo(sel + " .wi", { yPercent: 105, rotationX: -95, opacity: 0 }, { yPercent: 0, rotationX: 0, opacity: 1, duration: 0.5, ease: "back.out(1.6)", stagger: s || 0.07 }, at);
+      }
+      function wordsOut(sel, at) { tl.to(sel + " .wi", { yPercent: -100, rotationX: 90, opacity: 0, duration: 0.28, ease: "power2.in", stagger: 0.03 }, at); }
+      function out(sels, at) { tl.to(sels, { opacity: 0, y: -40, duration: 0.3, ease: "power2.in" }, at); }
+
+      tl.to("#g1", { x: 400, y: 600, duration: 11, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+      tl.to("#g2", { x: -400, y: -700, duration: 11, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+
+      // 1 · pregunta + cuenta atrás (visible desde el primer fotograma)
+      tl.fromTo("#q", { scale: 1.12 }, { scale: 1, duration: 0.4, ease: "power3.out" }, 0);
+      tl.fromTo("#pa", { rotationY: 22, x: -40 }, { rotationY: 12, x: 0, duration: 2.3, ease: "sine.out" }, 0);
+      tl.fromTo("#pb", { rotationY: -22, x: 40 }, { rotationY: -12, x: 0, duration: 2.3, ease: "sine.out" }, 0);
+      tl.fromTo(["#ba", "#bb"], { scale: 1.3 }, { scale: 1, duration: 0.35, ease: "back.out(2.5)", stagger: 0.1 }, 0);
+      var cs = document.querySelectorAll("#count span");
+      [0, 0.77, 1.53].forEach(function (at, k) {
+        tl.fromTo(cs[k], { opacity: 1, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power3.out", immediateRender: k === 0 }, at);
+        tl.to(cs[k], { opacity: 0, duration: 0.12 }, at + 0.64);
+      });
+      tl.fromTo("#timer i", { scaleX: 1 }, { scaleX: 0, duration: 2.3, ease: "none" }, 0);
+      tl.fromTo("#tapb", { scale: 0.3, opacity: 1 }, { scale: 1.8, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, 2.3);
+      tl.to("#pb", { scale: 1.06, rotationY: -4, duration: 0.4, ease: "back.out(2)" }, 2.3);
+      tl.to("#glowb", { opacity: 1, scale: 1.06, rotationY: -4, duration: 0.4 }, 2.3);
+      tl.to(["#pa", "#ba"], { opacity: 0.35, duration: 0.4 }, 2.3);
+      tl.to("#timer", { opacity: 0, duration: 0.2 }, 2.3);
+      wordsIn("#d1", 2.55, 0.08);
+      wordsIn("#d2", 3.0, 0.08);
+      wordsOut("#q", 4.3);
+      wordsIn("#q2", 4.5, 0.1);
+      out(["#d1", "#d2"], 5.6);
+      wordsOut("#q2", 5.9);
+      wordsIn("#q3", 6.1, 0.08);
+      tl.to(["#pa", "#ba"], { rotationX: 85, y: 900, opacity: 0, duration: 0.7, ease: "power3.in", transformOrigin: "50% 100%" }, 6.3);
+      tl.to("#vs", { opacity: 0, duration: 0.3 }, 6.3);
+      tl.to(["#pb", "#glowb", "#bb"], { x: -260, scale: 1.12, rotationY: 0, duration: 0.7, ease: "power3.inOut" }, 6.8);
+      tl.to(["#pb", "#glowb", "#bb"], { z: 800, opacity: 0, duration: 0.38, ease: "power3.in" }, 8.1);
+      out("#q3", 8.15);
+
+      // 2 · desglose de la B
+      var t2 = 8.5;
+      wordsIn("#s2-t", t2 + 0.05, 0.1);
+      tl.fromTo("#big", { scale: 0.7, z: -500, rotationY: 30, opacity: 0 }, { scale: 1, z: 0, rotationY: -6, opacity: 1, duration: 0.6, ease: "power3.out" }, t2);
+      tl.to("#big", { rotationY: 6, duration: 3.9, ease: "sine.inOut" }, t2 + 0.6);
+      [1, 2, 3, 4].forEach(function (n, k) {
+        var at = t2 + 0.8 + k * 0.6;
+        tl.fromTo("#ln" + n, { attr: { "stroke-dasharray": 400, "stroke-dashoffset": 400 } }, { attr: { "stroke-dashoffset": 0 }, duration: 0.35, ease: "power2.out" }, at);
+        tl.fromTo("#pt" + n, { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.25, ease: "back.out(3)" }, at + 0.3);
+        tl.fromTo("#k" + n, { opacity: 0, scale: 0.5, rotation: k % 2 ? 8 : -8 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2)" }, at);
+      });
+      tl.to(["#big", "#lines", "#k1", "#k2", "#k3", "#k4"], { z: 800, opacity: 0, duration: 0.38, ease: "power3.in" }, t2 + 4.1);
+      out("#s2-t", t2 + 4.12);
+
+      // 3 · redes A / B
+      var t3 = 13;
+      wordsIn("#s3-t", t3 + 0.05, 0.1);
+      tl.fromTo("#fa", { rotationY: 90, opacity: 0 }, { rotationY: 14, opacity: 1, duration: 0.6, ease: "power3.out" }, t3 + 0.2);
+      tl.fromTo("#fb", { rotationY: -90, opacity: 0 }, { rotationY: -14, opacity: 1, duration: 0.6, ease: "power3.out" }, t3 + 0.4);
+      tl.fromTo(["#b2a", "#b2b"], { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(2.5)", stagger: 0.15 }, t3 + 0.7);
+      tl.fromTo("#fb .g i", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2)", stagger: 0.05 }, t3 + 0.8);
+      tl.to(["#fa", "#b2a"], { opacity: 0.35, duration: 0.4 }, t3 + 2.0);
+      tl.to("#fb", { scale: 1.06, rotationY: -4, duration: 0.4, ease: "back.out(2)" }, t3 + 2.0);
+      tl.fromTo("#win", { opacity: 0, y: 60, scale: 0.6 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(2)" }, t3 + 2.2);
+      tl.to(["#fa", "#fb", "#b2a", "#b2b", "#win"], { z: 800, opacity: 0, duration: 0.38, ease: "power3.in" }, t3 + 4.1);
+      out("#s3-t", t3 + 4.12);
+
+      // 4 · CTA
+      var t5 = 17.5;
+      tl.fromTo("#s5-logo", { rotationY: 540, z: -1200, opacity: 0 }, { rotationY: 0, z: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, t5);
+      tl.to("#s5-logo", { rotationY: 20, rotationX: -8, duration: 1.3, ease: "sine.inOut", yoyo: true, repeat: 2 }, t5 + 0.9);
+      wordsIn("#s5-title", t5 + 0.3, 0.1);
+      tl.fromTo("#s5-sub", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45 }, t5 + 1.0);
+      tl.fromTo("#s5-btn", { opacity: 0, scale: 0.6, rotationX: -70 }, { opacity: 1, scale: 1, rotationX: 0, duration: 0.6, ease: "back.out(1.8)" }, t5 + 1.3);
+      tl.fromTo("#s5-tag", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, t5 + 1.65);
+      tl.fromTo("#s5-link", { opacity: 0 }, { opacity: 1, duration: 0.5 }, t5 + 2.0);
+      tl.fromTo("#s5-halo", { scale: 1, opacity: 0.9 }, { scale: 1.25, opacity: 0, duration: 1, ease: "power2.out", repeat: 1, immediateRender: false }, t5 + 2.0);
+      tl.to("#s5-btn", { scale: 1.04, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 4 }, t5 + 2.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
