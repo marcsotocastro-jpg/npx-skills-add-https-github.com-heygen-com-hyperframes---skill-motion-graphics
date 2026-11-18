@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>YOCOMOTORS — presentación de la web</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Barlow Condensed"; font-weight: 500; src: url("assets/fonts/barlow-condensed-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 600; src: url("assets/fonts/barlow-condensed-latin-600-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url("assets/fonts/barlow-condensed-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 800; src: url("assets/fonts/barlow-condensed-latin-800-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 400; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); }
+
+      /* Brand tokens, taken from the YOCOMOTORS page */
+      :root {
+        --bg: #0b0c0e;
+        --bg-2: #15171b;
+        --card: #1a1c21;
+        --line: #2a2d34;
+        --orange: #ff5a1f;
+        --orange-soft: rgba(255, 90, 31, 0.14);
+        --green: #25d366;
+        --white: #ffffff;
+        --muted: #a3a9b3;
+        --cond: "Barlow Condensed", "Arial Narrow", sans-serif;
+        --sans: "Inter", sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: var(--sans); color: var(--white); }
+      .clip, .stage { position: absolute; inset: 0; }
+      .center { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+      .o { color: var(--orange); }
+
+      /* Background: near-black with a slow orange glow and a faint workshop grid */
+      #bg { background: var(--bg); }
+      .glow { position: absolute; border-radius: 50%; filter: blur(40px); }
+      .glow--a { left: 1000px; top: -420px; width: 1300px; height: 1300px; background: radial-gradient(circle, rgba(255, 90, 31, 0.22), rgba(255, 90, 31, 0) 62%); }
+      .glow--b { left: -500px; top: 520px; width: 1100px; height: 1100px; background: radial-gradient(circle, rgba(255, 90, 31, 0.12), rgba(255, 90, 31, 0) 62%); }
+      .grid { position: absolute; inset: 0; opacity: 0.35;
+        background-image: linear-gradient(rgba(255,255,255,0.04) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(255,255,255,0.04) 1.5px, transparent 1.5px);
+        background-size: 96px 96px; }
+
+      /* ---------- Shared bits ---------- */
+      .kick { display: flex; align-items: center; gap: 18px; font: 600 24px/1 var(--cond); letter-spacing: 0.32em; text-transform: uppercase; color: var(--orange); }
+      .kick i { display: block; width: 60px; height: 3px; background: var(--orange); }
+      .h { font: 700 104px/0.95 var(--cond); text-transform: uppercase; letter-spacing: -0.01em; color: var(--white); }
+      .h .ln { display: block; overflow: hidden; padding-bottom: 4px; }
+      .h .ln > span { display: block; }
+      .p { font: 400 28px/1.5 var(--sans); color: var(--muted); }
+      .logo-card { display: flex; align-items: center; justify-content: center; background: #fff; border-radius: 22px; box-shadow: 0 30px 80px -30px rgba(0,0,0,0.8); }
+      .logo-card img { display: block; }
+
+      /* ---------- 1 · Intro ---------- */
+      #s1 { overflow: hidden; }
+      .photo { position: absolute; inset: 0; width: 1920px; height: 1080px; object-fit: cover; }
+      .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,12,14,0.72), rgba(11,12,14,0.86) 60%, rgba(11,12,14,0.97)); }
+      #s1 .stack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      #logo-1 { width: 760px; height: 170px; }
+      #logo-1 img { width: 640px; }
+      .rule { display: flex; align-items: center; gap: 24px; margin-top: 64px; font: 600 34px/1 var(--cond); letter-spacing: 0.34em; text-transform: uppercase; color: var(--white); padding-left: 0.34em; }
+      .rule i { display: block; width: 90px; height: 3px; background: var(--orange); }
+      .sub1 { margin-top: 26px; font: 500 26px/1 var(--sans); color: var(--muted); letter-spacing: 0.04em; }
+
+      /* ---------- 2 · Hero ---------- */
+      #s2-copy { position: absolute; left: 140px; top: 0; height: 1080px; width: 700px; display: flex; flex-direction: column; justify-content: center; }
+      #s2-copy .h { margin-top: 30px; font-size: 100px; }
+      #s2-copy .h .u { text-decoration: underline; text-decoration-thickness: 6px; text-underline-offset: 10px; }
+      #s2-copy .p { margin-top: 34px; font-size: 26px; max-width: 30ch; }
+      .badges { display: flex; gap: 14px; }
+      .badge { display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 999px; border: 1.5px solid var(--line); background: rgba(26,28,33,0.85); font: 500 20px/1 var(--sans); color: var(--white); }
+      .badge b { color: #ffb020; letter-spacing: 0.05em; font-weight: 600; }
+      .browser { position: absolute; left: 860px; top: 196px; width: 960px; height: 688px; border-radius: 18px; overflow: hidden; background: var(--bg-2); border: 1.5px solid var(--line);
+        box-shadow: 0 60px 120px -40px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.03); }
+      .browser .bar { height: 50px; display: flex; align-items: center; gap: 10px; padding: 0 20px; background: #1d2026; border-bottom: 1.5px solid var(--line); }
+      .browser .dot { width: 13px; height: 13px; border-radius: 50%; background: #3a3e46; }
+      .browser .url { margin-left: 22px; flex: 1; height: 30px; border-radius: 8px; background: #121418; display: flex; align-items: center; padding: 0 16px; font: 500 16px/1 var(--sans); color: var(--muted); }
+      .browser .view { position: relative; height: 638px; overflow: hidden; }
+      .browser .view img { position: absolute; left: 0; top: 0; width: 960px; height: 4333px; }
+
+      /* ---------- 3 · Stats + ticker ---------- */
+      #s3 .stats { position: absolute; left: 140px; right: 140px; top: 300px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1.5px solid var(--line); border-bottom: 1.5px solid var(--line); }
+      .stat { padding: 64px 20px 58px; text-align: center; border-right: 1.5px solid var(--line); }
+      .stat:last-child { border-right: 0; }
+      .stat .n { font: 700 150px/1 var(--cond); color: var(--white); letter-spacing: -0.01em; }
+      .stat .n small { font-size: 0.6em; }
+      .stat .l { margin-top: 18px; font: 500 24px/1.3 var(--sans); color: var(--muted); }
+      #s3 .kick { position: absolute; left: 140px; top: 200px; }
+      .ticker { position: absolute; left: 0; top: 820px; width: 1920px; height: 86px; background: var(--orange); overflow: hidden; transform: rotate(-2deg); transform-origin: center; }
+      .ticker .track { position: absolute; left: 0; top: 0; height: 86px; display: flex; align-items: center; white-space: nowrap; }
+      .ticker span { font: 700 36px/1 var(--cond); letter-spacing: 0.06em; color: var(--bg); padding: 0 34px; }
+      .ticker i { display: block; width: 16px; height: 16px; background: var(--bg); transform: rotate(45deg); }
+
+      /* ---------- 4 · Phone tour ---------- */
+      .phone { position: absolute; left: 1250px; top: 66px; width: 476px; height: 948px; border-radius: 66px; background: #050506; padding: 14px;
+        box-shadow: 0 60px 110px -30px rgba(0,0,0,0.95), 0 0 0 2px #2c2f36 inset, 0 0 120px -20px rgba(255,90,31,0.25); }
+      .screen { position: relative; width: 448px; height: 920px; border-radius: 52px; overflow: hidden; background: var(--bg); }
+      /* Device units are the 400px-wide mobile capture, scaled to the 448px screen */
+      .device { position: absolute; left: 0; top: 0; width: 400px; height: 821.4px; transform: scale(1.12); transform-origin: 0 0; background: var(--bg); }
+      .device .status { position: absolute; left: 0; top: 0; width: 400px; height: 36px; background: var(--bg); }
+      .device .hdr { position: absolute; left: 0; top: 36px; width: 400px; height: 81px; }
+      .device .view { position: absolute; left: 0; top: 117px; width: 400px; height: 704.4px; overflow: hidden; }
+      .device .page { position: absolute; left: 0; top: 0; width: 400px; height: 9906px; }
+      .device .fab { position: absolute; left: 318px; top: 738px; width: 62px; height: 62px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 24px -6px rgba(37,211,102,0.6); }
+      .device .fab svg { width: 30px; height: 30px; }
+      .fab-ring { position: absolute; left: 318px; top: 738px; width: 62px; height: 62px; border-radius: 50%; border: 3px solid var(--green); }
+      .notch { position: absolute; top: 24px; left: 50%; width: 110px; height: 30px; margin-left: -55px; border-radius: 20px; background: #050506; }
+
+      .cap { position: absolute; left: 140px; top: 0; height: 1080px; width: 960px; display: flex; flex-direction: column; justify-content: center; }
+      .cap .h { margin-top: 30px; font-size: 96px; }
+      .cap .p { margin-top: 30px; max-width: 34ch; }
+      .tags { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 14px; max-width: 920px; }
+      .tag { display: flex; align-items: center; gap: 12px; padding: 16px 24px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--card); font: 600 26px/1 var(--cond); letter-spacing: 0.06em; text-transform: uppercase; color: var(--white); }
+      .tag em { font-style: normal; color: var(--orange); }
+      .tag.hot { background: var(--orange); border-color: var(--orange); color: var(--bg); }
+      .steps { margin-top: 42px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 26px; max-width: 900px; }
+      .step { display: flex; align-items: center; gap: 20px; font: 600 27px/1.15 var(--cond); letter-spacing: 0.04em; text-transform: uppercase; }
+      .step b { flex: none; width: 58px; height: 58px; border-radius: 50%; border: 2px solid var(--orange); display: flex; align-items: center; justify-content: center; font: 700 28px/1 var(--cond); color: var(--orange); }
+      .en { margin-top: 18px; font: 600 34px/1 var(--cond); letter-spacing: 0.05em; text-transform: uppercase; color: var(--orange); }
+      .quote { margin-top: 40px; padding: 32px 36px; border-radius: 16px; border: 1.5px solid var(--line); background: var(--card); max-width: 780px; font: 400 32px/1.4 var(--sans); color: var(--white); }
+      .quote .stars { display: block; margin-bottom: 16px; color: var(--orange); font-size: 30px; letter-spacing: 0.12em; }
+      .quote small { display: block; margin-top: 18px; font: 500 20px/1 var(--sans); color: var(--muted); }
+      .info { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
+      .info div { display: flex; align-items: center; gap: 20px; font: 500 28px/1.2 var(--sans); color: var(--white); }
+      .info svg { width: 52px; height: 52px; flex: none; padding: 12px; border-radius: 12px; background: var(--orange-soft); color: var(--orange); }
+      .wa { margin-top: 44px; display: inline-flex; align-self: flex-start; align-items: center; gap: 16px; padding: 24px 36px; border-radius: 14px; background: var(--green); font: 600 30px/1 var(--sans); color: var(--bg); }
+      .wa svg { width: 34px; height: 34px; }
+
+      .prog { position: absolute; left: 140px; bottom: 80px; display: flex; gap: 12px; }
+      .prog span { display: block; width: 60px; height: 4px; background: var(--line); overflow: hidden; }
+      .prog span b { display: block; width: 100%; height: 100%; background: var(--orange); transform-origin: left center; transform: scaleX(0); }
+      #mini { position: absolute; left: 140px; top: 72px; width: 238px; height: 54px; border-radius: 12px; }
+      #mini img { width: 200px; }
+
+      /* ---------- 5 · Outro ---------- */
+      #s5 { overflow: hidden; background: var(--bg); }
+      #s5 .stack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+      #s5 .h { font-size: 136px; }
+      #s5 .shade { background: linear-gradient(180deg, rgba(11,12,14,0.8), rgba(11,12,14,0.92)); }
+      #logo-2 { width: 700px; height: 156px; }
+      #logo-2 img { width: 590px; }
+      .stamp { margin-top: 56px; display: flex; align-items: center; gap: 24px; font: 600 32px/1 var(--cond); letter-spacing: 0.32em; text-transform: uppercase; color: var(--white); padding-left: 0.32em; }
+      .stamp i { display: block; width: 80px; height: 3px; background: var(--orange); }
+      .contact { margin-top: 30px; font: 500 26px/1 var(--sans); color: var(--muted); }
+      .stripe { position: absolute; left: 0; width: 1920px; height: 12px; background: repeating-linear-gradient(-45deg, var(--orange) 0 22px, transparent 22px 44px); opacity: 0.9; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="60" data-width="1920" data-height="1080">
+
+      <!-- Background bed for the voice-over (generated by scripts/make-music.py) -->
+      <audio id="bgm" data-start="0" data-duration="60" data-volume="1" data-fade-out="2" src="assets/audio/yoco-bgm.m4a"></audio>
+
+      <!-- Persistent background -->
+      <div id="bg" class="clip" data-start="0" data-duration="60" data-track-index="0">
+        <div class="grid"></div>
+        <div class="glow glow--a" id="glow-a" data-layout-allow-overflow></div><div class="glow glow--b" id="glow-b" data-layout-allow-overflow></div>
+      </div>
+
+      <!-- 1 · Intro over the workshop photo -->
+      <section id="s1" class="clip" data-start="0" data-duration="4.8" data-track-index="1">
+        <img class="photo" id="photo-1" src="assets/img/garage.jpg" alt="" />
+        <div class="shade"></div>
+        <div class="stack">
+          <div class="logo-card" id="logo-1"><img src="assets/img/logo.png" alt="YOCOMOTORS" /></div>
+          <div class="rule" id="rule-1"><i></i>Presentamos tu nueva web<i></i></div>
+          <div class="sub1" id="sub-1">Taller mecánico multimarca · Tarragona</div>
+        </div>
+      </section>
+
+      <!-- 2 · The hero: the headline + the real desktop page -->
+      <section id="s2" class="clip" data-start="4.4" data-duration="8.4" data-track-index="2">
+        <div id="s2-copy">
+          <div class="badges" id="badges"><span class="badge"><b>★★★★★</b>5,0 en Google · 136 reseñas</span></div>
+          <h1 class="h" id="hero-h">
+            <span class="ln"><span>Tu coche en</span></span>
+            <span class="ln"><span class="o u">buenas manos</span></span>
+            <span class="ln"><span>Y lo ves en tu</span></span>
+            <span class="ln"><span>WhatsApp.</span></span>
+          </h1>
+          <p class="p" id="hero-p">Diagnóstico el mismo día, piezas en 24&nbsp;h y fotos de cada paso en tu móvil.</p>
+        </div>
+        <div class="browser" id="browser">
+          <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">yocomotors · Taller mecánico en Tarragona</span></div>
+          <div class="view"><img id="dpage" src="assets/site/d-page.jpg" alt="" data-layout-allow-overflow /></div>
+        </div>
+      </section>
+
+      <!-- 3 · Trust in numbers -->
+      <section id="s3" class="clip" data-start="12.6" data-duration="5.0" data-track-index="3">
+        <div class="kick" id="k3"><i></i>Confianza desde el primer vistazo</div>
+        <div class="stats">
+          <div class="stat"><div class="n"><span id="n1">0,0</span><span class="o">★</span></div><div class="l">Valoración en Google</div></div>
+          <div class="stat"><div class="n" id="n2">0</div><div class="l">Reseñas reales</div></div>
+          <div class="stat"><div class="n"><span id="n3">0</span> <small>H</small></div><div class="l">Piezas en la mayoría de casos</div></div>
+          <div class="stat"><div class="n o">HOY</div><div class="l">Diagnóstico el mismo día</div></div>
+        </div>
+        <div class="ticker" id="ticker" data-layout-allow-overflow>
+          <div class="track" id="track" data-layout-allow-overflow>
+            <span>Transparencia por WhatsApp</span><i></i><span>Diagnóstico el mismo día</span><i></i><span>Precio justo</span><i></i><span>Averías en ruta</span><i></i><span>Multimarca</span><i></i><span>Furgonetas y campers</span><i></i>
+            <span>Transparencia por WhatsApp</span><i></i><span>Diagnóstico el mismo día</span><i></i><span>Precio justo</span><i></i><span>Averías en ruta</span><i></i><span>Multimarca</span><i></i><span>Furgonetas y campers</span><i></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 · Site tour: the real mobile page scrolling inside a phone + captions per section -->
+      <section id="s4" class="clip" data-start="17.2" data-duration="34.4" data-track-index="4">
+        <div class="logo-card" id="mini"><img src="assets/img/logo.png" alt="" /></div>
+
+        <div class="phone" id="phone">
+          <div class="screen">
+            <div class="device" data-layout-allow-overflow>
+              <div class="status"></div>
+              <div class="view"><img class="page" id="page" src="assets/site/m-page.jpg" alt="" data-layout-allow-overflow /></div>
+              <img class="hdr" src="assets/site/m-header.png" alt="" />
+              <div class="fab-ring" id="fab-ring"></div>
+              <div class="fab" id="fab"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#0b0c0e" stroke-width="2" stroke-linejoin="round" d="M4.5 19.5l1.1-3.7A8 8 0 1 1 8.4 18.6z"/></svg></div>
+            </div>
+          </div>
+          <div class="notch"></div>
+        </div>
+
+        <div class="cap" id="c1">
+          <div class="kick"><i></i>01 · Por qué elegirnos</div>
+          <h2 class="h"><span class="ln"><span>Un taller donde</span></span><span class="ln"><span class="o">lo ves todo.</span></span></h2>
+          <div class="tags"><span class="tag"><em>01</em>Transparencia por WhatsApp</span><span class="tag"><em>02</em>Rapidez real</span><span class="tag"><em>03</em>Precio justo</span><span class="tag"><em>04</em>Averías en ruta</span></div>
+        </div>
+
+        <div class="cap" id="c2">
+          <div class="kick"><i></i>02 · Servicios</div>
+          <h2 class="h"><span class="ln"><span>Todo lo que tu coche</span></span><span class="ln"><span class="o">necesita.</span></span></h2>
+          <div class="tags"><span class="tag">Mecánica general</span><span class="tag">Diagnosis electrónica</span><span class="tag">Mantenimiento y aceite</span><span class="tag">Frenos</span><span class="tag">Transmisiones</span><span class="tag">Refrigeración</span><span class="tag">Pre-ITV</span><span class="tag hot">Furgonetas y campers</span></div>
+        </div>
+
+        <div class="cap" id="c3">
+          <div class="kick"><i></i>03 · Cómo trabajamos</div>
+          <h2 class="h"><span class="ln"><span>Del mensaje</span></span><span class="ln"><span>a la <span class="o">carretera.</span></span></span></h2>
+          <div class="steps"><div class="step"><b>1</b>Nos escribes o traes el coche</div><div class="step"><b>2</b>Diagnóstico y presupuesto</div><div class="step"><b>3</b>Fotos del proceso por WhatsApp</div><div class="step"><b>4</b>Recoges tu coche reparado</div></div>
+        </div>
+
+        <div class="cap" id="c4">
+          <div class="kick"><i></i>04 · Para viajeros</div>
+          <h2 class="h"><span class="ln"><span>¿Avería</span></span><span class="ln"><span>de <span class="o">viaje?</span></span></span></h2>
+          <div class="en">Breakdown on your trip? We can help</div>
+          <p class="p">Coches y furgonetas de paso, incluso en festivos, informados por WhatsApp.</p>
+        </div>
+
+        <div class="cap" id="c5">
+          <div class="kick"><i></i>05 · Opiniones</div>
+          <h2 class="h"><span class="ln"><span>Lo dicen nuestros</span></span><span class="ln"><span class="o">clientes.</span></span></h2>
+          <div class="quote"><span class="stars">★★★★★</span>“Me enviaban fotos y explicaciones por WhatsApp de todo lo que hacían. He encontrado un taller de confianza.”<small>Reseña verificada de Google · 5,0 con 136 reseñas</small></div>
+        </div>
+
+        <div class="cap" id="c6">
+          <div class="kick"><i></i>06 · Ubicación y horario</div>
+          <h2 class="h"><span class="ln"><span>En el centro de</span></span><span class="ln"><span class="o">Tarragona.</span></span></h2>
+          <div class="info">
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z M12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>Carrer de Sant Miquel, 23 · 43004</div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 7v5l3 2"/></svg>L–V · 9:00–13:00 y 15:30–19:30</div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>+34 648 05 15 51</div>
+          </div>
+        </div>
+
+        <div class="cap" id="c7">
+          <div class="kick"><i></i>07 · Pensada para el móvil</div>
+          <h2 class="h"><span class="ln"><span>Un toque y</span></span><span class="ln"><span>te <span class="o">escriben.</span></span></span></h2>
+          <p class="p">WhatsApp y llamada siempre a mano, en cada sección de la web.</p>
+          <div class="wa" id="wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#0b0c0e" stroke-width="2" stroke-linejoin="round" d="M4.5 19.5l1.1-3.7A8 8 0 1 1 8.4 18.6z"/></svg>Escríbenos por WhatsApp</div>
+        </div>
+
+        <div class="prog" id="prog"><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span></div>
+      </section>
+
+      <!-- 5 · Outro -->
+      <section id="s5" class="clip" data-start="51.4" data-duration="8.6" data-track-index="5">
+        <img class="photo" id="photo-5" src="assets/img/engine.jpg" alt="" />
+        <div class="shade"></div>
+        <div class="stripe" style="top: 0"></div><div class="stripe" style="bottom: 0"></div>
+        <div class="stack" id="s5-quote">
+          <h2 class="h"><span class="ln"><span>Tu coche en</span></span><span class="ln"><span class="o">buenas manos.</span></span></h2>
+        </div>
+        <div class="stack" id="s5-end">
+          <div class="logo-card" id="logo-2"><img src="assets/img/logo.png" alt="YOCOMOTORS" /></div>
+          <div class="stamp" id="stamp"><i></i>Tu nueva web · lista para publicar<i></i></div>
+          <div class="contact" id="contact">Carrer de Sant Miquel, 23 · Tarragona · +34 648 05 15 51</div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const out = "power3.out";
+      const inn = "power2.in";
+      const soft = "expo.out";
+      const END = 60;
+
+      // Background drift
+      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: -220, y: 80, duration: END, ease: "none" }, 0);
+      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: 180, y: -60, duration: END, ease: "none" }, 0);
+
+      // 1 · Intro
+      tl.fromTo("#photo-1", { scale: 1.14 }, { scale: 1.0, duration: 4.8, ease: "power1.out" }, 0);
+      tl.fromTo("#logo-1", { y: 50, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 1.1, ease: soft }, 0.3);
+      tl.fromTo("#rule-1 i", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: out }, 1.2);
+      tl.fromTo("#rule-1", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8, ease: out }, 1.2);
+      tl.fromTo("#sub-1", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: out }, 1.8);
+      tl.to("#s1 .stack > *", { y: -40, autoAlpha: 0, duration: 0.5, ease: inn, stagger: 0.05 }, 4.0);
+      tl.to("#s1", { opacity: 0, duration: 0.5, ease: "none" }, 4.3);
+
+      // 2 · Hero
+      const h = 4.4;
+      tl.fromTo("#badges", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: out }, h + 0.3);
+      tl.fromTo("#hero-h .ln > span", { yPercent: 105 }, { yPercent: 0, duration: 0.8, ease: soft, stagger: 0.14 }, h + 0.4);
+      tl.fromTo("#hero-p", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: out }, h + 1.3);
+      tl.fromTo("#browser", { x: 140, y: 40, opacity: 0, rotationY: -14, transformPerspective: 2000 }, { x: 0, y: 0, opacity: 1, rotationY: 0, duration: 1.3, ease: soft }, h + 1.0);
+      tl.fromTo("#dpage", { y: 0 }, { y: -560, duration: 2.0, ease: "power2.inOut", immediateRender: false }, h + 3.6);
+      tl.to("#dpage", { y: -1120, duration: 2.0, ease: "power2.inOut" }, h + 5.8);
+      tl.to(["#s2-copy", "#browser"], { autoAlpha: 0, y: -40, duration: 0.5, ease: inn, stagger: 0.06 }, 12.2);
+
+      // 3 · Stats count-up + ticker
+      const s = 12.6;
+      tl.fromTo("#k3", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.6, ease: out }, s + 0.1);
+      tl.fromTo("#s3 .stats", { opacity: 0 }, { opacity: 1, duration: 0.4 }, s);
+      tl.fromTo("#s3 .stat", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: out, stagger: 0.12 }, s + 0.1);
+      const c1 = { v: 0 }, c2 = { v: 0 }, c3 = { v: 0 };
+      tl.fromTo(c1, { v: 0 }, { v: 5, duration: 1.4, ease: "power2.out", onUpdate: () => { document.querySelector("#n1").textContent = c1.v.toFixed(1).replace(".", ","); } }, s + 0.3);
+      tl.fromTo(c2, { v: 0 }, { v: 136, duration: 1.6, ease: "power2.out", onUpdate: () => { document.querySelector("#n2").textContent = Math.round(c2.v); } }, s + 0.4);
+      tl.fromTo(c3, { v: 0 }, { v: 24, duration: 1.4, ease: "power2.out", onUpdate: () => { document.querySelector("#n3").textContent = Math.round(c3.v); } }, s + 0.5);
+      tl.fromTo("#ticker", { yPercent: 160, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.7, ease: soft }, s + 0.5);
+      tl.fromTo("#track", { x: 0 }, { x: -1400, duration: 5.0, ease: "none" }, s);
+      tl.to(["#k3", "#s3 .stats", "#ticker"], { autoAlpha: 0, y: -40, duration: 0.45, ease: inn, stagger: 0.05 }, 17.0);
+
+      // 4 · Phone arrives
+      const p = 17.2;
+      tl.fromTo("#phone", { y: 300, opacity: 0, rotation: 5 }, { y: 0, opacity: 1, rotation: 0, duration: 1.2, ease: soft }, p);
+      tl.fromTo("#mini", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.7, ease: out }, p + 0.4);
+      tl.fromTo("#prog", { opacity: 0 }, { opacity: 1, duration: 0.6 }, p + 0.4);
+      tl.fromTo("#phone", { y: 0 }, { y: -14, duration: 8, ease: "sine.inOut", immediateRender: false }, p + 1.2);
+      tl.to("#phone", { y: 0, duration: 8, ease: "sine.inOut" }, p + 9.2);
+      tl.to("#phone", { y: -14, duration: 8, ease: "sine.inOut" }, p + 17.2);
+      tl.to("#phone", { y: 0, duration: 8, ease: "sine.inOut" }, p + 25.2);
+
+      // Slow scroll of the real mobile page: [time, page Y (device px), ease into it]
+      const glide = "power2.inOut";
+      const drift = "sine.inOut";
+      const scroll = [
+        [18.4, 0],
+        [19.6, 1046, glide],  // por qué elegirnos
+        [20.4, 1046],
+        [22.6, 1720, drift],  // the four cards
+        [23.8, 2402, glide],  // servicios
+        [24.4, 2402],
+        [28.0, 3720, drift],  // service list
+        [29.2, 4462, glide],  // cómo trabajamos
+        [29.8, 4462],
+        [32.8, 4880, drift],
+        [34.0, 5560, glide],  // avería de viaje
+        [37.6, 5640, drift],
+        [38.8, 6280, glide],  // opiniones
+        [42.4, 6380, drift],
+        [43.6, 7023, glide],  // ubicación y horario
+        [47.0, 7300, drift],
+        [48.2, 8110, glide],  // CTA final
+        [50.8, 8200, drift],
+      ];
+      tl.set("#page", { y: 0 }, 0);
+      for (let i = 1; i < scroll.length; i++) {
+        const [t0, y0] = scroll[i - 1];
+        const [t1, y1, ease] = scroll[i];
+        if (y1 !== y0) tl.fromTo("#page", { y: -y0 }, { y: -y1, duration: t1 - t0, ease: ease || "none", immediateRender: false }, t0);
+      }
+
+      // WhatsApp button pulse while the last caption talks about it
+      [48.4, 49.4, 50.4].forEach((t) => {
+        tl.fromTo("#fab-ring", { scale: 1, opacity: 0.9 }, { scale: 1.8, opacity: 0, duration: 0.9, ease: "power1.out", immediateRender: false }, t);
+        tl.fromTo("#fab", { scale: 1 }, { scale: 1.12, duration: 0.2, yoyo: true, repeat: 1, ease: "power1.inOut", immediateRender: false }, t);
+      });
+      tl.set("#fab-ring", { opacity: 0 }, 0);
+
+      // Captions follow the sections of the page
+      const caps = [
+        ["#c1", 17.6, 23.4],
+        ["#c2", 23.4, 28.8],
+        ["#c3", 28.8, 33.6],
+        ["#c4", 33.6, 38.4],
+        ["#c5", 38.4, 43.2],
+        ["#c6", 43.2, 47.8],
+        ["#c7", 47.8, 51.1],
+      ];
+      const has = (sel) => document.querySelector(sel) !== null;
+      caps.forEach(([id, start, end], i) => {
+        tl.fromTo(id, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, start);
+        tl.fromTo(`${id} .kick`, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.6, ease: out }, start);
+        tl.fromTo(`${id} .h .ln > span`, { yPercent: 105 }, { yPercent: 0, duration: 0.8, ease: soft, stagger: 0.1 }, start + 0.1);
+        [".p", ".quote", ".en", ".wa"].forEach((c) => {
+          if (has(`${id} ${c}`)) tl.fromTo(`${id} ${c}`, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: out }, start + (c === ".en" ? 0.4 : 0.55));
+        });
+        if (has(`${id} .tag`)) tl.fromTo(`${id} .tag`, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: out, stagger: 0.08 }, start + 0.5);
+        if (has(`${id} .step`)) tl.fromTo(`${id} .step`, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.5, ease: out, stagger: 0.18 }, start + 0.5);
+        if (has(`${id} .info`)) tl.fromTo(`${id} .info div`, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.45, ease: out, stagger: 0.14 }, start + 0.5);
+        tl.fromTo(`#prog span:nth-child(${i + 1}) b`, { scaleX: 0 }, { scaleX: 1, duration: end - start, ease: "none" }, start);
+        if (i < caps.length - 1) tl.to(id, { autoAlpha: 0, y: -30, duration: 0.35, ease: inn }, end - 0.35);
+      });
+
+      // Hand-off to outro
+      tl.to(["#c7", "#mini", "#prog"], { autoAlpha: 0, y: -30, duration: 0.4, ease: inn }, 51.0);
+      tl.to("#phone", { scale: 0.92, opacity: 0, duration: 0.5, ease: inn }, 51.0);
+
+      // 5 · Outro
+      const o = 51.4;
+      tl.fromTo("#s5", { clipPath: "inset(100% 0 0 0)" }, { clipPath: "inset(0% 0 0 0)", duration: 0.7, ease: "power3.inOut" }, o);
+      tl.fromTo("#photo-5", { scale: 1.12 }, { scale: 1.0, duration: 8.6, ease: "power1.out" }, o);
+      tl.fromTo("#s5-quote .ln > span", { yPercent: 105 }, { yPercent: 0, duration: 0.9, ease: soft, stagger: 0.14 }, o + 0.5);
+      tl.to("#s5-quote", { autoAlpha: 0, y: -40, duration: 0.5, ease: inn }, o + 2.9);
+      tl.fromTo("#logo-2", { y: 50, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 1.0, ease: soft }, o + 3.3);
+      tl.fromTo("#stamp i", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: out }, o + 4.0);
+      tl.fromTo("#stamp", { opacity: 0 }, { opacity: 1, duration: 0.7, ease: out }, o + 4.0);
+      tl.fromTo("#contact", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: out }, o + 4.5);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
